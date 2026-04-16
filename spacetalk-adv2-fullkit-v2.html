@@ -104,7 +104,7 @@
   /* Spacetalk custom tokens */
   --st-black: #171717; --st-white: #ffffff;
   --st-g50: #f7f7f7; --st-g100: #f0f0f0; --st-g200: #e8e8e8;
-  --st-g300: #d4d4d4; --st-g400: #a8a8a8; --st-g500: #6b6b6b; --st-g600: #4a4a4a;
+  --st-g300: #8a8a8a; --st-g400: #737373; --st-g500: #6b6b6b; --st-g600: #4a4a4a;
   --st-neon: #c6f135; --st-purple: #3315D0;
   --st-r: 16px; --st-rp: 999px;
   --st-ease: cubic-bezier(.7,0,.3,1);
@@ -1858,8 +1858,18 @@ fetch('components/header.html')
   .st-pdp-bundles { padding: 48px 0; }
 }
 @media (max-width: 749px) {
-  .st-pdp-tiers { grid-template-columns: 1fr; }
-  .st-pdp-tier { padding: 20px 16px; }
+  .st-pdp-tiers {
+    grid-template-columns: repeat(4, 80vw);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  .st-pdp-tier {
+    scroll-snap-align: start;
+    padding: 20px 16px;
+    min-width: 0;
+  }
   .st-pdp-tier__price { font-size: 28px; }
 }
 </style>

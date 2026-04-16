@@ -151,8 +151,8 @@
   --st-g50:    #f7f7f7;
   --st-g100:   #f0f0f0;
   --st-g200:   #e8e8e8;
-  --st-g300:   #d4d4d4;
-  --st-g400:   #a8a8a8;
+  --st-g300:   #8a8a8a;
+  --st-g400:   #737373;
   --st-g500:   #6b6b6b;
   --st-g600:   #4a4a4a;
   --st-neon:   #c6f135;
@@ -471,6 +471,7 @@ fetch('components/header.html')
 @media (max-width: 989px) {
   .st-subnav__links { display: none; }
   .st-subnav__toggle { display: flex; }
+  .st-subnav__price { display: none; }
 }
 </style>
 
@@ -1176,8 +1177,18 @@ fetch('components/header.html')
   .st-bundles { padding: 64px 0; }
 }
 @media (max-width: 749px) {
-  .st-tiers { grid-template-columns: 1fr; }
-  .st-tier { padding: 20px 16px; }
+  .st-tiers {
+    grid-template-columns: repeat(4, 80vw);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  .st-tier {
+    scroll-snap-align: start;
+    padding: 20px 16px;
+    min-width: 0;
+  }
   .st-tier__price { font-size: 28px; }
 }
 </style>
@@ -1788,15 +1799,15 @@ fetch('components/header.html')
       </div>
     </div>
     <div class="st-app-callout__media">
-      <img src="https://spacetalk.co/cdn/shop/files/ADV2-FROST-TILE6_baba1096-a5ad-4015-b633-e72111b764d5.png?v=1773355283&width=800" alt="Spacetalk App" loading="lazy">
+      <img src="https://spacetalk.co/cdn/shop/files/double-app-photo.png?v=1770695332&width=1000" alt="Spacetalk App" loading="lazy">
     </div>
   </div>
 </section>
 
 
 <!-- ╔═══════════════════════════════════════════════════════════╗
-     ║  SECTION 9 — WHAT'S IN THE BOX                          ║
-     ║  Liquid: sections/st-adv2-inbox.liquid                   ║
+     ║  SECTION 9 — SAFETY & PARENTAL CONTROLS                  ║
+     ║  Liquid: sections/st-adv2-safety.liquid                  ║
      ╚═══════════════════════════════════════════════════════════╝ -->
 <style id="css-inbox">
 .st-inbox {
@@ -1875,19 +1886,20 @@ fetch('components/header.html')
 <section class="st-inbox st-reveal">
   <div class="page-width st-inbox__inner">
     <div class="st-inbox__media">
-      <img src="https://spacetalk.co/cdn/shop/files/ADV2-FROST-TILE7_314e5698-7c2c-4295-92c4-2d14dea8115b.png?v=1773355283&width=800" alt="What's in the box" loading="lazy">
+      <img src="https://spacetalk.co/cdn/shop/files/ADV2-FROST-TILE5_7ca3b4e6-4687-4d85-8312-8b9624a0c250.png?v=1773355283&width=800" alt="School mode on Adventurer 2" loading="lazy">
     </div>
     <div>
-      <div class="st-inbox__eyebrow">What's in the box</div>
-      <h3 class="st-inbox__title">Included Essentials</h3>
-      <p class="st-inbox__body">Everything you need to get started comes ready in the box, so setup is simple and your Adventurer 2 is ready to go from day one.</p>
+      <div class="st-inbox__eyebrow">Safety & Parental Controls</div>
+      <h3 class="st-inbox__title">Stay focused. Stay safe.</h3>
+      <p class="st-inbox__body">The Adventurer 2 isn't a phone — it's a purpose-built kids watch with the safety controls parents actually need. No social media, no open browser, no unsupervised access. Just the features that matter.</p>
       <ul class="st-inbox__list">
-        <li>Adventurer 2 Smartwatch</li>
-        <li>Adventurer 2 Band Strap</li>
-        <li>Charging Dock & USB-C Cable</li>
-        <li>Magnetic Charging Stand</li>
+        <li>School mode — silence the watch during class hours</li>
+        <li>Approved contacts only — kids can only call & message people you allow</li>
+        <li>No social media, no browser, no app store</li>
+        <li>Safe zones — get alerts when they arrive or leave</li>
+        <li>SOS button — instant emergency alert to your phone</li>
+        <li>All managed from the free Spacetalk App</li>
       </ul>
-      <p class="st-inbox__note">* Watch plan not included — add one above or activate separately.</p>
     </div>
   </div>
 </section>

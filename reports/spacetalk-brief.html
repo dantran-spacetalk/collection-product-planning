@@ -49,19 +49,43 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'DM Sans',sans
 .cover-logo { height:36px; margin-bottom:1.2rem; display:block; opacity:0.9; }
 
 /* NAV */
+.nav-arrow {
+  position:fixed; top:50%; transform:translateY(-50%);
+  z-index:99999;
+  width:48px; height:72px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  background:rgba(8,18,36,0.72); backdrop-filter:blur(10px);
+  color:rgba(255,255,255,0.65);
+  font-size:24px; line-height:1;
+  font-family:'DM Sans',sans-serif;
+  transition:background .15s, color .15s, opacity .2s;
+  border:1px solid rgba(255,255,255,0.11);
+}
+#prev-btn {
+  left:0;
+  border-radius:0 12px 12px 0;
+  border-left:none;
+}
+#next-btn {
+  right:0;
+  border-radius:12px 0 0 12px;
+  border-right:none;
+}
+.nav-arrow:hover { background:rgba(0,168,150,0.82); color:#fff; border-color:rgba(0,168,150,0.6); }
+.nav-arrow:active { filter:brightness(0.9); }
+.nav-arrow.hidden { opacity:0; pointer-events:none; }
 #nav {
-  position:fixed; bottom:1.2rem; left:50%; transform:translateX(-50%);
-  display:flex; flex-direction:row; align-items:center; gap:8px;
-  z-index:99999; background:rgba(8,18,36,0.93); backdrop-filter:blur(14px);
-  padding:7px 14px; border-radius:40px; border:1px solid rgba(255,255,255,0.13);
-  white-space:nowrap;
+  position:fixed; bottom:1rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:row; align-items:center; gap:5px;
+  z-index:99999; background:rgba(8,18,36,0.72); backdrop-filter:blur(10px);
+  padding:5px 11px; border-radius:40px; border:1px solid rgba(255,255,255,0.1);
 }
 #nav-dots { display:flex; flex-direction:row; align-items:center; gap:4px; }
-.nd { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.25); cursor:pointer; transition:all .18s; flex-shrink:0; }
+.nd { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,0.22); cursor:pointer; transition:all .18s; flex-shrink:0; }
 .nd.on { background:var(--teal); transform:scale(1.5); }
-.nb { background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; font-size:14px; padding:1px 5px; line-height:1; transition:color .12s; flex-shrink:0; font-family:'DM Sans',sans-serif; }
-.nb:hover { color:#fff; }
-#nav-ctr { font-size:10px; color:rgba(255,255,255,0.32); letter-spacing:.06em; min-width:32px; text-align:center; flex-shrink:0; }
+#nav-ctr { font-size:10px; color:rgba(255,255,255,0.28); letter-spacing:.06em; margin-left:3px; }
+.nb { display:none; }
 
 /* SHARED */
 .bg-navy { background:var(--navy); }
@@ -317,11 +341,11 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'DM Sans',sans
   <img src="https://cdn.shopify.com/s/files/1/2141/2237/files/Spacetalk_White-Logo-Small.png" alt="Spacetalk" class="site-logo">
   <div id="deck"></div>
 </div>
+<button class="nav-arrow hidden" id="prev-btn">&#8592;</button>
+<button class="nav-arrow" id="next-btn">&#8594;</button>
 <nav id="nav">
-  <button class="nb" id="prev-btn">&#8592;</button>
   <div id="nav-dots"></div>
   <span id="nav-ctr">1/1</span>
-  <button class="nb" id="next-btn">&#8594;</button>
 </nav>
 
 <script>
@@ -396,7 +420,7 @@ const MONTHS = [
     ],
     good:['Gross revenue up 107% year on year going into peak season','Conversion rate above the prior year','Cart-to-checkout rate of 42.5%, almost identical to the same month last year, showing a healthy funnel','924 plan orders, the highest Shopify-only plan month on record'],
     bad:['Refund rate gap vs FY2025 was continuing to widen through the first quarter','App launch was coming, this was the last clean read before everything changed'],
-    events:['Benchmark reference point: roughly 42 to 45% cart-to-checkout, around 2% conversion rate, 8 to 11% refund rate','Shopify moved back to spacetalk.co approximately two weeks before the app launched'],
+    events:['Benchmark reference point: roughly 42 to 45% cart-to-checkout, around 2% conversion rate, 8 to 11% refund rate'],
     fix:[]
   },
   {
@@ -470,7 +494,7 @@ const MONTHS = [
     ],
     good:['Paid ads came back on in early February. Mobile conversion rate recovered to 2.08% almost immediately once ads were running again','Shopify reclaimed spacetalk.co in mid-February, consolidating the domain for the first time in five months','The billing sync bug was found and fixed within about two weeks'],
     bad:['The 56.6% gross refund rate was caused by a Shopify-to-app plan sync failure, not product dissatisfaction. This is a billing system issue and should not be read as a customer sentiment signal','Sessions were down 42% year on year, the tail of January\'s paid ad shutdown still showing through early February','Plan orders on Shopify down 71% year on year'],
-    events:['Shopify-to-app plan sync fails for roughly two weeks. Customers refunded Shopify plans and repurchased through the app','Paid ads restarted in early February','Shopify reclaimed spacetalk.co in mid-February'],
+    events:['Shopify-to-app plan sync fails for roughly two weeks. Customers refunded Shopify plans and repurchased through the app','Paid ads restarted in early February','Shopify reclaimed spacetalk.co in mid-February, two weeks before the new site theme launched on 2 March'],
     fix:['Billing sync bug resolved within two weeks of discovery','Paid advertising restarted','Domain consolidated back on spacetalk.co']
   },
   {
@@ -557,7 +581,7 @@ addSlide(`
     <div class="ctx-card r">
       <div class="ctx-n">01</div>
       <h3>The domain situation</h3>
-      <p>The Shopify store sat on spacetalk.co until September 2025 when a new marketing site took over the domain, pushing the store off it. The store lost five months of organic search authority it had built up. Shopify got the domain back in mid-February 2026, about eight weeks ago. The SEO agency starting end of April is starting from a recently recovered foundation, not a long-established one.</p>
+      <p>The Shopify store sat on spacetalk.co until September 2025 when a new marketing site took over the domain, pushing the store off it. The store lost five months of organic search authority. Shopify got the domain back in mid-February 2026, two weeks before the new site theme launched on 2 March. The domain has only been stable and properly set up for about seven weeks. The SEO agency starting end of April is building on a recently recovered foundation, not a long-established one.</p>
     </div>
     <div class="ctx-card a">
       <div class="ctx-n">02</div>
@@ -591,55 +615,39 @@ addSlide(`
     <div class="kpi-box neutral"><p class="kpi-lbl">FY2025 net revenue (full year)</p><p class="kpi-val">$2.50M</p></div>
     <div class="kpi-box neutral"><p class="kpi-lbl">FY2026 net revenue (Jul to Apr)</p><p class="kpi-val">$1.72M</p></div>
     <div class="kpi-box danger"><p class="kpi-lbl danger">Highest refund rate (Feb 2026)</p><p class="kpi-val danger">56.6%</p><p class="kpi-sub danger">Billing bug, not unhappy customers</p></div>
-    <div class="kpi-box success"><p class="kpi-lbl success">April 2026 conversion rate</p><p class="kpi-val success">1.95%</p><p class="kpi-sub success">First month above FY2025 since October</p></div>
+    <div class="kpi-box success"><p class="kpi-lbl success">Conversion rate recovery</p><p class="kpi-val success">2.54%</p><p class="kpi-sub success">Mar 2026 AU traffic (bot-cleaned) · Apr 2026 overall 1.95%, first above FY2025 since Oct</p></div>
   </div>
-  <div class="overview-products-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:.75rem;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.75rem;">
     <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:.85rem 1rem;border:1px solid rgba(255,255,255,.08);">
-      <p style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;font-weight:500;">Watch sales (Shopify YTD)</p>
-      <div style="display:flex;flex-direction:column;gap:5px;">
-        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
-          <span style="color:var(--mid);">Adventurer 2</span><span style="color:#fff;font-weight:500;">3,001 orders &nbsp;·&nbsp; $1.27M</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
-          <span style="color:var(--mid);">Essential Bundle</span><span style="color:#fff;font-weight:500;">289 orders &nbsp;·&nbsp; $110K</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
-          <span style="color:var(--mid);">Loop</span><span style="color:#fff;font-weight:500;">1,811 orders &nbsp;·&nbsp; $528K</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;">
-          <span style="color:#FF8087;">Watch returns</span><span style="color:#FF8087;">A2: 5.8% &nbsp;·&nbsp; Bundle: 4.0% &nbsp;·&nbsp; Loop: 5.9%</span>
-        </div>
+      <p style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;font-weight:500;">Watch units sold — Shopify YTD</p>
+      <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:0;font-size:11px;">
+        <span style="color:rgba(148,163,184,.5);font-size:9px;padding-bottom:5px;">Product</span>
+        <span style="color:rgba(148,163,184,.5);font-size:9px;text-align:right;padding-bottom:5px;padding-left:12px;">Units</span>
+        <span style="color:rgba(148,163,184,.5);font-size:9px;text-align:right;padding-bottom:5px;padding-left:12px;">Gross</span>
+        <span style="color:rgba(148,163,184,.5);font-size:9px;text-align:right;padding-bottom:5px;padding-left:12px;">Returns</span>
+        <div style="grid-column:1/-1;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:4px;"></div>
+        <span style="color:var(--mid);padding:3px 0;">Adventurer 2</span><span style="color:#fff;font-weight:500;text-align:right;padding-left:12px;">3,048</span><span style="color:#fff;text-align:right;padding-left:12px;">$1.27M</span><span style="color:#FF8087;text-align:right;padding-left:12px;">5.8%</span>
+        <span style="color:var(--mid);padding:3px 0;">Essential Bundle</span><span style="color:#fff;font-weight:500;text-align:right;padding-left:12px;">293</span><span style="color:#fff;text-align:right;padding-left:12px;">$110K</span><span style="color:#FF8087;text-align:right;padding-left:12px;">4.0%</span>
+        <span style="color:var(--mid);padding:3px 0;">Loop</span><span style="color:#fff;font-weight:500;text-align:right;padding-left:12px;">1,846</span><span style="color:#fff;text-align:right;padding-left:12px;">$528K</span><span style="color:#FF8087;text-align:right;padding-left:12px;">5.9%</span>
+        <div style="grid-column:1/-1;border-top:1px solid rgba(255,255,255,.08);margin-top:4px;padding-top:4px;"></div>
+        <span style="color:#fff;font-weight:500;padding:3px 0;">Total</span><span style="color:#fff;font-weight:500;text-align:right;padding-left:12px;">5,187</span><span style="color:#fff;font-weight:500;text-align:right;padding-left:12px;">$1.91M</span><span style="color:#FF8087;font-weight:500;text-align:right;padding-left:12px;">5.7%</span>
       </div>
     </div>
     <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:.85rem 1rem;border:1px solid rgba(255,255,255,.08);">
-      <p style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;font-weight:500;">Watch plan sales (Shopify YTD) <span style="color:rgba(255,255,255,.3);font-size:8px;letter-spacing:.05em;">spacetalk.co/pages/spacetalk-watch-plans</span></p>
-      <div style="display:flex;flex-direction:column;gap:5px;">
-        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
-          <span style="color:var(--mid);">365 Day Wearable Plan</span><span style="color:#fff;font-weight:500;">3,319 orders &nbsp;·&nbsp; $993K</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
-          <span style="color:var(--mid);">180 Day Wearable Plan</span><span style="color:#fff;font-weight:500;">976 orders &nbsp;·&nbsp; $215K</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
-          <span style="color:var(--mid);">30 Day Wearable Plan</span><span style="color:#fff;font-weight:500;">2,190 orders &nbsp;·&nbsp; $203K</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;">
-          <span style="color:#FF8087;">Plan returns (Shopify)</span><span style="color:#FF8087;">7.7% overall &nbsp;·&nbsp; $113K refunded</span>
-        </div>
+      <p style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;font-weight:500;">Watch plans sold — Shopify YTD &nbsp;<span style="color:rgba(255,255,255,.25);font-weight:400;">spacetalk.co/pages/spacetalk-watch-plans</span></p>
+      <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:0;font-size:11px;">
+        <span style="color:rgba(148,163,184,.5);font-size:9px;padding-bottom:5px;">Plan (by SKU)</span>
+        <span style="color:rgba(148,163,184,.5);font-size:9px;text-align:right;padding-bottom:5px;padding-left:12px;">Units</span>
+        <span style="color:rgba(148,163,184,.5);font-size:9px;text-align:right;padding-bottom:5px;padding-left:12px;">Gross</span>
+        <span style="color:rgba(148,163,184,.5);font-size:9px;text-align:right;padding-bottom:5px;padding-left:12px;">Returns</span>
+        <div style="grid-column:1/-1;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:4px;"></div>
+        <span style="color:var(--mid);padding:3px 0;">365 Day Plan <span style="font-size:9px;opacity:.5;">STMOBILEAU-12M-D1</span></span><span style="color:#fff;font-weight:500;text-align:right;padding-left:12px;">3,704</span><span style="color:#fff;text-align:right;padding-left:12px;">$1.04M</span><span style="color:#FF8087;text-align:right;padding-left:12px;">8.3%</span>
+        <span style="color:var(--mid);padding:3px 0;">180 Day Plan <span style="font-size:9px;opacity:.5;">STMOBILEAU-6M</span></span><span style="color:#fff;font-weight:500;text-align:right;padding-left:12px;">1,053</span><span style="color:#fff;text-align:right;padding-left:12px;">$219K</span><span style="color:#FF8087;text-align:right;padding-left:12px;">9.1%</span>
+        <span style="color:var(--mid);padding:3px 0;">30 Day Plan <span style="font-size:9px;opacity:.5;">STMOBILEAU-1M</span></span><span style="color:#fff;font-weight:500;text-align:right;padding-left:12px;">2,377</span><span style="color:#fff;text-align:right;padding-left:12px;">$208K</span><span style="color:#FF8087;text-align:right;padding-left:12px;">2.8%</span>
+        <div style="grid-column:1/-1;border-top:1px solid rgba(255,255,255,.08);margin-top:4px;padding-top:4px;"></div>
+        <span style="color:#fff;font-weight:500;padding:3px 0;">Total</span><span style="color:#fff;font-weight:500;text-align:right;padding-left:12px;">7,134</span><span style="color:#fff;font-weight:500;text-align:right;padding-left:12px;">$1.46M</span><span style="color:#FF8087;font-weight:500;text-align:right;padding-left:12px;">7.5%</span>
       </div>
-      <p style="font-size:9px;color:rgba(148,163,184,.6);margin-top:6px;">In-app plan purchases not captured here</p>
-    </div>
-    <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:.85rem 1rem;border:1px solid rgba(255,255,255,.08);">
-      <p style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;font-weight:500;">Mobile plan sales (Shopify YTD) <span style="color:rgba(255,255,255,.3);font-size:8px;letter-spacing:.05em;">spacetalk.co/pages/mobile-plans</span></p>
-      <div style="display:flex;flex-direction:column;gap:5px;">
-        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
-          <span style="color:var(--mid);">Paid mobile plans</span><span style="color:#fff;font-weight:500;">1,256 orders &nbsp;·&nbsp; $234K</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;">
-          <span style="color:#FF8087;">Mobile plan returns</span><span style="color:#FF8087;">7.2% overall &nbsp;·&nbsp; $70K refunded</span>
-        </div>
-      </div>
-      <p style="font-size:9px;color:rgba(148,163,184,.6);margin-top:6px;">In-app mobile plan purchases not captured here</p>
+      <p style="font-size:9px;color:rgba(148,163,184,.5);margin-top:6px;">Shopify only. In-app plan purchases are not captured here.</p>
     </div>
   </div>
 </div>
@@ -650,48 +658,61 @@ addSlide(`
 <div class="pad bg-off">
   <p class="eyebrow">Site improvement</p>
   <h2 class="sh2 light">New site theme launched 2 March 2026</h2>
-  <p class="ssub">A full redesign of the Shopify store with faster page speeds, cleaner layout, and better product information. The data shows the impact clearly.</p>
-  <div style="display:grid;gap:1.25rem;flex:1;margin-top:.5rem;" class="theme-impact-grid">
-    <div style="display:flex;flex-direction:column;gap:1rem;">
-      <div style="background:#fff;border-radius:13px;padding:1.25rem;border:1px solid var(--border);">
-        <p style="font-size:9px;font-weight:500;color:var(--slate);margin-bottom:.85rem;letter-spacing:.03em;text-transform:uppercase;">Bounce rate before and after</p>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--slate);min-width:60px;">Jan 2026</span><div style="flex:1;background:#FEE2E2;border-radius:4px;overflow:hidden;"><div style="width:47.4%;background:var(--red);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">47.4%</span></div></div></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--slate);min-width:60px;">Feb 2026</span><div style="flex:1;background:#FEE2E2;border-radius:4px;overflow:hidden;"><div style="width:45.9%;background:var(--red);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">45.9%</span></div></div></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--teal);min-width:60px;font-weight:500;">Mar 2026</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:33%;background:var(--green);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">33.0%</span></div></div></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--teal);min-width:60px;font-weight:500;">Apr 2026</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:7.1%;background:var(--green);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">7.1%</span></div></div></div>
+  <p class="ssub">Comparing the new theme against both the crisis months (Jan-Feb) and the healthy pre-theme period (Jul-Dec 2025).</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;flex:1;margin-top:.5rem;">
+    <div style="display:flex;flex-direction:column;gap:.85rem;">
+      <div style="background:#fff;border-radius:13px;padding:1.1rem;border:1px solid var(--border);">
+        <p style="font-size:9px;font-weight:500;color:var(--slate);margin-bottom:.75rem;letter-spacing:.03em;text-transform:uppercase;">Bounce rate</p>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--slate);min-width:72px;">Jul-Dec avg</span><div style="flex:1;background:#F1F5F9;border-radius:4px;overflow:hidden;"><div style="width:41.4%;background:#94A3B8;height:20px;border-radius:4px;display:flex;align-items:center;padding-left:7px;"><span style="font-size:10px;color:#fff;font-weight:500;">41.4%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--slate);min-width:72px;">Jan 2026</span><div style="flex:1;background:#FEE2E2;border-radius:4px;overflow:hidden;"><div style="width:47.4%;background:var(--red);height:20px;border-radius:4px;display:flex;align-items:center;padding-left:7px;"><span style="font-size:10px;color:#fff;font-weight:500;">47.4%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--slate);min-width:72px;">Feb 2026</span><div style="flex:1;background:#FEE2E2;border-radius:4px;overflow:hidden;"><div style="width:45.9%;background:var(--red);height:20px;border-radius:4px;display:flex;align-items:center;padding-left:7px;"><span style="font-size:10px;color:#fff;font-weight:500;">45.9%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--teal);font-weight:500;min-width:72px;">Mar 2026 ✦</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:33%;background:var(--green);height:20px;border-radius:4px;display:flex;align-items:center;padding-left:7px;"><span style="font-size:10px;color:#fff;font-weight:500;">33.0%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--teal);font-weight:500;min-width:72px;">Apr 2026 ✦</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:7.1%;background:var(--green);height:20px;border-radius:4px;display:flex;align-items:center;padding-left:7px;"><span style="font-size:10px;color:#fff;font-weight:500;">7.1%</span></div></div></div>
         </div>
-        <p style="font-size:10px;color:var(--slate);margin-top:.6rem;">Lower is better. April is the best bounce rate the site has ever recorded.</p>
+        <p style="font-size:9px;color:var(--slate);margin-top:.5rem;">✦ New theme. Apr 7.1% is the best ever recorded — well below the pre-theme average of 41.4%.</p>
       </div>
-      <div style="background:#fff;border-radius:13px;padding:1.25rem;border:1px solid var(--border);">
-        <p style="font-size:9px;font-weight:500;color:var(--slate);margin-bottom:.85rem;letter-spacing:.03em;text-transform:uppercase;">Engagement rate before and after</p>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--slate);min-width:60px;">Jan 2026</span><div style="flex:1;background:#F1F5F9;border-radius:4px;overflow:hidden;"><div style="width:52.6%;background:#94A3B8;height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">52.6%</span></div></div></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--slate);min-width:60px;">Feb 2026</span><div style="flex:1;background:#F1F5F9;border-radius:4px;overflow:hidden;"><div style="width:54.1%;background:#94A3B8;height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">54.1%</span></div></div></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--teal);min-width:60px;font-weight:500;">Mar 2026</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:67%;background:var(--green);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">67.0%</span></div></div></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--teal);min-width:60px;font-weight:500;">Apr 2026</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:92.9%;background:var(--green);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">92.9%</span></div></div></div>
+      <div style="background:#fff;border-radius:13px;padding:1.1rem;border:1px solid var(--border);">
+        <p style="font-size:9px;font-weight:500;color:var(--slate);margin-bottom:.75rem;letter-spacing:.03em;text-transform:uppercase;">Engagement rate</p>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--slate);min-width:72px;">Jul-Dec avg</span><div style="flex:1;background:#F1F5F9;border-radius:4px;overflow:hidden;"><div style="width:58.6%;background:#94A3B8;height:20px;border-radius:4px;display:flex;align-items:center;padding-left:7px;"><span style="font-size:10px;color:#fff;font-weight:500;">58.6%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--slate);min-width:72px;">Jan 2026</span><div style="flex:1;background:#FEE2E2;border-radius:4px;overflow:hidden;"><div style="width:52.6%;background:#E87070;height:20px;border-radius:4px;display:flex;align-items:center;padding-left:7px;"><span style="font-size:10px;color:#fff;font-weight:500;">52.6%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--slate);min-width:72px;">Feb 2026</span><div style="flex:1;background:#FEE2E2;border-radius:4px;overflow:hidden;"><div style="width:54.1%;background:#E87070;height:20px;border-radius:4px;display:flex;align-items:center;padding-left:7px;"><span style="font-size:10px;color:#fff;font-weight:500;">54.1%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--teal);font-weight:500;min-width:72px;">Mar 2026 ✦</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:67%;background:var(--green);height:20px;border-radius:4px;display:flex;align-items:center;padding-left:7px;"><span style="font-size:10px;color:#fff;font-weight:500;">67.0%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--teal);font-weight:500;min-width:72px;">Apr 2026 ✦</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:92.9%;background:var(--green);height:20px;border-radius:4px;display:flex;align-items:center;padding-left:7px;"><span style="font-size:10px;color:#fff;font-weight:500;">92.9%</span></div></div></div>
         </div>
-        <p style="font-size:10px;color:var(--slate);margin-top:.6rem;">Higher is better. April is the highest engagement rate the site has ever recorded.</p>
+        <p style="font-size:9px;color:var(--slate);margin-top:.5rem;">✦ New theme. Apr 92.9% is the best ever — up 34pp on the pre-theme average.</p>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:1rem;">
-      <div style="background:#fff;border-radius:13px;padding:1.25rem;border:1px solid var(--border);">
-        <p style="font-size:9px;font-weight:500;color:var(--slate);margin-bottom:.85rem;letter-spacing:.03em;text-transform:uppercase;">Conversion rate before and after</p>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);"><span style="font-size:11px;color:var(--slate);">Jan 2026 (no ads, crisis low)</span><span style="font-size:14px;font-weight:500;color:var(--red);">1.29%</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);"><span style="font-size:11px;color:var(--slate);">Feb 2026 (ads back, old theme)</span><span style="font-size:14px;font-weight:500;color:#854F0B;">1.58%</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);"><span style="font-size:11px;color:var(--teal);font-weight:500;">Mar 2026 (new theme, AU only)</span><span style="font-size:14px;font-weight:500;color:var(--green);">2.54%</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;"><span style="font-size:11px;color:var(--teal);font-weight:500;">Apr 2026 (new theme + Autumn Sale)</span><span style="font-size:14px;font-weight:500;color:var(--green);">1.95%</span></div>
+    <div style="display:flex;flex-direction:column;gap:.85rem;">
+      <div style="background:#fff;border-radius:13px;padding:1.1rem;border:1px solid var(--border);">
+        <p style="font-size:9px;font-weight:500;color:var(--slate);margin-bottom:.75rem;letter-spacing:.03em;text-transform:uppercase;">Conversion rate and session duration — every month</p>
+        <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;font-size:11px;border-bottom:1px solid var(--border);padding-bottom:4px;margin-bottom:3px;">
+          <span style="font-size:9px;color:var(--slate);">Month</span>
+          <span style="font-size:9px;color:var(--slate);text-align:right;padding-left:12px;">CVR</span>
+          <span style="font-size:9px;color:var(--slate);text-align:right;padding-left:12px;">Avg session</span>
         </div>
-        <p style="font-size:10px;color:var(--slate);margin-top:.6rem;">April is the first month above the FY2025 equivalent (1.60%) since October. Australian traffic in March at 2.54% is above the pre-crisis baseline of 2.0 to 2.6%.</p>
+        <div style="display:grid;grid-template-columns:1fr auto auto;gap:0;font-size:10px;">
+          <span style="color:var(--slate);padding:2.5px 0;">Jul 2025</span><span style="color:var(--slate);text-align:right;padding-left:12px;">1.50%</span><span style="color:var(--slate);text-align:right;padding-left:12px;">1,367s</span>
+          <span style="color:var(--green);padding:2.5px 0;font-weight:500;">Aug 2025</span><span style="color:var(--green);font-weight:500;text-align:right;padding-left:12px;">2.56%</span><span style="color:var(--slate);text-align:right;padding-left:12px;">1,877s</span>
+          <span style="color:var(--green);padding:2.5px 0;font-weight:500;">Sep 2025</span><span style="color:var(--green);font-weight:500;text-align:right;padding-left:12px;">2.05%</span><span style="color:var(--slate);text-align:right;padding-left:12px;">1,830s</span>
+          <span style="color:var(--green);padding:2.5px 0;font-weight:500;">Oct 2025</span><span style="color:var(--green);font-weight:500;text-align:right;padding-left:12px;">1.98%</span><span style="color:var(--slate);text-align:right;padding-left:12px;">1,597s</span>
+          <span style="color:#854F0B;padding:2.5px 0;">Nov 2025</span><span style="color:#854F0B;text-align:right;padding-left:12px;">1.70%</span><span style="color:var(--slate);text-align:right;padding-left:12px;">1,623s</span>
+          <span style="color:var(--red);padding:2.5px 0;">Dec 2025</span><span style="color:var(--red);text-align:right;padding-left:12px;">1.35%</span><span style="color:var(--slate);text-align:right;padding-left:12px;">1,583s</span>
+          <span style="color:var(--red);padding:2.5px 0;">Jan 2026</span><span style="color:var(--red);text-align:right;padding-left:12px;">1.29%</span><span style="color:var(--slate);text-align:right;padding-left:12px;">1,647s</span>
+          <span style="color:#854F0B;padding:2.5px 0;">Feb 2026</span><span style="color:#854F0B;text-align:right;padding-left:12px;">1.58%</span><span style="color:var(--slate);text-align:right;padding-left:12px;">1,666s</span>
+          <span style="color:var(--teal);font-weight:500;padding:2.5px 0;">Mar 2026 ✦</span><span style="color:var(--green);font-weight:500;text-align:right;padding-left:12px;">2.54% AU</span><span style="color:var(--green);font-weight:500;text-align:right;padding-left:12px;">1,109s</span>
+          <span style="color:var(--teal);font-weight:500;padding:2.5px 0;">Apr 2026 ✦</span><span style="color:var(--green);font-weight:500;text-align:right;padding-left:12px;">1.95%</span><span style="color:var(--green);font-weight:500;text-align:right;padding-left:12px;">2,100s</span>
+        </div>
+        <p style="font-size:9px;color:var(--slate);margin-top:.5rem;">✦ New theme. Mar AU 2.54% and Apr 1.95% are both above the crisis period. Apr session duration of 2,100s is the highest of FY2026.</p>
       </div>
-      <div style="background:var(--navy);border-radius:13px;padding:1.25rem;">
-        <p style="font-size:9px;font-weight:500;color:var(--teal);margin-bottom:.75rem;letter-spacing:.03em;text-transform:uppercase;">What changed</p>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Bounce rate dropped from 47% to 7% in two months. Visitors who previously left immediately are now staying on the site.</div>
-          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Engagement rate reached 92.9% in April, the highest ever for the Spacetalk store. Visitors are reading and interacting, not just landing and leaving.</div>
-          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Conversion rate is back above FY2025 for the first time since October, even with the app-related trust damage still present on review platforms.</div>
-          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Average session duration in April was 2,100 seconds, the highest of FY2026. Buyers are spending more time with the product before purchasing.</div>
+      <div style="background:var(--navy);border-radius:13px;padding:1.1rem;">
+        <p style="font-size:9px;font-weight:500;color:var(--teal);margin-bottom:.65rem;letter-spacing:.03em;text-transform:uppercase;">The verdict</p>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Bounce rate is dramatically better than anything in the pre-theme period. 7.1% in April against a Jul-Dec average of 41.4%.</div>
+          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Engagement at 92.9% in April is 34 percentage points above the pre-theme average. The site is holding attention far more effectively than it ever did.</div>
+          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Session duration of 2,100s in April is the highest of FY2026 and well above the pre-theme average of 1,646s.</div>
+          <div style="font-size:11px;color:#F4A261;padding:5px 9px;background:rgba(244,162,97,.08);border-radius:6px;border-left:2px solid var(--amber);">CVR is still below the Aug-Oct healthy average of 2.20%. The gap is trust damage from the app launch on desktop, not a site quality issue. Once reviews improve, CVR should follow.</div>
         </div>
       </div>
     </div>
@@ -864,11 +885,15 @@ function goTo(n) {
   slideDefs[cur].classList.add('active');
   dotsEl.children[cur].classList.add('on');
   ctrEl.textContent = (cur + 1) + '/' + TOTAL;
+  prevBtn.classList.toggle('hidden', cur === 0);
+  nextBtn.classList.toggle('hidden', cur === TOTAL - 1);
   if (cur === 2) setTimeout(buildOverviewChart, 80);
 }
 
 slideDefs[0].classList.add('active');
 ctrEl.textContent = '1/' + TOTAL;
+prevBtn.classList.add('hidden');
+if (TOTAL <= 1) nextBtn.classList.add('hidden');
 prevBtn.addEventListener('click', () => goTo(cur - 1));
 nextBtn.addEventListener('click', () => goTo(cur + 1));
 document.addEventListener('keydown', e => {
