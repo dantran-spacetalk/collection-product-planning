@@ -478,6 +478,21 @@ a { color: inherit; }
 .st-btn--ghost:hover { border-bottom-color: var(--st-white); }
 .st-btn--ghost .btn-fill { display: none; }
 
+/* ── Outline white (for dark backgrounds) ── */
+.st-btn--outline-white {
+  background: transparent;
+  color: var(--st-white);
+  padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
+  border: 2px solid rgba(255,255,255,0.4);
+}
+.st-btn--outline-white .btn-fill {
+  background: var(--st-white);
+}
+.st-btn--outline-white:hover {
+  color: var(--st-black);
+  border-color: var(--st-white);
+}
+
 /* ── Mobile subnav dropdown ── */
 .st-subnav__toggle {
   display: none;
@@ -845,7 +860,7 @@ a { color: inherit; }
         </span>
         <span>
           <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1v6l4 2" stroke="#c6f135" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="#c6f135" stroke-width="1.5" fill="none"/></svg>
-          Free express shipping
+          Trusted since 2017
         </span>
       </div>
     </div>
@@ -1098,8 +1113,12 @@ a { color: inherit; }
   text-underline-offset: 3px;
 }
 @media (max-width: 749px) {
-  .st-plan-card__grid { grid-template-columns: 1fr 1fr; }
+  .st-plan-card__grid { grid-template-columns: 1fr; }
   .st-plan-card__opts { justify-content: center; }
+  .st-plan-card__top { padding: 16px; }
+  .st-plan-card__detail { padding: 0 16px 16px; }
+  .st-plan-card__footer { flex-direction: column; gap: 8px; text-align: center; }
+  .st-plan-opt { min-width: 0; flex: 1; padding: 10px 14px; }
 }
 
 /* Tier cards */
@@ -1246,9 +1265,12 @@ a { color: inherit; }
 
 @media (max-width: 989px) {
   .st-tiers { grid-template-columns: repeat(2, 1fr); }
+  .st-bundles { padding: 64px 0; }
 }
 @media (max-width: 749px) {
-  .st-tiers { grid-template-columns: 1fr 1fr; }
+  .st-tiers { grid-template-columns: 1fr; }
+  .st-tier { padding: 20px 16px; }
+  .st-tier__price { font-size: 28px; }
 }
 </style>
 
@@ -1544,72 +1566,7 @@ a { color: inherit; }
 </section>
 
 
-<!-- ╔═══════════════════════════════════════════════════════════╗
-     ║  SECTION 5 — TRUST STATS                                ║
-     ║  Liquid: sections/st-adv2-trust.liquid                   ║
-     ╚═══════════════════════════════════════════════════════════╝ -->
-<style id="css-trust">
-.st-trust {
-  padding: 48px 0;
-}
-.st-trust__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--st-g200);
-  border-radius: var(--st-r);
-  overflow: hidden;
-}
-.st-trust__item {
-  text-align: center;
-  padding: 28px 16px;
-  border-right: 1px solid var(--st-g200);
-}
-.st-trust__item:last-child { border-right: none; }
-.st-trust__num {
-  font-size: 32px;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  color: var(--st-black);
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.st-trust__label {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--st-g400);
-}
-@media (max-width: 749px) {
-  .st-trust__grid { grid-template-columns: repeat(2, 1fr); }
-  .st-trust__item:nth-child(2) { border-right: none; }
-  .st-trust__item:nth-child(1),
-  .st-trust__item:nth-child(2) { border-bottom: 1px solid var(--st-g200); }
-}
-</style>
 
-<section class="st-trust st-reveal">
-  <div class="page-width">
-    <div class="st-trust__grid">
-      <div class="st-trust__item">
-        <div class="st-trust__num">4.4★</div>
-        <div class="st-trust__label">3,200+ reviews</div>
-      </div>
-      <div class="st-trust__item">
-        <div class="st-trust__num">#1</div>
-        <div class="st-trust__label">Kids smartwatch AU</div>
-      </div>
-      <div class="st-trust__item">
-        <div class="st-trust__num">500K+</div>
-        <div class="st-trust__label">App downloads</div>
-      </div>
-      <div class="st-trust__item">
-        <div class="st-trust__num">24/7</div>
-        <div class="st-trust__label">Customer support</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 <!-- ╔═══════════════════════════════════════════════════════════╗
@@ -2372,17 +2329,71 @@ a { color: inherit; }
   margin-top: 16px;
 }
 
+.st-reviews__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--st-r);
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+.st-reviews__stat {
+  text-align: center;
+  padding: 28px 16px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+.st-reviews__stat:last-child { border-right: none; }
+.st-reviews__stat-num {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--st-white);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.st-reviews__stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-g500);
+}
+
 @media (max-width: 749px) {
   .st-reviews__grid { grid-template-columns: 1fr; }
+  .st-reviews__stats { grid-template-columns: repeat(2, 1fr); }
+  .st-reviews__stat:nth-child(2) { border-right: none; }
+  .st-reviews__stat:nth-child(1),
+  .st-reviews__stat:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.1); }
 }
 </style>
 
 <section class="st-reviews st-reveal">
   <div class="page-width">
     <div class="st-reviews__header">
-      <div class="st-reviews__eyebrow">Trusted by families</div>
+      <div class="st-reviews__eyebrow">Trusted by families since 2017</div>
       <h2 class="st-reviews__title">Real families. Real peace of mind.</h2>
-      <p class="st-reviews__sub">From 3,200+ verified reviews.</p>
+      <p class="st-reviews__sub">From 3,200+ verified reviews — trusted by 50,000+ Australian families.</p>
+    </div>
+
+    <div class="st-reviews__stats">
+      <div class="st-reviews__stat">
+        <div class="st-reviews__stat-num">4.4★</div>
+        <div class="st-reviews__stat-label">3,200+ reviews</div>
+      </div>
+      <div class="st-reviews__stat">
+        <div class="st-reviews__stat-num">#1</div>
+        <div class="st-reviews__stat-label">Kids smartwatch AU</div>
+      </div>
+      <div class="st-reviews__stat">
+        <div class="st-reviews__stat-num">500K+</div>
+        <div class="st-reviews__stat-label">App downloads</div>
+      </div>
+      <div class="st-reviews__stat">
+        <div class="st-reviews__stat-num">24/7</div>
+        <div class="st-reviews__stat-label">Customer support</div>
+      </div>
     </div>
 
     <div class="st-reviews__grid">
@@ -2682,7 +2693,7 @@ a { color: inherit; }
     <p class="st-cta-band__sub">Join 50,000+ Australian families already using Spacetalk.</p>
     <div class="st-cta-band__actions">
       <a href="#bundles" class="st-btn st-btn--neon" data-st-from-price data-st-from-price-format="button">Build your bundle — from $256.99</a>
-      <a href="#compare" class="st-btn st-btn--ghost">Compare Adv2 vs Loop</a>
+      <a href="#compare" class="st-btn st-btn--outline-white">Compare Adv2 vs Loop</a>
     </div>
   </div>
 </section>
