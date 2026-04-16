@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adventurer 2 Full Kit — Spacetalk</title>
+
+<!-- Theme assets -->
+<link rel="stylesheet" href="assets/font.css">
+<link rel="stylesheet" href="assets/theme.css">
+
+<!-- Resolved CSS variables (from snippets/css-variables.liquid + settings_data.json) -->
+<style id="resolved-css-variables">
+:root {
+  /* Colors (RGB triplets) */
+  --color-base-text: 23 23 23;
+  --color-base-background: 255 255 255;
+  --color-base-button: 0 0 0;
+  --color-base-button-gradient: #000000;
+  --color-base-button-text: 255 255 255;
+  --color-base-hover-button: 51 21 208;
+  --color-base-hover-button-text: 255 255 255;
+  --color-base-highlight: 212 253 0;
+  --color-keyboard-focus: 11 97 205;
+  --color-shadow: 168 232 226;
+  --color-price: 23 23 23;
+  --color-sale-price: 225 29 72;
+  --color-sale-tag: 225 29 72;
+  --color-sale-tag-text: 255 255 255;
+  --color-rating: 245 158 11;
+  --color-placeholder: 239 239 239;
+  --color-success-text: 77 124 15;
+  --color-success-background: 247 254 231;
+  --color-error-text: 190 18 60;
+  --color-error-background: 255 241 242;
+  --color-info-text: 180 83 9;
+  --color-info-background: 255 251 235;
+  --color-drawer-text: 23 23 23;
+  --color-drawer-background: 255 255 255;
+  --color-drawer-button-background: 23 23 23;
+  --color-drawer-button-gradient: #171717;
+  --color-drawer-button-text: 255 255 255;
+  --color-drawer-overlay: 23 23 23;
+
+  /* Cards, buttons, inputs */
+  --card-radius: var(--rounded-card);
+  --card-border-width: 0rem; --card-border-opacity: 0;
+  --card-shadow-opacity: 0.1; --card-shadow-horizontal-offset: 0rem; --card-shadow-vertical-offset: 0rem;
+  --buttons-radius: var(--rounded-button);
+  --buttons-border-width: 1px; --buttons-border-opacity: 1;
+  --buttons-shadow-opacity: 0; --buttons-shadow-horizontal-offset: 0px; --buttons-shadow-vertical-offset: 0px;
+  --inputs-radius: var(--rounded-input);
+  --inputs-border-width: 0px; --inputs-border-opacity: 0.65;
+
+  /* Spacing tokens */
+  --sp-0d5: 0.125rem; --sp-1: 0.25rem; --sp-1d5: 0.375rem; --sp-2: 0.5rem;
+  --sp-2d5: 0.625rem; --sp-3: 0.75rem; --sp-3d5: 0.875rem; --sp-4: 1rem;
+  --sp-4d5: 1.125rem; --sp-5: 1.25rem; --sp-5d5: 1.375rem; --sp-6: 1.5rem;
+  --sp-6d5: 1.625rem; --sp-7: 1.75rem; --sp-7d5: 1.875rem; --sp-8: 2rem;
+  --sp-8d5: 2.125rem; --sp-9: 2.25rem; --sp-9d5: 2.375rem; --sp-10: 2.5rem;
+  --sp-10d5: 2.625rem; --sp-11: 2.75rem; --sp-12: 3rem; --sp-13: 3.25rem;
+  --sp-14: 3.5rem; --sp-15: 3.875rem; --sp-16: 4rem; --sp-18: 4.5rem;
+  --sp-20: 5rem; --sp-23: 5.625rem; --sp-24: 6rem; --sp-28: 7rem;
+  --sp-32: 8rem; --sp-36: 9rem; --sp-40: 10rem; --sp-44: 11rem;
+  --sp-48: 12rem; --sp-52: 13rem; --sp-56: 14rem; --sp-60: 15rem;
+  --sp-64: 16rem; --sp-68: 17rem; --sp-72: 18rem; --sp-80: 20rem;
+  --sp-96: 24rem; --sp-100: 32rem;
+
+  /* Font families */
+  --font-heading-family: 'TWK Lausanne', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading-style: normal; --font-heading-weight: 400;
+  --font-heading-line-height: 1; --font-heading-letter-spacing: 0em;
+  --font-body-family: 'TWK Lausanne', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body-style: normal; --font-body-weight: 400;
+  --font-body-line-height: 1.2; --font-body-letter-spacing: 0em;
+  --font-navigation-family: var(--font-body-family);
+  --font-navigation-size: clamp(1.125rem, 0.748rem + 0.3174vw, 1.375rem);
+  --font-navigation-weight: 400;
+  --font-button-family: var(--font-body-family);
+  --font-button-size: clamp(0.875rem, 0.8115rem + 0.1587vw, 1rem);
+  --font-button-weight: 400; --font-button-text-transform: uppercase;
+  --font-product-family: var(--font-body-family);
+  --font-product-size: clamp(1rem, 0.873rem + 0.3175vw, 1.25rem);
+  --font-product-weight: 400;
+
+  /* Font sizes (body_size: 18) */
+  --text-3xs: 0.75rem; --text-2xs: 0.8125rem; --text-xs: 0.875rem;
+  --text-2sm: 0.9375rem; --text-sm: 1rem; --text-base: 1.125rem;
+  --text-lg: 1.25rem; --text-xl: 1.375rem; --text-2xl: 1.625rem;
+  --text-3xl: 2rem; --text-4xl: 2.375rem; --text-5xl: 3.125rem;
+  --text-6xl: 3.875rem; --text-7xl: 4.625rem; --text-8xl: 6.125rem;
+
+  /* Layout */
+  --page-width: 1440px;
+  --gap-padding: clamp(var(--sp-5), 2.526vw, var(--sp-12));
+  --grid-gap: clamp(40px, 20vw, 60px);
+  --page-padding: var(--sp-5);
+  --page-container: min(calc(100vw - var(--scrollbar-width, 0px) - var(--page-padding) * 2), var(--page-width));
+  --rounded-button: 3.75rem; --rounded-input: 0.375rem;
+  --rounded-card: clamp(var(--sp-2d5), 1.053vw, var(--sp-5));
+  --rounded-block: clamp(var(--sp-2d5), 1.053vw, var(--sp-5));
+  --icon-weight: 1.5px;
+
+  /* Spacetalk custom tokens */
+  --st-black: #171717; --st-white: #ffffff;
+  --st-g50: #f7f7f7; --st-g100: #f0f0f0; --st-g200: #e8e8e8;
+  --st-g300: #d4d4d4; --st-g400: #a8a8a8; --st-g500: #6b6b6b; --st-g600: #4a4a4a;
+  --st-neon: #c6f135; --st-purple: #3315D0;
+  --st-r: 16px; --st-rp: 999px;
+  --st-ease: cubic-bezier(.7,0,.3,1);
+}
+</style>
+
+<style id="theme-overrides">
+body { font-weight: 200; line-height: 1.6; scroll-behavior: smooth; }
+.page-width { max-width: var(--page-width); padding: 0 24px; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; }
+a { color: inherit; }
+</style>
+</head>
+<body>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  HEADER (same as collection page)                        ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-header">
+.st-header { background: var(--st-white); position: sticky; top: 0; z-index: 200; border-bottom: 1px solid var(--st-g100); }
+.st-header__inner { display: flex; align-items: center; justify-content: space-between; height: 64px; max-width: var(--page-width); margin: 0 auto; padding: 0 24px; }
+.st-header__logo svg { height: 20px; width: auto; }
+.st-header__nav { display: flex; align-items: center; gap: 32px; }
+.st-header__nav-link { font-size: 13px; font-weight: 400; letter-spacing: -0.01em; color: var(--st-black); text-decoration: none; transition: opacity 0.2s; }
+.st-header__nav-link:hover { opacity: 0.6; }
+.st-header__nav-link--active::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1.5px; background: var(--st-black); border-radius: 1px; }
+.st-header__nav-link--active { position: relative; }
+.st-header__icons { display: flex; align-items: center; gap: 20px; }
+.st-header__icon { display: flex; align-items: center; justify-content: center; color: var(--st-black); background: none; border: none; padding: 0; }
+.st-header__icon svg { width: 20px; height: 20px; }
+@media (max-width: 989px) { .st-header__nav { display: none; } }
+</style>
+
+<header class="st-header">
+  <div class="st-header__inner">
+    <a href="spacetalk-adventurer2-version1.html" class="st-header__logo" aria-label="Spacetalk home">
+      <svg viewBox="0 0 512 74" fill="none"><text x="0" y="56" font-family="'TWK Lausanne', sans-serif" font-size="62" font-weight="500" fill="#171717" letter-spacing="-2">spacetalk</text></svg>
+    </a>
+    <nav class="st-header__nav">
+      <a href="#" class="st-header__nav-link">Join Spacetalk</a>
+      <a href="#" class="st-header__nav-link st-header__nav-link--active">Smartwatches</a>
+      <a href="#" class="st-header__nav-link">Mobile &amp; Plans</a>
+      <a href="#" class="st-header__nav-link">Accessories</a>
+    </nav>
+    <div class="st-header__icons">
+      <button class="st-header__icon" aria-label="Search"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="9" r="6"/><line x1="13.5" y1="13.5" x2="18" y2="18"/></svg></button>
+      <button class="st-header__icon" aria-label="Account"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="7" r="3.5"/><path d="M3 18c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg></button>
+      <button class="st-header__icon" aria-label="Cart" style="position:relative;"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 7h10l-1.5 8H6.5z"/><path d="M8 7V5a2 2 0 014 0v2"/></svg><span style="position:absolute;top:-4px;right:-6px;background:var(--st-neon);color:var(--st-black);font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;">0</span></button>
+    </div>
+  </div>
+</header>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  BREADCRUMB                                              ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-breadcrumb">
+.st-breadcrumb { padding: 16px 0; font-size: 12px; color: var(--st-g400); }
+.st-breadcrumb a { text-decoration: none; color: var(--st-g400); transition: color 0.15s; }
+.st-breadcrumb a:hover { color: var(--st-black); }
+.st-breadcrumb__sep { margin: 0 8px; }
+.st-breadcrumb__current { color: var(--st-black); font-weight: 400; }
+</style>
+
+<nav class="st-breadcrumb" aria-label="Breadcrumb">
+  <div class="page-width">
+    <a href="spacetalk-adventurer2-version1.html">Adventurer 2</a>
+    <span class="st-breadcrumb__sep">/</span>
+    <span class="st-breadcrumb__current">Full Kit Bundle</span>
+  </div>
+</nav>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  MAIN PRODUCT — SPLIT LAYOUT (Gallery + Info)            ║
+     ║  Liquid: sections/main-product.liquid                    ║
+     ║  This is the PDP for the "Adventurer 2 Full Kit" bundle  ║
+     ║  product. The buy_buttons block renders bundle-builder    ║
+     ║  snippet instead of a normal ATC when product is tagged   ║
+     ║  'bundle-builder'.                                        ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-pdp">
+.st-pdp { padding: 0 0 80px; }
+.st-pdp__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* Gallery */
+.st-pdp__gallery { position: sticky; top: 80px; }
+.st-pdp__main-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--st-g50);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.st-pdp__main-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 32px;
+  transition: opacity 0.3s ease;
+}
+.st-pdp__thumbs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.st-pdp__thumbs::-webkit-scrollbar { display: none; }
+.st-pdp__thumb {
+  flex: 0 0 72px;
+  aspect-ratio: 1;
+  background: var(--st-g50);
+  border-radius: 12px;
+  border: 2px solid transparent;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 6px;
+  transition: border-color 0.2s;
+}
+.st-pdp__thumb.is-active { border-color: var(--st-black); }
+.st-pdp__thumb img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Info panel */
+.st-pdp__info { padding-top: 8px; }
+.st-pdp__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--st-neon);
+  color: var(--st-black);
+  padding: 5px 14px;
+  border-radius: var(--st-rp);
+  margin-bottom: 16px;
+}
+.st-pdp__title {
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.st-pdp__subtitle {
+  font-size: 15px;
+  font-weight: 200;
+  color: var(--st-g500);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 420px;
+}
+.st-pdp__rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--st-g500);
+  margin-bottom: 24px;
+}
+.st-pdp__stars { display: flex; gap: 2px; }
+.st-pdp__star { color: #f5c518; }
+
+/* Price block */
+.st-pdp__price-block {
+  background: var(--st-g50);
+  border-radius: var(--st-r);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.st-pdp__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.st-pdp__price {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.st-pdp__compare-price {
+  font-size: 18px;
+  color: var(--st-g400);
+  text-decoration: line-through;
+}
+.st-pdp__save-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--st-neon);
+  color: var(--st-black);
+  padding: 4px 12px;
+  border-radius: var(--st-rp);
+  margin-top: 8px;
+}
+.st-pdp__plan-note {
+  font-size: 12px;
+  color: var(--st-g500);
+  margin-top: 8px;
+}
+.st-pdp__afterpay {
+  font-size: 12px;
+  color: var(--st-g400);
+  margin-top: 6px;
+}
+
+/* What's included list */
+.st-pdp__includes {
+  margin-bottom: 28px;
+}
+.st-pdp__inc-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--st-g400);
+  margin-bottom: 12px;
+}
+.st-pdp__inc-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--st-g100);
+  font-size: 14px;
+}
+.st-pdp__inc-item:last-child { border-bottom: none; }
+.st-pdp__inc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--st-neon);
+  flex-shrink: 0;
+}
+.st-pdp__inc-text { font-weight: 300; }
+.st-pdp__inc-text strong { font-weight: 600; }
+
+/* CTA button — triggers bundle-builder drawer */
+.st-pdp__cta-wrap { margin-bottom: 24px; }
+.st-pdp__cta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 32px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: var(--st-black);
+  color: var(--st-white);
+  border: none;
+  border-radius: var(--st-rp);
+  transition: all 0.25s var(--st-ease);
+}
+.st-pdp__cta:hover { background: var(--st-g600); transform: scale(1.01); }
+.st-pdp__cta svg { flex-shrink: 0; }
+
+.st-pdp__secondary-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.st-pdp__link-btn {
+  flex: 1;
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--st-g500);
+  border: 1px solid var(--st-g200);
+  border-radius: var(--st-rp);
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+.st-pdp__link-btn:hover { border-color: var(--st-g400); color: var(--st-black); }
+
+/* Trust signals */
+.st-pdp__trust {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.st-pdp__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--st-g500);
+}
+.st-pdp__trust-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--st-g400);
+}
+
+@media (max-width: 989px) {
+  .st-pdp__grid { grid-template-columns: 1fr; gap: 32px; }
+  .st-pdp__gallery { position: static; }
+}
+</style>
+
+<section class="st-pdp">
+  <div class="page-width">
+    <div class="st-pdp__grid">
+
+      <!-- LEFT: Gallery -->
+      <div class="st-pdp__gallery">
+        <div class="st-pdp__main-img">
+          <img
+            id="pdp-main-img"
+            src="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=1000"
+            alt="Adventurer 2 Full Kit Bundle in Frost"
+          >
+        </div>
+        <div class="st-pdp__thumbs" id="pdp-thumbs">
+          <button class="st-pdp__thumb is-active" data-img="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=1000">
+            <img src="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=200" alt="Front view">
+          </button>
+          <button class="st-pdp__thumb" data-img="https://spacetalk.co/cdn/shop/files/ADV2-StandardBundle-1.jpg?v=1772377570&width=1000">
+            <img src="https://spacetalk.co/cdn/shop/files/ADV2-StandardBundle-1.jpg?v=1772377570&width=200" alt="Bundle contents">
+          </button>
+          <button class="st-pdp__thumb" data-img="https://spacetalk.co/cdn/shop/files/adv2-essential-bundle.jpg?v=1772377570&width=1000">
+            <img src="https://spacetalk.co/cdn/shop/files/adv2-essential-bundle.jpg?v=1772377570&width=200" alt="Essential bundle">
+          </button>
+          <button class="st-pdp__thumb" data-img="https://spacetalk.co/cdn/shop/files/adv2-display.jpg?v=1772377570&width=1000">
+            <img src="https://spacetalk.co/cdn/shop/files/adv2-display.jpg?v=1772377570&width=200" alt="Watch display">
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT: Product info -->
+      <div class="st-pdp__info">
+        <div class="st-pdp__badge">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.2 2.8H10l-2.3 1.9.8 2.8L6 6.8 3.5 8.5l.8-2.8L2 3.8h2.8z" fill="currentColor"/></svg>
+          Full Kit Bundle
+        </div>
+
+        <h1 class="st-pdp__title">Adventurer 2<br>Full Kit</h1>
+        <p class="st-pdp__subtitle">Everything in the box — watch, plan, extra straps, charging stand and screen protector. Ready from day one.</p>
+
+        <div class="st-pdp__rating">
+          <div class="st-pdp__stars">
+            <span class="st-pdp__star">★</span>
+            <span class="st-pdp__star">★</span>
+            <span class="st-pdp__star">★</span>
+            <span class="st-pdp__star">★</span>
+            <span class="st-pdp__star" style="opacity:0.4;">★</span>
+          </div>
+          4.4 · 3,200+ reviews
+        </div>
+
+        <!-- Price block -->
+        <div class="st-pdp__price-block">
+          <div class="st-pdp__price-row">
+            <span class="st-pdp__price" id="pdp-price">$351.94</span>
+            <span class="st-pdp__compare-price" id="pdp-compare">$398.95</span>
+          </div>
+          <div class="st-pdp__save-pill" id="pdp-save">Save $47.01</div>
+          <div class="st-pdp__plan-note" id="pdp-plan-note">Includes 365-day plan · Price varies by plan</div>
+          <div class="st-pdp__afterpay">or 4 interest-free payments of $87.99 with Afterpay</div>
+        </div>
+
+        <!-- What's included -->
+        <div class="st-pdp__includes">
+          <div class="st-pdp__inc-label">Everything in this kit</div>
+          <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot"></div><div class="st-pdp__inc-text"><strong>Adventurer 2</strong> smartwatch</div></div>
+          <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot"></div><div class="st-pdp__inc-text"><strong>Wearable plan</strong> — choose 30 / 180 / 365 day</div></div>
+          <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot"></div><div class="st-pdp__inc-text"><strong>2 extra colour straps</strong> — choose your colours</div></div>
+          <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot"></div><div class="st-pdp__inc-text"><strong>Charging stand</strong></div></div>
+          <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot"></div><div class="st-pdp__inc-text"><strong>Screen protector</strong></div></div>
+        </div>
+
+        <!-- CTA — opens bundle-builder drawer -->
+        <div class="st-pdp__cta-wrap">
+          <button type="button" class="st-pdp__cta" id="pdp-build-btn">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Create your bundle
+          </button>
+        </div>
+
+        <div class="st-pdp__secondary-actions">
+          <a href="spacetalk-adventurer2-version1.html#compare" class="st-pdp__link-btn">Compare watches</a>
+          <a href="spacetalk-adventurer2-version1.html" class="st-pdp__link-btn">Back to Adventurer 2</a>
+        </div>
+
+        <!-- Trust signals -->
+        <div class="st-pdp__trust">
+          <div class="st-pdp__trust-item">
+            <svg class="st-pdp__trust-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M10 2l6 3v5c0 4-3 6.5-6 7.5C7 16.5 4 14 4 10V5z"/><path d="M7 10l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            30-day returns · 12-month warranty
+          </div>
+          <div class="st-pdp__trust-item">
+            <svg class="st-pdp__trust-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="7" width="14" height="10" rx="2"/><path d="M3 10h14"/></svg>
+            Secure checkout · Afterpay available
+          </div>
+          <div class="st-pdp__trust-item">
+            <svg class="st-pdp__trust-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 14h3l2-8h6l2 8h3"/><circle cx="7" cy="16" r="1.5"/><circle cx="15" cy="16" r="1.5"/></svg>
+            Free shipping on orders over $400
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Gallery thumbnail switcher -->
+<script>
+(function(){
+  var main = document.getElementById('pdp-main-img');
+  var thumbs = document.querySelectorAll('.st-pdp__thumb');
+  thumbs.forEach(function(t){
+    t.addEventListener('click', function(){
+      thumbs.forEach(function(b){ b.classList.remove('is-active'); });
+      t.classList.add('is-active');
+      main.style.opacity = '0';
+      setTimeout(function(){
+        main.src = t.dataset.img;
+        main.style.opacity = '1';
+      }, 150);
+    });
+  });
+  main.style.transition = 'opacity 0.2s ease';
+})();
+</script>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  BUNDLE BUILDER DRAWER                                   ║
+     ║  Liquid: snippets/bundle-builder.liquid                  ║
+     ║  This simulates the drawer that opens when "Create your  ║
+     ║  bundle" is clicked. In production, it renders from       ║
+     ║  product metafields (bundle_watches, bundle_straps, etc.) ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-drawer">
+/* Overlay */
+.bb-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 20px;
+}
+.bb-overlay.is-open { opacity: 1; pointer-events: all; }
+
+/* Drawer */
+.bb-drawer {
+  width: min(1200px, 85vw);
+  height: calc(100dvh - 40px);
+  background: #fff;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateX(calc(100% + 40px));
+  transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+  box-shadow: 0 8px 60px rgba(0,0,0,0.18);
+  font-family: inherit;
+}
+.bb-overlay.is-open .bb-drawer { transform: translate(0, 0); }
+
+/* Top bar */
+.bb-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  border-bottom: 1px solid rgba(23,23,23,0.1);
+  flex-shrink: 0;
+}
+.bb-topbar__title { font-size: clamp(16px, 1.5vw, 22px); font-weight: 500; letter-spacing: -0.01em; }
+.bb-topbar__step { font-size: clamp(13px, 1vw, 15px); color: rgba(23,23,23,0.45); }
+.bb-topbar__close {
+  width: 36px; height: 36px; border-radius: 50%; background: #EFEFEF; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: background 0.25s;
+}
+.bb-topbar__close:hover { background: #E4E4E4; }
+.bb-topbar__close svg { width: 14px; height: 14px; }
+
+/* Progress bar */
+.bb-progress { height: 3px; background: rgba(23,23,23,0.1); flex-shrink: 0; }
+.bb-progress__fill { height: 100%; background: var(--st-purple); border-radius: 2px; transition: width 0.4s cubic-bezier(0.3, 1, 0.3, 1); }
+
+/* Split layout */
+.bb-split { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+
+/* Left panel */
+.bb-left {
+  display: flex; flex-direction: column; width: 240px; flex-shrink: 0;
+  background: #EFEFEF; border-right: 1px solid rgba(23,23,23,0.1);
+  padding: 24px 18px; overflow-y: auto;
+}
+.bb-left__label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(23,23,23,0.45); margin-bottom: 16px; }
+.bb-left__bundle-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px; }
+.bb-left__tile {
+  aspect-ratio: 1; background: rgba(23,23,23,0.06); border-radius: 12px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; padding: 6px; position: relative;
+}
+.bb-left__tile-badge {
+  position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+  font-size: 8px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  background: rgba(255,255,255,0.9); padding: 2px 8px; border-radius: 20px; color: rgba(23,23,23,0.5);
+}
+.bb-left__tile img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Steps sidebar */
+.bb-step { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(23,23,23,0.06); }
+.bb-step__num {
+  width: 24px; height: 24px; border-radius: 50%; font-size: 11px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.bb-step__num--active { background: var(--st-black); color: #fff; }
+.bb-step__num--pending { background: rgba(23,23,23,0.08); color: rgba(23,23,23,0.35); }
+.bb-step__num--done { background: var(--st-neon); color: var(--st-black); }
+.bb-step__name { font-size: 13px; font-weight: 500; }
+.bb-step__name--pending { color: rgba(23,23,23,0.35); }
+.bb-step__val { font-size: 11px; color: rgba(23,23,23,0.45); margin-top: 2px; }
+
+/* Price block */
+.bb-left__price { margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(23,23,23,0.08); }
+.bb-left__price-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(23,23,23,0.45); margin-bottom: 4px; }
+.bb-left__price-final { font-size: 24px; font-weight: 600; letter-spacing: -0.03em; }
+.bb-left__price-orig { font-size: 14px; color: rgba(23,23,23,0.35); text-decoration: line-through; margin-right: 8px; }
+
+/* Right panel */
+.bb-right { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+/* Slides */
+.bb-slides { flex: 1; overflow-y: auto; padding: 32px 36px; }
+.bb-slide { display: none; }
+.bb-slide.is-active { display: block; }
+
+.bb-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(23,23,23,0.45); margin-bottom: 6px; }
+.bb-slide__title { font-size: clamp(22px, 2.5vw, 28px); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 6px; }
+.bb-slide__sub { font-size: 14px; color: rgba(23,23,23,0.55); margin-bottom: 24px; }
+
+/* Watch colour swatches */
+.bb-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-top: 20px; }
+.bb-swatch {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 16px 12px; background: #fff; border: 2px solid rgba(23,23,23,0.1);
+  border-radius: 16px; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+.bb-swatch:hover { border-color: rgba(23,23,23,0.25); }
+.bb-swatch.is-active { border-color: var(--st-purple); box-shadow: 0 4px 16px rgba(51,21,208,0.12); }
+.bb-swatch__img { width: 80px; height: 80px; border-radius: 12px; overflow: hidden; background: var(--st-g50); }
+.bb-swatch__img img { width: 100%; height: 100%; object-fit: contain; }
+.bb-swatch__label { font-size: 13px; font-weight: 500; }
+.bb-swatch__price { font-size: 12px; color: rgba(23,23,23,0.55); text-align: center; }
+.bb-swatch__price strong { font-weight: 600; color: var(--st-black); }
+.bb-swatch__price s { color: rgba(23,23,23,0.3); margin-right: 4px; }
+
+/* Plan cards */
+.bb-plans { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.bb-plan {
+  padding: 20px; border: 2px solid rgba(23,23,23,0.1); border-radius: 16px;
+  cursor: pointer; transition: border-color 0.2s; position: relative;
+}
+.bb-plan:hover { border-color: rgba(23,23,23,0.25); }
+.bb-plan.is-selected { border-color: var(--st-purple); }
+.bb-plan__badge {
+  position: absolute; top: -1px; right: 16px; background: var(--st-neon); color: var(--st-black);
+  font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 0 0 8px 8px;
+}
+.bb-plan__top { display: flex; align-items: center; justify-content: space-between; }
+.bb-plan__radio-row { display: flex; align-items: center; gap: 10px; }
+.bb-plan__radio {
+  width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(23,23,23,0.2);
+  transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+}
+.bb-plan.is-selected .bb-plan__radio { border-color: var(--st-purple); background: var(--st-purple); }
+.bb-plan.is-selected .bb-plan__radio::after { content: ''; width: 8px; height: 8px; background: #fff; border-radius: 50%; }
+.bb-plan__name { font-size: 16px; font-weight: 500; }
+.bb-plan__price { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+.bb-plan__price-sub { font-size: 13px; font-weight: 400; color: rgba(23,23,23,0.5); }
+.bb-plan__per { font-size: 12px; color: rgba(23,23,23,0.45); margin-top: 2px; }
+.bb-plan__desc { font-size: 13px; color: rgba(23,23,23,0.55); margin-top: 8px; }
+.bb-plan__saving { font-size: 12px; font-weight: 600; color: var(--st-purple); margin-top: 6px; }
+
+/* Strap cards */
+.bb-strap-card { margin-bottom: 24px; }
+.bb-strap-card__name { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+.bb-strap-card__swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+.bb-strap-swatch {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; width: 80px;
+  padding: 10px 6px; background: #fff; border: 2px solid rgba(23,23,23,0.08);
+  border-radius: 14px; cursor: pointer; transition: border-color 0.2s; font-family: inherit;
+}
+.bb-strap-swatch:hover { border-color: rgba(23,23,23,0.2); }
+.bb-strap-swatch.is-selected { border-color: var(--st-purple); }
+.bb-strap-swatch__img { width: 48px; height: 48px; border-radius: 10px; overflow: hidden; background: var(--st-g50); }
+.bb-strap-swatch__img img { width: 100%; height: 100%; object-fit: contain; }
+.bb-strap-swatch__label { font-size: 10px; font-weight: 500; text-align: center; }
+.bb-strap-swatch__price { font-size: 9px; color: rgba(23,23,23,0.45); text-align: center; }
+
+/* Summary */
+.bb-summary-list { display: flex; flex-direction: column; gap: 12px; }
+.bb-summary-item {
+  display: flex; align-items: center; gap: 14px; padding: 14px; background: var(--st-g50);
+  border-radius: 14px;
+}
+.bb-summary-item__img { width: 56px; height: 56px; border-radius: 10px; overflow: hidden; background: #fff; flex-shrink: 0; }
+.bb-summary-item__img img { width: 100%; height: 100%; object-fit: contain; }
+.bb-summary-item__name { font-size: 14px; font-weight: 500; flex: 1; }
+.bb-summary-item__price { font-size: 14px; font-weight: 600; }
+
+.bb-total-block { margin-top: 24px; padding: 20px; background: var(--st-g50); border-radius: 16px; }
+.bb-total-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
+.bb-total-label { color: rgba(23,23,23,0.5); }
+.bb-total-label--strong { font-weight: 600; color: var(--st-black); }
+.bb-total-final { font-size: 20px; font-weight: 600; }
+.bb-save-pill { display: inline-block; background: var(--st-neon); color: var(--st-black); font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: var(--st-rp); margin-top: 8px; }
+
+/* Footer */
+.bb-footer {
+  display: flex; gap: 12px; padding: 16px 28px; border-top: 1px solid rgba(23,23,23,0.08);
+  flex-shrink: 0; background: #fff;
+}
+.bb-btn {
+  flex: 1; min-height: 48px; border-radius: var(--st-rp); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;
+  font-family: inherit;
+}
+.bb-btn--primary { background: var(--st-black); color: #fff; border: 1px solid var(--st-black); }
+.bb-btn--primary:hover { background: var(--st-g600); }
+.bb-btn--ghost { background: #fff; color: var(--st-black); border: 1px solid rgba(23,23,23,0.2); max-width: 120px; }
+.bb-btn--ghost:hover { background: var(--st-g50); }
+
+/* Edu note */
+.bb-edu-note {
+  background: var(--st-g50); border-radius: 14px; padding: 16px 18px; margin: 16px 0 24px;
+  font-size: 13px; color: rgba(23,23,23,0.65); line-height: 1.55;
+}
+.bb-edu-note strong { font-weight: 600; color: var(--st-black); }
+
+.bb-swatch-label { font-size: 13px; color: rgba(23,23,23,0.55); margin-top: 20px; }
+
+.bb-strap-counter { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 16px; padding: 10px 14px; background: var(--st-g50); border-radius: 10px; }
+.bb-strap-counter__count { font-weight: 600; }
+
+@media (max-width: 767px) {
+  .bb-drawer { width: 100%; height: calc(100dvh - 40px); border-radius: 20px 20px 0 0; transform: translateY(calc(100dvh + 40px)); }
+  .bb-left { display: none; }
+  .bb-slides { padding: 24px 20px; }
+}
+</style>
+
+<!-- Drawer markup -->
+<div class="bb-overlay" id="bb-overlay">
+  <div class="bb-drawer" id="bb-drawer" role="dialog" aria-modal="true" aria-label="Build your Full Kit bundle">
+    <div class="bb-topbar">
+      <span class="bb-topbar__title">Build your Full Kit</span>
+      <span class="bb-topbar__step" id="bb-step-label">Step 1 of 5</span>
+      <button type="button" class="bb-topbar__close" id="bb-close" aria-label="Close">
+        <svg viewBox="0 0 12 12" fill="none"><path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="bb-progress"><div class="bb-progress__fill" id="bb-progress" style="width: 20%"></div></div>
+
+    <div class="bb-split">
+      <!-- Left panel -->
+      <div class="bb-left">
+        <div class="bb-left__label">Your bundle</div>
+        <div class="bb-left__bundle-grid">
+          <div class="bb-left__tile" id="bb-tile-watch">
+            <img src="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=300" alt="Watch" style="width:100%;height:100%;object-fit:contain;">
+            <span class="bb-left__tile-badge">Watch</span>
+          </div>
+          <div class="bb-left__tile"><span class="bb-left__tile-badge">Plan</span></div>
+          <div class="bb-left__tile"><span class="bb-left__tile-badge">Straps</span></div>
+          <div class="bb-left__tile"><span class="bb-left__tile-badge">Extras</span></div>
+        </div>
+
+        <div class="bb-step" data-step="1">
+          <div class="bb-step__num bb-step__num--active">1</div>
+          <div class="bb-step__body">
+            <div class="bb-step__name">Watch</div>
+            <div class="bb-step__val">Choose your colour</div>
+          </div>
+        </div>
+        <div class="bb-step" data-step="2">
+          <div class="bb-step__num bb-step__num--pending">2</div>
+          <div class="bb-step__body">
+            <div class="bb-step__name bb-step__name--pending">Plan</div>
+            <div class="bb-step__val"></div>
+          </div>
+        </div>
+        <div class="bb-step" data-step="3">
+          <div class="bb-step__num bb-step__num--pending">3</div>
+          <div class="bb-step__body">
+            <div class="bb-step__name bb-step__name--pending">Straps</div>
+            <div class="bb-step__val"></div>
+          </div>
+        </div>
+        <div class="bb-step" data-step="4">
+          <div class="bb-step__num bb-step__num--pending">4</div>
+          <div class="bb-step__body">
+            <div class="bb-step__name bb-step__name--pending">Accessories</div>
+            <div class="bb-step__val"></div>
+          </div>
+        </div>
+        <div class="bb-step" data-step="5">
+          <div class="bb-step__num bb-step__num--pending">5</div>
+          <div class="bb-step__body">
+            <div class="bb-step__name bb-step__name--pending">Summary</div>
+          </div>
+        </div>
+
+        <div class="bb-left__price">
+          <div class="bb-left__price-label">Bundle total</div>
+          <div>
+            <span class="bb-left__price-orig">$398.95</span>
+            <span class="bb-left__price-final">$351.94</span>
+          </div>
+          <div class="bb-save-pill" style="margin-top:6px;">Save $47.01</div>
+        </div>
+      </div>
+
+      <!-- Right panel -->
+      <div class="bb-right">
+        <div class="bb-slides" id="bb-slides">
+
+          <!-- SLIDE 1: Watch colour -->
+          <div class="bb-slide is-active" data-slide="watches" id="bb-slide-1">
+            <div class="bb-eyebrow">Step 1 — Your watch</div>
+            <div class="bb-slide__title">Adventurer 2</div>
+            <div class="bb-slide__sub">Choose your colour to get started.</div>
+            <div class="bb-swatch-label">Colour: Frost</div>
+
+            <div class="bb-swatches">
+              <button type="button" class="bb-swatch is-active" data-colour="frost">
+                <span class="bb-swatch__img"><img src="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=200" alt="Frost"></span>
+                <span class="bb-swatch__label">Frost</span>
+                <span class="bb-swatch__price"><strong>$239.00</strong></span>
+              </button>
+              <button type="button" class="bb-swatch" data-colour="dusk">
+                <span class="bb-swatch__img"><img src="https://spacetalk.co/cdn/shop/files/adv2-essential-bundle-dusk.png?v=1772377570&width=200" alt="Dusk"></span>
+                <span class="bb-swatch__label">Dusk</span>
+                <span class="bb-swatch__price"><strong>$239.00</strong></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- SLIDE 2: Plan -->
+          <div class="bb-slide" data-slide="plans" id="bb-slide-2">
+            <div class="bb-eyebrow">Step 2 — Choose your plan</div>
+            <div class="bb-slide__title">Activate your watch</div>
+            <div class="bb-edu-note">
+              <strong>Why do I need a plan?</strong> Without one, the watch can't make calls, use GPS or connect to the Spacetalk app — just like a phone needs a SIM.
+            </div>
+
+            <div class="bb-plans">
+              <div class="bb-plan" data-plan="30">
+                <div class="bb-plan__top">
+                  <div class="bb-plan__radio-row"><div class="bb-plan__radio"></div><span class="bb-plan__name">30-day</span></div>
+                  <div><span class="bb-plan__price">$17.99</span><div class="bb-plan__per">billed monthly · 1GB data</div></div>
+                </div>
+                <div class="bb-plan__desc">Month-to-month flexibility. Cancel anytime.</div>
+              </div>
+
+              <div class="bb-plan" data-plan="180">
+                <div class="bb-plan__top">
+                  <div class="bb-plan__radio-row"><div class="bb-plan__radio"></div><span class="bb-plan__name">180-day</span></div>
+                  <div><span class="bb-plan__price">$15.17<span class="bb-plan__price-sub">/mo</span></span><div class="bb-plan__per">$90.99 billed every 6 months · 10GB data</div></div>
+                </div>
+                <div class="bb-plan__desc">Good value across a school term.</div>
+                <div class="bb-plan__saving">Save $16.95 vs 30-day</div>
+              </div>
+
+              <div class="bb-plan is-selected" data-plan="365">
+                <div class="bb-plan__badge">Most popular</div>
+                <div class="bb-plan__top">
+                  <div class="bb-plan__radio-row"><div class="bb-plan__radio"></div><span class="bb-plan__name">365-day</span></div>
+                  <div><span class="bb-plan__price">$13.75<span class="bb-plan__price-sub">/mo</span></span><div class="bb-plan__per">$164.99 billed yearly · 30GB data</div></div>
+                </div>
+                <div class="bb-plan__desc">Best per-day rate. Most families choose this.</div>
+                <div class="bb-plan__saving">Save $51.89 vs 30-day</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 3: Straps -->
+          <div class="bb-slide" data-slide="straps" id="bb-slide-3">
+            <div class="bb-eyebrow">Step 3 — Choose your straps</div>
+            <div class="bb-slide__title">2 straps included free</div>
+            <div class="bb-slide__sub">Choose up to 2 strap colours — included in your bundle price.</div>
+
+            <div class="bb-strap-counter">
+              <span>Selected: <span class="bb-strap-counter__count">0</span> of 2 free</span>
+              <span>Choose 2</span>
+            </div>
+
+            <div class="bb-strap-card">
+              <div class="bb-strap-card__name">Adventurer 2 Band Strap</div>
+              <div class="bb-strap-card__swatches">
+                <button type="button" class="bb-strap-swatch" data-strap="blue">
+                  <span class="bb-strap-swatch__img" style="background:#4a6fa5;border-radius:10px;"></span>
+                  <span class="bb-strap-swatch__label">Blue</span>
+                  <span class="bb-strap-swatch__price">FREE</span>
+                </button>
+                <button type="button" class="bb-strap-swatch" data-strap="pink">
+                  <span class="bb-strap-swatch__img" style="background:#e8a0bf;border-radius:10px;"></span>
+                  <span class="bb-strap-swatch__label">Pink</span>
+                  <span class="bb-strap-swatch__price">FREE</span>
+                </button>
+                <button type="button" class="bb-strap-swatch" data-strap="green">
+                  <span class="bb-strap-swatch__img" style="background:#7fb069;border-radius:10px;"></span>
+                  <span class="bb-strap-swatch__label">Green</span>
+                  <span class="bb-strap-swatch__price">FREE</span>
+                </button>
+                <button type="button" class="bb-strap-swatch" data-strap="black">
+                  <span class="bb-strap-swatch__img" style="background:#333;border-radius:10px;"></span>
+                  <span class="bb-strap-swatch__label">Black</span>
+                  <span class="bb-strap-swatch__price">FREE</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 4: Accessories -->
+          <div class="bb-slide" data-slide="accessories" id="bb-slide-4">
+            <div class="bb-eyebrow">Step 4 — Complete your bundle</div>
+            <div class="bb-slide__title">Accessories included</div>
+            <div class="bb-slide__sub">These are already in your Full Kit. Tap anything extra to add it.</div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin-top:20px;">
+              <div style="padding:16px;background:var(--st-g50);border-radius:16px;text-align:center;border:2px solid var(--st-neon);">
+                <div style="font-size:28px;margin-bottom:8px;">⌚</div>
+                <div style="font-size:12px;font-weight:500;">Charging Stand</div>
+                <div style="font-size:10px;color:var(--st-neon);font-weight:600;margin-top:4px;">INCLUDED</div>
+              </div>
+              <div style="padding:16px;background:var(--st-g50);border-radius:16px;text-align:center;border:2px solid var(--st-neon);">
+                <div style="font-size:28px;margin-bottom:8px;">🛡️</div>
+                <div style="font-size:12px;font-weight:500;">Screen Protector</div>
+                <div style="font-size:10px;color:var(--st-neon);font-weight:600;margin-top:4px;">INCLUDED</div>
+              </div>
+              <div style="padding:16px;background:#fff;border-radius:16px;text-align:center;border:2px solid var(--st-g200);cursor:pointer;">
+                <div style="font-size:28px;margin-bottom:8px;">🔌</div>
+                <div style="font-size:12px;font-weight:500;">Charging Cable</div>
+                <div style="font-size:10px;color:var(--st-g400);margin-top:4px;">+ $19.95</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 5: Summary -->
+          <div class="bb-slide" data-slide="summary" id="bb-slide-5">
+            <div class="bb-eyebrow">Almost there</div>
+            <div class="bb-slide__title">Your Full Kit bundle</div>
+            <div class="bb-slide__sub" style="margin-bottom:16px;">Review your selections before adding to cart.</div>
+
+            <div class="bb-summary-list">
+              <div class="bb-summary-item">
+                <div class="bb-summary-item__img"><img src="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=120" alt="Adventurer 2 Frost"></div>
+                <div class="bb-summary-item__name">Adventurer 2 — Frost</div>
+                <div class="bb-summary-item__price">$239.00</div>
+              </div>
+              <div class="bb-summary-item">
+                <div class="bb-summary-item__img" style="background:var(--st-g50);display:flex;align-items:center;justify-content:center;font-size:20px;">📱</div>
+                <div class="bb-summary-item__name">365-day Plan</div>
+                <div class="bb-summary-item__price">$164.99</div>
+              </div>
+              <div class="bb-summary-item">
+                <div class="bb-summary-item__img" style="background:#4a6fa5;border-radius:10px;"></div>
+                <div class="bb-summary-item__name">Band Strap — Blue</div>
+                <div class="bb-summary-item__price">FREE</div>
+              </div>
+              <div class="bb-summary-item">
+                <div class="bb-summary-item__img" style="background:#e8a0bf;border-radius:10px;"></div>
+                <div class="bb-summary-item__name">Band Strap — Pink</div>
+                <div class="bb-summary-item__price">FREE</div>
+              </div>
+              <div class="bb-summary-item">
+                <div class="bb-summary-item__img" style="background:var(--st-g50);display:flex;align-items:center;justify-content:center;font-size:20px;">⌚</div>
+                <div class="bb-summary-item__name">Charging Stand</div>
+                <div class="bb-summary-item__price">Included</div>
+              </div>
+              <div class="bb-summary-item">
+                <div class="bb-summary-item__img" style="background:var(--st-g50);display:flex;align-items:center;justify-content:center;font-size:20px;">🛡️</div>
+                <div class="bb-summary-item__name">Screen Protector</div>
+                <div class="bb-summary-item__price">Included</div>
+              </div>
+            </div>
+
+            <div class="bb-total-block">
+              <div class="bb-total-row">
+                <span class="bb-total-label">Original total</span>
+                <span>$498.90</span>
+              </div>
+              <div class="bb-total-row">
+                <span class="bb-total-label--strong">Bundle price</span>
+                <span class="bb-total-final">$351.94</span>
+              </div>
+              <div class="bb-save-pill">Save $47.01</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="bb-footer">
+          <button type="button" class="bb-btn bb-btn--ghost" id="bb-back" style="display:none;">Back</button>
+          <button type="button" class="bb-btn bb-btn--primary" id="bb-next">Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  PRODUCT DETAILS — ACCORDION (below the fold)            ║
+     ║  Liquid: sections/product-details.liquid                 ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-details">
+.st-details { padding: 60px 0 80px; border-top: 1px solid var(--st-g100); }
+.st-details__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.st-details__left {}
+.st-details__right {}
+.st-details__heading { font-size: 24px; font-weight: 600; letter-spacing: -0.04em; margin-bottom: 24px; }
+
+.st-details__accordion {}
+.st-details__acc-item { border-bottom: 1px solid var(--st-g200); }
+.st-details__acc-trigger {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 0; background: none; border: none; font-size: 14px; font-weight: 400;
+  color: var(--st-black); cursor: pointer; text-align: left; font-family: inherit;
+}
+.st-details__acc-trigger svg { flex-shrink: 0; transition: transform 0.3s; }
+.st-details__acc-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.st-details__acc-body {
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+}
+.st-details__acc-body.is-open { max-height: 500px; }
+.st-details__acc-content {
+  padding: 0 0 18px; font-size: 14px; font-weight: 200; color: var(--st-g500); line-height: 1.7;
+}
+.st-details__acc-content ul { padding-left: 20px; margin: 8px 0; }
+.st-details__acc-content li { margin: 4px 0; }
+
+/* Feature icons */
+.st-details__features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.st-details__feat {
+  background: var(--st-g50); border-radius: 14px; padding: 20px 16px; text-align: center;
+}
+.st-details__feat-icon { font-size: 24px; margin-bottom: 8px; }
+.st-details__feat-label { font-size: 12px; font-weight: 500; color: var(--st-black); }
+.st-details__feat-sub { font-size: 11px; color: var(--st-g500); margin-top: 2px; }
+
+@media (max-width: 989px) {
+  .st-details__grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<section class="st-details">
+  <div class="page-width">
+    <div class="st-details__grid">
+      <div class="st-details__left">
+        <h2 class="st-details__heading">Product details</h2>
+        <div class="st-details__accordion">
+          <div class="st-details__acc-item">
+            <button class="st-details__acc-trigger" aria-expanded="true">
+              Description
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="st-details__acc-body is-open">
+              <div class="st-details__acc-content">
+                The Adventurer 2 Full Kit Bundle gives your child everything they need for safe independence. Featuring 4G video and voice calling, real-time GPS tracking, a front-facing 5MP camera, and the Spacetalk app for parent management — all wrapped in a durable, splash-proof design kids love.
+              </div>
+            </div>
+          </div>
+          <div class="st-details__acc-item">
+            <button class="st-details__acc-trigger" aria-expanded="false">
+              What's in the box
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="st-details__acc-body">
+              <div class="st-details__acc-content">
+                <ul>
+                  <li>Adventurer 2 smartwatch</li>
+                  <li>Default colour strap (fitted)</li>
+                  <li>Magnetic charging dock</li>
+                  <li>USB-C charging cable</li>
+                  <li>Quick start guide</li>
+                  <li>SIM tool</li>
+                </ul>
+                <p>Plus your selected plan, 2 extra colour straps, charging stand, and screen protector.</p>
+              </div>
+            </div>
+          </div>
+          <div class="st-details__acc-item">
+            <button class="st-details__acc-trigger" aria-expanded="false">
+              Watch plan required
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="st-details__acc-body">
+              <div class="st-details__acc-content">
+                A Spacetalk wearable plan is required to use calling, messaging, GPS location, and the Spacetalk app. Plans start from $13.75/mo (365-day plan). The watch cannot function as a standalone device without an active plan.
+              </div>
+            </div>
+          </div>
+          <div class="st-details__acc-item">
+            <button class="st-details__acc-trigger" aria-expanded="false">
+              Specifications
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="st-details__acc-body">
+              <div class="st-details__acc-content">
+                <ul>
+                  <li>1.4" AMOLED display</li>
+                  <li>5MP front camera</li>
+                  <li>4G LTE connectivity</li>
+                  <li>GPS + GLONASS + Galileo</li>
+                  <li>IP67 water resistance</li>
+                  <li>Gorilla Glass 3</li>
+                  <li>Heart rate + step tracking</li>
+                  <li>730mAh battery (up to 3 days)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="st-details__right">
+        <h2 class="st-details__heading">Key features</h2>
+        <div class="st-details__features">
+          <div class="st-details__feat"><div class="st-details__feat-icon">📞</div><div class="st-details__feat-label">4G Video Calls</div><div class="st-details__feat-sub">HD voice & video</div></div>
+          <div class="st-details__feat"><div class="st-details__feat-icon">📍</div><div class="st-details__feat-label">GPS Tracking</div><div class="st-details__feat-sub">Real-time location</div></div>
+          <div class="st-details__feat"><div class="st-details__feat-icon">🆘</div><div class="st-details__feat-label">SOS Button</div><div class="st-details__feat-sub">Emergency alerts</div></div>
+          <div class="st-details__feat"><div class="st-details__feat-icon">📸</div><div class="st-details__feat-label">5MP Camera</div><div class="st-details__feat-sub">Front-facing</div></div>
+          <div class="st-details__feat"><div class="st-details__feat-icon">🏫</div><div class="st-details__feat-label">School Mode</div><div class="st-details__feat-sub">Scheduled blocks</div></div>
+          <div class="st-details__feat"><div class="st-details__feat-icon">💧</div><div class="st-details__feat-label">IP67 Rated</div><div class="st-details__feat-sub">Splash-proof</div></div>
+          <div class="st-details__feat"><div class="st-details__feat-icon">🔋</div><div class="st-details__feat-label">3-Day Battery</div><div class="st-details__feat-sub">730mAh</div></div>
+          <div class="st-details__feat"><div class="st-details__feat-icon">❤️</div><div class="st-details__feat-label">Heart Rate</div><div class="st-details__feat-sub">Health tracking</div></div>
+          <div class="st-details__feat"><div class="st-details__feat-icon">🚫</div><div class="st-details__feat-label">No Social Media</div><div class="st-details__feat-sub">Safe by design</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCRIPTS — Drawer open/close, step navigation, accordion
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  'use strict';
+
+  /* --- Drawer open/close --- */
+  var overlay = document.getElementById('bb-overlay');
+  var openBtn = document.getElementById('pdp-build-btn');
+  var closeBtn = document.getElementById('bb-close');
+
+  function openDrawer(){ overlay.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+  function closeDrawer(){ overlay.classList.remove('is-open'); document.body.style.overflow = ''; }
+
+  openBtn.addEventListener('click', openDrawer);
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeDrawer(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
+
+  /* --- Step navigation --- */
+  var slides = document.querySelectorAll('.bb-slide');
+  var stepLabel = document.getElementById('bb-step-label');
+  var progress = document.getElementById('bb-progress');
+  var backBtn = document.getElementById('bb-back');
+  var nextBtn = document.getElementById('bb-next');
+  var total = slides.length;
+  var current = 0;
+
+  function showSlide(i){
+    slides.forEach(function(s){ s.classList.remove('is-active'); });
+    slides[i].classList.add('is-active');
+    current = i;
+    stepLabel.textContent = 'Step ' + (i+1) + ' of ' + total;
+    progress.style.width = ((i+1)/total*100) + '%';
+    backBtn.style.display = i > 0 ? '' : 'none';
+    nextBtn.textContent = i === total - 1 ? 'Add to cart' : 'Next';
+
+    /* Update left panel step indicators */
+    document.querySelectorAll('.bb-step').forEach(function(step, idx){
+      var num = step.querySelector('.bb-step__num');
+      var name = step.querySelector('.bb-step__name');
+      num.className = 'bb-step__num';
+      if(idx < i) num.classList.add('bb-step__num--done');
+      else if(idx === i) num.classList.add('bb-step__num--active');
+      else num.classList.add('bb-step__num--pending');
+      if(name) { name.className = idx <= i ? 'bb-step__name' : 'bb-step__name bb-step__name--pending'; }
+    });
+  }
+
+  nextBtn.addEventListener('click', function(){
+    if(current === total - 1){
+      closeDrawer();
+      alert('Bundle added to cart! (Preview only — in production this calls /cart/add.js)');
+      return;
+    }
+    if(current < total - 1) showSlide(current + 1);
+  });
+  backBtn.addEventListener('click', function(){ if(current > 0) showSlide(current - 1); });
+
+  /* --- Plan selection --- */
+  document.querySelectorAll('.bb-plan').forEach(function(p){
+    p.addEventListener('click', function(){
+      document.querySelectorAll('.bb-plan').forEach(function(x){ x.classList.remove('is-selected'); });
+      p.classList.add('is-selected');
+    });
+  });
+
+  /* --- Watch swatch selection --- */
+  document.querySelectorAll('.bb-swatch').forEach(function(s){
+    s.addEventListener('click', function(){
+      document.querySelectorAll('.bb-swatch').forEach(function(x){ x.classList.remove('is-active'); });
+      s.classList.add('is-active');
+    });
+  });
+
+  /* --- Strap selection --- */
+  var maxStraps = 2;
+  document.querySelectorAll('.bb-strap-swatch').forEach(function(s){
+    s.addEventListener('click', function(){
+      if(s.classList.contains('is-selected')){
+        s.classList.remove('is-selected');
+      } else {
+        var selected = document.querySelectorAll('.bb-strap-swatch.is-selected');
+        if(selected.length >= maxStraps) selected[0].classList.remove('is-selected');
+        s.classList.add('is-selected');
+      }
+      var count = document.querySelectorAll('.bb-strap-swatch.is-selected').length;
+      var counter = document.querySelector('.bb-strap-counter__count');
+      if(counter) counter.textContent = count;
+    });
+  });
+
+  /* --- Accordion --- */
+  document.querySelectorAll('.st-details__acc-trigger').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var body = btn.nextElementSibling;
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      body.classList.toggle('is-open');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

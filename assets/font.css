@@ -1,0 +1,41 @@
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-50.woff2?v=48617103211490948011774237002') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-50.woff?v=96219707219155047471774237002') format('woff');font-weight:50;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-50Italic.woff2?v=32542127290673436981774237005') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-50Italic.woff?v=181852001269335311361774237005') format('woff');font-weight:50;font-style:italic;font-display:swap;}
+
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-100.woff2?v=165814607238524349771774236987') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-100.woff?v=168826860661653350631774236987') format('woff');font-weight:100;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-100Italic.woff2?v=59228634647798780021774236990') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-100Italic.woff?v=101302366445309783301774236989') format('woff');font-weight:100;font-style:italic;font-display:swap;}
+
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-200.woff2?v=126887987551169373951774236992') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-200.woff?v=141975203486103579101774236992') format('woff');font-weight:200;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-200Italic.woff2?v=60331') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-200Italic.woff?v=164952495122068690721774236993') format('woff');font-weight:200;font-style:italic;font-display:swap;}
+
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-300.woff2?v=117104081702057163461774236996') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-300.woff?v=151186238186986872451774236995') format('woff');font-weight:300;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-300Italic.woff2?v=50639185668802742761774236996') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-300Italic.woff?v=48069016397824303001774236996') format('woff');font-weight:300;font-style:italic;font-display:swap;}
+
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-400.woff2?v=143457072906483287171774236999') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-400.woff?v=5519348458532488491774236999') format('woff');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-400Italic.woff2?v=28257680299836004861774237000') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-400Italic.woff?v=85419750941520612921774236999') format('woff');font-weight:400;font-style:italic;font-display:swap;}
+
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-500.woff2?v=143302910671991744231774237003') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-500.woff?v=99197026077811351691774237003') format('woff');font-weight:500;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-500Italic.woff2?v=34720999231540892281774237004') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-500Italic.woff?v=76223334164616246801774237004') format('woff');font-weight:500;font-style:italic;font-display:swap;}
+
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-600.woff2?v=107057433078159069701774237008') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-600.woff?v=87305192504689930231774237007') format('woff');font-weight:600;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-600Italic.woff2?v=145678193386643524781774237008') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-600Italic.woff?v=36619455860661275241774237008') format('woff');font-weight:600;font-style:italic;font-display:swap;}
+
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-700.woff2?v=169072841949245087791774237011') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-700.woff?v=49147365609418247941774237011') format('woff');font-weight:700;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-700Italic.woff2?v=94397446892075706991774237012') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-700Italic.woff?v=40333881178559556961774237011') format('woff');font-weight:700;font-style:italic;font-display:swap;}
+
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-800.woff2?v=103387557537685520501774237015') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-800.woff?v=146028333343112388561774237014') format('woff');font-weight:800;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-800Italic.woff2?v=96083187407963492851774237015') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-800Italic.woff?v=53557022120683631331774237015') format('woff');font-weight:800;font-style:italic;font-display:swap;}
+
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-900.woff2?v=114921583189746874981774237018') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-900.woff?v=149490331698783749911774237018') format('woff');font-weight:900;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-900Italic.woff2?v=20307730641146113901774237019') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-900Italic.woff?v=111023867496212652521774237019') format('woff');font-weight:900;font-style:italic;font-display:swap;}
+
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-1000.woff2?v=20675275929443598121774236988') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-1000.woff?v=6221497247587740671774236988') format('woff');font-weight:1000;font-style:normal;font-display:swap;}
+@font-face{font-family:'TWK Lausanne';src:url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-1000Italic.woff2?v=52431892447148451971774236989') format('woff2'),url('//spacetalk.co/cdn/shop/t/174/assets/TWKLausanne-1000Italic.woff?v=112675604765140880541774236988') format('woff');font-weight:1000;font-style:italic;font-display:swap;}
+
+:root,body,button,input,select,textarea{font-family:'TWK Lausanne' !important;}
+:root,p {font-family:'TWK Lausanne',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important; font-weight:200;}
+h1,h2,h3,h4,h5,h6{font-family:'TWK Lausanne' !important;}
+
+html,:root{
+  --font-body-family:'TWK Lausanne',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-heading-family:'TWK Lausanne',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}

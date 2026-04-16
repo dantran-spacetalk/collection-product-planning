@@ -1,0 +1,2897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adventurer 2 Smartwatch — Spacetalk</title>
+
+<!-- ═══════════════════════════════════════════════════════════
+     THEME ASSETS — font.css (TWK Lausanne) + theme.css
+     font.css: @font-face declarations + family override
+     theme.css: full theme reset, utilities, component styles
+     ═══════════════════════════════════════════════════════════ -->
+<link rel="stylesheet" href="assets/font.css">
+<link rel="stylesheet" href="assets/theme.css">
+
+<!-- ═══════════════════════════════════════════════════════════
+     RESOLVED CSS VARIABLES
+     These are normally output by snippets/css-variables.liquid
+     at runtime. Since this is a static HTML preview, we resolve
+     the Liquid expressions using values from settings_data.json.
+     ═══════════════════════════════════════════════════════════ -->
+<style id="resolved-css-variables">
+:root {
+  /* Colors (RGB triplets — used as rgb(var(--color-base-text))) */
+  --color-base-text: 23 23 23;
+  --color-base-background: 255 255 255;
+  --color-base-button: 0 0 0;
+  --color-base-button-gradient: #000000;
+  --color-base-button-text: 255 255 255;
+  --color-base-hover-button: 51 21 208;
+  --color-base-hover-button-text: 255 255 255;
+  --color-base-highlight: 212 253 0;
+  --color-keyboard-focus: 11 97 205;
+  --color-shadow: 168 232 226;
+  --color-price: 23 23 23;
+  --color-sale-price: 225 29 72;
+  --color-sale-tag: 225 29 72;
+  --color-sale-tag-text: 255 255 255;
+  --color-rating: 245 158 11;
+  --color-placeholder: 239 239 239;
+  --color-success-text: 77 124 15;
+  --color-success-background: 247 254 231;
+  --color-error-text: 190 18 60;
+  --color-error-background: 255 241 242;
+  --color-info-text: 180 83 9;
+  --color-info-background: 255 251 235;
+  --color-drawer-text: 23 23 23;
+  --color-drawer-background: 255 255 255;
+  --color-drawer-button-background: 23 23 23;
+  --color-drawer-button-gradient: #171717;
+  --color-drawer-button-text: 255 255 255;
+  --color-drawer-overlay: 23 23 23;
+
+  /* Product card */
+  --card-radius: var(--rounded-card);
+  --card-border-width: 0rem;
+  --card-border-opacity: 0;
+  --card-shadow-opacity: 0.1;
+  --card-shadow-horizontal-offset: 0rem;
+  --card-shadow-vertical-offset: 0rem;
+
+  /* Buttons */
+  --buttons-radius: var(--rounded-button);
+  --buttons-border-width: 1px;
+  --buttons-border-opacity: 1;
+  --buttons-shadow-opacity: 0;
+  --buttons-shadow-horizontal-offset: 0px;
+  --buttons-shadow-vertical-offset: 0px;
+
+  /* Inputs */
+  --inputs-radius: var(--rounded-input);
+  --inputs-border-width: 0px;
+  --inputs-border-opacity: 0.65;
+
+  /* Spacing tokens (static) */
+  --sp-0d5: 0.125rem; --sp-1: 0.25rem; --sp-1d5: 0.375rem; --sp-2: 0.5rem;
+  --sp-2d5: 0.625rem; --sp-3: 0.75rem; --sp-3d5: 0.875rem; --sp-4: 1rem;
+  --sp-4d5: 1.125rem; --sp-5: 1.25rem; --sp-5d5: 1.375rem; --sp-6: 1.5rem;
+  --sp-6d5: 1.625rem; --sp-7: 1.75rem; --sp-7d5: 1.875rem; --sp-8: 2rem;
+  --sp-8d5: 2.125rem; --sp-9: 2.25rem; --sp-9d5: 2.375rem; --sp-10: 2.5rem;
+  --sp-10d5: 2.625rem; --sp-11: 2.75rem; --sp-12: 3rem; --sp-13: 3.25rem;
+  --sp-14: 3.5rem; --sp-15: 3.875rem; --sp-16: 4rem; --sp-18: 4.5rem;
+  --sp-20: 5rem; --sp-23: 5.625rem; --sp-24: 6rem; --sp-28: 7rem;
+  --sp-32: 8rem; --sp-36: 9rem; --sp-40: 10rem; --sp-44: 11rem;
+  --sp-48: 12rem; --sp-52: 13rem; --sp-56: 14rem; --sp-60: 15rem;
+  --sp-64: 16rem; --sp-68: 17rem; --sp-72: 18rem; --sp-80: 20rem;
+  --sp-96: 24rem; --sp-100: 32rem;
+
+  /* Font family (TWK Lausanne — set by font.css, but we alias for theme.css) */
+  --font-heading-family: 'TWK Lausanne', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading-style: normal;
+  --font-heading-weight: 400;
+  --font-heading-line-height: 1;
+  --font-heading-letter-spacing: 0em;
+  --font-body-family: 'TWK Lausanne', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body-style: normal;
+  --font-body-weight: 400;
+  --font-body-line-height: 1.2;
+  --font-body-letter-spacing: 0em;
+
+  /* Navigation font */
+  --font-navigation-family: var(--font-body-family);
+  --font-navigation-size: clamp(1.125rem, 0.748rem + 0.3174vw, 1.375rem);
+  --font-navigation-weight: 400;
+
+  /* Button font */
+  --font-button-family: var(--font-body-family);
+  --font-button-size: clamp(0.875rem, 0.8115rem + 0.1587vw, 1rem);
+  --font-button-weight: 400;
+  --font-button-text-transform: uppercase;
+
+  /* Product font */
+  --font-product-family: var(--font-body-family);
+  --font-product-size: clamp(1rem, 0.873rem + 0.3175vw, 1.25rem);
+  --font-product-weight: 400;
+
+  /* Font sizes (resolved from type_body_size: 18) */
+  --text-3xs: 0.75rem;   /* 12px */
+  --text-2xs: 0.8125rem; /* 13px */
+  --text-xs: 0.875rem;   /* 14px */
+  --text-2sm: 0.9375rem; /* 15px */
+  --text-sm: 1rem;       /* 16px */
+  --text-base: 1.125rem; /* 18px */
+  --text-lg: 1.25rem;    /* 20px */
+  --text-xl: 1.375rem;   /* 22px */
+  --text-2xl: 1.625rem;  /* 26px */
+  --text-3xl: 2rem;      /* 32px */
+  --text-4xl: 2.375rem;  /* 38px */
+  --text-5xl: 3.125rem;  /* 50px */
+  --text-6xl: 3.875rem;  /* 62px */
+  --text-7xl: 4.625rem;  /* 74px */
+  --text-8xl: 6.125rem;  /* 98px */
+
+  /* Layout */
+  --page-width: 1440px;
+  --gap-padding: clamp(var(--sp-5), 2.526vw, var(--sp-12));
+  --grid-gap: clamp(40px, 20vw, 60px);
+  --page-padding: var(--sp-5);
+  --page-container: min(calc(100vw - var(--scrollbar-width, 0px) - var(--page-padding) * 2), var(--page-width));
+  --rounded-button: 3.75rem;
+  --rounded-input: 0.375rem;
+  --rounded-card: clamp(var(--sp-2d5), 1.053vw, var(--sp-5));
+  --rounded-block: clamp(var(--sp-2d5), 1.053vw, var(--sp-5));
+
+  /* Icon */
+  --icon-weight: 1.5px;
+
+  /* ── Spacetalk custom tokens (used by our st-* section styles) ── */
+  --st-black:  #171717;
+  --st-white:  #ffffff;
+  --st-g50:    #f7f7f7;
+  --st-g100:   #f0f0f0;
+  --st-g200:   #e8e8e8;
+  --st-g300:   #d4d4d4;
+  --st-g400:   #a8a8a8;
+  --st-g500:   #6b6b6b;
+  --st-g600:   #4a4a4a;
+  --st-neon:   #c6f135;
+  --st-r:      16px;
+  --st-rp:     999px;
+  --st-ease:   cubic-bezier(.7,0,.3,1);
+  --header-h:  50px;
+}
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════
+     OVERRIDES — keep our section styles working on top of theme.css
+     ═══════════════════════════════════════════════════════════ -->
+<style id="theme-overrides">
+/* theme.css body uses --font-body-weight: 400 but we want 200 for Spacetalk */
+body { font-weight: 200; line-height: 1.6; scroll-behavior: smooth; }
+
+/* theme.css .page-width has no max-width — add ours */
+.page-width { max-width: var(--page-width); padding: 0 24px; }
+
+img { max-width: 100%; display: block; }
+button { cursor: pointer; }
+a { color: inherit; }
+
+@keyframes stFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.st-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--st-ease), transform 0.7s var(--st-ease);
+}
+.st-reveal.is-visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 1 — SPACETALK HEADER                           ║
+     ║  Liquid: header.liquid (already exists in theme)         ║
+     ║  This simulates the live Spacetalk header for preview    ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-header">
+.st-header {
+  background: var(--st-white);
+  position: relative;
+  z-index: 200;
+  border-bottom: 1px solid var(--st-g100);
+}
+.st-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.st-header__logo svg {
+  height: 20px;
+  width: auto;
+}
+.st-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.st-header__nav-link {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--st-black);
+  text-decoration: none;
+  transition: opacity 0.2s;
+  position: relative;
+}
+.st-header__nav-link:hover { opacity: 0.6; }
+.st-header__nav-link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--st-black);
+  border-radius: 1px;
+}
+.st-header__icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.st-header__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--st-black);
+  background: none;
+  border: none;
+  padding: 0;
+}
+.st-header__icon svg { width: 20px; height: 20px; }
+.st-header__cta {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: var(--st-rp);
+  background: var(--st-black);
+  color: var(--st-white);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.st-header__cta:hover { opacity: 0.8; }
+@media (max-width: 989px) {
+  .st-header__nav { display: none; }
+}
+</style>
+
+<header class="st-header">
+  <div class="st-header__inner">
+    <!-- Logo — uses simplified Spacetalk wordmark -->
+    <a href="/" class="st-header__logo" aria-label="Spacetalk home">
+      <svg viewBox="0 0 512 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="56" font-family="'TWK Lausanne', sans-serif" font-size="62" font-weight="500" fill="#171717" letter-spacing="-2">spacetalk</text>
+      </svg>
+    </a>
+
+    <!-- Main navigation -->
+    <nav class="st-header__nav">
+      <a href="#" class="st-header__nav-link">Join Spacetalk</a>
+      <a href="#" class="st-header__nav-link st-header__nav-link--active">Smartwatches</a>
+      <a href="#" class="st-header__nav-link">Mobile &amp; Plans</a>
+      <a href="#" class="st-header__nav-link">Accessories</a>
+    </nav>
+
+    <!-- Header icons -->
+    <div class="st-header__icons">
+      <button class="st-header__icon" aria-label="Search">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="9" r="6"/><line x1="13.5" y1="13.5" x2="18" y2="18"/></svg>
+      </button>
+      <button class="st-header__icon" aria-label="Account">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="7" r="3.5"/><path d="M3 18c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg>
+      </button>
+      <button class="st-header__icon" aria-label="Cart" style="position:relative;">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 7h10l-1.5 8H6.5z"/><path d="M8 7V5a2 2 0 014 0v2"/></svg>
+        <span style="position:absolute;top:-4px;right:-6px;background:var(--st-neon);color:var(--st-black);font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 2 — STICKY SUBNAV                              ║
+     ║  Liquid: sections/st-adv2-subnav.liquid                  ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-subnav">
+.st-subnav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--st-g200);
+  height: var(--header-h);
+}
+.st-subnav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+.st-subnav__links { display: flex; gap: 28px; }
+.st-subnav__link {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-g400);
+  text-decoration: none;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.st-subnav__link:hover,
+.st-subnav__link.is-active {
+  color: var(--st-black);
+  border-bottom-color: var(--st-neon);
+}
+.st-subnav__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.st-subnav__price {
+  font-size: 13px;
+  color: var(--st-g500);
+  font-weight: 500;
+}
+/* Slim button for compact containers (subnav, inline CTAs) */
+.st-subnav__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: var(--font-button-family);
+  line-height: 1;
+  background: var(--st-black);
+  color: var(--st-white);
+  border: none;
+  border-radius: var(--buttons-radius);
+  padding: 10px 22px;
+  transition: background 0.2s;
+}
+.st-subnav__btn:hover { background: var(--st-g600); }
+.st-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-button-size);
+  font-weight: var(--font-button-weight);
+  letter-spacing: 0.04em;
+  text-transform: var(--font-button-text-transform);
+  border: none;
+  border-radius: var(--buttons-radius);
+  transition: color 0.35s ease, box-shadow 0.35s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: var(--font-button-family);
+  line-height: 1;
+  position: relative;
+  overflow: hidden;
+  max-height: 3.75rem;
+}
+
+/* ── Button fill sweep (mimics theme.js HoverButton) ── */
+.st-btn .btn-fill {
+  display: block;
+  border-radius: 50%;
+  width: 150%;
+  height: 200%;
+  position: absolute;
+  top: -50%;
+  left: -25%;
+  transform: translate3d(0, 76%, 0);
+  pointer-events: none;
+  z-index: 0;
+}
+.st-btn .btn-text {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: currentColor;
+  transition: color 0.35s ease;
+}
+
+/* ── Dark button ── */
+.st-btn--dark {
+  background: var(--st-black);
+  color: var(--st-white);
+  padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
+}
+.st-btn--dark .btn-fill {
+  background: var(--st-neon);
+}
+.st-btn--dark:hover {
+  color: var(--st-black);
+}
+
+/* ── Neon (primary CTA) ── */
+.st-btn--neon {
+  background: var(--st-neon);
+  color: var(--st-black);
+  padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
+}
+.st-btn--neon .btn-fill {
+  background: #3315d0;
+}
+.st-btn--neon:hover {
+  color: var(--st-white);
+}
+
+/* ── Outline ── */
+.st-btn--outline {
+  background: transparent;
+  color: var(--st-black);
+  padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
+  border: 2px solid var(--st-black);
+}
+.st-btn--outline .btn-fill {
+  background: var(--st-black);
+}
+.st-btn--outline:hover {
+  color: var(--st-white);
+  border-color: var(--st-black);
+}
+
+/* ── Ghost (underline link style — no fill) ── */
+.st-btn--ghost {
+  background: transparent;
+  color: var(--st-white);
+  padding: 0 0 2px;
+  border: none;
+  border-bottom: 2px solid rgba(255,255,255,0.5);
+  overflow: visible;
+}
+.st-btn--ghost:hover { border-bottom-color: var(--st-white); }
+.st-btn--ghost .btn-fill { display: none; }
+
+/* ── Mobile subnav dropdown ── */
+.st-subnav__toggle {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid var(--st-g200);
+  border-radius: var(--st-rp);
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-black);
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+.st-subnav__toggle:hover { border-color: var(--st-g400); }
+.st-subnav__toggle svg {
+  transition: transform 0.25s var(--st-ease);
+}
+.st-subnav.is-dropdown-open .st-subnav__toggle svg {
+  transform: rotate(180deg);
+}
+.st-subnav__dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--st-g200);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  padding: 8px 0;
+  z-index: 99;
+}
+.st-subnav.is-dropdown-open .st-subnav__dropdown {
+  display: block;
+}
+.st-subnav__dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--st-g500);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.st-subnav__dropdown-link:hover,
+.st-subnav__dropdown-link.is-active {
+  background: var(--st-g50);
+  color: var(--st-black);
+}
+.st-subnav__dropdown-link.is-active::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--st-neon);
+  flex-shrink: 0;
+}
+
+@media (max-width: 989px) {
+  .st-subnav__links { display: none; }
+  .st-subnav__toggle { display: flex; }
+}
+</style>
+
+<nav class="st-subnav" data-st-subnav>
+  <div class="page-width st-subnav__inner">
+    <!-- Mobile dropdown trigger -->
+    <button class="st-subnav__toggle" id="subnav-toggle" aria-expanded="false" aria-controls="subnav-dropdown">
+      <span id="subnav-toggle-label">Overview</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="st-subnav__links">
+      <a href="#overview" class="st-subnav__link is-active" data-st-subnav-link>Overview</a>
+      <a href="#bundles" class="st-subnav__link" data-st-subnav-link>Bundles</a>
+      <a href="#features" class="st-subnav__link" data-st-subnav-link>Features</a>
+      <a href="#compare" class="st-subnav__link" data-st-subnav-link>Compare</a>
+      <a href="#accessories" class="st-subnav__link" data-st-subnav-link>Accessories</a>
+      <a href="#faq" class="st-subnav__link" data-st-subnav-link>FAQ</a>
+    </div>
+
+    <!-- Mobile dropdown menu -->
+    <div class="st-subnav__dropdown" id="subnav-dropdown">
+      <a href="#overview" class="st-subnav__dropdown-link is-active" data-st-subnav-dd>Overview</a>
+      <a href="#bundles" class="st-subnav__dropdown-link" data-st-subnav-dd>Bundles</a>
+      <a href="#features" class="st-subnav__dropdown-link" data-st-subnav-dd>Features</a>
+      <a href="#compare" class="st-subnav__dropdown-link" data-st-subnav-dd>Compare</a>
+      <a href="#accessories" class="st-subnav__dropdown-link" data-st-subnav-dd>Accessories</a>
+      <a href="#faq" class="st-subnav__dropdown-link" data-st-subnav-dd>FAQ</a>
+    </div>
+
+    <div class="st-subnav__right">
+      <span class="st-subnav__price" data-st-from-price>From $256.99</span>
+      <a href="#bundles" class="st-subnav__btn">Build your bundle</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 3 — HERO                                       ║
+     ║  Liquid: sections/st-adv2-hero.liquid                    ║
+     ║  Each section carries its own <style> + <script>         ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-hero">
+.st-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  background: var(--st-black);
+}
+
+/* ── Video background ── */
+.st-hero__video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.st-hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Placeholder poster fallback when no video */
+.st-hero__poster {
+  position: absolute;
+  inset: 0;
+  background:
+    url('https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=1200') center 60% / 42% no-repeat,
+    linear-gradient(135deg, #0a0a0a 0%, #171717 40%, #1a1a2e 100%);
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+.st-hero__video-wrap.is-playing .st-hero__poster { opacity: 0; }
+
+/* ── Gradient scrim overlays ── */
+.st-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.15) 100%);
+  pointer-events: none;
+}
+.st-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ── Content ── */
+.st-hero__inner {
+  position: relative;
+  z-index: 2;
+  padding: 120px 0 100px;
+  width: 100%;
+  max-width: 680px;
+}
+.st-hero__content {
+  opacity: 0;
+  animation: stFadeUp 0.8s 0.2s var(--st-ease) forwards;
+}
+.st-hero__eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--st-neon);
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(212,253,0,0.08);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(212,253,0,0.15);
+}
+.st-hero__eyebrow svg {
+  flex-shrink: 0;
+}
+.st-hero__title {
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--st-white);
+  margin-bottom: 24px;
+}
+.st-hero__title span {
+  display: block;
+  background: linear-gradient(135deg, var(--st-neon) 0%, #a8e600 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.st-hero__sub {
+  font-size: 18px;
+  font-weight: 200;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.65;
+  max-width: 480px;
+  margin-bottom: 40px;
+}
+.st-hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.st-hero__actions .st-btn {
+  padding: clamp(0.875rem, 1.1vw, 1.125rem) clamp(1.5rem, 2vw, 2rem);
+  font-size: clamp(0.75rem, 0.7vw + 0.25rem, 0.875rem);
+  width: auto;
+  flex: 0 0 auto;
+}
+/* Play button */
+.st-hero__play {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: var(--st-rp);
+  padding: 12px 24px;
+  color: var(--st-white);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.25s, background 0.25s;
+}
+.st-hero__play:hover {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.06);
+}
+.st-hero__play svg { flex-shrink: 0; }
+
+.st-hero__meta {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.st-hero__meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.st-hero__meta svg { flex-shrink: 0; }
+
+/* ── Scroll indicator ── */
+.st-hero__scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.35);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  animation: stScrollPulse 2s infinite;
+}
+.st-hero__scroll-line {
+  width: 1px;
+  height: 28px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+}
+@keyframes stScrollPulse {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.8; transform: translateX(-50%) translateY(4px); }
+}
+
+@media (max-width: 989px) {
+  .st-hero { min-height: 85vh; min-height: 85svh; }
+  .st-hero__inner { padding: 100px 0 80px; text-align: center; max-width: 540px; margin: 0 auto; }
+  .st-hero__sub { margin-left: auto; margin-right: auto; }
+  .st-hero__actions { justify-content: center; }
+  .st-hero__meta { justify-content: center; }
+  .st-hero::before {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.7) 100%);
+  }
+  .st-hero__poster {
+    background-position: center 55%;
+    background-size: 65% auto;
+  }
+}
+@media (max-width: 749px) {
+  .st-hero { min-height: 90vh; min-height: 90svh; }
+  .st-hero__title { font-size: clamp(40px, 10vw, 56px); }
+  .st-hero__inner { padding: 80px 0 70px; }
+  .st-hero__poster {
+    background-size: 80% auto;
+  }
+}
+</style>
+
+<section class="st-hero" id="overview">
+  <!-- Background video (replace src with real video URL) -->
+  <div class="st-hero__video-wrap" id="hero-video-wrap">
+    <video
+      class="st-hero__video"
+      id="hero-video"
+      autoplay muted loop playsinline
+      preload="auto"
+      poster="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=1600"
+    >
+      <source src="https://cdn.shopify.com/videos/c/o/v/d9d1f19c0d1a464281188b5b14e1276e.mp4" type="video/mp4">
+    </video>
+    <!-- Poster fallback (shows product image when no video src) -->
+    <div class="st-hero__poster"></div>
+  </div>
+
+  <div class="page-width st-hero__inner">
+    <div class="st-hero__content">
+      <div class="st-hero__eyebrow">
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1l1.5 3.5H13l-3 2.5 1 3.5L7 8.5 3 10.5l1-3.5-3-2.5h4.5z" fill="#c6f135"/></svg>
+        #1 Kids Smartwatch in Australia
+      </div>
+      <h1 class="st-hero__title">Adventurer&nbsp;2<span>Built for independence.</span></h1>
+      <p class="st-hero__sub">4G calls, real-time GPS tracking, front camera &amp; SOS — freedom for them, peace of mind for you.</p>
+
+      <div class="st-hero__actions">
+        <a href="#bundles" class="st-btn st-btn--neon" data-st-from-price data-st-from-price-format="button">Build your bundle — from $256.99</a>
+        <button class="st-hero__play" id="hero-play-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2.5v11l9.5-5.5z" fill="currentColor"/></svg>
+          Watch the film
+        </button>
+      </div>
+
+      <div class="st-hero__meta">
+        <span>
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1l1.5 3.5H13l-3 2.5 1 3.5L7 8.5 3 10.5l1-3.5-3-2.5h4.5z" fill="#c6f135"/></svg>
+          4.4★ · 3,200+ reviews
+        </span>
+        <span>
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#c6f135" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Afterpay available
+        </span>
+        <span>
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1v6l4 2" stroke="#c6f135" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="#c6f135" stroke-width="1.5" fill="none"/></svg>
+          Free express shipping
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="st-hero__scroll">
+    <span>Scroll</span>
+    <div class="st-hero__scroll-line"></div>
+  </div>
+</section>
+
+<script>
+/* Hero: video poster swap + play button */
+(function(){
+  var wrap = document.getElementById('hero-video-wrap');
+  var vid = document.getElementById('hero-video');
+  if (vid && vid.querySelector('source')) {
+    vid.addEventListener('playing', function() {
+      wrap.classList.add('is-playing');
+    });
+  }
+  /* Play button — wire to a lightbox / modal when real video is available */
+  var playBtn = document.getElementById('hero-play-btn');
+  if (playBtn) {
+    playBtn.addEventListener('click', function() {
+      /* TODO: open video lightbox with full promo video */
+      console.log('Open video lightbox');
+    });
+  }
+})();
+</script>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 8 — BUNDLES (plan switcher + tier cards)        ║
+     ║  Liquid: sections/st-adv2-bundles.liquid                 ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-bundles">
+.st-bundles {
+  padding: 100px 0;
+  background: var(--st-g50);
+}
+.st-bundles__header {
+  margin-bottom: 48px;
+}
+.st-bundles__eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-black);
+  background: var(--st-neon);
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: var(--st-rp);
+  margin-bottom: 14px;
+}
+.st-bundles__title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--st-black);
+  margin-bottom: 8px;
+}
+.st-bundles__desc {
+  font-size: 16px;
+  font-weight: 200;
+  color: var(--st-g500);
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+/* Watch Plan unified card — pills + expandable details */
+.st-plan-card {
+  background: var(--st-white);
+  border: 1px solid var(--st-g200);
+  border-radius: var(--st-r);
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+.st-plan-card__top {
+  padding: 20px 24px;
+}
+.st-plan-card__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.st-plan-card__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: var(--st-neon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.st-plan-card__title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--st-black);
+  letter-spacing: -0.01em;
+}
+.st-plan-card__sub {
+  font-size: 13px;
+  font-weight: 200;
+  color: var(--st-g500);
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+/* Plan pill options */
+.st-plan-card__opts {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.st-plan-opt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 12px 22px;
+  cursor: pointer;
+  border: 1.5px solid var(--st-g200);
+  border-radius: 14px;
+  background: var(--st-g50);
+  transition: all 0.2s var(--st-ease);
+  position: relative;
+  min-width: 120px;
+}
+.st-plan-opt:hover {
+  border-color: var(--st-g400);
+  background: var(--st-white);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.st-plan-opt.is-active {
+  border-color: var(--st-black);
+  background: var(--st-black);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+.st-plan-opt__dur {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--st-g600);
+  line-height: 1.3;
+}
+.st-plan-opt.is-active .st-plan-opt__dur {
+  color: var(--st-white);
+  font-weight: 500;
+}
+.st-plan-opt__equiv {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--st-g400);
+  line-height: 1.2;
+}
+.st-plan-opt.is-active .st-plan-opt__equiv {
+  color: rgba(255,255,255,0.55);
+}
+.st-plan-opt__tag {
+  position: absolute;
+  top: -9px; right: -6px;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--st-black);
+  background: var(--st-neon);
+  padding: 3px 8px;
+  border-radius: 999px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.st-plan-msg {
+  font-size: 12px;
+  color: var(--st-g500);
+  min-height: 18px;
+  margin-top: 10px;
+}
+/* Learn more toggle */
+.st-plan-card__more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 24px;
+  border-top: 1px solid var(--st-g100);
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--st-g400);
+  transition: color 0.2s ease;
+}
+.st-plan-card__more:hover { color: var(--st-black); }
+.st-plan-card__more svg {
+  transition: transform 0.25s ease;
+}
+.st-plan-card.is-open .st-plan-card__more svg {
+  transform: rotate(180deg);
+}
+/* Expandable detail */
+.st-plan-card__detail {
+  display: none;
+  padding: 0 24px 20px;
+  border-top: 1px solid var(--st-g100);
+}
+.st-plan-card.is-open .st-plan-card__detail {
+  display: block;
+}
+.st-plan-card__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding-top: 16px;
+}
+.st-plan-card__feat {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 200;
+  color: var(--st-g500);
+  line-height: 1.45;
+}
+.st-plan-card__feat svg { flex-shrink: 0; margin-top: 2px; }
+.st-plan-card__feat strong { font-weight: 500; color: var(--st-black); }
+.st-plan-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid var(--st-g100);
+  margin-top: 16px;
+}
+.st-plan-card__footer-text {
+  font-size: 12px;
+  font-weight: 200;
+  color: var(--st-g400);
+}
+.st-plan-card__footer-link {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--st-black);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 749px) {
+  .st-plan-card__grid { grid-template-columns: 1fr 1fr; }
+  .st-plan-card__opts { justify-content: center; }
+}
+
+/* Tier cards */
+.st-tiers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.st-tier {
+  background: var(--st-white);
+  border: 2px solid var(--st-g200);
+  border-radius: var(--st-r);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.st-tier:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+.st-tier--pop { border-color: var(--st-black); }
+.st-tier--muted { background: var(--st-g50); border-color: var(--st-g200); }
+.st-tier__label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-g400);
+  margin-bottom: 8px;
+}
+.st-tier--pop .st-tier__label { color: var(--st-black); }
+.st-tier__name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--st-black);
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+.st-tier__tagline {
+  font-size: 14px;
+  font-weight: 200;
+  color: var(--st-g400);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.st-tier__was {
+  font-size: 12px;
+  color: var(--st-g300);
+  text-decoration: line-through;
+  min-height: 18px;
+}
+.st-tier__price {
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--st-black);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.st-tier__save {
+  display: inline-block;
+  background: var(--st-neon);
+  color: var(--st-black);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--st-rp);
+  margin: 8px 0 6px;
+  min-height: 24px;
+}
+.st-tier__save--hidden { visibility: hidden; }
+.st-tier__plan {
+  font-size: 11px;
+  color: var(--st-g400);
+  margin-bottom: 16px;
+  min-height: 16px;
+}
+.st-tier__hr {
+  border: none;
+  border-top: 1px solid var(--st-g200);
+  margin: 0 0 14px;
+}
+.st-tier__inc-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-g300);
+  margin-bottom: 12px;
+}
+.st-tier__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+.st-tier__dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--st-neon);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.st-tier__dot--dim { background: var(--st-g200); }
+.st-tier__txt {
+  font-size: 12px;
+  color: var(--st-g600);
+  line-height: 1.4;
+}
+.st-tier__txt strong { font-weight: 500; color: var(--st-black); }
+.st-tier__txt--dim { color: var(--st-g300); }
+.st-tier__cta { margin-top: auto; padding-top: 18px; }
+.st-tier__btn {
+  width: 100%;
+  padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
+  font-size: var(--font-button-size);
+  font-weight: var(--font-button-weight);
+  letter-spacing: 0.04em;
+  text-transform: var(--font-button-text-transform);
+  border-radius: var(--buttons-radius);
+  transition: all 0.2s var(--st-ease);
+  font-family: var(--font-button-family);
+  cursor: pointer;
+  max-height: 3.75rem;
+  line-height: 1;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.st-tier__btn--dark { background: var(--st-black); color: var(--st-white); border: 2px solid var(--st-black); }
+.st-tier__btn--dark:hover { background: var(--st-g600); border-color: var(--st-g600); }
+.st-tier__btn--outline { background: transparent; color: var(--st-black); border: 2px solid var(--st-black); }
+.st-tier__btn--outline:hover { background: var(--st-g50); }
+.st-tier__btn--ghost { background: transparent; color: var(--st-g400); border: 1px solid var(--st-g200); }
+.st-tier__btn--ghost:hover { border-color: var(--st-g400); color: var(--st-g600); }
+
+.st-bundles__note {
+  font-size: 11px;
+  color: var(--st-g400);
+  text-align: center;
+  line-height: 1.8;
+}
+
+@media (max-width: 989px) {
+  .st-tiers { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 749px) {
+  .st-tiers { grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+<section class="st-bundles" id="bundles"
+  data-st-bundle-engine
+  data-watch-price="349"
+  data-plans='[{"price":17.99,"label":"30-day watch plan","msg":"\u00a0"},{"price":90.99,"label":"180-day watch plan","msg":"Save $2.82/mo compared to the monthly plan."},{"price":164.99,"label":"365-day watch plan","msg":"Best value \u2014 save $4.24/mo vs monthly billing."}]'
+  data-tiers='[{"addon":122.80,"discount":60},{"addon":59.90,"discount":30},{"addon":0,"discount":0}]'
+>
+  <div class="page-width">
+
+    <div class="st-bundles__header st-reveal">
+      <div class="st-bundles__eyebrow">Choose your bundle</div>
+      <h2 class="st-bundles__title">Start with what you need.</h2>
+      <p class="st-bundles__desc">Every bundle includes a Watch Plan — a data connection that lets the Spacetalk App on your phone track, call and interact with your child's watch.</p>
+    </div>
+
+    <!-- Watch Plan card — pills + expandable details -->
+    <div class="st-plan-card st-reveal" id="plan-callout">
+      <div class="st-plan-card__top">
+        <div class="st-plan-card__header">
+          <div class="st-plan-card__icon">
+            <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M8 2v5l3 2" stroke="#171717" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="8" r="6" stroke="#171717" stroke-width="1.5" fill="none"/></svg>
+          </div>
+          <span class="st-plan-card__title">Watch Plan</span>
+        </div>
+        <p class="st-plan-card__sub">A data connection on the Telstra 4G network — letting the Spacetalk App on your phone see, track and interact with your child's watch.</p>
+        <div class="st-plan-card__opts">
+          <div class="st-plan-opt is-active" data-plan-opt>
+            <span class="st-plan-opt__dur">30 days</span>
+            <span class="st-plan-opt__equiv">$17.99/mo</span>
+          </div>
+          <div class="st-plan-opt" data-plan-opt>
+            <span class="st-plan-opt__dur">180 days</span>
+            <span class="st-plan-opt__equiv">$15.17/mo</span>
+          </div>
+          <div class="st-plan-opt" data-plan-opt>
+            <span class="st-plan-opt__tag">Best value</span>
+            <span class="st-plan-opt__dur">365 days</span>
+            <span class="st-plan-opt__equiv">$13.75/mo</span>
+          </div>
+        </div>
+        <div class="st-plan-msg" data-plan-msg>&nbsp;</div>
+      </div>
+      <div class="st-plan-card__more" data-plan-callout-toggle>
+        What's included
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="st-plan-card__detail">
+        <div class="st-plan-card__grid">
+          <div class="st-plan-card__feat">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5v4.5l2.5 1.5" stroke="#171717" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="5.5" stroke="#171717" stroke-width="1.5" fill="none"/></svg>
+            <span><strong>Live GPS tracking</strong><br>See your child's real-time location on the Spacetalk App</span>
+          </div>
+          <div class="st-plan-card__feat">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 3.5h11v8h-11z" stroke="#171717" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="7" cy="7.5" r="1.5" stroke="#171717" stroke-width="1" fill="none"/><path d="M4.5 3.5V2" stroke="#171717" stroke-width="1.5" stroke-linecap="round"/><path d="M9.5 3.5V2" stroke="#171717" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span><strong>Video calling &amp; chats</strong><br>Your child can video call and message approved contacts</span>
+          </div>
+          <div class="st-plan-card__feat">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 3v4" stroke="#e53e3e" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="10" r="0.75" fill="#e53e3e"/><path d="M3 2l8 10" stroke="#171717" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span><strong>SOS alerts</strong><br>Instant emergency notification sent to your phone via the app</span>
+          </div>
+          <div class="st-plan-card__feat">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 7h7M7 3.5v7" stroke="#171717" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span><strong>SIM included</strong><br>Comes in the box — pair with the Spacetalk App to activate</span>
+          </div>
+        </div>
+        <div class="st-plan-card__footer">
+          <span class="st-plan-card__footer-text">A SIM card is included with every Spacetalk Watch.</span>
+          <a href="https://spacetalk.co/pages/spacetalk-watch-plans" target="_blank" class="st-plan-card__footer-link">Full plan details &amp; terms &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Tier cards -->
+    <div class="st-tiers st-reveal">
+      <!-- Complete Pack -->
+      <div class="st-tier">
+        <div class="st-tier__label">Complete Pack</div>
+        <div class="st-tier__name">Watch + Plan + Straps + Extras</div>
+        <div class="st-tier__tagline">Everything in the box. Ready from day one.</div>
+        <div class="st-tier__was" data-tier-was="0">&nbsp;</div>
+        <div class="st-tier__price" data-tier-price="0">—</div>
+        <div class="st-tier__save" data-tier-save="0">&nbsp;</div>
+        <div class="st-tier__plan" data-tier-plan="0">&nbsp;</div>
+        <hr class="st-tier__hr">
+        <div class="st-tier__inc-label">Includes</div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Adventurer 2</strong> watch</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Watch plan</strong></div></div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>2 extra</strong> colour straps</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Charging stand</strong></div></div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Screen protector</strong></div></div>
+        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit.html" class="st-tier__btn st-tier__btn--outline">Build this bundle</a></div>
+      </div>
+
+      <!-- Plus Pack -->
+      <div class="st-tier st-tier--pop">
+        <div class="st-tier__label">Plus Pack</div>
+        <div class="st-tier__name">Watch + Plan + Straps</div>
+        <div class="st-tier__tagline">The watch, plan and two straps to mix daily.</div>
+        <div class="st-tier__was" data-tier-was="1">&nbsp;</div>
+        <div class="st-tier__price" data-tier-price="1">—</div>
+        <div class="st-tier__save" data-tier-save="1">&nbsp;</div>
+        <div class="st-tier__plan" data-tier-plan="1">&nbsp;</div>
+        <hr class="st-tier__hr">
+        <div class="st-tier__inc-label">Includes</div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Adventurer 2</strong> watch</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Watch plan</strong></div></div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>2 extra</strong> colour straps</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No charging stand</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No screen protector</div></div>
+        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit.html" class="st-tier__btn st-tier__btn--dark">Build this bundle</a></div>
+      </div>
+
+      <!-- Starter Pack -->
+      <div class="st-tier">
+        <div class="st-tier__label">Starter Pack</div>
+        <div class="st-tier__name">Watch + Plan</div>
+        <div class="st-tier__tagline">Start simple. Add accessories anytime.</div>
+        <div class="st-tier__was" data-tier-was="2">&nbsp;</div>
+        <div class="st-tier__price" data-tier-price="2">—</div>
+        <div class="st-tier__save" data-tier-save="2">&nbsp;</div>
+        <div class="st-tier__plan" data-tier-plan="2">&nbsp;</div>
+        <hr class="st-tier__hr">
+        <div class="st-tier__inc-label">Includes</div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Adventurer 2</strong> watch</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Watch plan</strong></div></div>
+        <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No extra straps</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No charging stand</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No screen protector</div></div>
+        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit.html" class="st-tier__btn st-tier__btn--outline">Build this bundle</a></div>
+      </div>
+
+      <!-- Watch Only -->
+      <div class="st-tier st-tier--muted">
+        <div class="st-tier__label">Watch Only</div>
+        <div class="st-tier__name">Watch only</div>
+        <div class="st-tier__tagline">Just the watch. Add a plan separately.</div>
+        <div class="st-tier__was">was $349.00</div>
+        <div class="st-tier__price">$239.00</div>
+        <div class="st-tier__save">Save $110.00</div>
+        <div class="st-tier__plan" style="color:var(--st-g400);">Plan sold separately</div>
+        <hr class="st-tier__hr">
+        <div class="st-tier__inc-label">Includes</div>
+        <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Adventurer 2</strong> watch</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No watch plan</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No extra straps</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No charging stand</div></div>
+        <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No screen protector</div></div>
+        <div class="st-tier__cta"><a href="spacetalk-adv2-watchonly.html" class="st-tier__btn st-tier__btn--ghost">Buy watch only</a></div>
+      </div>
+    </div>
+
+    <p class="st-bundles__note">All prices include GST &nbsp;·&nbsp; Choose your colour on the next step &nbsp;·&nbsp; Free shipping over $400</p>
+
+  </div>
+</section>
+
+<script>
+/* Bundle pricing engine — self-contained per section */
+(function(){
+  var el = document.querySelector('[data-st-bundle-engine]');
+  if(!el) return;
+  var wp = parseFloat(el.dataset.watchPrice)||239;
+  var plans = JSON.parse(el.dataset.plans||'[]');
+  var tiers = JSON.parse(el.dataset.tiers||'[]');
+  var cp = 0;
+  var opts = el.querySelectorAll('[data-plan-opt]');
+  var msg  = el.querySelector('[data-plan-msg]');
+
+  function fmt(n){return '$'+n.toFixed(2);}
+
+  function update(){
+    if(!plans.length||!tiers.length) return;
+    var plan=plans[cp], low=Infinity;
+    tiers.forEach(function(t,i){
+      var subtotal=Math.round((wp+plan.price+(t.addon||0))*100)/100;
+      var disc=t.discount||0;
+      var price=Math.round((subtotal-disc)*100)/100;
+      var we=el.querySelector('[data-tier-was="'+i+'"]');
+      var pe=el.querySelector('[data-tier-price="'+i+'"]');
+      var se=el.querySelector('[data-tier-save="'+i+'"]');
+      var le=el.querySelector('[data-tier-plan="'+i+'"]');
+      if(we){ we.textContent=disc>0?'was '+fmt(subtotal):'\u00a0'; we.style.visibility=disc>0?'visible':'hidden'; }
+      if(pe) pe.textContent=fmt(price);
+      if(se){ se.textContent=disc>0?'Save '+fmt(disc):'\u00a0'; if(se.classList) se.classList.toggle('st-tier__save--hidden',disc===0); }
+      if(le) le.textContent=plan.label+' included';
+      if(price<low) low=price;
+    });
+    low=Math.round(low*100)/100;
+    var fs='From '+fmt(low);
+    document.querySelectorAll('[data-st-from-price]').forEach(function(e){
+      e.textContent=e.dataset.stFromPriceFormat==='button'?'Build your bundle — '+fs.toLowerCase():fs;
+    });
+    if(msg) msg.textContent=plan.msg||'\u00a0';
+    opts.forEach(function(o,i){o.classList.toggle('is-active',i===cp);});
+  }
+
+  opts.forEach(function(o,i){o.addEventListener('click',function(){cp=i;update();});});
+  update();
+
+  /* Plan callout toggle */
+  var callout = document.getElementById('plan-callout');
+  var toggle = callout && callout.querySelector('[data-plan-callout-toggle]');
+  if (toggle) {
+    toggle.addEventListener('click', function() {
+      callout.classList.toggle('is-open');
+    });
+  }
+})();
+</script>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 4 — FEATURE ICON STRIP                         ║
+     ║  Liquid: sections/st-adv2-feature-strip.liquid           ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-feature-strip">
+.st-fstrip {
+  border-bottom: 1px solid var(--st-g200);
+  padding: 28px 0;
+}
+.st-fstrip__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.st-fstrip__item {
+  text-align: center;
+  padding: 16px 8px;
+}
+.st-fstrip__icon {
+  width: 44px;
+  height: 44px;
+  background: var(--st-g50);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+.st-fstrip__label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--st-black);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.st-fstrip__sub {
+  font-size: 11px;
+  color: var(--st-g500);
+  margin-top: 2px;
+}
+@media (max-width: 749px) {
+  .st-fstrip__grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+
+<section class="st-fstrip">
+  <div class="page-width">
+    <div class="st-fstrip__grid">
+      <div class="st-fstrip__item">
+        <div class="st-fstrip__icon">
+          <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><rect x="5" y="2" width="12" height="18" rx="3" stroke="var(--st-black)" stroke-width="1.5"/><circle cx="11" cy="6" r="1.5" fill="var(--st-neon)"/></svg>
+        </div>
+        <div class="st-fstrip__label">4G Video & Voice</div>
+        <div class="st-fstrip__sub">HD calls on 5MP camera</div>
+      </div>
+      <div class="st-fstrip__item">
+        <div class="st-fstrip__icon">
+          <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><circle cx="11" cy="11" r="4" fill="none" stroke="var(--st-black)" stroke-width="1.5"/><circle cx="11" cy="11" r="8.5" fill="none" stroke="var(--st-black)" stroke-width="1.5" stroke-dasharray="3 3"/><circle cx="11" cy="11" r="2" fill="var(--st-neon)"/></svg>
+        </div>
+        <div class="st-fstrip__label">GPS Tracking</div>
+        <div class="st-fstrip__sub">Live location & history</div>
+      </div>
+      <div class="st-fstrip__item">
+        <div class="st-fstrip__icon">
+          <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M11 4v6l4 3" stroke="var(--st-black)" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="11" r="8.5" stroke="var(--st-black)" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="st-fstrip__label">3-Day Battery</div>
+        <div class="st-fstrip__sub">750 mAh capacity</div>
+      </div>
+      <div class="st-fstrip__item">
+        <div class="st-fstrip__icon">
+          <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M11 18S4 13.5 4 8.5a7 7 0 0114 0C18 13.5 11 18 11 18z" stroke="var(--st-black)" stroke-width="1.5" fill="none"/><circle cx="11" cy="8.5" r="2" fill="var(--st-neon)"/></svg>
+        </div>
+        <div class="st-fstrip__label">SOS & Safe Zones</div>
+        <div class="st-fstrip__sub">Instant emergency alerts</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 5 — TRUST STATS                                ║
+     ║  Liquid: sections/st-adv2-trust.liquid                   ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-trust">
+.st-trust {
+  padding: 48px 0;
+}
+.st-trust__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--st-g200);
+  border-radius: var(--st-r);
+  overflow: hidden;
+}
+.st-trust__item {
+  text-align: center;
+  padding: 28px 16px;
+  border-right: 1px solid var(--st-g200);
+}
+.st-trust__item:last-child { border-right: none; }
+.st-trust__num {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--st-black);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.st-trust__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-g400);
+}
+@media (max-width: 749px) {
+  .st-trust__grid { grid-template-columns: repeat(2, 1fr); }
+  .st-trust__item:nth-child(2) { border-right: none; }
+  .st-trust__item:nth-child(1),
+  .st-trust__item:nth-child(2) { border-bottom: 1px solid var(--st-g200); }
+}
+</style>
+
+<section class="st-trust st-reveal">
+  <div class="page-width">
+    <div class="st-trust__grid">
+      <div class="st-trust__item">
+        <div class="st-trust__num">4.4★</div>
+        <div class="st-trust__label">3,200+ reviews</div>
+      </div>
+      <div class="st-trust__item">
+        <div class="st-trust__num">#1</div>
+        <div class="st-trust__label">Kids smartwatch AU</div>
+      </div>
+      <div class="st-trust__item">
+        <div class="st-trust__num">500K+</div>
+        <div class="st-trust__label">App downloads</div>
+      </div>
+      <div class="st-trust__item">
+        <div class="st-trust__num">24/7</div>
+        <div class="st-trust__label">Customer support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 6 — FEATURES (alternating image/text blocks)    ║
+     ║  Liquid: sections/st-adv2-features.liquid                ║
+     ║  Each block = a Shopify block with image, heading, text  ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-features">
+.st-features {
+  padding: 100px 0;
+}
+.st-features__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 64px;
+}
+.st-features__eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-black);
+  background: var(--st-neon);
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: var(--st-rp);
+  margin-bottom: 16px;
+}
+.st-features__title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--st-black);
+  margin-bottom: 12px;
+}
+.st-features__desc {
+  font-size: 18px;
+  font-weight: 200;
+  color: var(--st-g500);
+  line-height: 1.7;
+}
+.st-feat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+.st-feat-row:last-child { margin-bottom: 0; }
+.st-feat-row--flip .st-feat-row__media { order: 2; }
+.st-feat-row--flip .st-feat-row__text { order: 1; }
+.st-feat-row__media {
+  border-radius: var(--st-r);
+  overflow: hidden;
+  background: var(--st-g50);
+  aspect-ratio: 1;
+}
+.st-feat-row__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--st-ease);
+}
+.st-feat-row__media:hover img { transform: scale(1.04); }
+.st-feat-row__kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-black);
+  background: var(--st-neon);
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--st-rp);
+  margin-bottom: 14px;
+}
+.st-feat-row__heading {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--st-black);
+  margin-bottom: 14px;
+}
+.st-feat-row__body {
+  font-size: 16px;
+  font-weight: 200;
+  color: var(--st-g500);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.st-feat-row__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.st-feat-row__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--st-g600);
+  line-height: 1.5;
+}
+.st-feat-row__list li::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--st-neon);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+@media (max-width: 989px) {
+  .st-feat-row {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .st-feat-row--flip .st-feat-row__media { order: 0; }
+  .st-feat-row--flip .st-feat-row__text { order: 0; }
+  .st-feat-row__media { aspect-ratio: 1; }
+}
+</style>
+
+<section class="st-features" id="features">
+  <div class="page-width">
+
+    <div class="st-features__header st-reveal">
+      <div class="st-features__eyebrow">Designed for growing independence</div>
+      <h2 class="st-features__title">Everything they need.<br>Everything you need.</h2>
+      <p class="st-features__desc">Built for kids. Designed for parents. The Adventurer 2 gives independence without the risks of a smartphone.</p>
+    </div>
+
+    <!-- Block 1 — Connection -->
+    <div class="st-feat-row st-reveal">
+      <div class="st-feat-row__media">
+        <img src="https://spacetalk.co/cdn/shop/files/ADV2-FROST-TILE8_794585c7-8770-4e63-9367-1556ca82908b.png?v=1773355283&width=800" alt="Everyday connection on Adventurer 2" loading="lazy">
+      </div>
+      <div class="st-feat-row__text">
+        <div class="st-feat-row__kicker">Communication</div>
+        <h3 class="st-feat-row__heading">Everyday connection that just works.</h3>
+        <p class="st-feat-row__body">Whether it's a quick check-in or a change of plans, the Adventurer 2 makes communication simple and safe.</p>
+        <ul class="st-feat-row__list">
+          <li>4G HD video calls on a 5MP camera</li>
+          <li>Trusted contacts — approved and managed by you</li>
+          <li>SOS alerts to your emergency circle</li>
+          <li>Chat & SMS to approved contacts only</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Block 2 — Location -->
+    <div class="st-feat-row st-feat-row--flip st-reveal">
+      <div class="st-feat-row__media">
+        <img src="https://spacetalk.co/cdn/shop/files/ADV2-FROST-TILE9_0204d259-cfe3-4aa8-a38f-e0ebe0f419eb.png?v=1773355283&width=800" alt="GPS location tracking on Adventurer 2" loading="lazy">
+      </div>
+      <div class="st-feat-row__text">
+        <div class="st-feat-row__kicker">Location</div>
+        <h3 class="st-feat-row__heading">Visibility into their day.</h3>
+        <p class="st-feat-row__body">From the walk to school to after-school activities, stay aware of where their day takes them — without constant checking.</p>
+        <ul class="st-feat-row__list">
+          <li>GPS location & full location history</li>
+          <li>Safe Places with arrive/leave alerts</li>
+          <li>Feelings & check-ins</li>
+          <li>5MP camera for snapping photos</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Block 3 — Durability -->
+    <div class="st-feat-row st-reveal">
+      <div class="st-feat-row__media">
+        <img src="https://spacetalk.co/cdn/shop/files/ADV2-FROST-TILE13_197274cf-c8e1-484e-a377-da3fd26d415f.png?v=1773355283&width=800" alt="Durable Adventurer 2 watch" loading="lazy">
+      </div>
+      <div class="st-feat-row__text">
+        <div class="st-feat-row__kicker">Built to Last</div>
+        <h3 class="st-feat-row__heading">Built to keep up.</h3>
+        <p class="st-feat-row__body">Designed for busy schedules and active days. Fits comfortably into school life, play time and everything in between.</p>
+        <ul class="st-feat-row__list">
+          <li>Up to 3 days battery life — 750 mAh</li>
+          <li>Splashproof IP67 water resistance</li>
+          <li>Tough Gorilla Glass screen</li>
+          <li>Heart rate monitor & fitness tracker</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Block 4 — Focus -->
+    <div class="st-feat-row st-feat-row--flip st-reveal">
+      <div class="st-feat-row__media">
+        <img src="https://spacetalk.co/cdn/shop/files/ADV2-FROST-TILE5_7ca3b4e6-4687-4d85-8312-8b9624a0c250.png?v=1773355283&width=800" alt="School mode on Adventurer 2" loading="lazy">
+      </div>
+      <div class="st-feat-row__text">
+        <div class="st-feat-row__kicker">Focus</div>
+        <h3 class="st-feat-row__heading">Focus where it matters.</h3>
+        <p class="st-feat-row__body">Designed to encourage healthy routines and focused use. The Adventurer 2 keeps distractions in check while supporting independence.</p>
+        <ul class="st-feat-row__list">
+          <li>School mode for distraction-free learning</li>
+          <li>No social media or open internet</li>
+          <li>Alerts, reminders & rewards set by you</li>
+          <li>1.41" bright AMOLED screen</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 7 — SPACETALK APP CALLOUT                      ║
+     ║  Liquid: sections/st-adv2-app-callout.liquid             ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-app-callout">
+.st-app-callout {
+  background: var(--st-black);
+  padding: 100px 0;
+  overflow: hidden;
+}
+.st-app-callout__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.st-app-callout__eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-neon);
+  margin-bottom: 14px;
+}
+.st-app-callout__title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--st-white);
+  margin-bottom: 14px;
+}
+.st-app-callout__body {
+  font-size: 16px;
+  font-weight: 200;
+  color: var(--st-g400);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 440px;
+}
+.st-app-callout__badges {
+  display: flex;
+  gap: 12px;
+}
+.st-app-callout__badge {
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--st-white);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.st-app-callout__badge:hover { background: rgba(255,255,255,0.18); }
+.st-app-callout__media {
+  display: flex;
+  justify-content: center;
+}
+.st-app-callout__media img {
+  max-height: 400px;
+  width: auto;
+  border-radius: 24px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 989px) {
+  .st-app-callout__inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .st-app-callout__body { margin: 0 auto 28px; }
+  .st-app-callout__badges { justify-content: center; }
+  .st-app-callout__media { order: -1; margin-bottom: 16px; }
+  .st-app-callout__media img { max-height: 300px; }
+}
+</style>
+
+<section class="st-app-callout st-reveal">
+  <div class="page-width st-app-callout__inner">
+    <div>
+      <div class="st-app-callout__eyebrow">The Spacetalk App</div>
+      <h2 class="st-app-callout__title">Welcome to the<br>Freedom Platform.</h2>
+      <p class="st-app-callout__body">The Spacetalk App connects watches with family safety features to support growing independence. Manage contacts, set safe zones, enable school mode and more — all from your phone.</p>
+      <div class="st-app-callout__badges">
+        <a href="#" class="st-app-callout__badge">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M12.5 8.3c0-2.3 1.9-3.4 2-3.5a4.4 4.4 0 00-3.4-1.8c-1.4-.1-2.8.8-3.6.8-.8 0-2-.8-3.3-.8A4.8 4.8 0 000 7.5c0 3.4 2.5 7 4.4 7 1 0 1.8-.7 3.2-.7 1.3 0 1.7.7 3.2.7 2 0 3.4-3 3.6-3.5-2.3-1-2.9-3.7-2.9-2.7z"/></svg>
+          App Store
+        </a>
+        <a href="#" class="st-app-callout__badge">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1 1.5l8.5 6.5L1 14.5V1.5zM10.5 8L15 11l-4.5 3V8zM10.5 5L15 2l-4.5 3v0z"/></svg>
+          Google Play
+        </a>
+      </div>
+    </div>
+    <div class="st-app-callout__media">
+      <img src="https://spacetalk.co/cdn/shop/files/ADV2-FROST-TILE6_baba1096-a5ad-4015-b633-e72111b764d5.png?v=1773355283&width=800" alt="Spacetalk App" loading="lazy">
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 9 — WHAT'S IN THE BOX                          ║
+     ║  Liquid: sections/st-adv2-inbox.liquid                   ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-inbox">
+.st-inbox {
+  padding: 100px 0;
+}
+.st-inbox__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.st-inbox__media {
+  border-radius: var(--st-r);
+  overflow: hidden;
+  background: var(--st-g50);
+}
+.st-inbox__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.st-inbox__eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-g400);
+  margin-bottom: 12px;
+}
+.st-inbox__title {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--st-black);
+  margin-bottom: 14px;
+}
+.st-inbox__body {
+  font-size: 16px;
+  font-weight: 200;
+  color: var(--st-g500);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.st-inbox__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.st-inbox__list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--st-g600);
+}
+.st-inbox__list li::before {
+  content: '✓';
+  font-weight: 700;
+  color: var(--st-neon);
+  font-size: 14px;
+}
+.st-inbox__note {
+  font-size: 12px;
+  color: var(--st-g400);
+  margin-top: 16px;
+  font-style: italic;
+}
+
+@media (max-width: 989px) {
+  .st-inbox__inner { grid-template-columns: 1fr; }
+}
+</style>
+
+<section class="st-inbox st-reveal">
+  <div class="page-width st-inbox__inner">
+    <div class="st-inbox__media">
+      <img src="https://spacetalk.co/cdn/shop/files/ADV2-FROST-TILE7_314e5698-7c2c-4295-92c4-2d14dea8115b.png?v=1773355283&width=800" alt="What's in the box" loading="lazy">
+    </div>
+    <div>
+      <div class="st-inbox__eyebrow">What's in the box</div>
+      <h3 class="st-inbox__title">Included Essentials</h3>
+      <p class="st-inbox__body">Everything you need to get started comes ready in the box, so setup is simple and your Adventurer 2 is ready to go from day one.</p>
+      <ul class="st-inbox__list">
+        <li>Adventurer 2 Smartwatch</li>
+        <li>Adventurer 2 Band Strap</li>
+        <li>Charging Dock & USB-C Cable</li>
+        <li>Magnetic Charging Stand</li>
+      </ul>
+      <p class="st-inbox__note">* Watch plan not included — add one above or activate separately.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 10 — COMPARISON TABLE                          ║
+     ║  Liquid: sections/st-adv2-comparison.liquid              ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-compare">
+.st-compare {
+  padding: 100px 0;
+  background: var(--st-g50);
+}
+.st-compare__header {
+  margin-bottom: 40px;
+}
+.st-compare__eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-black);
+  background: var(--st-neon);
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: var(--st-rp);
+  margin-bottom: 14px;
+}
+.st-compare__title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--st-black);
+  margin-bottom: 8px;
+}
+.st-compare__desc {
+  font-size: 16px;
+  font-weight: 200;
+  color: var(--st-g500);
+  line-height: 1.7;
+  max-width: 500px;
+}
+.st-compare__wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.st-cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  table-layout: fixed;
+  background: var(--st-white);
+  border-radius: var(--st-r);
+  overflow: hidden;
+}
+.st-cmp-table thead th {
+  padding: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  border-bottom: 2px solid var(--st-black);
+  background: var(--st-white);
+}
+.st-cmp-table thead th:not(:first-child) { text-align: center; }
+.st-cmp-table thead th.st-cmp-adv { color: var(--st-black); }
+.st-cmp-table thead th.st-cmp-lp { color: var(--st-g400); }
+.st-cmp-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--st-g200);
+  vertical-align: middle;
+}
+.st-cmp-table tr:last-child td { border-bottom: none; }
+.st-cmp-table tr:hover td { background: var(--st-g50); }
+.st-cmp-feat { font-size: 13px; color: var(--st-g600); }
+.st-cmp-yes { text-align: center; font-size: 18px; font-weight: 700; color: var(--st-black); }
+.st-cmp-no { text-align: center; font-size: 18px; color: var(--st-g300); }
+.st-cmp-price { font-weight: 700; font-size: 14px; text-align: center; }
+.st-cmp-text { text-align: center; font-size: 12px; font-weight: 700; }
+
+@media (max-width: 749px) {
+  .st-cmp-table { font-size: 12px; }
+}
+</style>
+
+<section class="st-compare" id="compare">
+  <div class="page-width">
+    <div class="st-compare__header st-reveal">
+      <div class="st-compare__eyebrow">Adventurer 2 vs Loop</div>
+      <h2 class="st-compare__title">Not sure which watch?</h2>
+      <p class="st-compare__desc">Both connect to the Spacetalk app with GPS, calls and SOS. Here's where they differ.</p>
+    </div>
+
+    <div class="st-compare__wrap st-reveal">
+      <table class="st-cmp-table">
+        <thead>
+          <tr>
+            <th style="width:44%;">Feature</th>
+            <th class="st-cmp-adv" style="width:28%;">Adventurer 2</th>
+            <th class="st-cmp-lp" style="width:28%;">Loop</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="st-cmp-feat">Starting price</td><td class="st-cmp-price">$239</td><td class="st-cmp-price" style="color:var(--st-g400);">$174</td></tr>
+          <tr><td class="st-cmp-feat">Live GPS tracking</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
+          <tr><td class="st-cmp-feat">4G calls</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
+          <tr><td class="st-cmp-feat">Messaging</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
+          <tr><td class="st-cmp-feat">Front camera</td><td class="st-cmp-yes">✓</td><td class="st-cmp-no">–</td></tr>
+          <tr><td class="st-cmp-feat">Video calling</td><td class="st-cmp-yes">✓</td><td class="st-cmp-no">–</td></tr>
+          <tr><td class="st-cmp-feat">SOS button</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
+          <tr><td class="st-cmp-feat">School mode</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
+          <tr><td class="st-cmp-feat">Safe zones</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
+          <tr><td class="st-cmp-feat">Slim / light profile</td><td class="st-cmp-no">–</td><td class="st-cmp-yes">✓</td></tr>
+          <tr><td class="st-cmp-feat">Recommended age</td><td class="st-cmp-text">5–14 yrs</td><td class="st-cmp-text" style="color:var(--st-g400);">4–12 yrs</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 11 — ACCESSORIES                               ║
+     ║  Liquid: sections/st-adv2-accessories.liquid             ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-accessories">
+.st-acc {
+  padding: 100px 0;
+}
+.st-acc__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.st-acc__eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-g400);
+  margin-bottom: 6px;
+}
+.st-acc__title {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--st-black);
+}
+.st-acc__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.st-acc__card {
+  border: 1px solid var(--st-g200);
+  border-radius: var(--st-r);
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s var(--st-ease);
+  background: var(--st-white);
+}
+.st-acc__card:hover {
+  border-color: var(--st-black);
+  transform: translateY(-3px);
+}
+.st-acc__img {
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--st-g50);
+  overflow: hidden;
+}
+.st-acc__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--st-ease);
+}
+.st-acc__card:hover .st-acc__img img { transform: scale(1.05); }
+.st-acc__body { padding: 20px; }
+.st-acc__name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--st-black);
+  margin-bottom: 4px;
+}
+.st-acc__price {
+  font-size: 15px;
+  color: var(--st-g500);
+  margin-bottom: 16px;
+}
+.st-acc__btn {
+  font-size: var(--font-button-size);
+  font-weight: var(--font-button-weight);
+  letter-spacing: 0.04em;
+  text-transform: var(--font-button-text-transform);
+  color: rgb(var(--color-button-text));
+  background: rgb(var(--color-button-background));
+  border: none;
+  border-radius: var(--buttons-radius);
+  padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
+  width: 100%;
+  max-height: 3.75rem;
+  line-height: 1;
+  transition: background 0.2s, color 0.2s;
+  font-family: var(--font-button-family);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.st-acc__btn:hover { background: rgb(var(--color-hover-button-background)); color: rgb(var(--color-hover-button-text)); }
+
+@media (max-width: 749px) {
+  .st-acc__grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<section class="st-acc st-reveal" id="accessories">
+  <div class="page-width">
+    <div class="st-acc__header">
+      <div>
+        <div class="st-acc__eyebrow">Accessories</div>
+        <h2 class="st-acc__title">Designed to Adapt</h2>
+      </div>
+      <a href="#" class="st-btn st-btn--outline" style="font-size:10px;padding:10px 20px;">Explore all accessories</a>
+    </div>
+
+    <div class="st-acc__grid">
+      <div class="st-acc__card">
+        <a href="https://spacetalk.co/products/spacetalk-adventurer-2-loop-band-strap" class="st-acc__img">
+          <img src="https://spacetalk.co/cdn/shop/files/Adventurer2-Arctic-Back-1600x1600RGB_b03bdcf6-0e3b-4d44-9d70-401b644465e3.png?v=1762928293&width=800" alt="Adventurer 2 &amp; Loop Band Strap" loading="lazy">
+        </a>
+        <div class="st-acc__body">
+          <div class="st-acc__name">Band Strap</div>
+          <div class="st-acc__price">13 colours available &middot; $29.95</div>
+          <a href="https://spacetalk.co/products/spacetalk-adventurer-2-loop-band-strap" class="st-acc__btn">VIEW OPTIONS</a>
+        </div>
+      </div>
+      <div class="st-acc__card">
+        <a href="https://spacetalk.co/products/spacetalk-adventurer-charging-stand-kit" class="st-acc__img">
+          <img src="https://spacetalk.co/cdn/shop/files/Charging-Dock-Stand-Correct-Colour.png?v=1763003757&width=800" alt="Adventurer 1 &amp; 2 Charging Stand" loading="lazy">
+        </a>
+        <div class="st-acc__body">
+          <div class="st-acc__name">Charging Stand Kit</div>
+          <div class="st-acc__price">Magnetic dock &middot; $49.95</div>
+          <button class="st-acc__btn">ADD TO CART &ndash; $49.95</button>
+        </div>
+      </div>
+      <div class="st-acc__card">
+        <a href="https://spacetalk.co/products/spacetalk-adventurer-screen-protector-kit" class="st-acc__img">
+          <img src="https://spacetalk.co/cdn/shop/files/Adv2screenprotector-frost.png?v=1757567914&width=800" alt="Adventurer 2 Screen Protector Kit" loading="lazy">
+        </a>
+        <div class="st-acc__body">
+          <div class="st-acc__name">Screen Protector Kit</div>
+          <div class="st-acc__price">Tempered glass &middot; $12.95</div>
+          <button class="st-acc__btn">ADD TO CART &ndash; $12.95</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 12 — REVIEWS                                   ║
+     ║  Liquid: sections/st-adv2-reviews.liquid                 ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-reviews">
+.st-reviews {
+  background: var(--st-black);
+  padding: 100px 0;
+  overflow: hidden;
+}
+.st-reviews__header {
+  margin-bottom: 40px;
+}
+.st-reviews__eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-neon);
+  margin-bottom: 12px;
+}
+.st-reviews__title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--st-white);
+  margin-bottom: 8px;
+}
+.st-reviews__sub {
+  font-size: 16px;
+  font-weight: 200;
+  color: var(--st-g400);
+}
+.st-reviews__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.st-review-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--st-r);
+  padding: 28px;
+  transition: background 0.2s;
+}
+.st-review-card:hover { background: rgba(255,255,255,0.07); }
+.st-review-card__stars {
+  font-size: 12px;
+  color: var(--st-neon);
+  background: rgba(198,241,53,0.1);
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--st-rp);
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+.st-review-card__quote {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--st-white);
+  line-height: 1.4;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.st-review-card__body {
+  font-size: 15px;
+  font-weight: 200;
+  color: var(--st-g400);
+  line-height: 1.65;
+}
+.st-review-card__author {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--st-g500);
+  margin-top: 16px;
+}
+
+@media (max-width: 749px) {
+  .st-reviews__grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<section class="st-reviews st-reveal">
+  <div class="page-width">
+    <div class="st-reviews__header">
+      <div class="st-reviews__eyebrow">Trusted by families</div>
+      <h2 class="st-reviews__title">Real families. Real peace of mind.</h2>
+      <p class="st-reviews__sub">From 3,200+ verified reviews.</p>
+    </div>
+
+    <div class="st-reviews__grid">
+      <div class="st-review-card">
+        <div class="st-review-card__stars">★★★★★</div>
+        <div class="st-review-card__quote">"Works well and my son loves his Spacetalk. He is allowed to wear it at school."</div>
+        <div class="st-review-card__body">The features are nice and practical, tasks can be added for him then given a reward when they're done.</div>
+        <div class="st-review-card__author">Sandra M — Mum</div>
+      </div>
+      <div class="st-review-card">
+        <div class="st-review-card__stars">★★★★★</div>
+        <div class="st-review-card__quote">"Works straight out of the box without a crazy amount of set-up."</div>
+        <div class="st-review-card__body">School mode is handy, and generally, all the controls you can run on the parent phone to manage the watch are intuitive.</div>
+        <div class="st-review-card__author">Jay D — Dad</div>
+      </div>
+      <div class="st-review-card">
+        <div class="st-review-card__stars">★★★★★</div>
+        <div class="st-review-card__quote">"My daughter has allergies and Spacetalk has given her the confidence she needs."</div>
+        <div class="st-review-card__body">She can live a more normal, active life and I know she's safe.</div>
+        <div class="st-review-card__author">Rebecca — Mum to a 10-year-old</div>
+      </div>
+      <div class="st-review-card">
+        <div class="st-review-card__stars">★★★★★</div>
+        <div class="st-review-card__quote">"Love that this allows me to ensure my son is safe without giving him access to the internet."</div>
+        <div class="st-review-card__body">Also, the locator is great for when he forgets where he put it.</div>
+        <div class="st-review-card__author">Joy M — Mum</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 13 — FAQ                                       ║
+     ║  Liquid: sections/st-adv2-faq.liquid                     ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-faq">
+.st-faq {
+  padding: 100px 0;
+}
+.st-faq__inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.st-faq__header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.st-faq__eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-g400);
+  margin-bottom: 10px;
+}
+.st-faq__title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--st-black);
+}
+.st-faq-item {
+  border-bottom: 1px solid var(--st-g200);
+}
+.st-faq-item:first-child { border-top: 1px solid var(--st-g200); }
+.st-faq-item__q {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--st-black);
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  gap: 16px;
+  user-select: none;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+}
+.st-faq-item__q:hover { color: var(--st-g600); }
+.st-faq-item__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--st-g200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, transform 0.3s var(--st-ease);
+}
+.st-faq-item.is-open .st-faq-item__icon {
+  background: var(--st-black);
+  border-color: var(--st-black);
+  transform: rotate(45deg);
+}
+.st-faq-item.is-open .st-faq-item__icon svg path { stroke: white; }
+.st-faq-item__a {
+  font-size: 16px;
+  font-weight: 200;
+  color: var(--st-g500);
+  line-height: 1.7;
+  padding: 0 0 20px;
+  display: none;
+  max-width: 90%;
+}
+.st-faq-item.is-open .st-faq-item__a { display: block; }
+
+/* Loop cross-sell */
+.st-loop-bar {
+  background: var(--st-g50);
+  border: 1px solid var(--st-g200);
+  border-radius: var(--st-r);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 48px;
+}
+.st-loop-bar__kicker {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-g400);
+  margin-bottom: 4px;
+}
+.st-loop-bar__title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--st-black);
+  margin-bottom: 3px;
+}
+.st-loop-bar__desc {
+  font-size: 15px;
+  font-weight: 200;
+  color: var(--st-g500);
+}
+
+@media (max-width: 749px) {
+  .st-loop-bar {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+</style>
+
+<section class="st-faq" id="faq">
+  <div class="page-width">
+    <div class="st-faq__inner st-reveal">
+
+      <div class="st-faq__header">
+        <div class="st-faq__eyebrow">Things to note</div>
+        <h2 class="st-faq__title">Questions answered.</h2>
+      </div>
+
+      <div class="st-faq-list">
+        <div class="st-faq-item" data-st-faq-item>
+          <button class="st-faq-item__q" data-st-faq-toggle>
+            Does my child need a SIM or data plan?
+            <div class="st-faq-item__icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          </button>
+          <div class="st-faq-item__a">Yes — the Adventurer 2 uses 4G to make calls, share location and more. You can use a Spacetalk plan (from $17.99/month or $164.99/year) or a compatible SIM. Plans are managed in the free Spacetalk parent app. All our bundles include a plan — just choose your duration above.</div>
+        </div>
+
+        <div class="st-faq-item" data-st-faq-item>
+          <button class="st-faq-item__q" data-st-faq-toggle>
+            What kid age is the Adventurer 2 best suited for?
+            <div class="st-faq-item__icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          </button>
+          <div class="st-faq-item__a">It's ideal for ages 5–14. If your child is younger or you prefer a slimmer, simpler watch, the Loop is a great alternative starting from $174. It has GPS, calls and SOS, but no camera.</div>
+        </div>
+
+        <div class="st-faq-item" data-st-faq-item>
+          <button class="st-faq-item__q" data-st-faq-toggle>
+            How do I control what the watch can do?
+            <div class="st-faq-item__icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          </button>
+          <div class="st-faq-item__a">Everything is managed in the free Spacetalk parent app — available on iOS and Android. You approve every contact, set safe zones, enable school mode, check location history and monitor activity. Your child can only interact with people you've approved.</div>
+        </div>
+
+        <div class="st-faq-item" data-st-faq-item>
+          <button class="st-faq-item__q" data-st-faq-toggle>
+            Do Spacetalk Watches come with a Watch SIM plan?
+            <div class="st-faq-item__icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          </button>
+          <div class="st-faq-item__a">The Full Kit, Most Popular and Entry bundles all include a Watch Plan. You choose the duration (30, 180 or 365 days) using the plan switcher above. The Watch Only option doesn't include a plan, so you'd activate one separately.</div>
+        </div>
+
+        <div class="st-faq-item" data-st-faq-item>
+          <button class="st-faq-item__q" data-st-faq-toggle>
+            Are Spacetalk Watches waterproof?
+            <div class="st-faq-item__icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          </button>
+          <div class="st-faq-item__a">The Adventurer 2 is IP67 rated — protected against splashing, rain and hand washing. It's not designed for submersion or swimming, so take it off at the pool.</div>
+        </div>
+
+        <div class="st-faq-item" data-st-faq-item>
+          <button class="st-faq-item__q" data-st-faq-toggle>
+            Is the Spacetalk Adventurer 2 easy to set up?
+            <div class="st-faq-item__icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          </button>
+          <div class="st-faq-item__a">Yes — download the free Spacetalk app, follow the setup wizard, and you're ready in minutes. The watch comes with everything you need — just activate a plan and you're good to go.</div>
+        </div>
+      </div>
+
+      <!-- Loop cross-sell -->
+      <div class="st-loop-bar">
+        <div>
+          <div class="st-loop-bar__kicker">Also consider</div>
+          <div class="st-loop-bar__title">Loop — our best value kids smartwatch</div>
+          <div class="st-loop-bar__desc">Slimmer, lighter, from $174. Great for ages 4–12.</div>
+        </div>
+        <a href="https://spacetalk.co/products/spacetalk-loop-smartwatch-1" class="st-btn st-btn--dark">See Loop →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+/* FAQ accordion — self-contained */
+(function(){
+  document.querySelectorAll('[data-st-faq-toggle]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item = btn.closest('[data-st-faq-item]');
+      if(!item) return;
+      var open = item.classList.contains('is-open');
+      var parent = item.parentElement;
+      if(parent) parent.querySelectorAll('[data-st-faq-item]').forEach(function(i){i.classList.remove('is-open');});
+      if(!open) item.classList.add('is-open');
+    });
+  });
+})();
+</script>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 14 — FINAL CTA BAND                            ║
+     ║  Liquid: sections/st-adv2-cta.liquid                     ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-cta">
+.st-cta-band {
+  background: var(--st-black);
+  padding: 96px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.st-cta-band::before {
+  content: '';
+  position: absolute;
+  bottom: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(198,241,53,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.st-cta-band__title {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 600;
+  color: var(--st-white);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  position: relative;
+}
+.st-cta-band__sub {
+  font-size: 18px;
+  font-weight: 200;
+  color: var(--st-g400);
+  margin-bottom: 40px;
+  position: relative;
+}
+.st-cta-band__actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+</style>
+
+<section class="st-cta-band st-reveal">
+  <div class="page-width">
+    <h2 class="st-cta-band__title">Ready to give them independence?</h2>
+    <p class="st-cta-band__sub">Join 50,000+ Australian families already using Spacetalk.</p>
+    <div class="st-cta-band__actions">
+      <a href="#bundles" class="st-btn st-btn--neon" data-st-from-price data-st-from-price-format="button">Build your bundle — from $256.99</a>
+      <a href="#compare" class="st-btn st-btn--ghost">Compare Adv2 vs Loop</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SECTION 15 — TRUST BADGES (footer strip)               ║
+     ║  Liquid: already exists in theme footer                  ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-trust-footer">
+.st-trust-footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--st-g200);
+}
+.st-trust-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+.st-trust-footer__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.st-trust-footer__icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.st-trust-footer__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--st-black);
+}
+.st-trust-footer__desc {
+  font-size: 12px;
+  color: var(--st-g500);
+  line-height: 1.5;
+}
+</style>
+
+<section class="st-trust-footer">
+  <div class="page-width">
+    <div class="st-trust-footer__grid">
+      <div class="st-trust-footer__item">
+        <div class="st-trust-footer__icon">
+          <svg width="28" height="28" fill="none" viewBox="0 0 28 28"><path d="M14 3C9 3 5 7 5 12v4l-1 3h20l-1-3v-4c0-5-4-9-9-9z" stroke="var(--st-black)" stroke-width="1.5"/><path d="M11 22a3 3 0 006 0" stroke="var(--st-black)" stroke-width="1.5"/></svg>
+        </div>
+        <div class="st-trust-footer__label">Customer Service</div>
+        <div class="st-trust-footer__desc">Our team of support agents are here for you 24/7</div>
+      </div>
+      <div class="st-trust-footer__item">
+        <div class="st-trust-footer__icon">
+          <svg width="28" height="28" fill="none" viewBox="0 0 28 28"><path d="M14 3l3.5 7 7.5 1-5.5 5 1.5 7.5L14 20l-7 3.5 1.5-7.5L3 11l7.5-1z" stroke="var(--st-black)" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="st-trust-footer__label">Trusted by Families</div>
+        <div class="st-trust-footer__desc">Average 4.4 star rating from more than 3,200 reviews</div>
+      </div>
+      <div class="st-trust-footer__item">
+        <div class="st-trust-footer__icon">
+          <svg width="28" height="28" fill="none" viewBox="0 0 28 28"><rect x="4" y="8" width="20" height="14" rx="3" stroke="var(--st-black)" stroke-width="1.5"/><path d="M4 12h20" stroke="var(--st-black)" stroke-width="1.5"/></svg>
+        </div>
+        <div class="st-trust-footer__label">Secure Payment</div>
+        <div class="st-trust-footer__desc">Your payment information is processed securely</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     GLOBAL JS — Subnav scroll spy + Intersection Observer
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  'use strict';
+
+  /* Subnav scroll spy */
+  var nav = document.querySelector('[data-st-subnav]');
+  if(nav){
+    var links = nav.querySelectorAll('[data-st-subnav-link]');
+    var ddLinks = nav.querySelectorAll('[data-st-subnav-dd]');
+    var toggleLabel = document.getElementById('subnav-toggle-label');
+    var ids = [];
+    links.forEach(function(a){
+      var h = a.getAttribute('href');
+      if(h && h.charAt(0)==='#') ids.push(h.substring(1));
+    });
+    window.addEventListener('scroll',function(){
+      var s = window.scrollY + 130; /* header(64) + subnav(50) + buffer */
+      var c = ids[0];
+      ids.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el && el.offsetTop <= s) c = id;
+      });
+      links.forEach(function(a){
+        a.classList.toggle('is-active', a.getAttribute('href') === '#' + c);
+      });
+      /* Sync dropdown links + toggle label */
+      ddLinks.forEach(function(a){
+        var isActive = a.getAttribute('href') === '#' + c;
+        a.classList.toggle('is-active', isActive);
+        if(isActive && toggleLabel) toggleLabel.textContent = a.textContent;
+      });
+    },{passive:true});
+
+    /* Dropdown toggle */
+    var toggleBtn = document.getElementById('subnav-toggle');
+    if(toggleBtn){
+      toggleBtn.addEventListener('click', function(){
+        var open = nav.classList.toggle('is-dropdown-open');
+        toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+    /* Close dropdown when a link is tapped */
+    ddLinks.forEach(function(a){
+      a.addEventListener('click', function(){
+        nav.classList.remove('is-dropdown-open');
+        if(toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+        if(toggleLabel) toggleLabel.textContent = a.textContent;
+      });
+    });
+    /* Close dropdown when clicking outside */
+    document.addEventListener('click', function(e){
+      if(!nav.contains(e.target)){
+        nav.classList.remove('is-dropdown-open');
+        if(toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* Intersection observer for .st-reveal */
+  var reveals = document.querySelectorAll('.st-reveal');
+  if(reveals.length){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('is-visible');
+          obs.unobserve(e.target);
+        }
+      });
+    },{threshold:0.1});
+    reveals.forEach(function(el){obs.observe(el);});
+  }
+
+  /* Smooth scroll - offset for header + subnav */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t = a.getAttribute('href');
+      if(!t || t==='#') return;
+      var d = document.querySelector(t);
+      if(d){
+        e.preventDefault();
+        var offset = 64 + 50 + 16; /* header + subnav + breathing room */
+        var top = d.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({top: top, behavior: 'smooth'});
+      }
+    });
+  });
+})();
+</script>
+
+<!-- ═══ Button hover-fill sweep (mirrors theme.js HoverButton) ═══ -->
+<script>
+(function(){
+  /* Inject .btn-fill + wrap text in .btn-text for every .st-btn */
+  document.querySelectorAll('.st-btn').forEach(function(btn){
+    /* Skip ghost buttons (no fill animation) */
+    if (btn.classList.contains('st-btn--ghost')) return;
+    /* Skip if already processed */
+    if (btn.querySelector('.btn-fill')) return;
+
+    /* Wrap existing content in .btn-text */
+    var text = document.createElement('span');
+    text.className = 'btn-text';
+    while (btn.firstChild) text.appendChild(btn.firstChild);
+    btn.appendChild(text);
+
+    /* Inject fill element */
+    var fill = document.createElement('span');
+    fill.className = 'btn-fill';
+    btn.insertBefore(fill, text);
+  });
+
+  /* Apply hover sweep to all buttons with .btn-fill */
+  document.querySelectorAll('.st-btn').forEach(function(btn){
+    var fill = btn.querySelector('.btn-fill');
+    if (!fill) return;
+    btn.addEventListener('mouseenter', function(){
+      fill.getAnimations().forEach(function(a){ a.cancel(); });
+      fill.animate(
+        [{ transform: 'translate3d(0, 76%, 0)' }, { transform: 'translate3d(0, 0%, 0)' }],
+        { duration: 500, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }
+      );
+    });
+    btn.addEventListener('mouseleave', function(){
+      fill.getAnimations().forEach(function(a){ a.cancel(); });
+      fill.animate(
+        [{ transform: 'translate3d(0, 0%, 0)' }, { transform: 'translate3d(0, -76%, 0)' }],
+        { duration: 500, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }
+      );
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
