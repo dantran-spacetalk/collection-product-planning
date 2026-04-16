@@ -860,7 +860,7 @@ a { color: inherit; }
         </span>
         <span>
           <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1v6l4 2" stroke="#c6f135" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="#c6f135" stroke-width="1.5" fill="none"/></svg>
-          Trusted since 2017
+          Trusted since 2002
         </span>
       </div>
     </div>
@@ -1470,7 +1470,7 @@ a { color: inherit; }
     opts.forEach(function(o,i){o.classList.toggle('is-active',i===cp);});
   }
 
-  opts.forEach(function(o,i){o.addEventListener('click',function(){cp=i;update();});});
+  opts.forEach(function(o,i){o.addEventListener('click',function(){cp=i;update();try{localStorage.setItem('st-selected-plan',String(i));}catch(e){}});});
   update();
 
   /* Plan callout toggle */
@@ -2372,7 +2372,7 @@ a { color: inherit; }
 <section class="st-reviews st-reveal">
   <div class="page-width">
     <div class="st-reviews__header">
-      <div class="st-reviews__eyebrow">Trusted by families since 2017</div>
+      <div class="st-reviews__eyebrow">Trusted by families since 2002</div>
       <h2 class="st-reviews__title">Real families. Real peace of mind.</h2>
       <p class="st-reviews__sub">From 3,200+ verified reviews — trusted by 50,000+ Australian families.</p>
     </div>
