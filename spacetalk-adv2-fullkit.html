@@ -1169,6 +1169,216 @@ fetch('components/header.html')
 
 
 <!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  THE SPACETALK APP — APP CALLOUT                         ║
+     ║  Liquid: sections/st-pdp-app.liquid                      ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-pdp-app">
+.st-pdp-app {
+  padding: 80px 0;
+  border-top: 1px solid var(--st-g100);
+  background: var(--st-black);
+  color: #fff;
+  overflow: hidden;
+}
+.st-pdp-app__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
+}
+.st-pdp-app__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.st-pdp-app__eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-neon);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.st-pdp-app__eyebrow svg { flex-shrink: 0; }
+.st-pdp-app__title {
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: #fff;
+}
+.st-pdp-app__desc {
+  font-size: 15px;
+  font-weight: 200;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.7);
+  max-width: 440px;
+}
+.st-pdp-app__features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 8px;
+}
+.st-pdp-app__feat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.st-pdp-app__feat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+.st-pdp-app__feat-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+.st-pdp-app__feat-sub {
+  font-size: 12px;
+  font-weight: 200;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.4;
+}
+.st-pdp-app__badges {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+.st-pdp-app__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--st-rp);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.st-pdp-app__badge:hover { background: rgba(255,255,255,0.15); }
+.st-pdp-app__badge svg { flex-shrink: 0; }
+
+/* Phone mockup replaced with image */
+.st-pdp-app__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.st-pdp-app__img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Floating glow */
+.st-pdp-app__glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(198,241,53,0.12) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+@media (max-width: 989px) {
+  .st-pdp-app__grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .st-pdp-app__desc { margin: 0 auto; }
+  .st-pdp-app__visual { order: -1; margin-bottom: 16px; }
+  .st-pdp-app__badges { justify-content: center; }
+}
+@media (max-width: 749px) {
+  .st-pdp-app__features { grid-template-columns: 1fr; }
+  .st-pdp-app { padding: 56px 0; }
+}
+</style>
+
+<section class="st-pdp-app st-reveal">
+  <div class="page-width">
+    <div class="st-pdp-app__grid">
+
+      <!-- Content side -->
+      <div class="st-pdp-app__content">
+        <div class="st-pdp-app__eyebrow">
+          <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="var(--st-neon)"/></svg>
+          The Spacetalk App
+        </div>
+        <h2 class="st-pdp-app__title">Your family's<br>safety hub.</h2>
+        <p class="st-pdp-app__desc">The free Spacetalk app connects to your child's watch and puts everything — location, messaging, school mode, and emergency alerts — right in your pocket. One app for the whole family.</p>
+
+        <div class="st-pdp-app__features">
+          <div class="st-pdp-app__feat">
+            <div class="st-pdp-app__feat-icon">
+              <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" stroke="var(--st-neon)" stroke-width="1.5"/><circle cx="10" cy="10" r="2" fill="var(--st-neon)"/></svg>
+            </div>
+            <div class="st-pdp-app__feat-name">GPS Location</div>
+            <div class="st-pdp-app__feat-sub">Real-time tracking with location history and safe zone alerts</div>
+          </div>
+          <div class="st-pdp-app__feat">
+            <div class="st-pdp-app__feat-icon">
+              <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><path d="M3 5a2 2 0 012-2h10a2 2 0 012 2v7a2 2 0 01-2 2H9l-4 3v-3H5a2 2 0 01-2-2V5z" stroke="var(--st-neon)" stroke-width="1.5"/></svg>
+            </div>
+            <div class="st-pdp-app__feat-name">Safe Messaging</div>
+            <div class="st-pdp-app__feat-sub">Chat & calls only with parent-approved contacts</div>
+          </div>
+          <div class="st-pdp-app__feat">
+            <div class="st-pdp-app__feat-icon">
+              <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><path d="M10 2L4 5v4c0 4 2.6 7.4 6 9 3.4-1.6 6-5 6-9V5l-6-3z" stroke="var(--st-neon)" stroke-width="1.5"/><path d="M7.5 10l2 2 3.5-4" stroke="var(--st-neon)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="st-pdp-app__feat-name">SOS Alerts</div>
+            <div class="st-pdp-app__feat-sub">Instant emergency notifications to your circle</div>
+          </div>
+          <div class="st-pdp-app__feat">
+            <div class="st-pdp-app__feat-icon">
+              <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><rect x="4" y="3" width="12" height="14" rx="2" stroke="var(--st-neon)" stroke-width="1.5"/><path d="M7 7h6M7 10h4" stroke="var(--st-neon)" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </div>
+            <div class="st-pdp-app__feat-name">School Mode</div>
+            <div class="st-pdp-app__feat-sub">Schedule distraction-free hours automatically</div>
+          </div>
+        </div>
+
+        <div class="st-pdp-app__badges">
+          <a href="#" class="st-pdp-app__badge">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11.2 0H4.8C3.81 0 3 .81 3 1.8v12.4c0 .99.81 1.8 1.8 1.8h6.4c.99 0 1.8-.81 1.8-1.8V1.8C13 .81 12.19 0 11.2 0zM8 15.2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+            Download for iOS
+          </a>
+          <a href="#" class="st-pdp-app__badge">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1.44 1.04L8.4 8l-6.96 6.96c-.27-.18-.44-.5-.44-.86V1.9c0-.36.17-.68.44-.86zM9.26 8.86l1.92 1.92-7.06 4.06 5.14-5.98zm3.48-1.5l-1.82-1.04-2.06 2.4 2.06 2.4 1.82-1.04c.54-.32.54-1.16 0-1.48v-.24zM3.12 1.16l7.06 4.06-1.92 1.92L3.12 1.16z"/></svg>
+            Download for Android
+          </a>
+        </div>
+      </div>
+
+      <!-- App image -->
+      <div class="st-pdp-app__visual">
+        <div class="st-pdp-app__glow"></div>
+        <img src="https://spacetalk.co/cdn/shop/files/double-app-photo.png" alt="Spacetalk App showing GPS location tracking and family safety features" class="st-pdp-app__img" loading="lazy" width="600" height="600">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
      ║  SPACETALK vs PHONE — OBJECTION HANDLER                  ║
      ║  Liquid: sections/st-pdp-vs-phone.liquid                 ║
      ╚═══════════════════════════════════════════════════════════╝ -->
@@ -1451,6 +1661,333 @@ fetch('components/header.html')
     <p class="st-pdp-inbox__note"><strong>Complete Pack exclusive:</strong> The 2 extra straps, charging stand & screen protector are only included in the Complete Pack.</p>
   </div>
 </section>
+
+
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  BUNDLE OPTIONS — 4 TIER CARDS                           ║
+     ║  Liquid: sections/st-pdp-bundle-callout.liquid            ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+<style id="css-pdp-bundle">
+.st-pdp-bundles {
+  padding: 64px 0;
+  border-top: 1px solid var(--st-g100);
+}
+.st-pdp-bundles__header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.st-pdp-bundles__eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-black);
+  background: var(--st-neon);
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: var(--st-rp);
+  margin-bottom: 14px;
+}
+.st-pdp-bundles__title {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--st-black);
+  margin-bottom: 8px;
+}
+.st-pdp-bundles__desc {
+  font-size: 15px;
+  font-weight: 200;
+  color: var(--st-g500);
+  max-width: 520px;
+  margin: 0 auto;
+}
+.st-pdp-tiers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.st-pdp-tier {
+  background: var(--st-white);
+  border: 2px solid var(--st-g200);
+  border-radius: var(--st-r);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.st-pdp-tier:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+.st-pdp-tier--pop { border-color: var(--st-black); }
+.st-pdp-tier--muted { background: var(--st-g50); border-color: var(--st-g200); }
+.st-pdp-tier__badge {
+  position: absolute;
+  top: -11px;
+  left: 16px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--st-rp);
+}
+.st-pdp-tier__badge--best { background: var(--st-black); color: var(--st-neon); }
+.st-pdp-tier__badge--viewing { background: var(--st-neon); color: var(--st-black); }
+.st-pdp-tier__label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-g400);
+  margin-bottom: 8px;
+}
+.st-pdp-tier--pop .st-pdp-tier__label { color: var(--st-black); }
+.st-pdp-tier__name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--st-black);
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+.st-pdp-tier__tagline {
+  font-size: 14px;
+  font-weight: 200;
+  color: var(--st-g400);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.st-pdp-tier__was {
+  font-size: 12px;
+  color: var(--st-g300);
+  text-decoration: line-through;
+  min-height: 18px;
+}
+.st-pdp-tier__price {
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--st-black);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.st-pdp-tier__save {
+  display: inline-block;
+  background: var(--st-neon);
+  color: var(--st-black);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--st-rp);
+  margin: 8px 0 6px;
+  min-height: 24px;
+}
+.st-pdp-tier__save--hidden { visibility: hidden; }
+.st-pdp-tier__plan {
+  font-size: 11px;
+  color: var(--st-g400);
+  margin-bottom: 16px;
+  min-height: 16px;
+}
+.st-pdp-tier__hr {
+  border: none;
+  border-top: 1px solid var(--st-g200);
+  margin: 0 0 14px;
+}
+.st-pdp-tier__inc-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-g300);
+  margin-bottom: 12px;
+}
+.st-pdp-tier__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+.st-pdp-tier__dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--st-neon);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.st-pdp-tier__dot--dim { background: var(--st-g200); }
+.st-pdp-tier__txt {
+  font-size: 12px;
+  color: var(--st-g600);
+  line-height: 1.4;
+}
+.st-pdp-tier__txt strong { font-weight: 500; color: var(--st-black); }
+.st-pdp-tier__txt--dim { color: var(--st-g300); }
+.st-pdp-tier__cta { margin-top: auto; padding-top: 18px; }
+.st-pdp-tier__btn {
+  width: 100%;
+  padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
+  font-size: var(--font-button-size);
+  font-weight: var(--font-button-weight);
+  letter-spacing: 0.04em;
+  text-transform: var(--font-button-text-transform);
+  border-radius: var(--buttons-radius);
+  transition: all 0.2s var(--st-ease);
+  font-family: var(--font-button-family);
+  cursor: pointer;
+  max-height: 3.75rem;
+  line-height: 1;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.st-pdp-tier__btn--dark { background: var(--st-black); color: var(--st-white); border: 2px solid var(--st-black); }
+.st-pdp-tier__btn--dark:hover { background: var(--st-g600); border-color: var(--st-g600); }
+.st-pdp-tier__btn--outline { background: transparent; color: var(--st-black); border: 2px solid var(--st-black); }
+.st-pdp-tier__btn--outline:hover { background: var(--st-g50); }
+.st-pdp-tier__btn--ghost { background: transparent; color: var(--st-g400); border: 1px solid var(--st-g200); }
+.st-pdp-tier__btn--ghost:hover { border-color: var(--st-g400); color: var(--st-g600); }
+.st-pdp-bundles__note {
+  font-size: 11px;
+  color: var(--st-g400);
+  text-align: center;
+  line-height: 1.8;
+}
+@media (max-width: 989px) {
+  .st-pdp-tiers { grid-template-columns: repeat(2, 1fr); }
+  .st-pdp-bundles { padding: 48px 0; }
+}
+@media (max-width: 749px) {
+  .st-pdp-tiers { grid-template-columns: 1fr; }
+  .st-pdp-tier { padding: 20px 16px; }
+  .st-pdp-tier__price { font-size: 28px; }
+}
+</style>
+
+<section class="st-pdp-bundles st-reveal"
+  data-pdp-bundle-engine
+  data-watch-price="349"
+  data-plans='[{"price":17.99,"label":"30-day watch plan"},{"price":90.99,"label":"180-day watch plan"},{"price":164.99,"label":"365-day watch plan"}]'
+  data-tiers='[{"addon":122.80,"discount":60},{"addon":59.90,"discount":30},{"addon":0,"discount":0}]'
+>
+  <div class="page-width">
+    <div class="st-pdp-bundles__header">
+      <div class="st-pdp-bundles__eyebrow">Bundle & Save</div>
+      <h2 class="st-pdp-bundles__title">Choose your bundle</h2>
+      <p class="st-pdp-bundles__desc">Every bundle includes a Watch Plan. Pick the pack that suits your family best.</p>
+    </div>
+
+    <div class="st-pdp-tiers">
+      <!-- Complete Pack — BEST + You're viewing -->
+      <div class="st-pdp-tier st-pdp-tier--pop">
+        <span class="st-pdp-tier__badge st-pdp-tier__badge--best">Best value</span>
+        <div class="st-pdp-tier__label">Complete Pack</div>
+        <div class="st-pdp-tier__name">Watch + Plan + Straps + Extras</div>
+        <div class="st-pdp-tier__tagline">Everything in the box. Ready from day one.</div>
+        <div class="st-pdp-tier__was" data-pdp-tier-was="0">&nbsp;</div>
+        <div class="st-pdp-tier__price" data-pdp-tier-price="0">—</div>
+        <div class="st-pdp-tier__save" data-pdp-tier-save="0">&nbsp;</div>
+        <div class="st-pdp-tier__plan" data-pdp-tier-plan="0">&nbsp;</div>
+        <hr class="st-pdp-tier__hr">
+        <div class="st-pdp-tier__inc-label">Includes</div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>Adventurer 2</strong> watch</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>Watch plan</strong></div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>2 extra</strong> colour straps</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>Charging stand</strong></div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>Screen protector</strong></div></div>
+        <div class="st-pdp-tier__cta"><a href="#" class="st-pdp-tier__btn st-pdp-tier__btn--dark" onclick="document.querySelector('.st-bb-drawer').classList.add('is-open');document.body.style.overflow='hidden';return false;">Build this bundle</a></div>
+      </div>
+
+      <!-- Plus Pack -->
+      <div class="st-pdp-tier">
+        <div class="st-pdp-tier__label">Plus Pack</div>
+        <div class="st-pdp-tier__name">Watch + Plan + Straps</div>
+        <div class="st-pdp-tier__tagline">The watch, plan and two straps to mix daily.</div>
+        <div class="st-pdp-tier__was" data-pdp-tier-was="1">&nbsp;</div>
+        <div class="st-pdp-tier__price" data-pdp-tier-price="1">—</div>
+        <div class="st-pdp-tier__save" data-pdp-tier-save="1">&nbsp;</div>
+        <div class="st-pdp-tier__plan" data-pdp-tier-plan="1">&nbsp;</div>
+        <hr class="st-pdp-tier__hr">
+        <div class="st-pdp-tier__inc-label">Includes</div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>Adventurer 2</strong> watch</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>Watch plan</strong></div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>2 extra</strong> colour straps</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot st-pdp-tier__dot--dim"></div><div class="st-pdp-tier__txt st-pdp-tier__txt--dim">No charging stand</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot st-pdp-tier__dot--dim"></div><div class="st-pdp-tier__txt st-pdp-tier__txt--dim">No screen protector</div></div>
+        <div class="st-pdp-tier__cta"><a href="spacetalk-adv2-fullkit-v2.html" class="st-pdp-tier__btn st-pdp-tier__btn--outline">View Plus Pack</a></div>
+      </div>
+
+      <!-- Starter Pack -->
+      <div class="st-pdp-tier">
+        <div class="st-pdp-tier__label">Starter Pack</div>
+        <div class="st-pdp-tier__name">Watch + Plan</div>
+        <div class="st-pdp-tier__tagline">Start simple. Add accessories anytime.</div>
+        <div class="st-pdp-tier__was" data-pdp-tier-was="2">&nbsp;</div>
+        <div class="st-pdp-tier__price" data-pdp-tier-price="2">—</div>
+        <div class="st-pdp-tier__save" data-pdp-tier-save="2">&nbsp;</div>
+        <div class="st-pdp-tier__plan" data-pdp-tier-plan="2">&nbsp;</div>
+        <hr class="st-pdp-tier__hr">
+        <div class="st-pdp-tier__inc-label">Includes</div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>Adventurer 2</strong> watch</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>Watch plan</strong></div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot st-pdp-tier__dot--dim"></div><div class="st-pdp-tier__txt st-pdp-tier__txt--dim">No extra straps</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot st-pdp-tier__dot--dim"></div><div class="st-pdp-tier__txt st-pdp-tier__txt--dim">No charging stand</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot st-pdp-tier__dot--dim"></div><div class="st-pdp-tier__txt st-pdp-tier__txt--dim">No screen protector</div></div>
+        <div class="st-pdp-tier__cta"><a href="#" class="st-pdp-tier__btn st-pdp-tier__btn--outline">Build this bundle</a></div>
+      </div>
+
+      <!-- Watch Only -->
+      <div class="st-pdp-tier st-pdp-tier--muted">
+        <div class="st-pdp-tier__label">Watch Only</div>
+        <div class="st-pdp-tier__name">Watch only</div>
+        <div class="st-pdp-tier__tagline">Just the watch. Add a plan separately.</div>
+        <div class="st-pdp-tier__was">was $349.00</div>
+        <div class="st-pdp-tier__price">$239.00</div>
+        <div class="st-pdp-tier__save">Save $110.00</div>
+        <div class="st-pdp-tier__plan" style="color:var(--st-g400);">Plan sold separately</div>
+        <hr class="st-pdp-tier__hr">
+        <div class="st-pdp-tier__inc-label">Includes</div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot"></div><div class="st-pdp-tier__txt"><strong>Adventurer 2</strong> watch</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot st-pdp-tier__dot--dim"></div><div class="st-pdp-tier__txt st-pdp-tier__txt--dim">No watch plan</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot st-pdp-tier__dot--dim"></div><div class="st-pdp-tier__txt st-pdp-tier__txt--dim">No extra straps</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot st-pdp-tier__dot--dim"></div><div class="st-pdp-tier__txt st-pdp-tier__txt--dim">No charging stand</div></div>
+        <div class="st-pdp-tier__item"><div class="st-pdp-tier__dot st-pdp-tier__dot--dim"></div><div class="st-pdp-tier__txt st-pdp-tier__txt--dim">No screen protector</div></div>
+        <div class="st-pdp-tier__cta"><a href="spacetalk-adv2-watchonly.html" class="st-pdp-tier__btn st-pdp-tier__btn--ghost">Buy watch only</a></div>
+      </div>
+    </div>
+
+    <p class="st-pdp-bundles__note">All prices include GST &nbsp;·&nbsp; Choose your colour on the next step &nbsp;·&nbsp; Free shipping over $400</p>
+  </div>
+</section>
+
+<script>
+/* PDP tier pricing engine */
+(function(){
+  var el = document.querySelector('[data-pdp-bundle-engine]');
+  if(!el) return;
+  var wp = parseFloat(el.dataset.watchPrice)||349;
+  var plans = JSON.parse(el.dataset.plans||'[]');
+  var tiers = JSON.parse(el.dataset.tiers||'[]');
+  if(!plans.length||!tiers.length) return;
+  var plan = plans[0];
+  tiers.forEach(function(t,i){
+    var subtotal = Math.round((wp + plan.price + (t.addon||0))*100)/100;
+    var disc = t.discount||0;
+    var price = Math.round((subtotal - disc)*100)/100;
+    var we = el.querySelector('[data-pdp-tier-was="'+i+'"]');
+    var pe = el.querySelector('[data-pdp-tier-price="'+i+'"]');
+    var se = el.querySelector('[data-pdp-tier-save="'+i+'"]');
+    var le = el.querySelector('[data-pdp-tier-plan="'+i+'"]');
+    if(we){ we.textContent = disc>0 ? 'was $'+subtotal.toFixed(2) : '\u00a0'; we.style.visibility = disc>0?'visible':'hidden'; }
+    if(pe) pe.textContent = '$'+price.toFixed(2);
+    if(se){ se.textContent = disc>0 ? 'Save $'+disc.toFixed(2) : '\u00a0'; if(se.classList) se.classList.toggle('st-pdp-tier__save--hidden', disc===0); }
+    if(le) le.textContent = plan.label + ' included';
+  });
+})();
+</script>
 
 
 <!-- ╔═══════════════════════════════════════════════════════════╗
