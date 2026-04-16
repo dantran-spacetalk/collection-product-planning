@@ -195,7 +195,12 @@ a { color: inherit; }
 <!-- ╔═══════════════════════════════════════════════════════════╗
      ║  SECTION 1 — SHARED HEADER (loaded from components/)    ║
      ╚═══════════════════════════════════════════════════════════╝ -->
-<div id="st-header-slot"></div>
+<style>
+/* Override: header scrolls away on collection page, only subnav sticks */
+.st-header { position: relative !important; }
+.st-topbar { position: relative !important; }
+</style>
+<div id="st-header-slot" style="display:contents"></div>
 <script>
 fetch('components/header.html')
   .then(function(r){return r.text()})
@@ -219,7 +224,7 @@ fetch('components/header.html')
 <style id="css-subnav">
 .st-subnav {
   position: sticky;
-  top: 64px;
+  top: 0;
   z-index: 100;
   background: rgba(255,255,255,0.96);
   backdrop-filter: blur(14px);

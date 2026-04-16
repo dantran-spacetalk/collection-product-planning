@@ -171,7 +171,7 @@ a { color: inherit; }
 <!-- ╔═══════════════════════════════════════════════════════════╗
      ║  SHARED HEADER (loaded from components/)                 ║
      ╚═══════════════════════════════════════════════════════════╝ -->
-<div id="st-header-slot"></div>
+<div id="st-header-slot" style="display:contents"></div>
 <script>
 fetch('components/header.html')
   .then(function(r){return r.text()})
