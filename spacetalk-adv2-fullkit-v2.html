@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adventurer 2 Full Kit — Spacetalk</title>
+<title>Adventurer 2 Plus Pack — Spacetalk</title>
 
 <!-- Theme assets -->
 <link rel="stylesheet" href="assets/font.css">
@@ -221,7 +221,7 @@ a { color: inherit; }
   <div class="page-width">
     <a href="spacetalk-adventurer2-version1.html">Adventurer 2</a>
     <span class="st-breadcrumb__sep">/</span>
-    <span class="st-breadcrumb__current">Full Kit Bundle</span>
+    <span class="st-breadcrumb__current">Plus Pack</span>
   </div>
 </nav>
 
@@ -229,7 +229,7 @@ a { color: inherit; }
 <!-- ╔═══════════════════════════════════════════════════════════╗
      ║  MAIN PRODUCT — SPLIT LAYOUT (Gallery + Info)            ║
      ║  Liquid: sections/main-product.liquid                    ║
-     ║  This is the PDP for the "Adventurer 2 Full Kit" bundle  ║
+     ║  This is the PDP for the "Adventurer 2 Plus Pack"       ║
      ║  product. The buy_buttons block renders bundle-builder    ║
      ║  snippet instead of a normal ATC when product is tagged   ║
      ║  'bundle-builder'.                                        ║
@@ -511,6 +511,8 @@ a { color: inherit; }
 }
 .st-pdp__inc-text { font-weight: 300; }
 .st-pdp__inc-text strong { font-weight: 600; }
+.st-pdp__inc-dot--dim { background: var(--st-g200); }
+.st-pdp__inc-text--dim { color: var(--st-g300); }
 
 /* CTA button — triggers bundle-builder drawer */
 .st-pdp__cta-wrap { margin-bottom: 24px; }
@@ -588,7 +590,7 @@ a { color: inherit; }
           <img
             id="pdp-main-img"
             src="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=1000"
-            alt="Adventurer 2 Full Kit Bundle in Frost"
+            alt="Adventurer 2 Plus Pack in Frost"
           >
         </div>
         <div class="st-pdp__thumbs" id="pdp-thumbs">
@@ -611,11 +613,11 @@ a { color: inherit; }
       <div class="st-pdp__info">
         <div class="st-pdp__badge">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.2 2.8H10l-2.3 1.9.8 2.8L6 6.8 3.5 8.5l.8-2.8L2 3.8h2.8z" fill="currentColor"/></svg>
-          Full Kit Bundle
+          Plus Pack
         </div>
 
-        <h1 class="st-pdp__title">Adventurer 2<br>Full Kit</h1>
-        <p class="st-pdp__subtitle">Everything in the box — watch, plan, extra straps, charging stand and screen protector. Ready from day one.</p>
+        <h1 class="st-pdp__title">Adventurer 2<br>Plus Pack</h1>
+        <p class="st-pdp__subtitle">The watch, plan and two extra straps to mix up their style every day.</p>
 
         <div class="st-pdp__rating">
           <div class="st-pdp__stars">
@@ -632,8 +634,8 @@ a { color: inherit; }
         <div class="st-pdp__plan-label">Select your watch plan <button type="button" class="st-pdp__plan-why" id="plan-why-btn">Why? <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
         <div class="st-pdp__plan-opts" id="pdp-plan-opts"
           data-watch-price="349"
-          data-addon="122.80"
-          data-discount="60"
+          data-addon="59.90"
+          data-discount="30"
           data-plans='[{"price":17.99,"label":"30-day plan","per":"$17.99/mo","saving":""},{"price":90.99,"label":"180-day plan","per":"$15.17/mo","saving":"Save $2.82/mo vs monthly"},{"price":164.99,"label":"365-day plan","per":"$13.75/mo","saving":"Best value — save $4.24/mo vs monthly"}]'
         >
           <button type="button" class="st-pdp__plan-opt" data-pdp-plan="0">
@@ -676,24 +678,25 @@ a { color: inherit; }
 
         <!-- What's included -->
         <div class="st-pdp__includes">
-          <div class="st-pdp__inc-label">Everything in this kit</div>
+          <div class="st-pdp__inc-label">Everything in this pack</div>
           <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot"></div><div class="st-pdp__inc-text"><strong>Adventurer 2</strong> smartwatch</div></div>
           <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot"></div><div class="st-pdp__inc-text"><strong>Wearable plan</strong> — choose 30 / 180 / 365 day</div></div>
           <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot"></div><div class="st-pdp__inc-text"><strong>2 extra colour straps</strong> — choose your colours</div></div>
-          <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot"></div><div class="st-pdp__inc-text"><strong>Charging stand</strong></div></div>
-          <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot"></div><div class="st-pdp__inc-text"><strong>Screen protector</strong></div></div>
+          <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot st-pdp__inc-dot--dim"></div><div class="st-pdp__inc-text st-pdp__inc-text--dim">No charging stand</div></div>
+          <div class="st-pdp__inc-item"><div class="st-pdp__inc-dot st-pdp__inc-dot--dim"></div><div class="st-pdp__inc-text st-pdp__inc-text--dim">No screen protector</div></div>
         </div>
 
         <!-- CTA — opens bundle-builder drawer -->
         <div class="st-pdp__cta-wrap">
           <button type="button" class="st-pdp__cta" id="pdp-build-btn">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Create your bundle
+            Create your pack
           </button>
         </div>
 
         <div class="st-pdp__secondary-actions">
-          <a href="spacetalk-adventurer2-version1.html#compare" class="st-pdp__link-btn">Compare watches</a>
+          <a href="spacetalk-adv2-fullkit.html" class="st-pdp__link-btn">See Complete Pack</a>
+          <a href="spacetalk-adventurer2-version1.html#bundles" class="st-pdp__link-btn">Compare all packs</a>
           <a href="spacetalk-adventurer2-version1.html" class="st-pdp__link-btn">Back to Adventurer 2</a>
         </div>
 
@@ -885,7 +888,7 @@ a { color: inherit; }
             </button>
             <div class="st-details__acc-body is-open">
               <div class="st-details__acc-content">
-                The Adventurer 2 Full Kit Bundle gives your child everything they need for safe independence. Featuring 4G video and voice calling, real-time GPS tracking, a front-facing 5MP camera, and the Spacetalk app for parent management — all wrapped in a durable, splash-proof design kids love.
+                The Adventurer 2 Plus Pack gives your child everything they need for safe independence. Featuring 4G video and voice calling, real-time GPS tracking, a front-facing 5MP camera, and the Spacetalk app for parent management — plus 2 extra straps to switch up their style.
               </div>
             </div>
           </div>
@@ -904,7 +907,7 @@ a { color: inherit; }
                   <li>Quick start guide</li>
                   <li>SIM tool</li>
                 </ul>
-                <p>Plus your selected plan, 2 extra colour straps, charging stand, and screen protector.</p>
+                <p>Plus your selected plan and 2 extra colour straps.</p>
               </div>
             </div>
           </div>
@@ -1420,7 +1423,7 @@ a { color: inherit; }
 <section class="st-pdp-inbox st-reveal">
   <div class="page-width">
     <h2 class="st-pdp-inbox__heading">Everything you need, in one box</h2>
-    <p class="st-pdp-inbox__sub">The Full Kit Bundle comes ready to go — just power on and pair.</p>
+    <p class="st-pdp-inbox__sub">The Plus Pack comes ready to go — just power on and pair.</p>
 
     <div class="st-pdp-inbox__grid">
       <div class="st-pdp-inbox__item st-reveal">
@@ -1435,13 +1438,8 @@ a { color: inherit; }
       </div>
       <div class="st-pdp-inbox__item st-reveal">
         <div class="st-pdp-inbox__item-icon">🔌</div>
-        <div class="st-pdp-inbox__item-name">Charging Stand & Dock</div>
-        <div class="st-pdp-inbox__item-desc">Magnetic dock + USB-C cable included</div>
-      </div>
-      <div class="st-pdp-inbox__item st-reveal">
-        <div class="st-pdp-inbox__item-icon">🛡️</div>
-        <div class="st-pdp-inbox__item-name">Screen Protector</div>
-        <div class="st-pdp-inbox__item-desc">Extra protection for active kids</div>
+        <div class="st-pdp-inbox__item-name">Magnetic Charging Dock</div>
+        <div class="st-pdp-inbox__item-desc">USB-C cable included</div>
       </div>
       <div class="st-pdp-inbox__item st-reveal">
         <div class="st-pdp-inbox__item-icon">📱</div>
@@ -1465,7 +1463,7 @@ a { color: inherit; }
       </div>
     </div>
 
-    <p class="st-pdp-inbox__note"><strong>Full Kit exclusive:</strong> The 2 extra straps, charging stand, and screen protector are only included in the Full Kit Bundle.</p>
+    <p class="st-pdp-inbox__note"><strong>Want a charging stand & screen protector?</strong> Upgrade to the <a href="spacetalk-adv2-fullkit.html" style="color:var(--st-black);font-weight:500;text-decoration:underline;">Complete Pack</a> to get them included.</p>
   </div>
 </section>
 
@@ -1582,7 +1580,7 @@ a { color: inherit; }
       <div class="st-pdp-hiw__step">
         <div class="st-pdp-hiw__step-num">1</div>
         <h3 class="st-pdp-hiw__step-title">Order &amp; unbox</h3>
-        <p class="st-pdp-hiw__step-desc">Choose your bundle, colour, and plan. Your SIM arrives pre-installed — just power on the watch and download the Spacetalk app.</p>
+        <p class="st-pdp-hiw__step-desc">Choose your pack, colour, and plan. Your SIM arrives pre-installed — just power on the watch and download the Spacetalk app.</p>
       </div>
       <div class="st-pdp-hiw__step">
         <div class="st-pdp-hiw__step-num">2</div>
@@ -1741,7 +1739,7 @@ a { color: inherit; }
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
         <div class="st-pdp-faq__body">
-          <div class="st-pdp-faq__content">No — a Spacetalk wearable plan is included with every bundle and covers calling, messaging, GPS tracking, and the Spacetalk app. Your SIM arrives pre-installed and ready to activate.</div>
+          <div class="st-pdp-faq__content">No — a Spacetalk wearable plan is included with every pack and covers calling, messaging, GPS tracking, and the Spacetalk app. Your SIM arrives pre-installed and ready to activate.</div>
         </div>
       </div>
       <div class="st-pdp-faq__item">
@@ -1773,11 +1771,11 @@ a { color: inherit; }
       </div>
       <div class="st-pdp-faq__item">
         <button class="st-pdp-faq__trigger" aria-expanded="false">
-          What's the difference between Full Kit and watch-only?
+          What's the difference between the packs?
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
         <div class="st-pdp-faq__body">
-          <div class="st-pdp-faq__content">The Full Kit Bundle includes the watch plus 2 extra colour straps, a charging stand, and a screen protector — saving you up to $105 compared to buying accessories separately.</div>
+          <div class="st-pdp-faq__content">The Complete Pack includes watch, plan, 2 straps, charging stand & screen protector. The Plus Pack (this one) includes watch, plan & 2 straps. The Starter Pack is watch + plan only.</div>
         </div>
       </div>
     </div>
@@ -2020,21 +2018,21 @@ a { color: inherit; }
 
 <!-- Drawer markup -->
 <div class="bb-overlay" id="bb-overlay">
-  <div class="bb-drawer" id="bb-drawer" role="dialog" aria-modal="true" aria-label="Build your Full Kit bundle">
+  <div class="bb-drawer" id="bb-drawer" role="dialog" aria-modal="true" aria-label="Build your Plus Pack">
     <div class="bb-topbar">
-      <span class="bb-topbar__title">Build your Full Kit</span>
-      <span class="bb-topbar__step" id="bb-step-label">Step 1 of 5</span>
+      <span class="bb-topbar__title">Build your Plus Pack</span>
+      <span class="bb-topbar__step" id="bb-step-label">Step 1 of 4</span>
       <button type="button" class="bb-topbar__close" id="bb-close" aria-label="Close">
         <svg viewBox="0 0 12 12" fill="none"><path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
     </div>
 
-    <div class="bb-progress"><div class="bb-progress__fill" id="bb-progress" style="width: 20%"></div></div>
+    <div class="bb-progress"><div class="bb-progress__fill" id="bb-progress" style="width: 25%"></div></div>
 
     <div class="bb-split">
       <!-- Left panel -->
       <div class="bb-left">
-        <div class="bb-left__label">Your bundle</div>
+        <div class="bb-left__label">Your pack</div>
         <div class="bb-left__bundle-grid">
           <div class="bb-left__tile" id="bb-tile-watch">
             <img src="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=300" alt="Watch" style="width:100%;height:100%;object-fit:contain;">
@@ -2042,7 +2040,6 @@ a { color: inherit; }
           </div>
           <div class="bb-left__tile"><span class="bb-left__tile-badge">Plan</span></div>
           <div class="bb-left__tile"><span class="bb-left__tile-badge">Straps</span></div>
-          <div class="bb-left__tile"><span class="bb-left__tile-badge">Extras</span></div>
         </div>
 
         <div class="bb-step" data-step="1">
@@ -2069,24 +2066,17 @@ a { color: inherit; }
         <div class="bb-step" data-step="4">
           <div class="bb-step__num bb-step__num--pending">4</div>
           <div class="bb-step__body">
-            <div class="bb-step__name bb-step__name--pending">Accessories</div>
-            <div class="bb-step__val"></div>
-          </div>
-        </div>
-        <div class="bb-step" data-step="5">
-          <div class="bb-step__num bb-step__num--pending">5</div>
-          <div class="bb-step__body">
             <div class="bb-step__name bb-step__name--pending">Summary</div>
           </div>
         </div>
 
         <div class="bb-left__price">
-          <div class="bb-left__price-label">Bundle total</div>
+          <div class="bb-left__price-label">Pack total</div>
           <div>
-            <span class="bb-left__price-orig">$398.95</span>
-            <span class="bb-left__price-final">$351.94</span>
+            <span class="bb-left__price-orig">$463.89</span>
+            <span class="bb-left__price-final">$433.89</span>
           </div>
-          <div class="bb-save-pill" style="margin-top:6px;">Save $47.01</div>
+          <div class="bb-save-pill" style="margin-top:6px;">Save $30.00</div>
         </div>
       </div>
 
@@ -2191,35 +2181,10 @@ a { color: inherit; }
             </div>
           </div>
 
-          <!-- SLIDE 4: Accessories -->
-          <div class="bb-slide" data-slide="accessories" id="bb-slide-4">
-            <div class="bb-eyebrow">Step 4 — Complete your bundle</div>
-            <div class="bb-slide__title">Accessories included</div>
-            <div class="bb-slide__sub">These are already in your Full Kit. Tap anything extra to add it.</div>
-
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin-top:20px;">
-              <div style="padding:16px;background:var(--st-g50);border-radius:16px;text-align:center;border:2px solid var(--st-neon);">
-                <div style="font-size:28px;margin-bottom:8px;">⌚</div>
-                <div style="font-size:12px;font-weight:500;">Charging Stand</div>
-                <div style="font-size:10px;color:var(--st-neon);font-weight:600;margin-top:4px;">INCLUDED</div>
-              </div>
-              <div style="padding:16px;background:var(--st-g50);border-radius:16px;text-align:center;border:2px solid var(--st-neon);">
-                <div style="font-size:28px;margin-bottom:8px;">🛡️</div>
-                <div style="font-size:12px;font-weight:500;">Screen Protector</div>
-                <div style="font-size:10px;color:var(--st-neon);font-weight:600;margin-top:4px;">INCLUDED</div>
-              </div>
-              <div style="padding:16px;background:#fff;border-radius:16px;text-align:center;border:2px solid var(--st-g200);cursor:pointer;">
-                <div style="font-size:28px;margin-bottom:8px;">🔌</div>
-                <div style="font-size:12px;font-weight:500;">Charging Cable</div>
-                <div style="font-size:10px;color:var(--st-g400);margin-top:4px;">+ $19.95</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SLIDE 5: Summary -->
-          <div class="bb-slide" data-slide="summary" id="bb-slide-5">
+          <!-- SLIDE 4: Summary -->
+          <div class="bb-slide" data-slide="summary" id="bb-slide-4">
             <div class="bb-eyebrow">Almost there</div>
-            <div class="bb-slide__title">Your Full Kit bundle</div>
+            <div class="bb-slide__title">Your Plus Pack</div>
             <div class="bb-slide__sub" style="margin-bottom:16px;">Review your selections before adding to cart.</div>
 
             <div class="bb-summary-list">
@@ -2243,28 +2208,22 @@ a { color: inherit; }
                 <div class="bb-summary-item__name">Band Strap — Pink</div>
                 <div class="bb-summary-item__price">FREE</div>
               </div>
-              <div class="bb-summary-item">
-                <div class="bb-summary-item__img" style="background:var(--st-g50);display:flex;align-items:center;justify-content:center;font-size:20px;">⌚</div>
-                <div class="bb-summary-item__name">Charging Stand</div>
-                <div class="bb-summary-item__price">Included</div>
-              </div>
-              <div class="bb-summary-item">
-                <div class="bb-summary-item__img" style="background:var(--st-g50);display:flex;align-items:center;justify-content:center;font-size:20px;">🛡️</div>
-                <div class="bb-summary-item__name">Screen Protector</div>
-                <div class="bb-summary-item__price">Included</div>
-              </div>
             </div>
 
             <div class="bb-total-block">
               <div class="bb-total-row">
                 <span class="bb-total-label">Original total</span>
-                <span>$498.90</span>
+                <span>$463.89</span>
               </div>
               <div class="bb-total-row">
-                <span class="bb-total-label--strong">Bundle price</span>
-                <span class="bb-total-final">$351.94</span>
+                <span class="bb-total-label--strong">Pack price</span>
+                <span class="bb-total-final">$433.89</span>
               </div>
-              <div class="bb-save-pill">Save $47.01</div>
+              <div class="bb-save-pill">Save $30.00</div>
+            </div>
+
+            <div style="text-align:center;margin-top:16px;padding:12px;background:var(--st-g50);border-radius:12px;">
+              <p style="font-size:12px;color:var(--st-g500);margin:0;">Want a charging stand & screen protector? <a href="spacetalk-adv2-fullkit.html" style="color:var(--st-black);font-weight:500;text-decoration:underline;">Upgrade to Complete Pack</a></p>
             </div>
           </div>
 
@@ -2333,7 +2292,7 @@ a { color: inherit; }
   nextBtn.addEventListener('click', function(){
     if(current === total - 1){
       closeDrawer();
-      alert('Bundle added to cart! (Preview only — in production this calls /cart/add.js)');
+      alert('Plus Pack added to cart! (Preview only — in production this calls /cart/add.js)');
       return;
     }
     if(current < total - 1) showSlide(current + 1);
