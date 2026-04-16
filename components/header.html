@@ -1,0 +1,1083 @@
+<!-- ╔═══════════════════════════════════════════════════════════╗
+     ║  SHARED HEADER COMPONENT                                 ║
+     ║  Loaded via JS fetch() into each page's #st-header-slot  ║
+     ║  Matches live spacetalk.co header design                 ║
+     ╚═══════════════════════════════════════════════════════════╝ -->
+
+<style id="css-shared-header">
+/* ── Announcement bar ────────────────────────────────────── */
+.st-topbar {
+  background: #171717;
+  color: #fff;
+  font-size: 12px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  z-index: 201;
+}
+@media (min-width: 1536px) {
+  .st-topbar { font-size: 13px; }
+}
+.st-topbar a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.st-topbar a:hover { opacity: 0.8; }
+.st-topbar strong { font-weight: 600; }
+
+/* ── Main header ─────────────────────────────────────────── */
+.st-header {
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  border-bottom: 1px solid #e5e5e5;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.st-header--hidden {
+  transform: translateY(-100%);
+}
+.st-header--shadow {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.st-header__inner {
+  display: grid;
+  grid-template: "logo navigation icons" / minmax(0,1fr) fit-content(70%) minmax(0,1fr);
+  align-items: center;
+  height: 64px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 3vw, 48px);
+  column-gap: clamp(16px, 2.5vw, 40px);
+}
+
+/* ── Logo ────────────────────────────────────────────────── */
+.st-header__logo {
+  grid-area: logo;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.st-header__logo img {
+  height: 20px;
+  width: auto;
+}
+.st-header__logo svg {
+  height: 20px;
+  width: auto;
+}
+
+/* ── Navigation ──────────────────────────────────────────── */
+.st-header__nav {
+  grid-area: navigation;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+.st-header__nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+
+/* ── Menu item (pill hover) ──────────────────────────────── */
+.st-menu-item {
+  position: relative;
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #171717;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  background: none;
+  border: none;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.st-menu-item__text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.st-menu-item__dup {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  padding: 0 20px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #fff;
+  background: #171717;
+  transform: translateY(100%) scale(0.6);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.st-menu-item__chevron {
+  width: 10px; height: 10px;
+  transition: transform 0.25s ease;
+}
+
+/* Hover / open state */
+.st-nav-item:hover .st-menu-item__dup,
+.st-nav-item.is-open .st-menu-item__dup {
+  transform: translateY(0) scale(1);
+}
+.st-nav-item:hover .st-menu-item__text,
+.st-nav-item.is-open .st-menu-item__text {
+  opacity: 0;
+  transform: translateY(-10%) scale(0.6);
+}
+.st-nav-item.is-open .st-menu-item__chevron {
+  transform: scaleY(-1);
+}
+
+/* ── Join button (pill) ──────────────────────────────────── */
+.st-menu-item--join {
+  background: #171717;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0 20px;
+  height: 42px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+  overflow: visible;
+}
+.st-menu-item--join:hover {
+  background: #333;
+}
+
+/* ── Icons ───────────────────────────────────────────────── */
+.st-header__icons {
+  grid-area: icons;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.st-header__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: none;
+  border: none;
+  color: #171717;
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+}
+.st-header__icon-btn:hover {
+  background: #f5f5f5;
+}
+.st-header__icon-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.st-header__cart-count {
+  position: absolute;
+  top: 6px; right: 6px;
+  background: #c6f135;
+  color: #171717;
+  font-size: 9px;
+  font-weight: 700;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* ── Hamburger (mobile) ──────────────────────────────────── */
+.st-header__hamburger {
+  display: none;
+  width: 44px; height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #171717;
+}
+.st-header__hamburger svg {
+  width: 20px; height: 20px;
+}
+
+/* ── Mega menu ───────────────────────────────────────────── */
+.st-mega-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  z-index: 198;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.st-mega-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.st-mega {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #e5e5e5;
+  z-index: 199;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s 0.25s;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+.st-mega.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s 0s;
+}
+.st-mega__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px clamp(16px, 3vw, 48px) 48px;
+}
+.st-mega__grid {
+  display: grid;
+  gap: 40px;
+}
+.st-mega__grid--4 { grid-template-columns: repeat(4, 1fr); }
+.st-mega__grid--3 { grid-template-columns: repeat(3, 1fr); }
+.st-mega__grid--2-1 { grid-template-columns: 1fr 1fr 1.2fr; }
+
+.st-mega__heading {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 16px;
+}
+.st-mega__links {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.st-mega__link {
+  color: #171717;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  transition: opacity 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.st-mega__link:hover { opacity: 0.6; }
+.st-mega__link--bold { font-weight: 600; }
+.st-mega__link-sub {
+  font-size: 12px;
+  color: #888;
+  font-weight: 400;
+}
+
+/* Product card in mega */
+.st-mega__product {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-decoration: none;
+  color: #171717;
+  transition: opacity 0.15s;
+}
+.st-mega__product:hover { opacity: 0.8; }
+.st-mega__product-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #f5f5f5;
+}
+.st-mega__product-name {
+  font-size: 13px;
+  font-weight: 500;
+}
+.st-mega__product-price {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Promo card in mega */
+.st-mega__promo {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  text-decoration: none;
+  color: #fff;
+  background: #f0f0f0;
+}
+.st-mega__promo-bg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.st-mega__promo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.1));
+}
+.st-mega__promo-text {
+  position: relative;
+  z-index: 1;
+}
+.st-mega__promo-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+.st-mega__promo-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.st-mega__promo-sub {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+/* Plan card in mega */
+.st-mega__plan {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #171717;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  gap: 4px;
+}
+.st-mega__plan:hover {
+  border-color: #c6f135;
+  box-shadow: 0 0 0 1px #c6f135;
+}
+.st-mega__plan-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+.st-mega__plan-price {
+  font-size: 13px;
+  color: #666;
+}
+.st-mega__plan-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #c6f135;
+  color: #171717;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  width: fit-content;
+}
+
+/* Separator for col */
+.st-mega__col {
+  display: flex;
+  flex-direction: column;
+}
+.st-mega__col-gap { gap: 32px; }
+
+/* ── Mobile drawer ───────────────────────────────────────── */
+.st-mobile-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+  visibility: hidden;
+}
+.st-mobile-nav.is-open {
+  pointer-events: auto;
+  visibility: visible;
+}
+.st-mobile-nav__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.st-mobile-nav.is-open .st-mobile-nav__overlay {
+  opacity: 1;
+}
+.st-mobile-nav__drawer {
+  position: absolute;
+  top: 0; left: 0;
+  width: min(380px, 85vw);
+  height: 100%;
+  background: #fff;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+}
+.st-mobile-nav.is-open .st-mobile-nav__drawer {
+  transform: translateX(0);
+}
+.st-mobile-nav__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid #e5e5e5;
+  min-height: 56px;
+}
+.st-mobile-nav__close {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer; color: #171717;
+}
+.st-mobile-nav__body {
+  flex: 1;
+  padding: 16px 0;
+}
+.st-mobile-nav__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #171717;
+  text-decoration: none;
+  cursor: pointer;
+  border: none; background: none; width: 100%;
+  font-family: inherit;
+  text-align: left;
+}
+.st-mobile-nav__item:hover { background: #fafafa; }
+.st-mobile-nav__chevron {
+  width: 16px; height: 16px;
+  color: #999;
+  transition: transform 0.2s;
+}
+.st-mobile-nav__sub {
+  display: none;
+  padding: 0 24px 12px 36px;
+}
+.st-mobile-nav__sub.is-open { display: block; }
+.st-mobile-nav__sub a {
+  display: block;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #555;
+  text-decoration: none;
+}
+.st-mobile-nav__sub a:hover { color: #171717; }
+.st-mobile-nav__sub-heading {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #999;
+  padding: 12px 0 6px;
+}
+.st-mobile-nav__footer {
+  border-top: 1px solid #e5e5e5;
+  padding: 20px 24px;
+}
+.st-mobile-nav__join {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48px;
+  background: #171717;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  .st-header__nav { display: none; }
+  .st-header__hamburger { display: flex; }
+  .st-header__inner {
+    grid-template: "hamburger logo icons" / auto 1fr auto;
+    height: 56px;
+  }
+  .st-header__logo { justify-content: center; }
+  .st-header__hamburger { grid-area: hamburger; }
+}
+@media (min-width: 1024px) {
+  .st-mobile-nav { display: none !important; }
+}
+</style>
+
+<!-- ── Announcement bar ──────────────────────────────────── -->
+<div class="st-topbar">
+  <span><strong>Announcement Bar</strong> — Things will be announced here</span>
+</div>
+
+<!-- ── Main header ───────────────────────────────────────── -->
+<header class="st-header" id="st-sticky-header">
+  <div class="st-header__inner">
+
+    <!-- Hamburger (mobile) -->
+    <button class="st-header__hamburger" aria-label="Menu" onclick="document.getElementById('st-mobile-nav').classList.add('is-open')">
+      <svg viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+        <line x1="0" y1="1" x2="20" y2="1"/>
+        <line x1="0" y1="7" x2="20" y2="7"/>
+        <line x1="0" y1="13" x2="20" y2="13"/>
+      </svg>
+    </button>
+
+    <!-- Logo -->
+    <a href="spacetalk-adventurer2-version1.html" class="st-header__logo" aria-label="Spacetalk home">
+      <svg viewBox="0 0 512 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="56" font-family="'TWK Lausanne', sans-serif" font-size="62" font-weight="500" fill="#171717" letter-spacing="-2">spacetalk</text>
+      </svg>
+    </a>
+
+    <!-- Desktop navigation -->
+    <nav class="st-header__nav" id="st-desktop-nav">
+      <ul class="st-header__nav-list">
+
+        <!-- The Spacetalk App -->
+        <li class="st-nav-item" data-mega="app">
+          <button class="st-menu-item" type="button">
+            <span class="st-menu-item__text" data-text>The Spacetalk App<svg class="st-menu-item__chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></span>
+            <span class="st-menu-item__dup">The Spacetalk App<svg class="st-menu-item__chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></span>
+          </button>
+        </li>
+
+        <!-- Smartwatches -->
+        <li class="st-nav-item" data-mega="watches">
+          <button class="st-menu-item" type="button">
+            <span class="st-menu-item__text" data-text>Smartwatches<svg class="st-menu-item__chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></span>
+            <span class="st-menu-item__dup">Smartwatches<svg class="st-menu-item__chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></span>
+          </button>
+        </li>
+
+        <!-- Mobile -->
+        <li class="st-nav-item" data-mega="mobile">
+          <button class="st-menu-item" type="button">
+            <span class="st-menu-item__text" data-text>Mobile<svg class="st-menu-item__chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></span>
+            <span class="st-menu-item__dup">Mobile<svg class="st-menu-item__chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></span>
+          </button>
+        </li>
+
+        <!-- About -->
+        <li class="st-nav-item" data-mega="about">
+          <button class="st-menu-item" type="button">
+            <span class="st-menu-item__text" data-text>About<svg class="st-menu-item__chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></span>
+            <span class="st-menu-item__dup">About<svg class="st-menu-item__chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg></span>
+          </button>
+        </li>
+
+        <!-- Join Spacetalk (button) -->
+        <li class="st-nav-item">
+          <a href="#" class="st-menu-item st-menu-item--join">Join Spacetalk</a>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Icons -->
+    <div class="st-header__icons">
+      <button class="st-header__icon-btn" aria-label="Search">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="20" y2="20" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button class="st-header__icon-btn" aria-label="Account">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="11" cy="8" r="3.5"/><path d="M4 20c0-3.5 3.2-6.5 7-6.5s7 3 7 6.5"/>
+        </svg>
+      </button>
+      <button class="st-header__icon-btn" aria-label="Cart" style="position:relative;">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 8h10l-1.2 8H7.2z"/><path d="M9 8V6a2 2 0 014 0v2"/>
+        </svg>
+        <span class="st-header__cart-count">0</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ── Mega menu panels ──────────────────────────────────── -->
+
+  <!-- THE SPACETALK APP -->
+  <div class="st-mega" data-panel="app">
+    <div class="st-mega__inner">
+      <div class="st-mega__grid st-mega__grid--3">
+
+        <!-- Col 1 — What the app does -->
+        <div class="st-mega__col">
+          <p class="st-mega__heading">What the app does</p>
+          <ul class="st-mega__links">
+            <li><a href="#" class="st-mega__link">GPS Location Tracking</a></li>
+            <li><a href="#" class="st-mega__link">Safe Communication</a></li>
+            <li><a href="#" class="st-mega__link">School Mode</a></li>
+            <li><a href="#" class="st-mega__link">SOS &amp; Emergency Alerts</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 2 — Promo card -->
+        <div class="st-mega__col">
+          <a href="#" class="st-mega__promo" style="background:#e8f5e9;">
+            <div class="st-mega__promo-overlay"></div>
+            <div class="st-mega__promo-text">
+              <p class="st-mega__promo-tag">Freedom Platform</p>
+              <p class="st-mega__promo-title">Your family safety hub</p>
+              <p class="st-mega__promo-sub">Manage everything in one place</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Col 3 — Links -->
+        <div class="st-mega__col st-mega__col-gap">
+          <div>
+            <p class="st-mega__heading">Learn more</p>
+            <ul class="st-mega__links">
+              <li><a href="#" class="st-mega__link">About the app</a></li>
+              <li><a href="#" class="st-mega__link">Family safety</a></li>
+              <li><a href="#" class="st-mega__link">App FAQ</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="st-mega__heading">Download</p>
+            <ul class="st-mega__links">
+              <li><a href="#" class="st-mega__link">Download for iOS</a></li>
+              <li><a href="#" class="st-mega__link">Download for Android</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SMARTWATCHES -->
+  <div class="st-mega" data-panel="watches">
+    <div class="st-mega__inner">
+      <div class="st-mega__grid st-mega__grid--4">
+
+        <!-- Col 1 — Kids Smartwatches -->
+        <div class="st-mega__col st-mega__col-gap">
+          <div>
+            <p class="st-mega__heading">Kids Smartwatches</p>
+            <ul class="st-mega__links">
+              <li>
+                <a href="spacetalk-adventurer2-version1.html" class="st-mega__link st-mega__link--bold">
+                  Adventurer 2
+                  <span class="st-mega__link-sub">#1 in Australia · from $256.99</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="st-mega__link st-mega__link--bold">
+                  Loop
+                  <span class="st-mega__link-sub">Best value · from $191.98</span>
+                </a>
+              </li>
+              <li><a href="#" class="st-mega__link">Not sure which? Compare</a></li>
+              <li><a href="#" class="st-mega__link">All bundles</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="st-mega__heading">Accessories</p>
+            <ul class="st-mega__links">
+              <li><a href="#" class="st-mega__link">Watch straps</a></li>
+              <li><a href="#" class="st-mega__link">Screen protectors</a></li>
+              <li><a href="#" class="st-mega__link">Charging stands</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Col 2 — Promo card -->
+        <div class="st-mega__col">
+          <a href="#" class="st-mega__promo" style="background:#f0eef5;">
+            <div class="st-mega__promo-overlay"></div>
+            <div class="st-mega__promo-text">
+              <p class="st-mega__promo-tag">New to Spacetalk?</p>
+              <p class="st-mega__promo-title">Find the right watch for your family</p>
+              <p class="st-mega__promo-sub">Take our quick quiz →</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Col 3 — Watch Plans -->
+        <div class="st-mega__col">
+          <p class="st-mega__heading">Watch Plans</p>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <a href="#" class="st-mega__plan">
+              <span class="st-mega__plan-name">30-Day Plan</span>
+              <span class="st-mega__plan-price">$14.95/mo</span>
+            </a>
+            <a href="#" class="st-mega__plan">
+              <span class="st-mega__plan-badge">Most flexible</span>
+              <span class="st-mega__plan-name">180-Day Plan</span>
+              <span class="st-mega__plan-price">$12.95/mo</span>
+            </a>
+            <a href="#" class="st-mega__plan">
+              <span class="st-mega__plan-badge">Best value</span>
+              <span class="st-mega__plan-name">365-Day Plan</span>
+              <span class="st-mega__plan-price">$9.95/mo</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 4 — Quick links -->
+        <div class="st-mega__col st-mega__col-gap">
+          <div>
+            <p class="st-mega__heading">Support</p>
+            <ul class="st-mega__links">
+              <li><a href="#" class="st-mega__link">Setup guide</a></li>
+              <li><a href="#" class="st-mega__link">Activate SIM</a></li>
+              <li><a href="#" class="st-mega__link">Help centre</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE -->
+  <div class="st-mega" data-panel="mobile">
+    <div class="st-mega__inner">
+      <div class="st-mega__grid st-mega__grid--4">
+
+        <!-- Col 1 — Mobile Plans -->
+        <div class="st-mega__col">
+          <p class="st-mega__heading">Mobile Plans</p>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <a href="#" class="st-mega__plan">
+              <span class="st-mega__plan-name">15GB Plan</span>
+              <span class="st-mega__plan-price">$20/mo</span>
+            </a>
+            <a href="#" class="st-mega__plan">
+              <span class="st-mega__plan-badge">Most popular</span>
+              <span class="st-mega__plan-name">29GB Plan</span>
+              <span class="st-mega__plan-price">$25/mo</span>
+            </a>
+            <a href="#" class="st-mega__plan">
+              <span class="st-mega__plan-name">40GB Plan</span>
+              <span class="st-mega__plan-price">$35/mo</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2 — Promo card -->
+        <div class="st-mega__col">
+          <a href="#" class="st-mega__promo" style="background:#fef3c7;">
+            <div class="st-mega__promo-overlay"></div>
+            <div class="st-mega__promo-text">
+              <p class="st-mega__promo-tag">The Spacetalk App</p>
+              <p class="st-mega__promo-title">Safety on any device</p>
+              <p class="st-mega__promo-sub">GPS, SOS, School Mode & more</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Col 3 — More Ways to Connect -->
+        <div class="st-mega__col">
+          <p class="st-mega__heading">More ways to connect</p>
+          <ul class="st-mega__links">
+            <li><a href="#" class="st-mega__link">iPhone bundles</a></li>
+            <li><a href="#" class="st-mega__link">Mobile gifting</a></li>
+            <li><a href="#" class="st-mega__link">Network coverage</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4 — Utility -->
+        <div class="st-mega__col st-mega__col-gap">
+          <div>
+            <p class="st-mega__heading">Get started</p>
+            <ul class="st-mega__links">
+              <li><a href="#" class="st-mega__link">Activate SIM</a></li>
+              <li><a href="#" class="st-mega__link">Manage plan</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="st-mega" data-panel="about">
+    <div class="st-mega__inner">
+      <div class="st-mega__grid st-mega__grid--4">
+
+        <!-- Col 1 — Company -->
+        <div class="st-mega__col">
+          <p class="st-mega__heading">Company</p>
+          <ul class="st-mega__links">
+            <li><a href="#" class="st-mega__link">About</a></li>
+            <li><a href="#" class="st-mega__link">Family safety</a></li>
+            <li><a href="#" class="st-mega__link">Investor centre</a></li>
+            <li><a href="#" class="st-mega__link">Careers</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 2 — For Communities -->
+        <div class="st-mega__col">
+          <p class="st-mega__heading">For communities</p>
+          <ul class="st-mega__links">
+            <li><a href="#" class="st-mega__link">Schools</a></li>
+            <li><a href="#" class="st-mega__link">Seniors &amp; NDIS</a></li>
+            <li><a href="#" class="st-mega__link">Business</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3 — Get Started -->
+        <div class="st-mega__col">
+          <p class="st-mega__heading">Get started</p>
+          <ul class="st-mega__links">
+            <li><a href="#" class="st-mega__link">Setup guide</a></li>
+            <li><a href="#" class="st-mega__link">Activate SIM</a></li>
+            <li><a href="#" class="st-mega__link">Download app</a></li>
+            <li><a href="#" class="st-mega__link">Coverage</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4 — Support -->
+        <div class="st-mega__col">
+          <p class="st-mega__heading">Support</p>
+          <ul class="st-mega__links">
+            <li><a href="#" class="st-mega__link">Help centre</a></li>
+            <li><a href="#" class="st-mega__link">Contact us</a></li>
+            <li><a href="#" class="st-mega__link">My account</a></li>
+            <li><a href="#" class="st-mega__link">Manage plan</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<!-- ── Mega overlay (behind mega panels) ────────────────── -->
+<div class="st-mega-overlay" id="st-mega-overlay"></div>
+
+<!-- ── Mobile nav drawer ────────────────────────────────── -->
+<nav class="st-mobile-nav" id="st-mobile-nav">
+  <div class="st-mobile-nav__overlay" onclick="this.parentElement.classList.remove('is-open')"></div>
+  <div class="st-mobile-nav__drawer">
+
+    <div class="st-mobile-nav__header">
+      <svg viewBox="0 0 512 74" fill="none" style="height:18px;width:auto;">
+        <text x="0" y="56" font-family="'TWK Lausanne', sans-serif" font-size="62" font-weight="500" fill="#171717" letter-spacing="-2">spacetalk</text>
+      </svg>
+      <button class="st-mobile-nav__close" aria-label="Close menu" onclick="document.getElementById('st-mobile-nav').classList.remove('is-open')">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/></svg>
+      </button>
+    </div>
+
+    <div class="st-mobile-nav__body">
+
+      <!-- The Spacetalk App -->
+      <button class="st-mobile-nav__item" onclick="this.nextElementSibling.classList.toggle('is-open'); this.querySelector('.st-mobile-nav__chevron').style.transform = this.nextElementSibling.classList.contains('is-open') ? 'rotate(90deg)' : ''">
+        The Spacetalk App
+        <svg class="st-mobile-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg>
+      </button>
+      <div class="st-mobile-nav__sub">
+        <p class="st-mobile-nav__sub-heading">What the app does</p>
+        <a href="#">GPS Location Tracking</a>
+        <a href="#">Safe Communication</a>
+        <a href="#">School Mode</a>
+        <a href="#">SOS &amp; Emergency Alerts</a>
+        <p class="st-mobile-nav__sub-heading">Learn more</p>
+        <a href="#">About the app</a>
+        <a href="#">Family safety</a>
+        <a href="#">App FAQ</a>
+        <a href="#">Download for iOS</a>
+        <a href="#">Download for Android</a>
+      </div>
+
+      <!-- Smartwatches -->
+      <button class="st-mobile-nav__item" onclick="this.nextElementSibling.classList.toggle('is-open'); this.querySelector('.st-mobile-nav__chevron').style.transform = this.nextElementSibling.classList.contains('is-open') ? 'rotate(90deg)' : ''">
+        Smartwatches
+        <svg class="st-mobile-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg>
+      </button>
+      <div class="st-mobile-nav__sub">
+        <p class="st-mobile-nav__sub-heading">Kids Smartwatches</p>
+        <a href="spacetalk-adventurer2-version1.html">Adventurer 2</a>
+        <a href="#">Loop</a>
+        <a href="#">Compare watches</a>
+        <a href="#">All bundles</a>
+        <p class="st-mobile-nav__sub-heading">Watch Plans</p>
+        <a href="#">30-Day Plan — $14.95/mo</a>
+        <a href="#">180-Day Plan — $12.95/mo</a>
+        <a href="#">365-Day Plan — $9.95/mo</a>
+        <p class="st-mobile-nav__sub-heading">Accessories</p>
+        <a href="#">Watch straps</a>
+        <a href="#">Screen protectors</a>
+        <a href="#">Charging stands</a>
+      </div>
+
+      <!-- Mobile -->
+      <button class="st-mobile-nav__item" onclick="this.nextElementSibling.classList.toggle('is-open'); this.querySelector('.st-mobile-nav__chevron').style.transform = this.nextElementSibling.classList.contains('is-open') ? 'rotate(90deg)' : ''">
+        Mobile
+        <svg class="st-mobile-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg>
+      </button>
+      <div class="st-mobile-nav__sub">
+        <p class="st-mobile-nav__sub-heading">Mobile Plans</p>
+        <a href="#">15GB — $20/mo</a>
+        <a href="#">29GB — $25/mo</a>
+        <a href="#">40GB — $35/mo</a>
+        <p class="st-mobile-nav__sub-heading">More ways to connect</p>
+        <a href="#">iPhone bundles</a>
+        <a href="#">Mobile gifting</a>
+        <a href="#">Network coverage</a>
+      </div>
+
+      <!-- About -->
+      <button class="st-mobile-nav__item" onclick="this.nextElementSibling.classList.toggle('is-open'); this.querySelector('.st-mobile-nav__chevron').style.transform = this.nextElementSibling.classList.contains('is-open') ? 'rotate(90deg)' : ''">
+        About
+        <svg class="st-mobile-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg>
+      </button>
+      <div class="st-mobile-nav__sub">
+        <p class="st-mobile-nav__sub-heading">Company</p>
+        <a href="#">About</a>
+        <a href="#">Family safety</a>
+        <a href="#">Investor centre</a>
+        <a href="#">Careers</a>
+        <p class="st-mobile-nav__sub-heading">For communities</p>
+        <a href="#">Schools</a>
+        <a href="#">Seniors &amp; NDIS</a>
+        <a href="#">Business</a>
+        <p class="st-mobile-nav__sub-heading">Support</p>
+        <a href="#">Help centre</a>
+        <a href="#">Contact us</a>
+        <a href="#">My account</a>
+      </div>
+
+    </div>
+
+    <div class="st-mobile-nav__footer">
+      <a href="#" class="st-mobile-nav__join">Join Spacetalk</a>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ── Header JavaScript ─────────────────────────────────── -->
+<script>
+(function() {
+  'use strict';
+
+  // ── Mega menu hover/click handling ──
+  const navItems = document.querySelectorAll('.st-nav-item[data-mega]');
+  const overlay = document.getElementById('st-mega-overlay');
+  let openPanel = null;
+  let closeTimer = null;
+
+  function openMega(key) {
+    clearTimeout(closeTimer);
+    // Close any existing
+    document.querySelectorAll('.st-mega.is-active').forEach(p => p.classList.remove('is-active'));
+    document.querySelectorAll('.st-nav-item.is-open').forEach(n => n.classList.remove('is-open'));
+    // Open new
+    const panel = document.querySelector('.st-mega[data-panel="' + key + '"]');
+    const item = document.querySelector('.st-nav-item[data-mega="' + key + '"]');
+    if (panel && item) {
+      panel.classList.add('is-active');
+      item.classList.add('is-open');
+      overlay.classList.add('is-visible');
+      openPanel = key;
+    }
+  }
+
+  function closeMega() {
+    closeTimer = setTimeout(function() {
+      document.querySelectorAll('.st-mega.is-active').forEach(p => p.classList.remove('is-active'));
+      document.querySelectorAll('.st-nav-item.is-open').forEach(n => n.classList.remove('is-open'));
+      overlay.classList.remove('is-visible');
+      openPanel = null;
+    }, 120);
+  }
+
+  navItems.forEach(function(item) {
+    var key = item.getAttribute('data-mega');
+
+    item.addEventListener('mouseenter', function() { openMega(key); });
+    item.addEventListener('mouseleave', function() { closeMega(); });
+    item.querySelector('button').addEventListener('click', function() {
+      if (openPanel === key) { closeMega(); } else { openMega(key); }
+    });
+  });
+
+  // Keep mega open when hovering it
+  document.querySelectorAll('.st-mega').forEach(function(panel) {
+    panel.addEventListener('mouseenter', function() { clearTimeout(closeTimer); });
+    panel.addEventListener('mouseleave', function() { closeMega(); });
+  });
+
+  // Close on overlay click
+  overlay.addEventListener('click', function() {
+    clearTimeout(closeTimer);
+    document.querySelectorAll('.st-mega.is-active').forEach(p => p.classList.remove('is-active'));
+    document.querySelectorAll('.st-nav-item.is-open').forEach(n => n.classList.remove('is-open'));
+    overlay.classList.remove('is-visible');
+    openPanel = null;
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && openPanel) {
+      clearTimeout(closeTimer);
+      document.querySelectorAll('.st-mega.is-active').forEach(p => p.classList.remove('is-active'));
+      document.querySelectorAll('.st-nav-item.is-open').forEach(n => n.classList.remove('is-open'));
+      overlay.classList.remove('is-visible');
+      openPanel = null;
+    }
+  });
+
+})();
+</script>

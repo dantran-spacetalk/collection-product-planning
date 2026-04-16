@@ -193,120 +193,23 @@ a { color: inherit; }
 
 
 <!-- ╔═══════════════════════════════════════════════════════════╗
-     ║  SECTION 1 — SPACETALK HEADER                           ║
-     ║  Liquid: header.liquid (already exists in theme)         ║
-     ║  This simulates the live Spacetalk header for preview    ║
+     ║  SECTION 1 — SHARED HEADER (loaded from components/)    ║
      ╚═══════════════════════════════════════════════════════════╝ -->
-<style id="css-header">
-.st-header {
-  background: var(--st-white);
-  position: relative;
-  z-index: 200;
-  border-bottom: 1px solid var(--st-g100);
-}
-.st-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-  max-width: var(--page-width);
-  margin: 0 auto;
-  padding: 0 24px;
-}
-.st-header__logo svg {
-  height: 20px;
-  width: auto;
-}
-.st-header__nav {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-.st-header__nav-link {
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  color: var(--st-black);
-  text-decoration: none;
-  transition: opacity 0.2s;
-  position: relative;
-}
-.st-header__nav-link:hover { opacity: 0.6; }
-.st-header__nav-link--active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 1.5px;
-  background: var(--st-black);
-  border-radius: 1px;
-}
-.st-header__icons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-.st-header__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--st-black);
-  background: none;
-  border: none;
-  padding: 0;
-}
-.st-header__icon svg { width: 20px; height: 20px; }
-.st-header__cta {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: 8px 18px;
-  border-radius: var(--st-rp);
-  background: var(--st-black);
-  color: var(--st-white);
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-.st-header__cta:hover { opacity: 0.8; }
-@media (max-width: 989px) {
-  .st-header__nav { display: none; }
-}
-</style>
-
-<header class="st-header">
-  <div class="st-header__inner">
-    <!-- Logo — uses simplified Spacetalk wordmark -->
-    <a href="/" class="st-header__logo" aria-label="Spacetalk home">
-      <svg viewBox="0 0 512 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text x="0" y="56" font-family="'TWK Lausanne', sans-serif" font-size="62" font-weight="500" fill="#171717" letter-spacing="-2">spacetalk</text>
-      </svg>
-    </a>
-
-    <!-- Main navigation -->
-    <nav class="st-header__nav">
-      <a href="#" class="st-header__nav-link">Join Spacetalk</a>
-      <a href="#" class="st-header__nav-link st-header__nav-link--active">Smartwatches</a>
-      <a href="#" class="st-header__nav-link">Mobile &amp; Plans</a>
-      <a href="#" class="st-header__nav-link">Accessories</a>
-    </nav>
-
-    <!-- Header icons -->
-    <div class="st-header__icons">
-      <button class="st-header__icon" aria-label="Search">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="9" r="6"/><line x1="13.5" y1="13.5" x2="18" y2="18"/></svg>
-      </button>
-      <button class="st-header__icon" aria-label="Account">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="7" r="3.5"/><path d="M3 18c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg>
-      </button>
-      <button class="st-header__icon" aria-label="Cart" style="position:relative;">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 7h10l-1.5 8H6.5z"/><path d="M8 7V5a2 2 0 014 0v2"/></svg>
-        <span style="position:absolute;top:-4px;right:-6px;background:var(--st-neon);color:var(--st-black);font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;">0</span>
-      </button>
-    </div>
-  </div>
-</header>
+<div id="st-header-slot"></div>
+<script>
+fetch('components/header.html')
+  .then(function(r){return r.text()})
+  .then(function(html){
+    var slot=document.getElementById('st-header-slot');
+    slot.innerHTML=html;
+    slot.querySelectorAll('script').forEach(function(old){
+      var s=document.createElement('script');
+      s.textContent=old.textContent;
+      old.parentNode.replaceChild(s,old);
+    });
+  })
+  .catch(function(){console.warn('Header component failed to load');});
+</script>
 
 
 <!-- ╔═══════════════════════════════════════════════════════════╗
@@ -316,7 +219,7 @@ a { color: inherit; }
 <style id="css-subnav">
 .st-subnav {
   position: sticky;
-  top: 0;
+  top: 64px;
   z-index: 100;
   background: rgba(255,255,255,0.96);
   backdrop-filter: blur(14px);
