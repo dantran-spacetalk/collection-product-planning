@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spacetalk — FY2026 Executive Brief</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:#0D1F3C; --teal:#00A896; --teal-l:#E0F5F3;
+  --red:#E63946; --red-l:#FDE8EA;
+  --amber:#F4A261; --amber-l:#FEF3E2;
+  --green:#1D9E75; --green-l:#E1F5EE;
+  --off:#F7F9FC; --slate:#64748B; --mid:#94A3B8;
+  --border:#E2E8F0; --dark:#1E293B;
+}
+html,body { width:100%; height:100%; overflow:hidden; font-family:'DM Sans',sans-serif; background:var(--navy); }
+
+#deck-wrapper {
+  width:calc(100% - 3rem); max-width:1440px;
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+}
+.site-logo { display:block; height:24px; opacity:0.7; margin-bottom:1.25rem; }
+
+#deck {
+  width:100%;
+  aspect-ratio:16/9;
+  position:relative; overflow:hidden;
+  border-radius:12px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.35);
+}
+
+.slide {
+  position:absolute; top:0; left:0;
+  width:100%; height:100%;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.22s ease;
+  display:flex; flex-direction:column;
+  overflow-y:auto; overflow-x:hidden;
+  border-radius:12px;
+}
+.slide.active { opacity:1; pointer-events:all; }
+.slide > * { min-height:0; }
+
+/* LOGO */
+.cover-logo { height:36px; margin-bottom:1.2rem; display:block; opacity:0.9; }
+
+/* NAV */
+#nav {
+  position:fixed; bottom:1.2rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:row; align-items:center; gap:8px;
+  z-index:99999; background:rgba(8,18,36,0.93); backdrop-filter:blur(14px);
+  padding:7px 14px; border-radius:40px; border:1px solid rgba(255,255,255,0.13);
+  white-space:nowrap;
+}
+#nav-dots { display:flex; flex-direction:row; align-items:center; gap:4px; }
+.nd { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.25); cursor:pointer; transition:all .18s; flex-shrink:0; }
+.nd.on { background:var(--teal); transform:scale(1.5); }
+.nb { background:none; border:none; color:rgba(255,255,255,0.5); cursor:pointer; font-size:14px; padding:1px 5px; line-height:1; transition:color .12s; flex-shrink:0; font-family:'DM Sans',sans-serif; }
+.nb:hover { color:#fff; }
+#nav-ctr { font-size:10px; color:rgba(255,255,255,0.32); letter-spacing:.06em; min-width:32px; text-align:center; flex-shrink:0; }
+
+/* SHARED */
+.bg-navy { background:var(--navy); }
+.bg-off   { background:var(--off); }
+.pad { padding:2.5rem 3.5rem; flex:1; display:flex; flex-direction:column; }
+.eyebrow { font-size:10px; letter-spacing:.16em; text-transform:uppercase; font-weight:500; color:var(--teal); margin-bottom:.35rem; }
+.sh2 { font-family:'DM Serif Display',serif; font-size:clamp(1.4rem,2.2vw,1.9rem); line-height:1.2; margin-bottom:.3rem; }
+.sh2.light { color:var(--dark); }
+.sh2.dark  { color:#fff; }
+.ssub { font-size:12px; color:var(--slate); margin-bottom:.9rem; }
+.ssub.dark { color:var(--mid); }
+
+/* COVER */
+.cover-inner { flex:1; display:flex; align-items:center; padding:5rem 6rem; position:relative; overflow:hidden; }
+.cover-stripe { position:absolute; left:0; top:0; width:4px; height:100%; background:var(--teal); }
+.cover-ring  { position:absolute; right:-60px; top:50%; transform:translateY(-50%); width:480px; height:480px; border-radius:50%; border:1px solid rgba(0,168,150,0.1); pointer-events:none; }
+.cover-ring2 { position:absolute; right:80px;  top:50%; transform:translateY(-50%); width:300px; height:300px; border-radius:50%; border:1px solid rgba(0,168,150,0.07); pointer-events:none; }
+.cover-h { font-family:'DM Serif Display',serif; font-size:clamp(2.5rem,4.8vw,4.2rem); color:#fff; line-height:1.06; margin-bottom:.85rem; }
+.cover-h em { color:var(--teal); font-style:italic; }
+.cover-p { font-size:14px; color:var(--mid); line-height:1.75; max-width:460px; margin-bottom:2.25rem; }
+.meta-row { display:flex; gap:2.5rem; flex-wrap:wrap; }
+.meta-item label { display:block; font-size:9px; letter-spacing:.12em; color:var(--slate); text-transform:uppercase; margin-bottom:3px; }
+.meta-item span { font-size:13px; color:#fff; font-weight:500; }
+
+/* CONTEXT CARDS - fitted, not stretched */
+.ctx-grid { display:flex; gap:1rem; margin-top:.85rem; align-items:flex-start; }
+.ctx-card {
+  background:#fff; border-radius:13px;
+  padding:1.25rem; border:1px solid var(--border);
+  position:relative; overflow:hidden;
+  flex:1; min-width:0;
+}
+.ctx-card::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.ctx-card.r::after { background:var(--red); }
+.ctx-card.a::after { background:var(--amber); }
+.ctx-card.t::after { background:var(--teal); }
+.ctx-n { font-family:'DM Serif Display',serif; font-size:2.2rem; color:var(--border); margin-bottom:.4rem; line-height:1; }
+.ctx-card h3 { font-size:13px; font-weight:500; color:var(--dark); margin-bottom:.3rem; }
+.ctx-card p { font-size:12px; color:var(--slate); line-height:1.65; }
+
+/* KPI BOXES */
+.kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; margin-top:.85rem; }
+.kpi-row-6 { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; margin-top:.85rem; }
+.kpi-box { border-radius:10px; padding:.85rem 1rem; border:1px solid; }
+.kpi-box.neutral { background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.08); }
+.kpi-box.danger  { background:rgba(230,57,70,.08);  border-color:rgba(230,57,70,.2); }
+.kpi-box.success { background:rgba(0,168,150,.08);  border-color:rgba(0,168,150,.2); }
+.kpi-box.info    { background:rgba(55,138,221,.08); border-color:rgba(55,138,221,.2); }
+.kpi-lbl { font-size:10px; color:var(--mid); margin-bottom:3px; }
+.kpi-lbl.danger  { color:#FF8087; }
+.kpi-lbl.success { color:var(--teal); }
+.kpi-lbl.info    { color:#7EC8F0; }
+.kpi-val { font-size:18px; font-weight:500; color:#fff; font-family:'DM Serif Display',serif; }
+.kpi-val.danger  { color:var(--red); }
+.kpi-val.success { color:var(--teal); }
+.kpi-val.info    { color:#7EC8F0; }
+.kpi-sub { font-size:10px; color:var(--slate); margin-top:2px; }
+.kpi-sub.danger  { color:#FF8087; }
+.kpi-sub.success { color:var(--teal); }
+.kpi-sub.info    { color:#7EC8F0; }
+
+/* MONTHLY SPLIT */
+.month-slide { display:grid !important; grid-template-columns:50% 50%; height:100%; overflow:hidden; }
+.month-left  { background:#fff; padding:1.75rem 2rem; overflow-y:auto; display:flex; flex-direction:column; gap:.7rem; }
+.month-right { background:var(--navy); padding:1.75rem 2rem; overflow-y:auto; display:flex; flex-direction:column; gap:.8rem; }
+.month-fy   { font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:var(--teal); margin-bottom:.1rem; }
+.month-name { font-family:'DM Serif Display',serif; font-size:1.9rem; color:var(--dark); line-height:1.1; }
+.month-tag  { display:inline-block; font-size:10px; font-weight:500; padding:2px 9px; border-radius:20px; margin-top:.3rem; letter-spacing:.04em; }
+.tag-g { background:var(--green-l); color:#085041; }
+.tag-a { background:var(--amber-l); color:#854F0B; }
+.tag-r { background:var(--red-l);   color:#9B1C1C; }
+.tag-t { background:var(--teal-l);  color:#085041; }
+
+/* DATA TABLE */
+.dt { width:100%; border-collapse:collapse; font-size:11px; }
+.dt thead th { font-size:9px; letter-spacing:.07em; text-transform:uppercase; color:var(--slate); padding:0 0 6px; font-weight:500; text-align:right; border-bottom:1.5px solid var(--border); }
+.dt thead th:first-child { text-align:left; }
+.dt tbody td { padding:4.5px 0; text-align:right; color:var(--dark); border-bottom:1px solid #F1F5F9; }
+.dt tbody td:first-child { text-align:left; color:var(--slate); font-size:10.5px; }
+.dt tbody tr:last-child td { border-bottom:none; }
+.cu { color:var(--green); font-weight:500; }
+.cd { color:var(--red);   font-weight:500; }
+.cw { color:#854F0B;      font-weight:500; }
+.cn { color:var(--slate); }
+.dt-note { background:var(--off); border-radius:8px; padding:.6rem .85rem; border:1px solid var(--border); font-size:10px; color:var(--slate); line-height:1.6; }
+
+/* NARRATIVE */
+.situation { font-size:12.5px; line-height:1.75; color:var(--mid); padding:.85rem 1rem; background:rgba(255,255,255,.05); border-radius:10px; border-left:3px solid rgba(255,255,255,.2); }
+.ns { display:flex; flex-direction:column; gap:5px; }
+.ns-lbl { font-size:9px; letter-spacing:.12em; text-transform:uppercase; font-weight:500; margin-bottom:4px; display:flex; align-items:center; gap:6px; }
+.ns-lbl::before { content:''; display:inline-block; width:14px; height:2px; border-radius:2px; flex-shrink:0; }
+.ns-lbl.good::before  { background:#5DCAA5; } .ns-lbl.good  { color:#5DCAA5; }
+.ns-lbl.bad::before   { background:#FF8087; } .ns-lbl.bad   { color:#FF8087; }
+.ns-lbl.event::before { background:#F4A261; } .ns-lbl.event { color:#F4A261; }
+.ns-lbl.fix::before   { background:var(--teal); } .ns-lbl.fix { color:var(--teal); }
+.ni { font-size:11px; line-height:1.55; padding:5px 9px; border-radius:6px; border-left:2px solid; }
+.ni.good  { background:rgba(29,158,117,.12); color:#5DCAA5; border-color:var(--green); }
+.ni.bad   { background:rgba(230,57,70,.1);   color:#FF8087; border-color:var(--red); }
+.ni.event { background:rgba(244,162,97,.1);  color:#F4A261; border-color:var(--amber); }
+.ni.fix   { background:rgba(0,168,150,.1);   color:#5DCAA5; border-color:var(--teal); }
+
+/* PROBLEMS - fitted */
+.prob-grid { display:flex; gap:1rem; margin-top:.85rem; align-items:flex-start; }
+.prob-card { border-radius:13px; padding:1.2rem; border:1px solid; flex:1; min-width:0; }
+.prob-card.r { background:rgba(230,57,70,.06);  border-color:rgba(230,57,70,.25); }
+.prob-card.a { background:rgba(244,162,97,.06); border-color:rgba(244,162,97,.25); }
+.prob-card.t { background:rgba(0,168,150,.06);  border-color:rgba(0,168,150,.25); }
+.prob-card.gr { background:rgba(29,158,117,.06); border-color:rgba(29,158,117,.25); }
+.pstat { font-family:'DM Serif Display',serif; font-size:2.4rem; margin-bottom:.15rem; line-height:1; }
+.pstat.r { color:var(--red); } .pstat.a { color:var(--amber); } .pstat.t { color:var(--teal); } .pstat.gr { color:var(--green); }
+.plbl { font-size:9px; letter-spacing:.12em; text-transform:uppercase; font-weight:500; margin-bottom:.3rem; }
+.plbl.r { color:#FF8087; } .plbl.a { color:#F4A261; } .plbl.t { color:var(--teal); } .plbl.gr { color:#5DCAA5; }
+.prob-card h3 { font-size:13px; font-weight:500; color:#fff; margin-bottom:.3rem; }
+.prob-card .pb { font-size:11.5px; color:var(--mid); line-height:1.65; margin-bottom:.65rem; }
+.pfix { font-size:11px; line-height:1.6; padding:.5rem .75rem; border-radius:7px; border-left:2px solid; }
+.pfix.r  { background:rgba(230,57,70,.1);  color:#FF8087; border-color:var(--red); }
+.pfix.a  { background:rgba(244,162,97,.1); color:#F4A261; border-color:var(--amber); }
+.pfix.t  { background:rgba(0,168,150,.1);  color:#5DCAA5; border-color:var(--teal); }
+.pfix.gr { background:rgba(29,158,117,.1); color:#5DCAA5; border-color:var(--green); }
+
+/* RECOVERY - fitted and aligned */
+.rec-grid { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-top:.85rem; align-content:start; }
+.rec-card { background:#fff; border-radius:13px; padding:.95rem 1.1rem; border:1px solid var(--border); display:flex; gap:.7rem; align-items:flex-start; }
+.rec-n { font-family:'DM Serif Display',serif; font-size:1.8rem; min-width:30px; line-height:1; flex-shrink:0; }
+.rec-n.r { color:var(--red); } .rec-n.a { color:var(--amber); } .rec-n.t { color:var(--teal); }
+.rec-card h4 { font-size:12.5px; font-weight:500; color:var(--dark); margin-bottom:.22rem; }
+.rec-card p  { font-size:11px; color:var(--slate); line-height:1.6; }
+.rbadge { display:inline-block; font-size:10px; font-weight:500; padding:2px 7px; border-radius:20px; margin-top:.4rem; }
+.rb-r { background:#FDE8EA; color:var(--red); }
+.rb-a { background:var(--amber-l); color:#854F0B; }
+.rb-t { background:var(--teal-l);  color:#085041; }
+
+/* FORECAST */
+.fc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:.85rem; }
+.fc-card { border-radius:13px; padding:1.1rem; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); }
+.fc-card.feat { border-color:var(--teal); background:rgba(0,168,150,.08); }
+.fc-mo    { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--mid); margin-bottom:.25rem; }
+.fcb { font-size:10px; font-weight:500; padding:2px 8px; border-radius:20px; display:inline-block; margin-bottom:.6rem; }
+.fbr { background:rgba(244,162,97,.2); color:#F4A261; }
+.fbg { background:rgba(148,163,184,.2); color:var(--mid); }
+.fbt { background:rgba(0,168,150,.2);  color:var(--teal); }
+.fc-gross { font-family:'DM Serif Display',serif; font-size:1.65rem; color:#fff; margin-bottom:.1rem; }
+.fc-net   { font-size:12px; color:var(--teal); font-weight:500; margin-bottom:.6rem; }
+.fc-items { display:flex; flex-direction:column; gap:4px; }
+.fit      { font-size:11px; color:var(--mid); padding:4px 7px; background:rgba(255,255,255,.04); border-radius:5px; border-left:2px solid rgba(255,255,255,.1); }
+.fit.t    { border-color:var(--teal); color:#5DCAA5; }
+.fc-totals { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1rem; }
+.fc-total { background:rgba(255,255,255,.05); border-radius:11px; padding:.85rem 1rem; border:1px solid rgba(255,255,255,.08); }
+.fc-total label { font-size:10px; color:var(--mid); display:block; margin-bottom:3px; }
+.fc-total span  { font-size:19px; font-weight:500; color:#fff; font-family:'DM Serif Display',serif; }
+.fc-total small { font-size:10px; color:var(--slate); }
+
+/* ASK */
+.ask-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:.85rem; margin-top:.85rem; align-content:start; }
+.ask-card { background:#fff; border-radius:13px; padding:1.1rem; border:1px solid var(--border); position:relative; }
+.ask-card::before { position:absolute; top:.8rem; right:.8rem; font-size:9px; font-weight:500; letter-spacing:.1em; padding:2px 7px; border-radius:20px; }
+.ask-card.crit::before { content:'CRITICAL'; background:#FDE8EA; color:var(--red); }
+.ask-card.high::before { content:'HIGH';     background:var(--amber-l); color:#854F0B; }
+.ask-card h3 { font-size:13.5px; font-weight:500; color:var(--dark); margin-bottom:.3rem; padding-right:75px; }
+.ask-card p  { font-size:11.5px; color:var(--slate); line-height:1.68; }
+
+/* CLOSE */
+.close-stripe { position:absolute; left:0; top:0; width:4px; height:100%; background:var(--teal); }
+.close-q { font-family:'DM Serif Display',serif; font-size:clamp(2rem,3.8vw,3.4rem); color:#fff; line-height:1.2; max-width:680px; margin-bottom:1.25rem; }
+.close-q em { color:var(--teal); font-style:italic; }
+.close-p { font-size:14px; color:var(--mid); line-height:1.8; max-width:560px; margin-bottom:2rem; }
+.close-mos { display:flex; gap:1rem; }
+.close-mo { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:11px; padding:.8rem 1.1rem; }
+.close-mo label { font-size:10px; color:var(--teal); letter-spacing:.08em; text-transform:uppercase; display:block; margin-bottom:2px; }
+.close-mo span  { font-size:14px; font-weight:500; color:#fff; }
+.close-mo small { display:block; font-size:10px; color:var(--mid); margin-top:1px; }
+
+/* ===== RESPONSIVE ===== */
+
+.theme-impact-grid { grid-template-columns:1fr 1fr; }
+.overview-products-grid { }
+
+/* Tablet */
+@media (max-width:1024px) {
+  #deck-wrapper { width:calc(100% - 2rem); }
+  #deck { aspect-ratio:auto; height:calc(100vh - 5rem); }
+  .pad { padding:1.8rem 2rem; }
+  .cover-inner { padding:3rem 3rem; }
+  .kpi-row { grid-template-columns:repeat(2,1fr); }
+  .kpi-row-6 { grid-template-columns:repeat(2,1fr); }
+  .month-slide { grid-template-columns:1fr !important; height:auto !important; }
+  .month-left, .month-right { padding:1.5rem 1.75rem; }
+  .prob-grid { flex-direction:column; }
+  .rec-grid { grid-template-columns:1fr; }
+  .fc-grid { grid-template-columns:1fr; }
+  .fc-totals { grid-template-columns:1fr; }
+  .ask-grid { grid-template-columns:1fr; }
+  .ctx-grid { flex-direction:column; }
+  .close-mos { flex-direction:column; gap:.6rem; }
+  .theme-impact-grid { grid-template-columns:1fr; }
+  .overview-products-grid { grid-template-columns:1fr !important; }
+}
+
+/* Mobile */
+@media (max-width:640px) {
+  #deck-wrapper { width:calc(100% - 1rem); }
+  #deck { aspect-ratio:auto; height:calc(100vh - 5rem); border-radius:10px; }
+  .site-logo { height:18px; margin-bottom:0.5rem; }
+  .slide { padding-bottom:3rem; border-radius:10px; }
+  .pad { padding:1.2rem 1rem; }
+  .cover-inner { padding:2rem 1.5rem; }
+  .close-inner { padding:2rem 1.5rem !important; align-items:flex-start !important; }
+  .cover-h { font-size:clamp(1.6rem,7vw,2.4rem); }
+  .cover-p { font-size:13px; max-width:100%; }
+  .cover-ring, .cover-ring2 { display:none; }
+  .meta-row { flex-direction:column; gap:.8rem; }
+  .sh2 { font-size:clamp(1.1rem,4.5vw,1.5rem); }
+  .kpi-row { grid-template-columns:1fr 1fr; gap:.5rem; }
+  .kpi-row-6 { grid-template-columns:1fr; }
+  .kpi-box { padding:.65rem .75rem; }
+  .kpi-val { font-size:15px; }
+  .month-slide { grid-template-columns:1fr !important; height:auto !important; }
+  .month-left, .month-right { padding:1.2rem 1rem; }
+  .month-name { font-size:1.4rem; }
+  .dt { font-size:10px; }
+  .dt thead th { font-size:8px; }
+  .situation { font-size:11.5px; padding:.65rem .75rem; }
+  .ni { font-size:10px; }
+  .prob-grid { flex-direction:column; gap:.75rem; }
+  .prob-card h3 { font-size:12px; }
+  .prob-card .pb { font-size:10.5px; }
+  .pfix { font-size:10px; }
+  .pstat { font-size:1.8rem; }
+  .rec-grid { grid-template-columns:1fr; gap:.6rem; }
+  .rec-card { padding:.75rem .85rem; }
+  .fc-grid { grid-template-columns:1fr; gap:.75rem; }
+  .fc-totals { grid-template-columns:1fr; gap:.5rem; }
+  .ask-grid { grid-template-columns:1fr; gap:.6rem; }
+  .ask-card h3 { font-size:12.5px; padding-right:65px; }
+  .ask-card p { font-size:10.5px; }
+  .close-q { font-size:clamp(1.4rem,6vw,2.4rem); }
+  .close-p { font-size:13px; max-width:100%; }
+  .close-mos { flex-direction:column; gap:.5rem; }
+  .close-mo { padding:.6rem .85rem; }
+  .ctx-grid { flex-direction:column; gap:.75rem; }
+  .ctx-card p { font-size:11px; }
+  #nav { padding:5px 10px; gap:5px; bottom:.8rem; }
+  .nd { width:5px; height:5px; }
+  #nav-ctr { font-size:9px; }
+  .nb { font-size:12px; }
+  .theme-impact-grid { grid-template-columns:1fr; }
+  .overview-products-grid { grid-template-columns:1fr !important; }
+}
+</style>
+</head>
+<body>
+<div id="deck-wrapper">
+  <img src="https://cdn.shopify.com/s/files/1/2141/2237/files/Spacetalk_White-Logo-Small.png" alt="Spacetalk" class="site-logo">
+  <div id="deck"></div>
+</div>
+<nav id="nav">
+  <button class="nb" id="prev-btn">&#8592;</button>
+  <div id="nav-dots"></div>
+  <span id="nav-ctr">1/1</span>
+  <button class="nb" id="next-btn">&#8594;</button>
+</nav>
+
+<script>
+/* DATA */
+const MONTHS = [
+  {
+    mo:'Jul 2025', fy:'FY2026', tag:'Strong start', tagCls:'tag-g',
+    situation:'FY2026 opened well with revenue doubling year on year. Shopify was the only place to buy a watch plan, plan sales were growing fast, and the funnel was converting intent-led buyers well. The main risk underneath all of this was that nearly 40% of every session had to be bought through paid ads.',
+    table:[
+      {l:'Orders',              v26:'1,412',    v25:'819',     cls:'cu', ch:'+72%'},
+      {l:'Gross revenue',       v26:'$183,894', v25:'$91,140', cls:'cu', ch:'+102%'},
+      {l:'Net revenue',         v26:'$169,620', v25:'$85,070', cls:'cu', ch:'+99%'},
+      {l:'Refund rate',         v26:'8.8%',     v25:'5.2%',    cls:'cw', ch:'+3.6pp'},
+      {l:'Website sessions',    v26:'77,484',   v25:'30,909',  cls:'cu', ch:'+151%'},
+      {l:'Conversion rate',     v26:'1.50%',    v25:'1.98%',   cls:'cd', ch:'-0.48pp'},
+      {l:'Cart to checkout',    v26:'52.9%',    v25:'27.7%',   cls:'cu', ch:'+25pp'},
+      {l:'Watch plan orders',   v26:'902',      v25:'311',     cls:'cu', ch:'+190%'},
+    ],
+    good:['Revenue doubled year on year across all key metrics','Watch plan orders nearly tripled to 902 on Shopify, the only purchase channel at this stage','Cart-to-checkout rate at 52.9%, showing a healthy funnel for buyers who arrived with intent'],
+    bad:['Paid ads carrying 37.6% of all sessions with no organic backup underneath','Conversion rate was actually below the prior year (1.50% vs 1.98%) because paid traffic brought in a lot of lower-intent visitors','Organic search only drove 8,225 sessions, just 10.5% of total traffic'],
+    events:['Shopify store on spacetalk.co, the main domain, with organic search equity built up over time','Paid advertising running heavily across all channels'],
+    fix:[]
+  },
+  {
+    mo:'Aug 2025', fy:'FY2026', tag:'Best conversion month', tagCls:'tag-t',
+    situation:'August was the strongest month of the year for converting visitors into buyers, driven by Afterpay Day bringing in shoppers who already had their wallets out. Revenue and plan sales were both well ahead of the prior year.',
+    table:[
+      {l:'Orders',              v26:'1,644',    v25:'947',     cls:'cu', ch:'+74%'},
+      {l:'Gross revenue',       v26:'$225,829', v25:'$114,571',cls:'cu', ch:'+97%'},
+      {l:'Net revenue',         v26:'$208,699', v25:'$97,218', cls:'cu', ch:'+115%'},
+      {l:'Refund rate',         v26:'9.4%',     v25:'2.5%',    cls:'cw', ch:'+6.9pp'},
+      {l:'Website sessions',    v26:'47,729',   v25:'41,105',  cls:'cu', ch:'+16%'},
+      {l:'Conversion rate',     v26:'2.56%',    v25:'1.74%',   cls:'cu', ch:'+0.82pp'},
+      {l:'Cart to checkout',    v26:'47.8%',    v25:'49.9%',   cls:'cn', ch:'-2pp'},
+      {l:'Watch plan orders',   v26:'1,032',    v25:'408',     cls:'cu', ch:'+153%'},
+    ],
+    good:['2.56% conversion rate was the best month of the entire year, above the prior year by nearly a full percentage point','Net revenue up 115% year on year','Bounce rate and time on site better than the same month last year','Plan sales up 153% year on year'],
+    bad:['Paid advertising was at its highest dependency point across the year, carrying 44.6% of all sessions','The gap between our refund rate and the prior year continued to widen, worth keeping an eye on'],
+    events:['Afterpay Day ran in August and was the key driver of the strong conversion rate'],
+    fix:[]
+  },
+  {
+    mo:'Sep 2025', fy:'FY2026', tag:'Domain displaced', tagCls:'tag-a',
+    situation:'On the surface, a clean month. Revenue doubled and conversion was above the prior year. But a structural change happened in September that would quietly damage organic search traffic for the next five months: a new marketing website took over the main spacetalk.co domain, pushing the Shopify store off it.',
+    table:[
+      {l:'Orders',              v26:'1,495',    v25:'954',     cls:'cu', ch:'+57%'},
+      {l:'Gross revenue',       v26:'$213,281', v25:'$110,514',cls:'cu', ch:'+93%'},
+      {l:'Net revenue',         v26:'$191,249', v25:'$95,844', cls:'cu', ch:'+100%'},
+      {l:'Refund rate',         v26:'8.7%',     v25:'3.5%',    cls:'cw', ch:'+5.2pp'},
+      {l:'Website sessions',    v26:'52,450',   v25:'47,921',  cls:'cu', ch:'+9%'},
+      {l:'Conversion rate',     v26:'2.05%',    v25:'1.53%',   cls:'cu', ch:'+0.52pp'},
+      {l:'Cart to checkout',    v26:'44.0%',    v25:'47.5%',   cls:'cn', ch:'-3.5pp'},
+      {l:'Watch plan orders',   v26:'931',      v25:'348',     cls:'cu', ch:'+168%'},
+    ],
+    good:['Revenue doubled year on year and conversion was above last year','Bounce rate and engagement both better than the same month in FY2025','Plan orders up 168% year on year'],
+    bad:['The Sanity CMS marketing site took over spacetalk.co this month, pushing the Shopify store off the main domain','The store began losing the organic search equity it had built up over time','None of this was visible in September numbers, but the damage started here'],
+    events:['Sanity CMS marketing site launched on spacetalk.co, displacing the Shopify store from the main domain','Shopify store moved off main domain, organic search authority started to erode from this point'],
+    fix:[]
+  },
+  {
+    mo:'Oct 2025', fy:'FY2026', tag:'Last clean month', tagCls:'tag-t',
+    situation:'October was the last fully healthy month before the app launched. Every metric was in good shape. Conversion above the prior year, cart-to-checkout nearly identical, refund rate normal. This is what a well-functioning month looks like for Spacetalk Shopify, and it is the benchmark everything else gets measured against.',
+    table:[
+      {l:'Orders',              v26:'1,593',    v25:'1,022',   cls:'cu', ch:'+56%'},
+      {l:'Gross revenue',       v26:'$250,304', v25:'$120,957',cls:'cu', ch:'+107%'},
+      {l:'Net revenue',         v26:'$209,537', v25:'$112,981',cls:'cu', ch:'+85%'},
+      {l:'Refund rate',         v26:'10.9%',    v25:'5.8%',    cls:'cw', ch:'+5.1pp'},
+      {l:'Website sessions',    v26:'59,953',   v25:'51,101',  cls:'cu', ch:'+17%'},
+      {l:'Conversion rate',     v26:'1.98%',    v25:'1.54%',   cls:'cu', ch:'+0.44pp'},
+      {l:'Cart to checkout',    v26:'42.5%',    v25:'43.6%',   cls:'cn', ch:'-1pp'},
+      {l:'Watch plan orders',   v26:'924',      v25:'400',     cls:'cu', ch:'+131%'},
+    ],
+    good:['Gross revenue up 107% year on year going into peak season','Conversion rate above the prior year','Cart-to-checkout rate of 42.5%, almost identical to the same month last year, showing a healthy funnel','924 plan orders, the highest Shopify-only plan month on record'],
+    bad:['Refund rate gap vs FY2025 was continuing to widen through the first quarter','App launch was coming, this was the last clean read before everything changed'],
+    events:['Benchmark reference point: roughly 42 to 45% cart-to-checkout, around 2% conversion rate, 8 to 11% refund rate','Shopify moved back to spacetalk.co approximately two weeks before the app launched'],
+    fix:[]
+  },
+  {
+    mo:'Nov 2025', fy:'FY2026', tag:'App launch, crisis begins', tagCls:'tag-r',
+    situation:'The Freedom Platform app launched the weekend before Black Friday. Gross revenue was up 18% on record BF/CM traffic, but the app broke existing customer setups on day one and the funnel deteriorated immediately. Net revenue was actually down 14% on the prior year. Reviews started building up on Trustpilot and ProductReview. This is where the crisis began.',
+    table:[
+      {l:'Orders',              v26:'2,214',    v25:'2,568',   cls:'cd', ch:'-14%'},
+      {l:'Gross revenue',       v26:'$624,834', v25:'$528,447',cls:'cu', ch:'+18%'},
+      {l:'Net revenue',         v26:'$426,862', v25:'$497,853',cls:'cd', ch:'-14%'},
+      {l:'Refund rate',         v26:'8.3%',     v25:'4.7%',    cls:'cw', ch:'+3.6pp'},
+      {l:'Website sessions',    v26:'94,490',   v25:'90,778',  cls:'cn', ch:'+4%'},
+      {l:'Conversion rate',     v26:'1.70%',    v25:'2.45%',   cls:'cd', ch:'-0.75pp'},
+      {l:'Cart to checkout',    v26:'27.1%',    v25:'32.2%',   cls:'cd', ch:'-5.1pp'},
+      {l:'Watch plan orders',   v26:'1,262',    v25:'1,083',   cls:'cu', ch:'+17%'},
+    ],
+    good:['Gross revenue up 18% year on year, BF/CM volume came through','Plan orders still growing at 1,262 on Shopify'],
+    bad:['App launched and broke existing customer setups. Watches unpaired, contacts disappeared, families who had a working product suddenly did not','Cart-to-checkout rate collapsed from 32.2% to 27.1%, meaning 7,828 more abandoned carts on almost identical session numbers','Conversion rate dropped 0.75 percentage points year on year despite similar traffic volumes','Net revenue was down 14% despite higher gross revenue, because refund rates were already climbing','Negative reviews started appearing on Trustpilot and ProductReview immediately after launch'],
+    events:['Freedom Platform app launches the weekend before Black Friday, around 21 to 23 November','Watch plans now purchasable inside the app for the first time. Shopify is no longer the only plan purchase channel','Black Friday week sale ran immediately on a brand new, untested platform'],
+    fix:[]
+  },
+  {
+    mo:'Dec 2025', fy:'FY2026', tag:'Trust damage spreading', tagCls:'tag-r',
+    situation:'December was the first month where the damage from November showed up across every single metric at the same time. Christmas gifting kept some revenue flowing but the funnel was leaking badly. For the first time all year, sessions were down year on year, and cart abandonment was accelerating as buyers researched the brand and found the review pages.',
+    table:[
+      {l:'Orders',              v26:'2,133',    v25:'3,010',   cls:'cd', ch:'-29%'},
+      {l:'Gross revenue',       v26:'$338,339', v25:'$474,602',cls:'cd', ch:'-29%'},
+      {l:'Net revenue',         v26:'$281,150', v25:'$453,259',cls:'cd', ch:'-38%'},
+      {l:'Refund rate',         v26:'12.2%',    v25:'4.9%',    cls:'cd', ch:'+7.3pp'},
+      {l:'Website sessions',    v26:'112,070',  v25:'126,741', cls:'cd', ch:'-12%'},
+      {l:'Conversion rate',     v26:'1.35%',    v25:'2.12%',   cls:'cd', ch:'-0.77pp'},
+      {l:'Cart to checkout',    v26:'28.5%',    v25:'39.7%',   cls:'cd', ch:'-11pp'},
+      {l:'Watch plan orders',   v26:'1,226',    v25:'1,755',   cls:'cd', ch:'-30%'},
+    ],
+    good:['$281K in net revenue still came through, Christmas gifting provided some support'],
+    bad:['Net revenue down 38% year on year, the first across-the-board decline of FY2026','Sessions down 12% year on year, the first session decline of the year','Cart-to-checkout dropped to 28.5% from 39.7%, meaning buyers were adding to cart and then leaving before paying after looking at reviews online','Plan orders down 30% year on year as the in-app purchase channel started absorbing revenue that previously only came through Shopify','Refund rate at 12.2%, BF/CM returns starting to come back through'],
+    events:['Reviews accumulating on Trustpilot and ProductReview, showing up in Google when anyone searched the brand name','Paid advertising still running at full spend. The decline was happening despite full paid media support, which tells you how deep the trust damage ran'],
+    fix:[]
+  },
+  {
+    mo:'Jan 2026', fy:'FY2026', tag:'Crisis peak', tagCls:'tag-r',
+    situation:'January was the lowest point. Three problems hit at the same time: all paid ads were cut to zero with no warning and no organic traffic underneath to catch the fall, the refund wave from Black Friday arrived, and desktop buyers who searched for Spacetalk online found the review pages and left before purchasing. Net revenue was $61K, down 74% on the prior year.',
+    table:[
+      {l:'Orders',              v26:'1,188',    v25:'2,269',   cls:'cd', ch:'-48%'},
+      {l:'Gross revenue',       v26:'$101,379', v25:'$265,320',cls:'cd', ch:'-62%'},
+      {l:'Net revenue',         v26:'$61,284',  v25:'$238,747',cls:'cd', ch:'-74%'},
+      {l:'Refund rate',         v26:'43.4%',    v25:'7.6%',    cls:'cd', ch:'+35.8pp'},
+      {l:'Website sessions',    v26:'60,332',   v25:'84,870',  cls:'cd', ch:'-29%'},
+      {l:'Conversion rate',     v26:'1.29%',    v25:'2.35%',   cls:'cd', ch:'-1.06pp'},
+      {l:'Desktop conversion',  v26:'0.6%',     v25:'n/a',     cls:'cd', ch:'very low'},
+      {l:'Cart to checkout',    v26:'33.0%',    v25:'57.2%',   cls:'cd', ch:'-24pp'},
+      {l:'Plan orders (Shopify)',v26:'413',      v25:'1,538',   cls:'cd', ch:'-73%'},
+    ],
+    good:['No positives this month. This was the lowest point.'],
+    bad:['Paid advertising went to zero, a cold stop with nothing underneath it. Sessions dropped 29% year on year immediately','The refund wave from Black Friday plan buyers hit hard. Around 20% of 365-day wearable plans were cancelled because the app had not delivered what was promised. Overall gross refund rate reached 43.4%','Desktop conversion rate collapsed to 0.6%. Parents researching the brand before buying were finding the review pages and walking away','Cart-to-checkout gap hit 24 percentage points, the widest of the entire crisis period','Plan orders on Shopify dropped 73% year on year to 413, partly from cancellations and partly from the shift to buying plans through the app'],
+    events:['All paid advertising stopped in January, cold stop, no wind-down','365-day Wearable Plan hit a 20% refund rate as Black Friday buyers cancelled after a poor app experience'],
+    fix:[]
+  },
+  {
+    mo:'Feb 2026', fy:'FY2026', tag:'Billing bug, not sentiment', tagCls:'tag-r',
+    situation:"February's 56.6% refund rate looks alarming but it was caused by a billing system failure, not by unhappy customers. A sync issue between Shopify and the app meant customers who had paid for a plan could not see it in the app. They thought they had no plan, bought a second one through the app, then refunded the Shopify purchase. The bug was fixed within about two weeks. Separately, paid ads came back on and the domain was consolidated.",
+    table:[
+      {l:'Orders',              v26:'1,181',    v25:'1,720',   cls:'cd', ch:'-31%'},
+      {l:'Gross revenue',       v26:'$103,792', v25:'$203,608',cls:'cd', ch:'-49%'},
+      {l:'Net revenue',         v26:'$62,030',  v25:'$190,240',cls:'cd', ch:'-67%'},
+      {l:'Refund rate',         v26:'56.6%',    v25:'6.3%',    cls:'cd', ch:'+50pp'},
+      {l:'Website sessions',    v26:'41,112',   v25:'71,313',  cls:'cd', ch:'-42%'},
+      {l:'Conversion rate',     v26:'1.58%',    v25:'2.16%',   cls:'cd', ch:'-0.58pp'},
+      {l:'Mobile conversion',   v26:'2.08%',    v25:'n/a',     cls:'cu', ch:'recovering'},
+      {l:'Cart to checkout',    v26:'35.0%',    v25:'48.5%',   cls:'cd', ch:'-13.5pp'},
+      {l:'Plan orders (Shopify)',v26:'312',      v25:'1,084',   cls:'cd', ch:'-71%'},
+    ],
+    good:['Paid ads came back on in early February. Mobile conversion rate recovered to 2.08% almost immediately once ads were running again','Shopify reclaimed spacetalk.co in mid-February, consolidating the domain for the first time in five months','The billing sync bug was found and fixed within about two weeks'],
+    bad:['The 56.6% gross refund rate was caused by a Shopify-to-app plan sync failure, not product dissatisfaction. This is a billing system issue and should not be read as a customer sentiment signal','Sessions were down 42% year on year, the tail of January\'s paid ad shutdown still showing through early February','Plan orders on Shopify down 71% year on year'],
+    events:['Shopify-to-app plan sync fails for roughly two weeks. Customers refunded Shopify plans and repurchased through the app','Paid ads restarted in early February','Shopify reclaimed spacetalk.co in mid-February'],
+    fix:['Billing sync bug resolved within two weeks of discovery','Paid advertising restarted','Domain consolidated back on spacetalk.co']
+  },
+  {
+    mo:'Mar 2026', fy:'FY2026', tag:'Recovery, data distorted', tagCls:'tag-a',
+    situation:"March was genuinely a turning point but three things happening at the same time made the headline numbers harder to read: a Chinese bot attack that injected over 20,000 fake sessions was identified and blocked, two major retailer sale events (PayPal Frenzy and Afterpay Day) brought in large volumes of deal-seeking traffic that was never going to convert on a kids smartwatch, and the new site theme launched on 2 March. Once the fake sessions are removed, Australian traffic converted at 2.54%, which is above the pre-crisis baseline.",
+    table:[
+      {l:'Orders',              v26:'1,094',    v25:'1,850',   cls:'cd', ch:'-41%'},
+      {l:'Gross revenue',       v26:'$115,497', v25:'$240,439',cls:'cd', ch:'-52%'},
+      {l:'Net revenue',         v26:'$76,227',  v25:'$221,275',cls:'cd', ch:'-66%'},
+      {l:'Refund rate',         v26:'36.2%',    v25:'7.7%',    cls:'cd', ch:'+28pp'},
+      {l:'Real sessions (cleaned)',v26:'38,705', v25:'75,101', cls:'cd', ch:'-48%'},
+      {l:'AU conversion rate',  v26:'2.54%',    v25:'2.12%',   cls:'cu', ch:'+0.42pp'},
+      {l:'Bounce rate',         v26:'33.0%',    v25:'50.0%',   cls:'cu', ch:'-17pp'},
+      {l:'Engagement rate',     v26:'67.0%',    v25:'50.0%',   cls:'cu', ch:'+17pp'},
+      {l:'Plan orders (Shopify)',v26:'313',      v25:'1,153',   cls:'cd', ch:'-73%'},
+    ],
+    good:['New site theme launched 2 March. Bounce rate dropped to 33% and engagement rate reached 67%, both well above the prior year','Australian traffic converted at 2.54%, which is above the pre-crisis baseline of around 2.0 to 2.6%','The bot attack was identified and blocked. Traffic data is clean from here forward','When the noise is stripped out, the recovery was already underway in March'],
+    bad:['A Chinese bot network injected 20,162 fake sessions into the site with an average session length of 1.3 seconds and zero purchases. These are removed from the sessions figure shown here','PayPal Frenzy (3 to 9 March) and Afterpay Day (19 to 22 March) brought in large numbers of deal-seeking visitors shopping across hundreds of retailers who were not there for a smartwatch','Refund rate at 36.2%, clearing the tail of the February billing bug'],
+    events:['New site theme launched 2 March, faster page speeds, cleaner design','Chinese bot attack identified: 20,162 fraudulent sessions, now blocked','PayPal Frenzy 3 to 9 March and Afterpay Day 19 to 22 March both running during the month'],
+    fix:['New theme deployed','Bot attack blocked, clean traffic from here forward','Domain fully consolidated on spacetalk.co']
+  },
+  {
+    mo:'Apr 2026', fy:'FY2026', tag:'First positive signal', tagCls:'tag-t',
+    situation:'April is the first month to show a conversion rate above the prior year since October, coming in at 1.95% against 1.60% last April. The Autumn Sale at the lowest price ever, clean traffic with bots blocked, and the new theme are combining to produce the strongest engagement numbers the site has ever recorded. Only 15 days of data at this point, projecting roughly $87K gross for the full month.',
+    table:[
+      {l:'Orders (15 days)',     v26:'377',      v25:'1,375',   cls:'cd', ch:'15d only'},
+      {l:'Gross (15 days)',      v26:'$43,501',  v25:'$144,462',cls:'cd', ch:'15d only'},
+      {l:'Net (15 days)',        v26:'$37,424',  v25:'$130,771',cls:'cd', ch:'15d only'},
+      {l:'Projected full month', v26:'~$87K',    v25:'$144K',   cls:'cd', ch:'est.'},
+      {l:'Refund rate',          v26:'12.6%',    v25:'7.5%',    cls:'cw', ch:'+5.1pp'},
+      {l:'Conversion rate',      v26:'1.95%',    v25:'1.60%',   cls:'cu', ch:'+0.35pp'},
+      {l:'Cart to checkout',     v26:'25.9%',    v25:'51.4%',   cls:'cd', ch:'-25pp'},
+      {l:'Bounce rate',          v26:'7.1%',     v25:'64.7%',   cls:'cu', ch:'-57pp'},
+      {l:'Engagement rate',      v26:'92.9%',    v25:'35.3%',   cls:'cu', ch:'+57pp'},
+    ],
+    good:['Conversion rate of 1.95% is the first month above the prior year since October','Bounce rate of 7.1% and engagement rate of 92.9% are the best numbers the site has ever recorded','Refund rate back to near-normal at 12.6%','Average session duration of 2,100 seconds is the highest of FY2026'],
+    bad:['Cart-to-checkout is still at 25.9% against 51.4% in the prior year. Desktop buyers who research the brand before buying are still finding the review pages and leaving before they pay. This gap is real and ongoing','Session volumes are still well below the prior year. The sale is concentrating intent but the organic session deficit remains','Plan orders down 88% year on year, the in-app migration is now a permanent structural shift'],
+    events:['Autumn Sale running at the lowest price point ever offered','Chinese bots blocked, this is the first clean traffic period since February'],
+    fix:['Plan upsell drawer and bundle builder in development, targeting live before June','Win-back email sequence being prepared for May','Mavlers SEO agency engagement confirmed, starting end of April']
+  }
+];
+
+const FY25_NET = [85,97,95,112,497,453,238,190,221,130];
+const FY26_NET = [169,208,191,209,426,281,61,62,76,37];
+
+const deck = document.getElementById('deck');
+const slideDefs = [];
+
+function addSlide(html, classes='') {
+  const div = document.createElement('div');
+  div.className = 'slide ' + classes;
+  div.innerHTML = html;
+  deck.appendChild(div);
+  slideDefs.push(div);
+  return div;
+}
+
+/* S1: COVER */
+addSlide(`
+<div class="cover-inner bg-navy">
+  <div class="cover-stripe"></div>
+  <div class="cover-ring"></div><div class="cover-ring2"></div>
+  <div style="position:relative;z-index:2;">
+    <img src="https://cdn.shopify.com/s/files/1/2141/2237/files/Spacetalk_White-Logo-Small.png" alt="Spacetalk" class="cover-logo">
+    <p class="eyebrow">Confidential · 15 April 2026</p>
+    <h1 class="cover-h">FY2026 recovery &amp;<br><em>EOFY</em> growth plan</h1>
+    <p class="cover-p">A data-driven account of FY2026 to date, what happened, why it happened, and the clear path forward to June 30.</p>
+    <div class="meta-row">
+      <div class="meta-item"><label>FY2026</label><span>Jul 2025 to Jun 2026</span></div>
+      <div class="meta-item"><label>Compared to FY2025</label><span>Jul 2024 to Jun 2025</span></div>
+      <div class="meta-item"><label>Data sources</label><span>Shopify and Google Analytics</span></div>
+    </div>
+  </div>
+</div>
+`, 'bg-navy');
+
+/* S2: CONTEXT */
+addSlide(`
+<div class="pad bg-off">
+  <p class="eyebrow">Before the numbers</p>
+  <h2 class="sh2 light">Three things you need to understand before reading the data</h2>
+  <p class="ssub">Without these, the numbers look like a series of separate problems. Together, they tell one connected story.</p>
+  <div class="ctx-grid">
+    <div class="ctx-card r">
+      <div class="ctx-n">01</div>
+      <h3>The domain situation</h3>
+      <p>The Shopify store sat on spacetalk.co until September 2025 when a new marketing site took over the domain, pushing the store off it. The store lost five months of organic search authority it had built up. Shopify got the domain back in mid-February 2026, about eight weeks ago. The SEO agency starting end of April is starting from a recently recovered foundation, not a long-established one.</p>
+    </div>
+    <div class="ctx-card a">
+      <div class="ctx-n">02</div>
+      <h3>The paid traffic dependency</h3>
+      <p>Organic search only brought in 8,000 to 9,000 sessions a month throughout FY2026, which is around 10 to 15% of total traffic. Paid advertising was driving 35 to 45% of all sessions from July through December 2025. There was no meaningful organic backup. Every customer had to be bought through ads. When the ads stopped, there was nothing underneath to hold the numbers up.</p>
+    </div>
+    <div class="ctx-card t">
+      <div class="ctx-n">03</div>
+      <h3>The plan purchase channel split</h3>
+      <p>Before November 2025, Shopify was the only place to buy a watch plan. The app launch opened a second purchase path inside the app. Any plan purchased through the app does not show up in Shopify revenue and cannot be offered as an add-on at checkout. The plan upsell drawer and bundle builder now in development are designed to recover this within the Shopify purchase journey.</p>
+    </div>
+  </div>
+</div>
+`, 'bg-off');
+
+/* S3: FY OVERVIEW */
+addSlide(`
+<div class="pad bg-navy">
+  <p class="eyebrow">FY2026 at a glance</p>
+  <h2 class="sh2 dark" style="margin-bottom:.2rem">The full year, compared to FY2025</h2>
+  <p class="ssub dark" style="margin-bottom:.5rem">Net revenue by month, July 2025 to April 2026. Click any bar to jump to that month.</p>
+  <div style="position:relative;width:100%;height:170px;margin-bottom:.6rem;">
+    <canvas id="overviewChart" role="img" aria-label="FY2025 vs FY2026 net revenue by month bar chart">Net revenue comparison by month.</canvas>
+  </div>
+  <div style="display:flex;gap:14px;margin-bottom:.85rem;flex-wrap:wrap;">
+    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mid);"><span style="width:10px;height:10px;border-radius:2px;background:#3D5069;"></span>FY2025</span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mid);"><span style="width:10px;height:10px;border-radius:2px;background:#1D9E75;"></span>FY2026 above FY2025</span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mid);"><span style="width:10px;height:10px;border-radius:2px;background:#E63946;"></span>FY2026 below FY2025</span>
+  </div>
+  <div class="kpi-row" style="margin-bottom:.65rem;">
+    <div class="kpi-box neutral"><p class="kpi-lbl">FY2025 net revenue (full year)</p><p class="kpi-val">$2.50M</p></div>
+    <div class="kpi-box neutral"><p class="kpi-lbl">FY2026 net revenue (Jul to Apr)</p><p class="kpi-val">$1.72M</p></div>
+    <div class="kpi-box danger"><p class="kpi-lbl danger">Highest refund rate (Feb 2026)</p><p class="kpi-val danger">56.6%</p><p class="kpi-sub danger">Billing bug, not unhappy customers</p></div>
+    <div class="kpi-box success"><p class="kpi-lbl success">April 2026 conversion rate</p><p class="kpi-val success">1.95%</p><p class="kpi-sub success">First month above FY2025 since October</p></div>
+  </div>
+  <div class="overview-products-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:.75rem;">
+    <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:.85rem 1rem;border:1px solid rgba(255,255,255,.08);">
+      <p style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;font-weight:500;">Watch sales (Shopify YTD)</p>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+          <span style="color:var(--mid);">Adventurer 2</span><span style="color:#fff;font-weight:500;">3,001 orders &nbsp;·&nbsp; $1.27M</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+          <span style="color:var(--mid);">Essential Bundle</span><span style="color:#fff;font-weight:500;">289 orders &nbsp;·&nbsp; $110K</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+          <span style="color:var(--mid);">Loop</span><span style="color:#fff;font-weight:500;">1,811 orders &nbsp;·&nbsp; $528K</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;">
+          <span style="color:#FF8087;">Watch returns</span><span style="color:#FF8087;">A2: 5.8% &nbsp;·&nbsp; Bundle: 4.0% &nbsp;·&nbsp; Loop: 5.9%</span>
+        </div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:.85rem 1rem;border:1px solid rgba(255,255,255,.08);">
+      <p style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;font-weight:500;">Watch plan sales (Shopify YTD) <span style="color:rgba(255,255,255,.3);font-size:8px;letter-spacing:.05em;">spacetalk.co/pages/spacetalk-watch-plans</span></p>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+          <span style="color:var(--mid);">365 Day Wearable Plan</span><span style="color:#fff;font-weight:500;">3,319 orders &nbsp;·&nbsp; $993K</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+          <span style="color:var(--mid);">180 Day Wearable Plan</span><span style="color:#fff;font-weight:500;">976 orders &nbsp;·&nbsp; $215K</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+          <span style="color:var(--mid);">30 Day Wearable Plan</span><span style="color:#fff;font-weight:500;">2,190 orders &nbsp;·&nbsp; $203K</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;">
+          <span style="color:#FF8087;">Plan returns (Shopify)</span><span style="color:#FF8087;">7.7% overall &nbsp;·&nbsp; $113K refunded</span>
+        </div>
+      </div>
+      <p style="font-size:9px;color:rgba(148,163,184,.6);margin-top:6px;">In-app plan purchases not captured here</p>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:.85rem 1rem;border:1px solid rgba(255,255,255,.08);">
+      <p style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;font-weight:500;">Mobile plan sales (Shopify YTD) <span style="color:rgba(255,255,255,.3);font-size:8px;letter-spacing:.05em;">spacetalk.co/pages/mobile-plans</span></p>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+          <span style="color:var(--mid);">Paid mobile plans</span><span style="color:#fff;font-weight:500;">1,256 orders &nbsp;·&nbsp; $234K</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;">
+          <span style="color:#FF8087;">Mobile plan returns</span><span style="color:#FF8087;">7.2% overall &nbsp;·&nbsp; $70K refunded</span>
+        </div>
+      </div>
+      <p style="font-size:9px;color:rgba(148,163,184,.6);margin-top:6px;">In-app mobile plan purchases not captured here</p>
+    </div>
+  </div>
+</div>
+`, 'bg-navy');
+
+/* S4: NEW THEME IMPACT */
+addSlide(`
+<div class="pad bg-off">
+  <p class="eyebrow">Site improvement</p>
+  <h2 class="sh2 light">New site theme launched 2 March 2026</h2>
+  <p class="ssub">A full redesign of the Shopify store with faster page speeds, cleaner layout, and better product information. The data shows the impact clearly.</p>
+  <div style="display:grid;gap:1.25rem;flex:1;margin-top:.5rem;" class="theme-impact-grid">
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="background:#fff;border-radius:13px;padding:1.25rem;border:1px solid var(--border);">
+        <p style="font-size:9px;font-weight:500;color:var(--slate);margin-bottom:.85rem;letter-spacing:.03em;text-transform:uppercase;">Bounce rate before and after</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--slate);min-width:60px;">Jan 2026</span><div style="flex:1;background:#FEE2E2;border-radius:4px;overflow:hidden;"><div style="width:47.4%;background:var(--red);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">47.4%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--slate);min-width:60px;">Feb 2026</span><div style="flex:1;background:#FEE2E2;border-radius:4px;overflow:hidden;"><div style="width:45.9%;background:var(--red);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">45.9%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--teal);min-width:60px;font-weight:500;">Mar 2026</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:33%;background:var(--green);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">33.0%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--teal);min-width:60px;font-weight:500;">Apr 2026</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:7.1%;background:var(--green);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">7.1%</span></div></div></div>
+        </div>
+        <p style="font-size:10px;color:var(--slate);margin-top:.6rem;">Lower is better. April is the best bounce rate the site has ever recorded.</p>
+      </div>
+      <div style="background:#fff;border-radius:13px;padding:1.25rem;border:1px solid var(--border);">
+        <p style="font-size:9px;font-weight:500;color:var(--slate);margin-bottom:.85rem;letter-spacing:.03em;text-transform:uppercase;">Engagement rate before and after</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--slate);min-width:60px;">Jan 2026</span><div style="flex:1;background:#F1F5F9;border-radius:4px;overflow:hidden;"><div style="width:52.6%;background:#94A3B8;height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">52.6%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--slate);min-width:60px;">Feb 2026</span><div style="flex:1;background:#F1F5F9;border-radius:4px;overflow:hidden;"><div style="width:54.1%;background:#94A3B8;height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">54.1%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--teal);min-width:60px;font-weight:500;">Mar 2026</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:67%;background:var(--green);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">67.0%</span></div></div></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;color:var(--teal);min-width:60px;font-weight:500;">Apr 2026</span><div style="flex:1;background:var(--green-l);border-radius:4px;overflow:hidden;"><div style="width:92.9%;background:var(--green);height:22px;border-radius:4px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;color:#fff;font-weight:500;">92.9%</span></div></div></div>
+        </div>
+        <p style="font-size:10px;color:var(--slate);margin-top:.6rem;">Higher is better. April is the highest engagement rate the site has ever recorded.</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="background:#fff;border-radius:13px;padding:1.25rem;border:1px solid var(--border);">
+        <p style="font-size:9px;font-weight:500;color:var(--slate);margin-bottom:.85rem;letter-spacing:.03em;text-transform:uppercase;">Conversion rate before and after</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);"><span style="font-size:11px;color:var(--slate);">Jan 2026 (no ads, crisis low)</span><span style="font-size:14px;font-weight:500;color:var(--red);">1.29%</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);"><span style="font-size:11px;color:var(--slate);">Feb 2026 (ads back, old theme)</span><span style="font-size:14px;font-weight:500;color:#854F0B;">1.58%</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);"><span style="font-size:11px;color:var(--teal);font-weight:500;">Mar 2026 (new theme, AU only)</span><span style="font-size:14px;font-weight:500;color:var(--green);">2.54%</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;"><span style="font-size:11px;color:var(--teal);font-weight:500;">Apr 2026 (new theme + Autumn Sale)</span><span style="font-size:14px;font-weight:500;color:var(--green);">1.95%</span></div>
+        </div>
+        <p style="font-size:10px;color:var(--slate);margin-top:.6rem;">April is the first month above the FY2025 equivalent (1.60%) since October. Australian traffic in March at 2.54% is above the pre-crisis baseline of 2.0 to 2.6%.</p>
+      </div>
+      <div style="background:var(--navy);border-radius:13px;padding:1.25rem;">
+        <p style="font-size:9px;font-weight:500;color:var(--teal);margin-bottom:.75rem;letter-spacing:.03em;text-transform:uppercase;">What changed</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Bounce rate dropped from 47% to 7% in two months. Visitors who previously left immediately are now staying on the site.</div>
+          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Engagement rate reached 92.9% in April, the highest ever for the Spacetalk store. Visitors are reading and interacting, not just landing and leaving.</div>
+          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Conversion rate is back above FY2025 for the first time since October, even with the app-related trust damage still present on review platforms.</div>
+          <div style="font-size:11px;color:#5DCAA5;padding:5px 9px;background:rgba(29,158,117,.12);border-radius:6px;border-left:2px solid var(--green);">Average session duration in April was 2,100 seconds, the highest of FY2026. Buyers are spending more time with the product before purchasing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`, 'bg-off');
+
+/* S5-S14: MONTHLY DEEP DIVES */
+MONTHS.forEach((m) => {
+  const tableRows = m.table.map(r =>
+    `<tr><td>${r.l}</td><td class="${r.cls}">${r.v26}</td><td class="cn">${r.v25}</td><td class="${r.cls}" style="font-size:10px;">${r.ch}</td></tr>`
+  ).join('');
+  const goodItems  = m.good.map(g  => `<div class="ni good">${g}</div>`).join('');
+  const badItems   = m.bad.map(b   => `<div class="ni bad">${b}</div>`).join('');
+  const eventItems = m.events.map(e => `<div class="ni event">${e}</div>`).join('');
+  const fixItems   = m.fix.length  ? m.fix.map(f => `<div class="ni fix">${f}</div>`).join('') : '';
+
+  addSlide(`
+<div class="month-slide">
+  <div class="month-left">
+    <div>
+      <p class="month-fy">${m.fy} &nbsp;·&nbsp; vs FY2025</p>
+      <div class="month-name">${m.mo}</div>
+      <span class="month-tag ${m.tagCls}">${m.tag}</span>
+    </div>
+    <table class="dt">
+      <thead><tr>
+        <th style="text-align:left;">Metric</th>
+        <th>FY2026</th>
+        <th>FY2025</th>
+        <th>Change</th>
+      </tr></thead>
+      <tbody>${tableRows}</tbody>
+    </table>
+    <div class="dt-note">
+      FY2025 = Jul 2024 to Jun 2025 &nbsp;·&nbsp; FY2026 = Jul 2025 to Jun 2026<br>
+      Green = above prior year &nbsp;·&nbsp; Red = below &nbsp;·&nbsp; Amber = worth watching
+    </div>
+  </div>
+  <div class="month-right">
+    <div class="situation">${m.situation}</div>
+    ${m.good.length ? `<div><div class="ns-lbl good">What went well</div><div class="ns">${goodItems}</div></div>` : ''}
+    ${m.bad.length  ? `<div><div class="ns-lbl bad">What went wrong</div><div class="ns">${badItems}</div></div>` : ''}
+    ${m.events.length ? `<div><div class="ns-lbl event">Key events</div><div class="ns">${eventItems}</div></div>` : ''}
+    ${fixItems ? `<div><div class="ns-lbl fix">Actions taken</div><div class="ns">${fixItems}</div></div>` : ''}
+  </div>
+</div>
+  `);
+});
+
+/* S14: PROBLEMS + WINS */
+addSlide(`
+<div class="pad bg-navy">
+  <p class="eyebrow">What went wrong and what has been fixed</p>
+  <h2 class="sh2 dark">Three problems. Two resolved. One still being worked through.</h2>
+  <p class="ssub dark">It matters that these are understood separately. They had different causes and different solutions.</p>
+  <div class="prob-grid">
+    <div class="prob-card r">
+      <div class="pstat r">-74%</div>
+      <p class="plbl r">Ongoing / App experience</p>
+      <h3>The app launched before it was ready</h3>
+      <p class="pb">The Freedom Platform launched the weekend before Black Friday. It broke things for existing customers. Watches unpaired, contacts disappeared. New buyers arrived on Black Friday to an app that did not work as described. Reviews built up on Trustpilot and ProductReview and are still there. Desktop conversion collapsed to 0.6% in January. The broader app experience, including onboarding, key features, and usability, still needs attention and is affecting how new buyers experience the product.</p>
+      <div class="pfix r">Still in progress: Responding to every unanswered review, generating fresh positive reviews from happy long-term customers, and working with CS on a project to identify satisfied users and direct them to leave a review on Trustpilot or ProductReview.</div>
+    </div>
+    <div class="prob-card a">
+      <div class="pstat a">56.6%</div>
+      <p class="plbl a">Resolved / Billing sync failure</p>
+      <h3>A Shopify plan sync bug in February</h3>
+      <p class="pb">For about two weeks in early February, plans purchased through Shopify were not appearing in the app. Customers assumed they had no plan, bought a second one through the app, then refunded the Shopify purchase. This caused the 56.6% refund rate in February. This was a technical billing failure, not customers being unhappy with the product. The refund spike from February should not be read as a sentiment signal.</p>
+      <div class="pfix a">Resolved in February. The sync was fixed within two weeks of discovery. Shopify plan refund rates dropped back to normal levels in March and April.</div>
+    </div>
+    <div class="prob-card gr">
+      <div class="pstat gr">Blocked</div>
+      <p class="plbl gr">Resolved / Chinese bot attack</p>
+      <h3>Bot traffic inflating March sessions</h3>
+      <p class="pb">In March, 20,162 fraudulent sessions were injected into the site from Chinese bot networks. These sessions had an average duration of 1.3 seconds, a 78% bounce rate, and zero purchases. They were artificially inflating the total session count and making conversion rate look worse than it was. Once removed, Australian traffic converted at 2.54%, above the pre-crisis baseline.</p>
+      <div class="pfix gr">Blocked in March. Traffic has been clean since. All data from March onwards is free of this interference.</div>
+    </div>
+  </div>
+</div>
+`, 'bg-navy');
+
+/* S15: RECOVERY */
+addSlide(`
+<div class="pad bg-off">
+  <p class="eyebrow">Recovery plan</p>
+  <h2 class="sh2 light">What we are doing about it, in order of priority</h2>
+  <p class="ssub">The first two cost nothing and can start immediately.</p>
+  <div class="rec-grid">
+    <div class="rec-card"><div class="rec-n r">01</div><div><h4>Respond to every unanswered review</h4><p>Trustpilot and ProductReview both rank in Google when someone searches Spacetalk. Every unanswered one-star review is actively costing us desktop conversions right now. Responding publicly changes the impression from a company ignoring problems to a company working through them.</p><span class="rbadge rb-r">Start this week, no cost</span></div></div>
+    <div class="rec-card"><div class="rec-n r">02</div><div><h4>Win-back email to November buyers</h4><p>We have 6,100 customers who bought during Black Friday and Cyber Monday and are now approaching one year of ownership. An early access EOFY offer to this group is the highest-value email we can send this quarter. At 10% conversion this segment alone is worth $50K to $80K.</p><span class="rbadge rb-r">Launch first week of May</span></div></div>
+    <div class="rec-card"><div class="rec-n a">03</div><div><h4>CS project to generate fresh positive reviews</h4><p>Customer Success is running a project to identify satisfied long-term customers and direct them to leave a review on Trustpilot or ProductReview. 20 to 30 fresh four and five star reviews shifts the page rating and pushes older negative content down before EOFY traffic starts researching the brand.</p><span class="rbadge rb-a">Underway in May</span></div></div>
+    <div class="rec-card"><div class="rec-n a">04</div><div><h4>Plan upsell drawer and bundle builder</h4><p>When a customer adds a watch to their cart, a prompt will offer them a plan before checkout. This recovers the plan attach rate within the Shopify purchase journey. Plan orders on Shopify are down 73 to 88% year on year, partly because of the in-app shift and partly from the crisis. This feature changes that at the moment of highest purchase intent.</p><span class="rbadge rb-a">Live before June</span></div></div>
+    <div class="rec-card"><div class="rec-n t">05</div><div><h4>EOFY sale with paid media behind it</h4><p>June 30 is a genuine trigger for Australian parents. Tax time, end of school term, real intent to buy. The hero offer is a watch and plan bundle at EOFY pricing. Paid ads need to be set up and audiences warmed well before June starts. Starting campaigns in late May is too late.</p><span class="rbadge rb-t">Campaigns need to be set up in May</span></div></div>
+    <div class="rec-card"><div class="rec-n t">06</div><div><h4>SEO to build an organic foundation</h4><p>Mavlers are starting at the end of April on a six-month engagement. Google Analytics tracking goes live in week one. Currently 95% of organic search traffic is people already looking for Spacetalk by name. Non-branded content needs to be live by 31 July to have time to index before the Christmas research window opens in August and September.</p><span class="rbadge rb-t">Starting end of April</span></div></div>
+  </div>
+</div>
+`, 'bg-off');
+
+/* S16: FORECAST */
+addSlide(`
+<div class="pad bg-navy">
+  <p class="eyebrow">Q4 FY2026 outlook</p>
+  <h2 class="sh2 dark">April, May and June: the path to year end</h2>
+  <p class="ssub dark">FY2025 June delivered $241K gross and $223K net at an 8.2% refund rate. That is the floor we need to beat.</p>
+  <div class="fc-grid">
+    <div class="fc-card"><p class="fc-mo">April 2026</p><span class="fcb fbr">Sale running now</span><p class="fc-gross">$75K to $87K gross</p><p class="fc-net">Roughly $75K net projected</p><div class="fc-items"><div class="fit">Autumn Sale at the lowest price ever</div><div class="fit t">Conversion rate 1.95%, first above FY2025 since October</div><div class="fit t">Bots blocked, new theme live, paid ads running</div></div></div>
+    <div class="fc-card"><p class="fc-mo">May 2026</p><span class="fcb fbg">Building month</span><p class="fc-gross">$190K to $260K gross</p><p class="fc-net">$170K to $235K net target</p><div class="fc-items"><div class="fit">No major sale events, organic and email driving revenue</div><div class="fit t">Win-back email to November buyers launches in week one</div><div class="fit t">EOFY creative and campaign assets built during May</div><div class="fit t">Fresh review generation project running through CS</div></div></div>
+    <div class="fc-card feat"><p class="fc-mo">June 2026</p><span class="fcb fbt">EOFY, the big one</span><p class="fc-gross">$250K to $500K gross</p><p class="fc-net">$220K to $450K net target</p><div class="fc-items"><div class="fit t">Watch and plan bundle at EOFY pricing as the hero offer</div><div class="fit t">Early access offer to 6,100 Black Friday buyers</div><div class="fit t">June 30 deadline urgency in all messaging</div><div class="fit t">Paid ads scaled on the best-converting audiences</div></div></div>
+  </div>
+  <div class="fc-totals">
+    <div class="fc-total"><label>Conservative Q4 net</label><span>$382K</span><small>June matches FY2025</small></div>
+    <div class="fc-total"><label>Realistic Q4 net</label><span>$515K</span><small>June up 10 to 15%</small></div>
+    <div class="fc-total"><label>Best case ceiling</label><span>$1M</span><small>All levers working, June at 3x FY2025</small></div>
+  </div>
+</div>
+`, 'bg-navy');
+
+/* S17: THE ASK */
+addSlide(`
+<div class="pad bg-off">
+  <p class="eyebrow">What we need</p>
+  <h2 class="sh2 light">Four areas that need attention from leadership</h2>
+  <p class="ssub">Two of these are more urgent than the others. Without movement on them, the June opportunity becomes harder to capture.</p>
+  <div class="ask-grid">
+    <div class="ask-card crit"><h3>App experience and stability</h3><p>The app launching before it was ready is the root cause of the trust problem that is still costing us desktop conversions today. Beyond the billing sync issue that has been fixed, there are onboarding gaps, user experience issues, and features that may not be working as expected for some customers. These need to be understood and prioritised. Until the app experience matches the promise of the product, the review problem will not fully resolve and new buyer sentiment will remain fragile.</p></div>
+    <div class="ask-card crit"><h3>June paid media budget</h3><p>Organic search and email on their own will not deliver the session volume needed for a strong June. Paid search is our highest-converting paid channel, running at 2 to 3.3% conversion. Campaigns need to be built and audiences need to be warmed ahead of June 1. Setting this up in late May means arriving at the most important trading period of the half without momentum behind it.</p></div>
+    <div class="ask-card high"><h3>CRM access to November buyer list</h3><p>The win-back email sequence targeting the 6,100 Black Friday and Cyber Monday buyers is the highest-return email opportunity this quarter. These are warm, brand-aware customers approaching one year of product ownership. The segment needs to be built and cleared for outreach before the first week of May for the timing to work for EOFY.</p></div>
+    <div class="ask-card high"><h3>Ownership of review responses</h3><p>Every unanswered negative review on Trustpilot and ProductReview is actively suppressing desktop conversion right now. Someone needs to own this: responding to all existing unanswered reviews and keeping up with new ones as they come in. It costs nothing and has a direct, immediate impact on how new buyers perceive the brand when they research before purchasing.</p></div>
+  </div>
+</div>
+`, 'bg-off');
+
+/* S18: CLOSE */
+addSlide(`
+<div class="bg-navy close-inner" style="flex:1;display:flex;align-items:center;padding:5rem 6rem;position:relative;overflow:hidden;">
+  <div class="close-stripe"></div>
+  <div style="position:relative;z-index:2;">
+    <h2 class="close-q">The crisis is behind us.<br>The <em>opportunity</em> is now.</h2>
+    <p class="close-p">Mobile conversion has fully recovered. The new theme is working. The bot traffic is blocked. The domain is on solid ground. Session volume has a clear answer through SEO and paid advertising. The gap between adding to cart and actually checking out has a direct answer in the review work and the plan upsell features being built right now. What happens in April and May shapes what June looks like.</p>
+    <div class="close-mos">
+      <div class="close-mo"><label>April</label><span>$75K to $87K gross</span><small>Sale and stabilise</small></div>
+      <div class="close-mo"><label>May</label><span>$190K to $260K gross</span><small>Win-back and prep</small></div>
+      <div class="close-mo"><label>June</label><span>$250K to $500K gross</span><small>EOFY, all in</small></div>
+    </div>
+  </div>
+</div>
+`, 'bg-navy');
+
+/* NAVIGATION */
+const dotsEl  = document.getElementById('nav-dots');
+const ctrEl   = document.getElementById('nav-ctr');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const TOTAL   = slideDefs.length;
+let cur = 0;
+
+slideDefs.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'nd' + (i === 0 ? ' on' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+});
+
+function goTo(n) {
+  if (n < 0 || n >= TOTAL) return;
+  slideDefs[cur].classList.remove('active');
+  dotsEl.children[cur].classList.remove('on');
+  cur = n;
+  slideDefs[cur].classList.add('active');
+  dotsEl.children[cur].classList.add('on');
+  ctrEl.textContent = (cur + 1) + '/' + TOTAL;
+  if (cur === 2) setTimeout(buildOverviewChart, 80);
+}
+
+slideDefs[0].classList.add('active');
+ctrEl.textContent = '1/' + TOTAL;
+prevBtn.addEventListener('click', () => goTo(cur - 1));
+nextBtn.addEventListener('click', () => goTo(cur + 1));
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(cur + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(cur - 1);
+});
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 50) goTo(dx < 0 ? cur + 1 : cur - 1);
+});
+
+let chartBuilt = false;
+function buildOverviewChart() {
+  if (chartBuilt) return;
+  chartBuilt = true;
+  const canvas = document.getElementById('overviewChart');
+  if (!canvas) return;
+  const lbl = ['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr'];
+  new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: lbl,
+      datasets: [
+        { label:'FY2025', data:FY25_NET, backgroundColor:'rgba(94,118,149,0.55)', borderRadius:4 },
+        { label:'FY2026', data:FY26_NET, backgroundColor:FY26_NET.map((v,i)=>v>=FY25_NET[i]?'#1D9E75':'#E63946'), borderRadius:4 }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y+'K'}} },
+      scales:{
+        x:{ ticks:{color:'#94A3B8',font:{size:10}}, grid:{display:false} },
+        y:{ ticks:{color:'#94A3B8',font:{size:10},callback:v=>'$'+v+'K'}, grid:{color:'rgba(255,255,255,0.06)'} }
+      },
+      onClick:(e,elements)=>{ if(elements.length>0) goTo(3+elements[0].index); }
+    }
+  });
+}
+</script>
+</body>
+</html>
