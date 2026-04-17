@@ -172,7 +172,7 @@ html { scroll-behavior: auto; overflow-x: hidden; max-width: 100%; }
 body { font-weight: 200; line-height: 1.6; overflow-x: hidden; max-width: 100%; }
 
 /* theme.css .page-width has no max-width — add ours */
-.page-width { max-width: var(--page-width); padding: 0 24px; }
+.page-width { max-width: var(--page-width); padding: 0 24px; width: 100%; box-sizing: border-box; }
 
 img { max-width: 100%; display: block; }
 button { cursor: pointer; }
@@ -488,13 +488,7 @@ fetch('components/header.html')
   .st-subnav__links { display: none; }
   .st-subnav__toggle { display: flex; }
   .st-subnav__price { display: none; }
-  .st-subnav__btn {
-    font-size: 10px;
-    padding: 8px 14px;
-    max-width: 160px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .st-subnav__btn { font-size: 10px; padding: 8px 14px; }
 }
 </style>
 
