@@ -1041,7 +1041,8 @@ fetch('components/header.html')
   .st-plan-card__top { padding: 16px; }
   .st-plan-card__detail { padding: 0 16px 16px; }
   .st-plan-card__footer { flex-direction: column; gap: 8px; text-align: center; }
-  .st-plan-opt { min-width: 0; flex: 1; padding: 10px 14px; }
+  .st-plan-opt { min-width: 0; flex: 1; padding: 10px 8px; }
+  .st-plan-opt__dur { font-size: 12px; }
 }
 
 /* Tier cards */
@@ -2988,6 +2989,18 @@ fetch('components/header.html')
   font-size: 12px;
   color: var(--st-g500);
   line-height: 1.5;
+}
+@media (max-width: 749px) {
+  .st-trust-footer__grid { grid-template-columns: 1fr; gap: 0; }
+  .st-trust-footer__item {
+    flex-direction: row;
+    text-align: left;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--st-g200);
+  }
+  .st-trust-footer__item:last-child { border-bottom: none; }
+  .st-trust-footer__icon { flex-shrink: 0; }
 }
 </style>
 
