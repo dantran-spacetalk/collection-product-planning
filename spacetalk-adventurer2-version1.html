@@ -169,7 +169,7 @@
 <style id="theme-overrides">
 /* theme.css body uses --font-body-weight: 400 but we want 200 for Spacetalk */
 html { scroll-behavior: auto; } /* let JS handle smooth scrolling */
-body { font-weight: 200; line-height: 1.6; }
+body { font-weight: 200; line-height: 1.6; overflow-x: hidden; }
 
 /* theme.css .page-width has no max-width — add ours */
 .page-width { max-width: var(--page-width); padding: 0 24px; }
@@ -287,7 +287,7 @@ fetch('components/header.html')
   line-height: 1;
   background: #3315d0;
   color: var(--st-white);
-  border: none;
+  border: 2px solid #3315d0;
   border-radius: var(--buttons-radius);
   padding: 10px 22px;
   transition: background 0.2s, color 0.35s ease;
@@ -321,7 +321,6 @@ fetch('components/header.html')
 /* ── Button fill sweep (mimics theme.js HoverButton) ── */
 .st-btn .btn-fill,
 .st-subnav__btn .btn-fill,
-.st-tier__btn .btn-fill,
 .st-cmp-footer__btn .btn-fill {
   display: block;
   border-radius: 50%;
@@ -336,7 +335,6 @@ fetch('components/header.html')
 }
 .st-btn .btn-text,
 .st-subnav__btn .btn-text,
-.st-tier__btn .btn-text,
 .st-cmp-footer__btn .btn-text {
   position: relative;
   z-index: 1;
@@ -360,19 +358,6 @@ fetch('components/header.html')
   background: var(--st-white);
 }
 .st-btn--dark:hover {
-  color: var(--st-black);
-}
-
-/* ── Neon (primary CTA) ── */
-.st-btn--neon {
-  background: #3315d0;
-  color: var(--st-white);
-  padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
-}
-.st-btn--neon .btn-fill {
-  background: var(--st-white);
-}
-.st-btn--neon:hover {
   color: var(--st-black);
 }
 
@@ -416,6 +401,20 @@ fetch('components/header.html')
 .st-btn--outline-white:hover {
   color: var(--st-black);
   border-color: var(--st-white);
+}
+
+/* ── Section eyebrow pill (shared) ── */
+.st-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #171717;
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: var(--st-rp);
+  margin-bottom: 14px;
 }
 
 /* ── Mobile subnav dropdown ── */
@@ -775,7 +774,7 @@ fetch('components/header.html')
       <p class="st-hero__sub">4G calls, real-time GPS tracking, front camera &amp; SOS. Freedom for them, peace of mind for you.</p>
 
       <div class="st-hero__actions">
-        <a href="#bundles" class="st-btn st-btn--neon" data-st-from-price data-st-from-price-format="button">Build your bundle — from $256.99</a>
+        <a href="#bundles" class="st-btn st-btn--dark" data-st-from-price data-st-from-price-format="button">Build your bundle — from $256.99</a>
         <button class="st-hero__play" id="hero-play-btn">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2.5v11l9.5-5.5z" fill="currentColor"/></svg>
           Watch the film
@@ -839,18 +838,7 @@ fetch('components/header.html')
 .st-bundles__header {
   margin-bottom: 64px;
 }
-.st-bundles__eyebrow {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #fff;
-  background: #171717;
-  display: inline-block;
-  padding: 5px 14px;
-  border-radius: var(--st-rp);
-  margin-bottom: 14px;
-}
+.st-bundles__eyebrow { margin-bottom: 14px; }
 .st-bundles__title {
   font-size: clamp(28px, 4vw, 40px);
   font-weight: 600;
@@ -1166,33 +1154,28 @@ fetch('components/header.html')
 .st-tier__txt strong { font-weight: 500; color: var(--st-black); }
 .st-tier__txt--dim { color: var(--st-g300); }
 .st-tier__cta { margin-top: auto; padding-top: 18px; }
-.st-tier__btn {
+.st-tier__btn { width: 100%; }
+.st-tier__btn--ghost {
   width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--st-g400);
+  border: 1px solid var(--st-g200);
+  border-radius: var(--buttons-radius);
   padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
   font-size: var(--font-button-size);
   font-weight: var(--font-button-weight);
   letter-spacing: 0.04em;
   text-transform: var(--font-button-text-transform);
-  border-radius: var(--buttons-radius);
-  transition: color 0.35s ease, border-color 0.2s;
   font-family: var(--font-button-family);
-  cursor: pointer;
-  max-height: 3.75rem;
   line-height: 1;
   text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
+  cursor: pointer;
+  max-height: 3.75rem;
+  transition: border-color 0.2s, color 0.2s;
 }
-.st-tier__btn--dark { background: #3315d0; color: var(--st-white); border: 2px solid #3315d0; }
-.st-tier__btn--dark:hover { color: var(--st-black); border-color: #3315d0; }
-.st-tier__btn--dark .btn-fill { background: var(--st-white); }
-.st-tier__btn--outline { background: transparent; color: var(--st-black); border: 2px solid var(--st-black); }
-.st-tier__btn--outline:hover { color: var(--st-white); }
-.st-tier__btn--outline .btn-fill { background: var(--st-black); }
-.st-tier__btn--ghost { background: transparent; color: var(--st-g400); border: 1px solid var(--st-g200); overflow: visible; }
 .st-tier__btn--ghost:hover { border-color: var(--st-g400); color: var(--st-g600); }
 
 .st-bundles__note {
@@ -1209,12 +1192,9 @@ fetch('components/header.html')
 @media (max-width: 749px) {
   .st-tiers {
     grid-template-columns: repeat(2, 1fr);
-    overflow-x: visible;
-    scroll-snap-type: none;
     padding-bottom: 0;
     gap: 10px;
   }
-  .st-tiers::-webkit-scrollbar { display: none; }
   .st-tier {
     scroll-snap-align: start;
     padding: 20px 16px;
@@ -1241,7 +1221,7 @@ fetch('components/header.html')
   <div class="page-width">
 
     <div class="st-bundles__header st-reveal">
-      <div class="st-bundles__eyebrow">Choose your bundle</div>
+      <div class="st-bundles__eyebrow st-eyebrow">Choose your bundle</div>
       <h2 class="st-bundles__title">Start with what you need.</h2>
       <p class="st-bundles__desc">Every bundle includes a Watch Plan, a data connection that lets the Spacetalk App on your phone track, call and interact with your child's watch.</p>
     </div>
@@ -1322,7 +1302,7 @@ fetch('components/header.html')
         <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>2 extra</strong> colour straps</div></div>
         <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Charging stand</strong></div></div>
         <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Screen protector</strong></div></div>
-        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit.html" class="st-tier__btn st-tier__btn--dark">Build this bundle</a></div>
+        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit.html" class="st-tier__btn st-btn st-btn--dark">Build this bundle</a></div>
       </div>
 
       <!-- Plus Pack -->
@@ -1341,7 +1321,7 @@ fetch('components/header.html')
         <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>2 extra</strong> colour straps</div></div>
         <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No charging stand</div></div>
         <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No screen protector</div></div>
-        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit-v2.html" class="st-tier__btn st-tier__btn--outline">Build this bundle</a></div>
+        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit-v2.html" class="st-tier__btn st-btn st-btn--outline">Build this bundle</a></div>
       </div>
 
       <!-- Starter Pack -->
@@ -1360,7 +1340,7 @@ fetch('components/header.html')
         <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No extra straps</div></div>
         <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No charging stand</div></div>
         <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No screen protector</div></div>
-        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit.html" class="st-tier__btn st-tier__btn--outline">Build this bundle</a></div>
+        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit.html" class="st-tier__btn st-btn st-btn--outline">Build this bundle</a></div>
       </div>
 
       <!-- Watch Only -->
@@ -1541,18 +1521,7 @@ fetch('components/header.html')
   max-width: 600px;
   margin: 0 auto 80px;
 }
-.st-features__eyebrow {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #fff;
-  background: #171717;
-  display: inline-block;
-  padding: 5px 14px;
-  border-radius: var(--st-rp);
-  margin-bottom: 16px;
-}
+.st-features__eyebrow { margin-bottom: 16px; }
 .st-features__title {
   font-size: clamp(28px, 4vw, 40px);
   font-weight: 600;
@@ -1669,7 +1638,7 @@ fetch('components/header.html')
   <div class="page-width">
 
     <div class="st-features__header st-reveal">
-      <div class="st-features__eyebrow">Designed for growing independence</div>
+      <div class="st-features__eyebrow st-eyebrow">Designed for growing independence</div>
       <h2 class="st-features__title">Everything they need.<br>Everything you need.</h2>
       <p class="st-features__desc">Built for kids. Designed for parents. The Adventurer 2 gives independence without the risks of a smartphone.</p>
     </div>
@@ -1984,18 +1953,7 @@ fetch('components/header.html')
 .st-compare__header {
   margin-bottom: 56px;
 }
-.st-compare__eyebrow {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #fff;
-  background: #171717;
-  display: inline-block;
-  padding: 5px 14px;
-  border-radius: var(--st-rp);
-  margin-bottom: 14px;
-}
+.st-compare__eyebrow { margin-bottom: 14px; }
 .st-compare__title {
   font-size: clamp(28px, 4vw, 40px);
   font-weight: 600;
@@ -2082,7 +2040,7 @@ fetch('components/header.html')
 <section class="st-compare" id="compare">
   <div class="page-width">
     <div class="st-compare__header">
-      <div class="st-compare__eyebrow st-reveal">Compare Adventurer 2 vs Loop</div>
+      <div class="st-compare__eyebrow st-eyebrow st-reveal">Compare Adventurer 2 vs Loop</div>
       <h2 class="st-compare__title st-reveal">Not sure which watch?</h2>
       <p class="st-compare__desc st-reveal">Both connect to the Spacetalk app with GPS, calls and SOS. Here's where they differ.</p>
     </div>
@@ -2487,7 +2445,7 @@ fetch('components/header.html')
         <div class="st-acc__body">
           <div class="st-acc__name">Band Strap</div>
           <div class="st-acc__price">13 colours available &middot; $29.95</div>
-          <a href="https://spacetalk.co/products/spacetalk-adventurer-2-loop-band-strap" class="st-acc__btn st-btn st-btn--dark" style="width:100%;">VIEW OPTIONS</a>
+          <a href="https://spacetalk.co/products/spacetalk-adventurer-2-loop-band-strap" class="st-acc__btn st-btn st-btn--dark">VIEW OPTIONS</a>
         </div>
       </div>
       <div class="st-acc__card">
@@ -2497,7 +2455,7 @@ fetch('components/header.html')
         <div class="st-acc__body">
           <div class="st-acc__name">Charging Stand Kit</div>
           <div class="st-acc__price">Magnetic dock &middot; $49.95</div>
-          <button class="st-acc__btn st-btn st-btn--dark" style="width:100%;">ADD TO CART &ndash; $49.95</button>
+          <button class="st-acc__btn st-btn st-btn--dark">ADD TO CART &ndash; $49.95</button>
         </div>
       </div>
       <div class="st-acc__card">
@@ -2507,7 +2465,7 @@ fetch('components/header.html')
         <div class="st-acc__body">
           <div class="st-acc__name">Screen Protector Kit</div>
           <div class="st-acc__price">Tempered glass &middot; $12.95</div>
-          <button class="st-acc__btn st-btn st-btn--dark" style="width:100%;">ADD TO CART &ndash; $12.95</button>
+          <button class="st-acc__btn st-btn st-btn--dark">ADD TO CART &ndash; $12.95</button>
         </div>
       </div>
     </div><!-- /.st-acc__grid -->
@@ -2985,7 +2943,7 @@ fetch('components/header.html')
     <h2 class="st-cta-band__title">Ready to give them independence?</h2>
     <p class="st-cta-band__sub">Join 50,000+ Australian families already using Spacetalk.</p>
     <div class="st-cta-band__actions">
-      <a href="#bundles" class="st-btn st-btn--neon" data-st-from-price data-st-from-price-format="button">Build your bundle — from $256.99</a>
+      <a href="#bundles" class="st-btn st-btn--dark" data-st-from-price data-st-from-price-format="button">Build your bundle — from $256.99</a>
       <a href="#compare" class="st-btn st-btn--outline-white">Compare Adventurer 2 vs Loop</a>
     </div>
   </div>
@@ -3176,28 +3134,16 @@ fetch('components/header.html')
 <!-- ═══ Button hover-fill sweep (mirrors theme.js HoverButton) ═══ -->
 <script>
 (function(){
-  /* Inject .btn-fill + wrap text in .btn-text for every applicable button */
-  var selector = '.st-btn:not(.st-btn--ghost), .st-subnav__btn, .st-tier__btn--dark, .st-tier__btn--outline, .st-cmp-footer__btn';
+  var selector = '.st-btn:not(.st-btn--ghost), .st-subnav__btn, .st-cmp-footer__btn';
   document.querySelectorAll(selector).forEach(function(btn){
-    /* Skip if already processed */
     if (btn.querySelector('.btn-fill')) return;
-
-    /* Wrap existing content in .btn-text */
     var text = document.createElement('span');
     text.className = 'btn-text';
     while (btn.firstChild) text.appendChild(btn.firstChild);
     btn.appendChild(text);
-
-    /* Inject fill element */
     var fill = document.createElement('span');
     fill.className = 'btn-fill';
     btn.insertBefore(fill, text);
-  });
-
-  /* Apply hover sweep to all buttons with .btn-fill */
-  document.querySelectorAll(selector).forEach(function(btn){
-    var fill = btn.querySelector('.btn-fill');
-    if (!fill) return;
     btn.addEventListener('mouseenter', function(){
       fill.getAnimations().forEach(function(a){ a.cancel(); });
       fill.animate(
