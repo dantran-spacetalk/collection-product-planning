@@ -168,8 +168,8 @@
      ═══════════════════════════════════════════════════════════ -->
 <style id="theme-overrides">
 /* theme.css body uses --font-body-weight: 400 but we want 200 for Spacetalk */
-html { scroll-behavior: auto; } /* let JS handle smooth scrolling */
-body { font-weight: 200; line-height: 1.6; overflow-x: hidden; }
+html { scroll-behavior: auto; overflow-x: hidden; max-width: 100%; }
+body { font-weight: 200; line-height: 1.6; overflow-x: hidden; max-width: 100%; }
 
 /* theme.css .page-width has no max-width — add ours */
 .page-width { max-width: var(--page-width); padding: 0 24px; }
