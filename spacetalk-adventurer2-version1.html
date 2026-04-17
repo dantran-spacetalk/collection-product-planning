@@ -148,7 +148,7 @@
   /* ── Spacetalk custom tokens (used by our st-* section styles) ── */
   --st-black:  #171717;
   --st-white:  #ffffff;
-  --st-g50:    #f7f7f7;
+  --st-g50:    #f5f5f7;
   --st-g100:   #f0f0f0;
   --st-g200:   #e8e8e8;
   --st-g300:   #8a8a8a;
@@ -168,7 +168,8 @@
      ═══════════════════════════════════════════════════════════ -->
 <style id="theme-overrides">
 /* theme.css body uses --font-body-weight: 400 but we want 200 for Spacetalk */
-body { font-weight: 200; line-height: 1.6; scroll-behavior: smooth; }
+html { scroll-behavior: auto; } /* let JS handle smooth scrolling */
+body { font-weight: 200; line-height: 1.6; }
 
 /* theme.css .page-width has no max-width — add ours */
 .page-width { max-width: var(--page-width); padding: 0 24px; }
@@ -178,15 +179,15 @@ button { cursor: pointer; }
 a { color: inherit; }
 
 @keyframes stFadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(32px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 .st-reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s var(--st-ease), transform 0.7s var(--st-ease);
+  transform: translateY(32px) scale(0.97);
+  transition: opacity 1s var(--st-ease), transform 1s var(--st-ease);
 }
-.st-reveal.is-visible { opacity: 1; transform: translateY(0); }
+.st-reveal.is-visible { opacity: 1; transform: translateY(0) scale(1); }
 </style>
 </head>
 <body>
@@ -222,6 +223,11 @@ fetch('components/header.html')
      ║  Liquid: sections/st-adv2-subnav.liquid                  ║
      ╚═══════════════════════════════════════════════════════════╝ -->
 <style id="css-subnav">
+/* Scroll offset for sticky subnav */
+#overview, #bundles, #features, #compare, #accessories, #faq {
+  scroll-margin-top: 50px;
+}
+
 .st-subnav {
   position: sticky;
   top: 0;
@@ -826,11 +832,11 @@ fetch('components/header.html')
      ╚═══════════════════════════════════════════════════════════╝ -->
 <style id="css-bundles">
 .st-bundles {
-  padding: 100px 0;
+  padding: 120px 0;
   background: var(--st-g50);
 }
 .st-bundles__header {
-  margin-bottom: 48px;
+  margin-bottom: 64px;
 }
 .st-bundles__eyebrow {
   font-size: 10px;
@@ -867,9 +873,10 @@ fetch('components/header.html')
   border-radius: var(--st-r);
   margin-bottom: 32px;
   overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.04);
 }
 .st-plan-card__top {
-  padding: 20px 24px;
+  padding: 28px 32px;
 }
 .st-plan-card__header {
   display: flex;
@@ -1061,9 +1068,10 @@ fetch('components/header.html')
   padding: 24px 20px;
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.2s, border-color 0.2s;
+  transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s var(--st-ease);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
-.st-tier:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+.st-tier:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.1); transform: translateY(-2px); }
 .st-tier--pop { border-color: #3315D0; }
 .st-tier--muted { background: var(--st-g50); border-color: var(--st-g200); }
 .st-tier__label {
@@ -1516,12 +1524,12 @@ fetch('components/header.html')
      ╚═══════════════════════════════════════════════════════════╝ -->
 <style id="css-features">
 .st-features {
-  padding: 100px 0;
+  padding: 120px 0;
 }
 .st-features__header {
   text-align: center;
   max-width: 600px;
-  margin: 0 auto 64px;
+  margin: 0 auto 80px;
 }
 .st-features__eyebrow {
   font-size: 10px;
@@ -1631,6 +1639,19 @@ fetch('components/header.html')
   .st-feat-row--flip .st-feat-row__media { order: 0; }
   .st-feat-row--flip .st-feat-row__text { order: 0; }
   .st-feat-row__media { aspect-ratio: 1; }
+}
+@media (max-width: 749px) {
+  .st-features { padding: 80px 0; }
+  .st-features__header { margin-bottom: 48px; }
+  .st-compare__header { margin-bottom: 36px; }
+  .st-acc__header { margin-bottom: 28px; }
+  .st-reviews__header { margin-bottom: 36px; }
+  .st-faq__header { margin-bottom: 36px; }
+  .st-bundles__header { margin-bottom: 40px; }
+  .st-compare { padding: 80px 0; }
+  .st-acc { padding: 80px 0; }
+  .st-reviews { padding: 80px 0; }
+  .st-faq { padding: 80px 0; }
 }
 </style>
 
@@ -1947,11 +1968,11 @@ fetch('components/header.html')
      ╚═══════════════════════════════════════════════════════════╝ -->
 <style id="css-compare">
 .st-compare {
-  padding: 100px 0;
+  padding: 120px 0;
   background: var(--st-g50);
 }
 .st-compare__header {
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 .st-compare__eyebrow {
   font-size: 10px;
@@ -2308,13 +2329,13 @@ fetch('components/header.html')
      ╚═══════════════════════════════════════════════════════════╝ -->
 <style id="css-accessories">
 .st-acc {
-  padding: 100px 0;
+  padding: 120px 0;
 }
 .st-acc__header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 48px;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -2342,12 +2363,14 @@ fetch('components/header.html')
   border: 1px solid var(--st-g200);
   border-radius: var(--st-r);
   overflow: hidden;
-  transition: border-color 0.2s, transform 0.2s var(--st-ease);
+  transition: border-color 0.3s, transform 0.3s var(--st-ease), box-shadow 0.3s;
   background: var(--st-white);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 .st-acc__card:hover {
   border-color: var(--st-black);
   transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
 }
 .st-acc__img {
   display: block;
@@ -2534,11 +2557,11 @@ fetch('components/header.html')
 <style id="css-reviews">
 .st-reviews {
   background: var(--st-black);
-  padding: 100px 0;
+  padding: 120px 0;
   overflow: hidden;
 }
 .st-reviews__header {
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 .st-reviews__eyebrow {
   font-size: 10px;
@@ -2710,7 +2733,7 @@ fetch('components/header.html')
      ╚═══════════════════════════════════════════════════════════╝ -->
 <style id="css-faq">
 .st-faq {
-  padding: 100px 0;
+  padding: 120px 0;
 }
 .st-faq__inner {
   max-width: 760px;
@@ -2718,7 +2741,7 @@ fetch('components/header.html')
 }
 .st-faq__header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 .st-faq__eyebrow {
   font-size: 10px;
@@ -3117,23 +3140,43 @@ fetch('components/header.html')
           obs.unobserve(e.target);
         }
       });
-    },{threshold:0.1});
+    },{threshold:0.15, rootMargin: '0px 0px -60px 0px'});
     reveals.forEach(function(el){obs.observe(el);});
   }
 
-  /* Smooth scroll - offset for header + subnav */
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    a.addEventListener('click',function(e){
-      var t = a.getAttribute('href');
-      if(!t || t==='#') return;
-      var d = document.querySelector(t);
-      if(d){
-        e.preventDefault();
-        var offset = 64 + 50 + 16; /* header + subnav + breathing room */
-        var top = d.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({top: top, behavior: 'smooth'});
-      }
-    });
+})();
+</script>
+<script>
+/* Smooth anchor scroll with easing */
+(function () {
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+  function smoothScrollTo(target, duration) {
+    var subnav = document.querySelector('.st-subnav');
+    var offset = subnav ? subnav.offsetHeight : 50;
+    var start = window.scrollY;
+    var end = target.getBoundingClientRect().top + window.scrollY - offset;
+    var startTime = null;
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var elapsed = timestamp - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, start + (end - start) * easeInOutCubic(progress));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var hash = a.getAttribute('href');
+    if (!hash || hash === '#') return;
+    var target = document.querySelector(hash);
+    if (!target) return;
+    e.preventDefault();
+    history.pushState(null, '', hash);
+    smoothScrollTo(target, 700);
   });
 })();
 </script>
