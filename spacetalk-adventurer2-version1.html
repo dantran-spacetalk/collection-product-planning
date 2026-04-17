@@ -24,8 +24,8 @@
   /* Colors (RGB triplets — used as rgb(var(--color-base-text))) */
   --color-base-text: 23 23 23;
   --color-base-background: 255 255 255;
-  --color-base-button: 0 0 0;
-  --color-base-button-gradient: #000000;
+  --color-base-button: 51 21 208;
+  --color-base-button-gradient: #3315d0;
   --color-base-button-text: 255 255 255;
   --color-base-hover-button: 51 21 208;
   --color-base-hover-button-text: 255 255 255;
@@ -279,14 +279,14 @@ fetch('components/header.html')
   cursor: pointer;
   font-family: var(--font-button-family);
   line-height: 1;
-  background: var(--st-black);
+  background: #3315d0;
   color: var(--st-white);
   border: none;
   border-radius: var(--buttons-radius);
   padding: 10px 22px;
   transition: background 0.2s;
 }
-.st-subnav__btn:hover { background: var(--st-g600); }
+.st-subnav__btn:hover { background: #2710a3; }
 .st-btn {
   display: inline-flex;
   align-items: center;
@@ -335,7 +335,7 @@ fetch('components/header.html')
 
 /* ── Dark button ── */
 .st-btn--dark {
-  background: var(--st-black);
+  background: #3315d0;
   color: var(--st-white);
   padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
 }
@@ -348,15 +348,15 @@ fetch('components/header.html')
 
 /* ── Neon (primary CTA) ── */
 .st-btn--neon {
-  background: var(--st-neon);
-  color: var(--st-black);
+  background: #3315d0;
+  color: var(--st-white);
   padding: clamp(1.125rem, 1.2vw, 1.375rem) clamp(1.625rem, 1.473vw, 1.875rem);
 }
 .st-btn--neon .btn-fill {
-  background: #3315d0;
+  background: var(--st-neon);
 }
 .st-btn--neon:hover {
-  color: var(--st-white);
+  color: var(--st-black);
 }
 
 /* ── Outline ── */
@@ -589,15 +589,15 @@ fetch('components/header.html')
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--st-neon);
+  color: #fff;
   margin-bottom: 24px;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: rgba(212,253,0,0.08);
+  background: rgba(255,255,255,0.08);
   padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(212,253,0,0.15);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 .st-hero__eyebrow svg {
   flex-shrink: 0;
@@ -744,7 +744,7 @@ fetch('components/header.html')
   <div class="page-width st-hero__inner">
     <div class="st-hero__content">
       <div class="st-hero__eyebrow">
-        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1l1.5 3.5H13l-3 2.5 1 3.5L7 8.5 3 10.5l1-3.5-3-2.5h4.5z" fill="#c6f135"/></svg>
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1l1.5 3.5H13l-3 2.5 1 3.5L7 8.5 3 10.5l1-3.5-3-2.5h4.5z" fill="#ffffff"/></svg>
         #1 Kids Smartwatch in Australia
       </div>
       <h1 class="st-hero__title">Adventurer&nbsp;2<span>Built for independence.</span></h1>
@@ -760,15 +760,15 @@ fetch('components/header.html')
 
       <div class="st-hero__meta">
         <span>
-          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1l1.5 3.5H13l-3 2.5 1 3.5L7 8.5 3 10.5l1-3.5-3-2.5h4.5z" fill="#c6f135"/></svg>
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1l1.5 3.5H13l-3 2.5 1 3.5L7 8.5 3 10.5l1-3.5-3-2.5h4.5z" fill="#ffffff"/></svg>
           4.4★ · 3,200+ reviews
         </span>
         <span>
-          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#c6f135" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/></svg>
           Afterpay available
         </span>
         <span>
-          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1v6l4 2" stroke="#c6f135" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="#c6f135" stroke-width="1.5" fill="none"/></svg>
+          <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1v6l4 2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="6" stroke="#ffffff" stroke-width="1.5" fill="none"/></svg>
           Trusted since 2002
         </span>
       </div>
@@ -820,8 +820,8 @@ fetch('components/header.html')
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--st-black);
-  background: var(--st-neon);
+  color: #fff;
+  background: #171717;
   display: inline-block;
   padding: 5px 14px;
   border-radius: var(--st-rp);
@@ -864,7 +864,7 @@ fetch('components/header.html')
   width: 28px;
   height: 28px;
   border-radius: 7px;
-  background: var(--st-neon);
+  background: #171717;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -909,9 +909,9 @@ fetch('components/header.html')
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 .st-plan-opt.is-active {
-  border-color: var(--st-black);
-  background: var(--st-black);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  border-color: #3315D0;
+  background: #3315D0;
+  box-shadow: 0 4px 14px rgba(51,21,208,0.25);
 }
 .st-plan-opt__dur {
   font-size: 14px;
@@ -1047,7 +1047,7 @@ fetch('components/header.html')
   transition: box-shadow 0.2s, border-color 0.2s;
 }
 .st-tier:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
-.st-tier--pop { border-color: var(--st-black); }
+.st-tier--pop { border-color: #3315D0; }
 .st-tier--muted { background: var(--st-g50); border-color: var(--st-g200); }
 .st-tier__label {
   font-size: 9px;
@@ -1057,7 +1057,7 @@ fetch('components/header.html')
   color: var(--st-g400);
   margin-bottom: 8px;
 }
-.st-tier--pop .st-tier__label { color: var(--st-black); }
+.st-tier--pop .st-tier__label { color: #3315D0; }
 .st-tier__name {
   font-size: 14px;
   font-weight: 500;
@@ -1158,8 +1158,8 @@ fetch('components/header.html')
   align-items: center;
   justify-content: center;
 }
-.st-tier__btn--dark { background: var(--st-black); color: var(--st-white); border: 2px solid var(--st-black); }
-.st-tier__btn--dark:hover { background: var(--st-g600); border-color: var(--st-g600); }
+.st-tier__btn--dark { background: #3315d0; color: var(--st-white); border: 2px solid #3315d0; }
+.st-tier__btn--dark:hover { background: #2710a3; border-color: #2710a3; }
 .st-tier__btn--outline { background: transparent; color: var(--st-black); border: 2px solid var(--st-black); }
 .st-tier__btn--outline:hover { background: var(--st-g50); }
 .st-tier__btn--ghost { background: transparent; color: var(--st-g400); border: 1px solid var(--st-g200); }
@@ -1212,7 +1212,7 @@ fetch('components/header.html')
       <div class="st-plan-card__top">
         <div class="st-plan-card__header">
           <div class="st-plan-card__icon">
-            <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M8 2v5l3 2" stroke="#171717" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="8" r="6" stroke="#171717" stroke-width="1.5" fill="none"/></svg>
+            <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M8 2v5l3 2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="8" r="6" stroke="#ffffff" stroke-width="1.5" fill="none"/></svg>
           </div>
           <span class="st-plan-card__title">Watch Plan</span>
         </div>
@@ -1268,7 +1268,7 @@ fetch('components/header.html')
     <!-- Tier cards -->
     <div class="st-tiers st-reveal">
       <!-- Complete Pack -->
-      <div class="st-tier">
+      <div class="st-tier st-tier--pop">
         <div class="st-tier__label">Complete Pack</div>
         <div class="st-tier__name">Watch + Plan + Straps + Extras</div>
         <div class="st-tier__tagline">Everything in the box. Ready from day one.</div>
@@ -1283,11 +1283,11 @@ fetch('components/header.html')
         <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>2 extra</strong> colour straps</div></div>
         <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Charging stand</strong></div></div>
         <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>Screen protector</strong></div></div>
-        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit.html" class="st-tier__btn st-tier__btn--outline">Build this bundle</a></div>
+        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit.html" class="st-tier__btn st-tier__btn--dark">Build this bundle</a></div>
       </div>
 
       <!-- Plus Pack -->
-      <div class="st-tier st-tier--pop">
+      <div class="st-tier">
         <div class="st-tier__label">Plus Pack</div>
         <div class="st-tier__name">Watch + Plan + Straps</div>
         <div class="st-tier__tagline">The watch, plan and two straps to mix daily.</div>
@@ -1302,7 +1302,7 @@ fetch('components/header.html')
         <div class="st-tier__item"><div class="st-tier__dot"></div><div class="st-tier__txt"><strong>2 extra</strong> colour straps</div></div>
         <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No charging stand</div></div>
         <div class="st-tier__item"><div class="st-tier__dot st-tier__dot--dim"></div><div class="st-tier__txt st-tier__txt--dim">No screen protector</div></div>
-        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit-v2.html" class="st-tier__btn st-tier__btn--dark">Build this bundle</a></div>
+        <div class="st-tier__cta"><a href="spacetalk-adv2-fullkit-v2.html" class="st-tier__btn st-tier__btn--outline">Build this bundle</a></div>
       </div>
 
       <!-- Starter Pack -->
@@ -1507,8 +1507,8 @@ fetch('components/header.html')
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--st-black);
-  background: var(--st-neon);
+  color: #fff;
+  background: #171717;
   display: inline-block;
   padding: 5px 14px;
   border-radius: var(--st-rp);
@@ -1556,8 +1556,8 @@ fetch('components/header.html')
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--st-black);
-  background: var(--st-neon);
+  color: #fff;
+  background: #171717;
   display: inline-block;
   padding: 4px 12px;
   border-radius: var(--st-rp);
@@ -1597,7 +1597,7 @@ fetch('components/header.html')
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--st-neon);
+  background: #171717;
   flex-shrink: 0;
   margin-top: 5px;
 }
@@ -1868,7 +1868,7 @@ fetch('components/header.html')
 .st-inbox__list li::before {
   content: '✓';
   font-weight: 700;
-  color: var(--st-neon);
+  color: #171717;
   font-size: 14px;
 }
 .st-inbox__note {
@@ -1922,8 +1922,8 @@ fetch('components/header.html')
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--st-black);
-  background: var(--st-neon);
+  color: #fff;
+  background: #171717;
   display: inline-block;
   padding: 5px 14px;
   border-radius: var(--st-rp);
@@ -2006,21 +2006,133 @@ fetch('components/header.html')
           </tr>
         </thead>
         <tbody>
-          <tr><td class="st-cmp-feat">Starting price</td><td class="st-cmp-price">$239</td><td class="st-cmp-price" style="color:var(--st-g400);">$174</td></tr>
-          <tr><td class="st-cmp-feat">Live GPS tracking</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
-          <tr><td class="st-cmp-feat">4G calls</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
-          <tr><td class="st-cmp-feat">Messaging</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
-          <tr><td class="st-cmp-feat">Front camera</td><td class="st-cmp-yes">✓</td><td class="st-cmp-no">–</td></tr>
-          <tr><td class="st-cmp-feat">Video calling</td><td class="st-cmp-yes">✓</td><td class="st-cmp-no">–</td></tr>
-          <tr><td class="st-cmp-feat">SOS button</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
-          <tr><td class="st-cmp-feat">School mode</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
-          <tr><td class="st-cmp-feat">Safe zones</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
-          <tr><td class="st-cmp-feat">Slim / light profile</td><td class="st-cmp-no">–</td><td class="st-cmp-yes">✓</td></tr>
+          <tr><td class="st-cmp-feat">Best for</td><td class="st-cmp-text">Kids gaining independence</td><td class="st-cmp-text" style="color:var(--st-g400);">First-time wearers</td></tr>
           <tr><td class="st-cmp-feat">Recommended age</td><td class="st-cmp-text">5–14 yrs</td><td class="st-cmp-text" style="color:var(--st-g400);">4–12 yrs</td></tr>
+          <tr><td class="st-cmp-feat">Can I video call my kid?</td><td class="st-cmp-yes">✓</td><td class="st-cmp-no">–</td></tr>
+          <tr><td class="st-cmp-feat">Calls, texts &amp; SOS</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
+          <tr><td class="st-cmp-feat">GPS, safe zones &amp; school mode</td><td class="st-cmp-yes">✓</td><td class="st-cmp-yes">✓</td></tr>
+          <tr><td class="st-cmp-feat">Fitness &amp; heart rate tracking</td><td class="st-cmp-yes">✓</td><td class="st-cmp-text" style="color:var(--st-g400);">Basic step counter</td></tr>
+          <tr><td class="st-cmp-feat">Camera</td><td class="st-cmp-text">5 MP front camera</td><td class="st-cmp-text" style="color:var(--st-g400);">2 MP</td></tr>
+          <tr><td class="st-cmp-feat">Screen</td><td class="st-cmp-text">1.41″ AMOLED</td><td class="st-cmp-text" style="color:var(--st-g400);">1.5″ IPS</td></tr>
+          <tr><td class="st-cmp-feat">Battery life</td><td class="st-cmp-text">Up to 36 hrs</td><td class="st-cmp-text" style="color:var(--st-g400);">Up to 72 hrs</td></tr>
+          <tr><td class="st-cmp-feat">Durability</td><td class="st-cmp-text">Gorilla Glass · IP67</td><td class="st-cmp-text" style="color:var(--st-g400);">Gorilla Glass · IP67</td></tr>
+          <tr class="st-cmp-pricerow">
+            <td class="st-cmp-feat st-cmp-price-label">Price</td>
+            <td class="st-cmp-pricecell"><span class="st-cmp-price-main">$239</span></td>
+            <td class="st-cmp-pricecell"><span class="st-cmp-price-main st-cmp-price-loop">$174</span></td>
+          </tr>
+          <tr class="st-cmp-ctarow">
+            <td class="st-cmp-feat st-cmp-price-label">&nbsp;</td>
+            <td class="st-cmp-pricecell st-cmp-cta-cell"><a href="spacetalk-adv2-fullkit.html" class="st-cmp-cta st-cmp-cta--table">Build your bundle</a></td>
+            <td class="st-cmp-pricecell st-cmp-cta-cell"><a href="https://spacetalk.co/products/spacetalk-loop-smartwatch-1" class="st-cmp-cta st-cmp-cta--loop st-cmp-cta--table" target="_blank">View Loop bundles</a></td>
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
+
+<style>
+/* Price row styling */
+/* Table border radius and integration */
+.st-cmp-table {
+  border-radius: 18px;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.st-cmp-table thead th:first-child {
+  border-top-left-radius: 18px;
+}
+.st-cmp-table thead th:last-child {
+  border-top-right-radius: 18px;
+}
+.st-cmp-table tr.st-cmp-ctarow td:first-child {
+  border-bottom-left-radius: 18px;
+}
+.st-cmp-table tr.st-cmp-ctarow td:last-child {
+  border-bottom-right-radius: 18px;
+}
+/* Price row styling */
+.st-cmp-pricerow td {
+  border-bottom: none !important;
+  background: #fff !important;
+  padding-top: 18px !important;
+  padding-bottom: 18px !important;
+  border-top: 2px solid #e0e0e0;
+}
+.st-cmp-price-label {
+  color: #171717;
+  font-weight: 500;
+  background: #fff !important;
+  text-align: left !important;
+  font-size: 1rem;
+  padding-left: 22px !important;
+}
+.st-cmp-pricecell {
+  text-align: center;
+  vertical-align: middle;
+  background: #fff !important;
+}
+.st-cmp-price-main {
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #3315D0;
+  letter-spacing: -0.01em;
+  background: none;
+  border: none;
+  margin: 0;
+}
+.st-cmp-price-loop {
+  color: #171717;
+}
+.st-cmp-ctarow td {
+  background: #fafafd !important;
+  border-bottom: none !important;
+  padding-top: 14px !important;
+  padding-bottom: 22px !important;
+}
+.st-cmp-cta-cell {
+  text-align: center;
+}
+.st-cmp-cta--table {
+  display: inline-block;
+  background: #3315D0;
+  color: #fff;
+  font-size: 0.97rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 9px 22px;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(51,21,208,0.07);
+  margin: 0;
+  border: none;
+}
+.st-cmp-cta--table:hover {
+  background: #2710a3;
+}
+.st-cmp-cta--loop {
+  background: #171717;
+}
+.st-cmp-cta--loop:hover {
+  background: #3315D0;
+}
+@media (max-width: 749px) {
+  .st-cmp-price-main {
+    font-size: 1rem;
+    padding: 0;
+  }
+  .st-cmp-cta--table {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+  .st-cmp-pricerow td, .st-cmp-ctarow td {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+}
+</style>
 </section>
 
 
