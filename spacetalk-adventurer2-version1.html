@@ -169,10 +169,13 @@
 <style id="theme-overrides">
 /* theme.css body uses --font-body-weight: 400 but we want 200 for Spacetalk */
 html { scroll-behavior: auto; overflow-x: clip; }
-body { font-weight: 200; line-height: 1.6; overflow-x: hidden; max-width: 100%; }
+body { font-weight: 200; line-height: 1.6; overflow-x: clip; max-width: 100%; }
 
 /* theme.css .page-width has no max-width — add ours */
 .page-width { max-width: var(--page-width); padding: 0 24px; width: 100%; box-sizing: border-box; }
+
+/* Global min-width: 0 — prevents flex/grid children from expanding past their column */
+* { min-width: 0; }
 
 img { max-width: 100%; display: block; }
 button { cursor: pointer; }
@@ -315,6 +318,9 @@ fetch('components/header.html')
   position: relative;
   overflow: hidden;
   max-height: 3.75rem;
+}
+@media (max-width: 749px) {
+  .st-btn { white-space: normal; text-align: center; }
 }
 .st-btn:not(.st-btn--ghost):hover { transform: none; }
 
@@ -542,13 +548,6 @@ fetch('components/header.html')
   align-items: center;
   background: var(--st-black);
 }
-.st-hero > .page-width {
-  width: 100%;
-  max-width: var(--page-width);
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
 /* ── Video background ── */
 .st-hero__video-wrap {
   position: absolute;
