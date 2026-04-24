@@ -1,0 +1,1160 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spacetalk — SEO Performance and Growth Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #171717; --blue: #3315D0; --sky: #86AFFF;
+    --violet: #6C0590; --sakura: #FFBFBF; --evergreen: #0C4029; --neon: #D4FD00;
+    --bg: #FFFFFF; --surface: #F7F7F7; --surface2: #F0F0F0; --border: #E4E4E4;
+    --text: #171717; --text-mid: #555555; --text-dim: #888888;
+    --amber: #D4860A; --amber-bg: #FFF4E0; --amber-mid: #f5c97a;
+    --red: #C0392B; --red-bg: #FEF0EF;
+    --green: #1a7a4a; --green-bg: #EDFAF4;
+    --font-display: 'DM Serif Display', serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+  html, body { background: var(--bg); color: var(--text); font-family: var(--font-body); }
+
+  .slide { display:none; max-width:1200px; margin:0 auto; padding:44px 56px 80px; animation: fadeIn 0.4s ease forwards; }
+  .slide.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  /* Nav */
+  .nav-bar { position:fixed; bottom:28px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:12px; background:white; border:1px solid var(--border); border-radius:100px; padding:8px 16px; box-shadow:0 4px 24px rgba(0,0,0,0.08); z-index:100; }
+  .nav-btn { width:34px; height:34px; border-radius:50%; border:1px solid var(--border); background:var(--surface); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; font-size:14px; color:var(--text); }
+  .nav-btn:hover:not(:disabled) { background:var(--blue); color:white; border-color:var(--blue); }
+  .nav-btn:disabled { opacity:0.3; cursor:not-allowed; }
+  .nav-dots { display:flex; gap:6px; align-items:center; }
+  .nav-dot { width:7px; height:7px; border-radius:50%; background:var(--border); cursor:pointer; transition:all 0.2s; }
+  .nav-dot.active { background:var(--blue); width:20px; border-radius:4px; }
+  .nav-label { font-family:var(--font-mono); font-size:10px; color:var(--text-dim); white-space:nowrap; min-width:90px; text-align:center; }
+
+  /* Shared */
+  header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:32px; padding-bottom:28px; border-bottom:1.5px solid var(--border); }
+  .eyebrow { font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.13em; color:var(--blue); text-transform:uppercase; display:flex; align-items:center; gap:9px; margin-bottom:9px; }
+  .eyebrow::before { content:''; display:inline-block; width:18px; height:1.5px; background:var(--blue); }
+  h1 { font-family:var(--font-display); font-size:36px; font-weight:400; line-height:1.1; color:var(--black); letter-spacing:-0.01em; }
+  h1 em { font-style:italic; color:var(--blue); }
+  .header-badges { display:flex; flex-direction:column; align-items:flex-end; gap:7px; margin-top:4px; }
+  .badge-pill { font-family:var(--font-mono); font-size:10.5px; padding:5px 14px; border-radius:100px; border:1px solid var(--border); color:var(--text-mid); background:var(--surface); white-space:nowrap; }
+  .badge-pill.accent  { border-color:var(--sky); color:var(--blue); background:#EEF2FF; }
+  .badge-pill.warn    { border-color:var(--amber-mid); color:var(--amber); background:var(--amber-bg); }
+  .badge-pill.success { border-color:#6fcf97; color:var(--green); background:var(--green-bg); }
+
+  .kpi-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
+  .kpi { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px; position:relative; overflow:hidden; transition:border-color 0.18s; }
+  .kpi:hover { border-color:var(--sky); }
+  .kpi-bar { position:absolute; top:0; left:0; right:0; height:3px; }
+  .kpi.c-blue .kpi-bar    { background:linear-gradient(90deg,var(--blue),var(--sky)); }
+  .kpi.c-amber .kpi-bar   { background:linear-gradient(90deg,var(--amber),var(--amber-mid)); }
+  .kpi.c-green .kpi-bar   { background:linear-gradient(90deg,var(--green),#6fcf97); }
+  .kpi.c-violet .kpi-bar  { background:linear-gradient(90deg,var(--violet),var(--sakura)); }
+  .kpi.c-red .kpi-bar     { background:linear-gradient(90deg,var(--red),#e07060); }
+  .kpi-label { font-size:10px; font-weight:600; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; margin-top:4px; }
+  .kpi-value { font-family:var(--font-display); font-size:30px; line-height:1; color:var(--black); }
+  .kpi.c-blue .kpi-value   { color:var(--blue); }
+  .kpi.c-amber .kpi-value  { color:var(--amber); }
+  .kpi.c-green .kpi-value  { color:var(--green); }
+  .kpi.c-violet .kpi-value { color:var(--violet); }
+  .kpi.c-red .kpi-value    { color:var(--red); }
+  .kpi-sub { font-size:11px; color:var(--text-dim); margin-top:5px; font-family:var(--font-mono); }
+
+  .panel { background:var(--bg); border:1px solid var(--border); border-radius:14px; padding:22px; display:flex; flex-direction:column; }
+  .panel-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+  .panel-title { font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); }
+  .panel-sub { font-family:var(--font-mono); font-size:9.5px; color:var(--text-dim); }
+
+  .tab-group { display:flex; gap:3px; background:var(--surface2); border-radius:8px; padding:3px; }
+  .tab { font-family:var(--font-mono); font-size:11px; padding:5px 12px; border-radius:6px; border:none; cursor:pointer; background:none; color:var(--text-mid); transition:all 0.15s; }
+  .tab.active { background:var(--blue); color:#fff; font-weight:500; }
+  .tab:hover:not(.active) { color:var(--black); background:var(--border); }
+
+  .legend { display:flex; gap:16px; margin-top:12px; }
+  .legend-item { display:flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:10.5px; color:var(--text-dim); }
+  .legend-dot { width:8px; height:8px; border-radius:2px; }
+
+  .data-table { width:100%; border-collapse:collapse; table-layout:fixed; }
+  .data-table th { font-family:var(--font-mono); font-size:9.5px; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-dim); padding:0 8px 10px; text-align:right; font-weight:400; border-bottom:1px solid var(--border); }
+  .data-table th:first-child { text-align:left; }
+  .data-table td { padding:8px; text-align:right; color:var(--text-mid); border-bottom:1px solid var(--border); font-family:var(--font-mono); font-size:12px; }
+  .data-table td:first-child { text-align:left; color:var(--black); font-family:var(--font-body); font-size:13px; }
+  .data-table tr:last-child td { border-bottom:none; }
+  .data-table tr:hover td { background:var(--surface); }
+  .tbadge { display:inline-block; font-family:var(--font-mono); font-size:8px; padding:2px 5px; border-radius:4px; margin-left:4px; vertical-align:middle; }
+  .tbadge-mtd  { background:var(--surface2); color:var(--text-dim); border:1px solid var(--border); }
+  .tbadge-peak { background:#EEF2FF; color:var(--blue); border:1px solid var(--sky); }
+  .val-blue { color:var(--blue) !important; font-weight:500; }
+  .peak-row { background:#F5F3FF; }
+  .peak-row:hover td { background:#EDEAFF !important; }
+  .peak-row td { color:var(--black) !important; }
+  .peak-row td:first-child { color:var(--blue) !important; font-weight:500; }
+
+  /* Analysis */
+  .analysis-section { border-top:1.5px solid var(--border); padding-top:28px; margin-top:8px; }
+  .analysis-header { display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+  .analysis-label { font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.13em; color:var(--text-dim); }
+  .analysis-line { flex:1; height:1px; background:var(--border); }
+  .insights-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  .insight-card { border:1px solid var(--border); border-radius:12px; padding:20px 22px; background:var(--surface); position:relative; overflow:hidden; }
+  .insight-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; }
+  .insight-card.c-blue::before     { background:var(--blue); }
+  .insight-card.c-violet::before   { background:var(--violet); }
+  .insight-card.c-evergreen::before{ background:var(--evergreen); }
+  .insight-card.c-sky::before      { background:var(--sky); }
+  .insight-card.c-amber::before    { background:var(--amber); }
+  .insight-card.c-red::before      { background:var(--red); }
+  .insight-card.c-green::before    { background:var(--green); }
+  .insight-tag { font-family:var(--font-mono); font-size:9.5px; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; font-weight:500; }
+  .c-blue .insight-tag      { color:var(--blue); }
+  .c-violet .insight-tag    { color:var(--violet); }
+  .c-evergreen .insight-tag { color:var(--evergreen); }
+  .c-sky .insight-tag       { color:#4a7fd4; }
+  .c-amber .insight-tag     { color:var(--amber); }
+  .c-red .insight-tag       { color:var(--red); }
+  .c-green .insight-tag     { color:var(--green); }
+  .insight-title { font-family:var(--font-display); font-size:17px; font-weight:400; color:var(--black); margin-bottom:8px; line-height:1.25; }
+  .insight-body  { font-size:13.5px; color:var(--text-mid); line-height:1.65; }
+  .insight-body strong { color:var(--black); font-weight:600; }
+  .insight-stat { display:inline-block; font-family:var(--font-mono); font-size:12px; font-weight:500; padding:2px 8px; border-radius:5px; margin:0 1px; }
+  .c-blue .insight-stat      { background:#EEF2FF; color:var(--blue); }
+  .c-violet .insight-stat    { background:#F5EEFF; color:var(--violet); }
+  .c-evergreen .insight-stat { background:#EDFAF4; color:var(--evergreen); }
+  .c-sky .insight-stat       { background:#EEF4FF; color:#4a7fd4; }
+  .c-amber .insight-stat     { background:var(--amber-bg); color:var(--amber); }
+  .c-red .insight-stat       { background:var(--red-bg); color:var(--red); }
+  .c-green .insight-stat     { background:var(--green-bg); color:var(--green); }
+
+  footer { display:flex; align-items:center; justify-content:space-between; margin-top:20px; padding-top:16px; border-top:1px solid var(--border); }
+  .footer-source { font-family:var(--font-mono); font-size:9.5px; color:var(--text-dim); letter-spacing:0.04em; }
+  .slide-num { font-family:var(--font-mono); font-size:10.5px; color:var(--text-dim); }
+  .slide-num span { color:var(--blue); font-weight:500; }
+
+  /* Slides 1-3 */
+  .two-col { display:grid; grid-template-columns:1fr 375px; gap:16px; margin-bottom:24px; }
+  .s2-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+  .s2-left  { display:flex; flex-direction:column; gap:16px; }
+  .donut-wrap { display:flex; align-items:center; gap:24px; }
+  .donut-legend { display:flex; flex-direction:column; gap:9px; flex:1; }
+  .donut-legend-item { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-mid); }
+  .donut-legend-dot  { width:10px; height:10px; border-radius:2px; flex-shrink:0; }
+  .donut-legend-val  { font-family:var(--font-mono); font-size:12px; color:var(--black); margin-left:auto; font-weight:500; }
+  .donut-legend-pct  { font-family:var(--font-mono); font-size:10px; color:var(--text-dim); min-width:32px; text-align:right; }
+  .pos-bar-wrap { display:flex; flex-direction:column; gap:9px; }
+  .pos-bar-row  { display:grid; grid-template-columns:148px 1fr 46px; align-items:center; gap:10px; }
+  .pos-bar-label { font-size:12.5px; color:var(--black); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pos-bar-label small { font-family:var(--font-mono); font-size:9px; color:var(--text-dim); }
+  .pos-bar-track { height:7px; background:var(--surface2); border-radius:4px; overflow:hidden; }
+  .pos-bar-fill  { height:100%; border-radius:4px; }
+  .pos-bar-val   { font-family:var(--font-mono); font-size:11px; color:var(--text-dim); text-align:right; }
+  .pos-badge { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; font-family:var(--font-mono); font-size:11px; font-weight:500; flex-shrink:0; }
+  .pos-1 { background:#EEF2FF; color:var(--blue); }
+  .pos-2 { background:#F5EEFF; color:var(--violet); }
+  .pos-x { background:var(--surface2); color:var(--text-dim); font-size:9px; }
+  .intent-pill { display:inline-block; font-family:var(--font-mono); font-size:9px; padding:2px 6px; border-radius:4px; }
+  .intent-transactional { background:#EEF2FF; color:var(--blue); }
+  .intent-commercial    { background:#F5EEFF; color:var(--violet); }
+  .intent-informational { background:#EDFAF4; color:var(--evergreen); }
+  .intent-navigational  { background:var(--surface2); color:var(--text-dim); }
+  .opp-row td:first-child { color:var(--amber) !important; }
+  .opp-row { background:var(--amber-bg); }
+  .opp-row:hover td { background:#ffe8b8 !important; }
+  .gap-table th:not(:first-child) { text-align:center; }
+  .gap-table td:not(:first-child) { text-align:center; }
+  .gap-cell-rank { display:inline-flex; align-items:center; justify-content:center; width:28px; height:22px; border-radius:6px; font-family:var(--font-mono); font-size:11px; font-weight:500; }
+  .rank-good { background:#EEF2FF; color:var(--blue); }
+  .rank-ok   { background:#EDFAF4; color:var(--evergreen); }
+  .rank-mid  { background:var(--amber-bg); color:var(--amber); }
+  .rank-bad  { background:var(--red-bg); color:var(--red); }
+  .rank-none { background:var(--surface2); color:var(--text-dim); font-size:9px; }
+  .vol-pill  { display:inline-block; font-family:var(--font-mono); font-size:10px; padding:2px 7px; border-radius:4px; background:var(--surface2); color:var(--text-mid); }
+  .vol-pill.high { background:#F5EEFF; color:var(--violet); }
+  .vol-pill.med  { background:var(--amber-bg); color:var(--amber); }
+
+  /* Slide 4 */
+  .s4-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+  .s4-left  { display:flex; flex-direction:column; gap:16px; }
+  .kpi-compare-table { width:100%; border-collapse:collapse; }
+  .kpi-compare-table th { font-family:var(--font-mono); font-size:9.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); padding:0 10px 10px; font-weight:400; border-bottom:1px solid var(--border); }
+  .kpi-compare-table th:first-child { text-align:left; width:38%; }
+  .kpi-compare-table th:nth-child(2) { text-align:center; width:22%; }
+  .kpi-compare-table th:nth-child(3) { text-align:center; width:22%; }
+  .kpi-compare-table th:nth-child(4) { text-align:center; width:18%; }
+  .kpi-compare-table td { padding:9px 10px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  .kpi-compare-table td:first-child { color:var(--black); font-size:13px; }
+  .kpi-compare-table td:nth-child(2) { text-align:center; font-family:var(--font-mono); font-size:12px; color:var(--text-mid); }
+  .kpi-compare-table td:nth-child(3) { text-align:center; font-family:var(--font-mono); font-size:12px; color:var(--blue); font-weight:500; }
+  .kpi-compare-table td:nth-child(4) { text-align:center; }
+  .kpi-compare-table tr:last-child td { border-bottom:none; }
+  .kpi-compare-table tr:hover td { background:var(--surface); }
+  .section-header-row td { background:var(--surface2) !important; color:var(--text-dim) !important; font-family:var(--font-mono) !important; font-size:9.5px !important; text-transform:uppercase; letter-spacing:0.08em; font-weight:500 !important; padding:6px 10px !important; }
+  .target-pill { display:inline-block; font-family:var(--font-mono); font-size:10px; padding:3px 8px; border-radius:5px; white-space:nowrap; }
+  .tp-blue   { background:#EEF2FF; color:var(--blue); }
+  .tp-green  { background:var(--green-bg); color:var(--green); }
+  .tp-violet { background:#F5EEFF; color:var(--violet); }
+  .timeline { display:flex; flex-direction:column; }
+  .tl-item { display:grid; grid-template-columns:64px 1fr; gap:16px; position:relative; }
+  .tl-item:not(:last-child) .tl-line { position:absolute; left:31px; top:32px; bottom:0; width:1.5px; background:var(--border); }
+  .tl-num { width:48px; height:48px; border-radius:50%; background:var(--blue); color:white; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:18px; flex-shrink:0; position:relative; z-index:1; }
+  .tl-content { padding:10px 0 24px; }
+  .tl-month { font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--blue); margin-bottom:4px; }
+  .tl-title { font-size:14px; font-weight:600; color:var(--black); margin-bottom:6px; }
+  .tl-body  { font-size:12.5px; color:var(--text-mid); line-height:1.6; }
+  .scope-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+  .scope-col { border:1px solid var(--border); border-radius:12px; padding:16px 18px; }
+  .scope-col-header { font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; font-weight:500; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+  .scope-col.mavlers .scope-col-header { color:var(--blue); }
+  .scope-col.spacetalk .scope-col-header { color:var(--violet); }
+  .scope-item { display:flex; align-items:flex-start; gap:8px; font-size:12.5px; color:var(--text-mid); margin-bottom:8px; line-height:1.5; }
+  .scope-item:last-child { margin-bottom:0; }
+  .scope-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:6px; }
+  .mavlers .scope-dot   { background:var(--blue); }
+  .spacetalk .scope-dot { background:var(--violet); }
+
+  /* Slide 5 */
+  .s5-hero { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px 32px; margin-bottom:24px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+  .s5-hero-item { display:flex; flex-direction:column; gap:6px; }
+  .s5-hero-num { font-family:var(--font-display); font-size:40px; line-height:1; }
+  .s5-hero-label { font-size:13px; color:var(--text-mid); line-height:1.5; }
+
+  .s5-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:24px; }
+  .s5-card { border:1px solid var(--border); border-radius:12px; padding:20px 20px; background:var(--surface); position:relative; overflow:hidden; }
+  .s5-card::before { content:''; position:absolute; left:0; top:0; right:0; height:3px; }
+  .s5-card.c-red::before    { background:var(--red); }
+  .s5-card.c-amber::before  { background:var(--amber); }
+  .s5-card.c-violet::before { background:var(--violet); }
+  .s5-card.c-blue::before   { background:var(--blue); }
+  .s5-card.c-evergreen::before { background:var(--evergreen); }
+  .s5-card.c-sky::before    { background:var(--sky); }
+  .s5-tag { font-family:var(--font-mono); font-size:9.5px; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; margin-top:2px; font-weight:500; }
+  .s5-card.c-red .s5-tag    { color:var(--red); }
+  .s5-card.c-amber .s5-tag  { color:var(--amber); }
+  .s5-card.c-violet .s5-tag { color:var(--violet); }
+  .s5-card.c-blue .s5-tag   { color:var(--blue); }
+  .s5-card.c-evergreen .s5-tag { color:var(--evergreen); }
+  .s5-card.c-sky .s5-tag    { color:#4a7fd4; }
+  .s5-title { font-family:var(--font-display); font-size:15.5px; font-weight:400; color:var(--black); margin-bottom:8px; line-height:1.3; }
+  .s5-body  { font-size:12.5px; color:var(--text-mid); line-height:1.6; }
+  .s5-body strong { color:var(--black); font-weight:600; }
+
+  .s5-bottom { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .s5-conclusion { background:#EEF2FF; border:1px solid rgba(51,21,208,0.15); border-radius:12px; padding:22px 24px; }
+  .s5-conclusion-label { font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--blue); margin-bottom:10px; font-weight:500; }
+  .s5-conclusion-text { font-size:14px; color:var(--black); line-height:1.7; }
+  .s5-conclusion-text strong { font-weight:600; }
+  .s5-already { background:var(--green-bg); border:1px solid rgba(26,122,74,0.18); border-radius:12px; padding:22px 24px; }
+  .s5-already-label { font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--green); margin-bottom:10px; font-weight:500; }
+  .s5-already-text { font-size:14px; color:var(--black); line-height:1.7; }
+  .s5-already-text strong { font-weight:600; }
+  .ai-role-item { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; font-size:13px; color:var(--text-mid); line-height:1.5; }
+  .ai-role-item:last-child { margin-bottom:0; }
+  .ai-check { width:18px; height:18px; border-radius:50%; background:var(--green-bg); border:1.5px solid var(--green); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; font-size:10px; color:var(--green); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════
+     SLIDE 1: ORGANIC TRAFFIC
+═══════════════════════════════ -->
+<div class="slide active" id="slide-1">
+  <header>
+    <div><div class="eyebrow">Google Analytics · Organic Search</div><h1>Organic Traffic <em>Performance</em></h1></div>
+    <div class="header-badges"><div class="badge-pill">Apr 2025 to Apr 2026</div><div class="badge-pill accent">spacetalk.co · AU</div></div>
+  </header>
+  <div class="kpi-strip">
+    <div class="kpi c-blue"><div class="kpi-bar"></div><div class="kpi-label">Total sessions</div><div class="kpi-value">123,369</div><div class="kpi-sub">organic visits</div></div>
+    <div class="kpi c-blue"><div class="kpi-bar"></div><div class="kpi-label">Total users</div><div class="kpi-value">92,162</div><div class="kpi-sub">unique visitors</div></div>
+    <div class="kpi c-blue"><div class="kpi-bar"></div><div class="kpi-label">Purchases</div><div class="kpi-value">2,254</div><div class="kpi-sub">from organic</div></div>
+    <div class="kpi c-blue" style="border-color:rgba(51,21,208,0.2);"><div class="kpi-bar"></div><div class="kpi-label">Revenue</div><div class="kpi-value">$260,596</div><div class="kpi-sub">avg order · $116</div></div>
+  </div>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Monthly breakdown</div>
+        <div class="tab-group"><button class="tab active" onclick="switchTab(this,'sessions')">Sessions</button><button class="tab" onclick="switchTab(this,'purchases')">Purchases</button><button class="tab" onclick="switchTab(this,'revenue')">Revenue</button></div>
+      </div>
+      <div style="position:relative;flex:1;min-height:200px;"><canvas id="mainChart" role="img" aria-label="Monthly organic traffic chart"></canvas></div>
+      <div class="legend"><div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>Peak month</div><div class="legend-item"><div class="legend-dot" style="background:var(--sky);opacity:0.6;"></div>Other months</div></div>
+    </div>
+    <div class="panel" style="overflow:hidden;">
+      <div class="panel-header"><div class="panel-title">Month by month</div></div>
+      <table class="data-table"><thead><tr><th style="width:34%;">Month</th><th style="width:22%;">Sessions</th><th style="width:18%;">Orders</th><th style="width:26%;">Revenue</th></tr></thead><tbody id="tb1"></tbody></table>
+    </div>
+  </div>
+  <div class="analysis-section">
+    <div class="analysis-header"><div class="analysis-label">Analysis</div><div class="analysis-line"></div></div>
+    <div class="insights-grid">
+      <div class="insight-card c-blue"><div class="insight-tag">Seasonality</div><div class="insight-title">Christmas gifting drives peak performance</div><div class="insight-body">November and December 2025 generated <span class="insight-stat">$62,595</span> and <span class="insight-stat">$46,672</span> in revenue, over <strong>$109k combined</strong> in two months. The Christmas window is the single most important organic period of the year.</div></div>
+      <div class="insight-card c-violet"><div class="insight-tag">Traffic vs. conversion</div><div class="insight-title">High traffic months do not always mean high conversion</div><div class="insight-body">April and May had strong volumes (<span class="insight-stat">10,568</span> and <span class="insight-stat">11,972</span> sessions) but only ~1.3% conversion. September and October delivered <strong>169 and 170 purchases</strong> with far fewer sessions, showing much stronger purchase intent.</div></div>
+      <div class="insight-card c-evergreen"><div class="insight-tag">Revenue quality</div><div class="insight-title">Organic customers are high-value buyers</div><div class="insight-body">Average order value sits consistently at <span class="insight-stat">$110 to $140</span> across all months. Organic visitors arrive with clear intent and purchase full-price products. This is a quality channel worth protecting and growing.</div></div>
+      <div class="insight-card c-sky"><div class="insight-tag">Data note</div><div class="insight-title">Bounce rate shift warrants investigation</div><div class="insight-body">Bounce rates dropped from <span class="insight-stat">47 to 55%</span> in Apr to Jul 2025 to under <span class="insight-stat">30%</span> from August onwards. March and April 2026 show an unusually low ~5%, likely reflecting a GA4 tracking or site structure change.</div></div>
+    </div>
+  </div>
+  <footer><div class="footer-source">Source: Google Analytics 4 · SPACETALK AU (249569195) · Organic Search channel only</div><div class="slide-num">Slide <span>01</span> / 07</div></footer>
+</div>
+
+
+<!-- ═══════════════════════════════
+     SLIDE 2: KEYWORD POSITIONS
+═══════════════════════════════ -->
+<div class="slide" id="slide-2">
+  <header>
+    <div><div class="eyebrow">Semrush · Keyword Positions · AU</div><h1>Keyword <em>Positioning</em></h1></div>
+    <div class="header-badges"><div class="badge-pill">As of 23 Apr 2026</div><div class="badge-pill accent">spacetalk.co · AU</div></div>
+  </header>
+  <div class="kpi-strip">
+    <div class="kpi c-blue"><div class="kpi-bar"></div><div class="kpi-label">Total keywords</div><div class="kpi-value">224</div><div class="kpi-sub">tracked</div></div>
+    <div class="kpi c-blue" style="border-color:rgba(51,21,208,0.2);"><div class="kpi-bar"></div><div class="kpi-label">Ranking #1</div><div class="kpi-value">106</div><div class="kpi-sub">47% of keywords</div></div>
+    <div class="kpi c-blue"><div class="kpi-bar"></div><div class="kpi-label">Top 10</div><div class="kpi-value">164</div><div class="kpi-sub">73% of keywords</div></div>
+    <div class="kpi c-amber"><div class="kpi-bar"></div><div class="kpi-label">Total search vol.</div><div class="kpi-value">53,490</div><div class="kpi-sub">monthly searches</div></div>
+  </div>
+  <div class="s2-grid">
+    <div class="s2-left">
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">Position distribution</div></div>
+        <div class="donut-wrap">
+          <div style="position:relative;width:150px;height:150px;flex-shrink:0;"><canvas id="donutChart" role="img" aria-label="Position distribution donut chart"></canvas><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;"><div style="font-family:var(--font-display);font-size:24px;color:var(--black);line-height:1;">73%</div><div style="font-family:var(--font-mono);font-size:9px;color:var(--text-dim);">top 10</div></div></div>
+          <div class="donut-legend">
+            <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#3315D0;"></div>#1 position<span class="donut-legend-val">106</span><span class="donut-legend-pct">47%</span></div>
+            <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#86AFFF;"></div>Position 2 to 3<span class="donut-legend-val">27</span><span class="donut-legend-pct">12%</span></div>
+            <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#6C0590;"></div>Position 4 to 10<span class="donut-legend-val">31</span><span class="donut-legend-pct">14%</span></div>
+            <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#FFBFBF;"></div>Position 11 to 20<span class="donut-legend-val">13</span><span class="donut-legend-pct">6%</span></div>
+            <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#E4E4E4;"></div>Position 21 plus<span class="donut-legend-val">47</span><span class="donut-legend-pct">21%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">Top keywords by search volume</div></div>
+        <div class="pos-bar-wrap">
+          <div class="pos-bar-row"><div class="pos-bar-label">spacetalk <small>· #1</small></div><div class="pos-bar-track"><div class="pos-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--blue),var(--sky));"></div></div><div class="pos-bar-val">6,600</div></div>
+          <div class="pos-bar-row"><div class="pos-bar-label">spacetalk watch <small>· #1</small></div><div class="pos-bar-track"><div class="pos-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--blue),var(--sky));"></div></div><div class="pos-bar-val">6,600</div></div>
+          <div class="pos-bar-row"><div class="pos-bar-label">spacetalk adventurer 2 <small>· #1</small></div><div class="pos-bar-track"><div class="pos-bar-fill" style="width:54.5%;background:linear-gradient(90deg,var(--blue),var(--sky));"></div></div><div class="pos-bar-val">3,600</div></div>
+          <div class="pos-bar-row"><div class="pos-bar-label">space talk <small>· #1</small></div><div class="pos-bar-track"><div class="pos-bar-fill" style="width:28.8%;background:linear-gradient(90deg,var(--blue),var(--sky));"></div></div><div class="pos-bar-val">1,900</div></div>
+          <div class="pos-bar-row"><div class="pos-bar-label" style="color:var(--amber);">kids smart watch AU <small style="color:var(--amber);">· #14</small></div><div class="pos-bar-track"><div class="pos-bar-fill" style="width:28.8%;background:linear-gradient(90deg,var(--amber),var(--amber-mid));"></div></div><div class="pos-bar-val" style="color:var(--amber);">1,900</div></div>
+          <div class="pos-bar-row"><div class="pos-bar-label">spacetalk loop <small>· #1</small></div><div class="pos-bar-track"><div class="pos-bar-fill" style="width:13.3%;background:linear-gradient(90deg,var(--blue),var(--sky));"></div></div><div class="pos-bar-val">880</div></div>
+          <div class="pos-bar-row"><div class="pos-bar-label" style="color:var(--amber);">kids gps watch <small style="color:var(--amber);">· #2</small></div><div class="pos-bar-track"><div class="pos-bar-fill" style="width:13.3%;background:linear-gradient(90deg,var(--amber),var(--amber-mid));"></div></div><div class="pos-bar-val" style="color:var(--amber);">880</div></div>
+          <div class="pos-bar-row"><div class="pos-bar-label">spacetalk login <small>· #1</small></div><div class="pos-bar-track"><div class="pos-bar-fill" style="width:10.9%;background:linear-gradient(90deg,var(--blue),var(--sky));"></div></div><div class="pos-bar-val">720</div></div>
+        </div>
+        <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);display:flex;gap:14px;">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>Brand · #1</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--amber);"></div>Non-brand opportunity</div>
+        </div>
+      </div>
+    </div>
+    <div class="panel" style="overflow:hidden;">
+      <div class="panel-header"><div class="panel-title">Ranked keywords</div><div class="panel-sub">by traffic volume</div></div>
+      <table class="data-table">
+        <thead><tr><th style="width:38%;">Keyword</th><th style="width:10%;text-align:center;">Pos</th><th style="width:14%;">Vol</th><th style="width:14%;">Traffic</th><th style="width:24%;">Intent</th></tr></thead>
+        <tbody>
+          <tr><td>spacetalk</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>6,600</td><td>5,280</td><td><span class="intent-pill intent-navigational">nav</span></td></tr>
+          <tr><td>spacetalk watch</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>6,600</td><td>5,280</td><td><span class="intent-pill intent-commercial">comm</span></td></tr>
+          <tr><td>spacetalk adventurer 2</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>3,600</td><td>2,880</td><td><span class="intent-pill intent-informational">info</span></td></tr>
+          <tr><td>space talk</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>1,900</td><td>1,520</td><td><span class="intent-pill intent-navigational">nav</span></td></tr>
+          <tr><td>space talk watch</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>1,000</td><td>800</td><td><span class="intent-pill intent-commercial">comm</span></td></tr>
+          <tr><td>spacetalk loop</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>880</td><td>704</td><td><span class="intent-pill intent-transactional">trans</span></td></tr>
+          <tr><td>spacetalk login</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>720</td><td>576</td><td><span class="intent-pill intent-navigational">nav</span></td></tr>
+          <tr><td>spacetalk adventurer</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>590</td><td>472</td><td><span class="intent-pill intent-transactional">trans</span></td></tr>
+          <tr><td>spacetalk watches</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>590</td><td>472</td><td><span class="intent-pill intent-commercial">comm</span></td></tr>
+          <tr><td>spacetalk mobile plan</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>480</td><td>384</td><td><span class="intent-pill intent-navigational">nav</span></td></tr>
+          <tr class="opp-row"><td>kids gps watch ↗</td><td style="text-align:center;"><span class="pos-badge pos-2">2</span></td><td>880</td><td>72</td><td><span class="intent-pill intent-commercial">comm</span></td></tr>
+          <tr class="opp-row"><td>kids smart watch AU ↗</td><td style="text-align:center;"><span class="pos-badge pos-x">14</span></td><td>1,900</td><td>2</td><td><span class="intent-pill intent-commercial">comm</span></td></tr>
+          <tr class="opp-row"><td>kids smart watch w/ gps ↗</td><td style="text-align:center;"><span class="pos-badge pos-1">1</span></td><td>390</td><td>0</td><td><span class="intent-pill intent-commercial">comm</span></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:10px;color:var(--amber);">↗ Non-brand opportunity keywords</div>
+    </div>
+  </div>
+  <div class="analysis-section">
+    <div class="analysis-header"><div class="analysis-label">Analysis</div><div class="analysis-line"></div></div>
+    <div class="insights-grid">
+      <div class="insight-card c-blue"><div class="insight-tag">Brand dominance</div><div class="insight-title">Spacetalk owns its brand terms completely</div><div class="insight-body"><strong>106 of 224 keywords rank #1</strong>, 47% at the top spot. Every major branded search ranks first, capturing <span class="insight-stat">5,280</span> sessions per month from the top two terms alone.</div></div>
+      <div class="insight-card c-amber"><div class="insight-tag">Biggest opportunity</div><div class="insight-title">Non-brand category terms need urgent attention</div><div class="insight-body"><span class="insight-stat">kids smart watch australia</span> has 1,900 monthly searches and Spacetalk sits at <strong>position 14</strong>, missing nearly all of that traffic. <span class="insight-stat">kids gps watch</span> (880/mo) is close at #2. Ranking here reaches people who do not yet know the brand.</div></div>
+      <div class="insight-card c-evergreen"><div class="insight-tag">Intent mix</div><div class="insight-title">Strong transactional and commercial signals</div><div class="insight-body">The keyword mix skews heavily towards <strong>transactional and commercial intent</strong>. This confirms SEO is attracting genuinely purchase-ready visitors, which is directly reflected in the strong organic revenue figures.</div></div>
+      <div class="insight-card c-violet"><div class="insight-tag">Watch list</div><div class="insight-title">47 keywords outside the top 20</div><div class="insight-body"><span class="insight-stat">47 keywords</span> sit outside the top 20. Any keyword sliding from page 1 to page 2 typically sees a <strong>50 to 70% drop in click share</strong>, making monthly monitoring essential.</div></div>
+    </div>
+  </div>
+  <footer><div class="footer-source">Source: Semrush · Organic Positions · spacetalk.co · Australia · 23 Apr 2026</div><div class="slide-num">Slide <span>02</span> / 07</div></footer>
+</div>
+
+
+<!-- ═══════════════════════════════
+     SLIDE 3: KEYWORD GAP
+═══════════════════════════════ -->
+<div class="slide" id="slide-3">
+  <header>
+    <div><div class="eyebrow">Semrush · Keyword Gap · AU</div><h1>Competitor Keyword <em>Gap</em></h1></div>
+    <div class="header-badges"><div class="badge-pill">As of 24 Apr 2026</div><div class="badge-pill warn">Not ranking for any gap keyword</div></div>
+  </header>
+  <div class="kpi-strip">
+    <div class="kpi c-red"><div class="kpi-bar"></div><div class="kpi-label">Keywords not ranking</div><div class="kpi-value">97</div><div class="kpi-sub">vs. 3 competitors</div></div>
+    <div class="kpi c-amber"><div class="kpi-bar"></div><div class="kpi-label">Total missed volume</div><div class="kpi-value">45,470</div><div class="kpi-sub">monthly searches</div></div>
+    <div class="kpi c-violet"><div class="kpi-bar"></div><div class="kpi-label">High-vol gaps (1k+)</div><div class="kpi-value">9</div><div class="kpi-sub">29,900 searches/mo</div></div>
+    <div class="kpi c-green"><div class="kpi-bar"></div><div class="kpi-label">Easy wins (KD 25 or under)</div><div class="kpi-value">10</div><div class="kpi-sub">vol 200+ · low difficulty</div></div>
+  </div>
+  <div class="s2-grid">
+    <div class="s2-left">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Gap volume by keyword</div>
+          <div style="display:flex;gap:10px;"><div class="legend-item"><div class="legend-dot" style="background:rgba(192,57,43,0.7);"></div>High vol</div><div class="legend-item"><div class="legend-dot" style="background:rgba(212,134,10,0.7);"></div>Mid vol</div><div class="legend-item"><div class="legend-dot" style="background:rgba(134,175,255,0.7);"></div>Low vol</div></div>
+        </div>
+        <div style="position:relative;flex:1;min-height:230px;"><canvas id="gapChart" role="img" aria-label="Keyword gap volumes"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">Easy wins · low difficulty, decent volume</div><div class="panel-sub">KD 25 or under · 200+ per month</div></div>
+        <div id="easyWins"></div>
+      </div>
+    </div>
+    <div class="panel" style="overflow:hidden;">
+      <div class="panel-header"><div class="panel-title">Top gap keywords</div><div class="panel-sub">competitors vs. spacetalk</div></div>
+      <table class="data-table gap-table">
+        <thead><tr><th style="width:30%;text-align:left;">Keyword</th><th style="width:11%;">Vol</th><th style="width:9%;">KD</th><th style="width:14%;text-align:center;">KidsOclock</th><th style="width:14%;text-align:center;">Garmin</th><th style="width:14%;text-align:center;">Pixbee</th><th style="width:8%;text-align:center;">ST</th></tr></thead>
+        <tbody id="gapTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="analysis-section">
+    <div class="analysis-header"><div class="analysis-label">Analysis</div><div class="analysis-line"></div></div>
+    <div class="insights-grid">
+      <div class="insight-card c-red"><div class="insight-tag">Critical gap</div><div class="insight-title">45,470 monthly searches and Spacetalk ranks for none</div><div class="insight-body">Every one of these <span class="insight-stat">97 keywords</span> has at least one competitor ranking, while Spacetalk has <strong>zero visibility</strong>. The top two terms — kids smart watch and kids watch — each carry <span class="insight-stat">9,900</span> monthly searches that competitors are capturing entirely.</div></div>
+      <div class="insight-card c-amber"><div class="insight-tag">Quickest wins</div><div class="insight-title">10 low-difficulty keywords ready to target now</div><div class="insight-body">Terms like <span class="insight-stat">gps tracker for kids</span> (KD 14, 1,000/mo) and <span class="insight-stat">tracking device for kids</span> (KD 17, 390/mo) have low competition. These can be targeted with <strong>category or blog pages without major domain authority required</strong>.</div></div>
+      <div class="insight-card c-violet"><div class="insight-tag">Competitor insight</div><div class="insight-title">KidsOclock dominates the generic category</div><div class="insight-body">KidsOclock ranks for virtually <strong>every gap keyword</strong>, consistently appearing in positions 2 to 35. Spacetalk's brand-first approach has <strong>left the entire non-branded category uncontested</strong> and competitors are capturing this demand in full.</div></div>
+      <div class="insight-card c-evergreen"><div class="insight-tag">Recommendation</div><div class="insight-title">Category landing pages and content are the answer</div><div class="insight-body">Spacetalk needs dedicated pages targeting terms like kids smart watch australia, kids gps watch, and kids phone watch. A <strong>comparison or buying guide page</strong> could capture multiple gap keywords simultaneously — the same strategy Pixbee and KidsOclock are already executing.</div></div>
+    </div>
+  </div>
+  <footer><div class="footer-source">Source: Semrush · Keyword Gap · spacetalk.co vs. kidsoclock.com.au, garmin.com/en-AU, pixbee.com.au · Australia · 24 Apr 2026</div><div class="slide-num">Slide <span>03</span> / 07</div></footer>
+</div>
+
+
+<!-- ═══════════════════════════════
+     SLIDE 4: MAVLERS GROWTH PLAN
+═══════════════════════════════ -->
+<div class="slide" id="slide-4">
+  <header>
+    <div><div class="eyebrow">Mavlers x Spacetalk · SEO Scope of Work</div><h1>Organic Growth <em>Acceleration Plan</em></h1></div>
+    <div class="header-badges"><div class="badge-pill">6-month engagement from Apr 2026</div><div class="badge-pill accent">A$3,400 / month</div></div>
+  </header>
+  <div class="kpi-strip">
+    <div class="kpi c-blue" style="border-color:rgba(51,21,208,0.2);"><div class="kpi-bar"></div><div class="kpi-label">Monthly investment</div><div class="kpi-value">$3,400</div><div class="kpi-sub">AUD · 6 months</div></div>
+    <div class="kpi c-green"><div class="kpi-bar"></div><div class="kpi-label">Traffic target (Nov)</div><div class="kpi-value">18,000+</div><div class="kpi-sub">sessions by Nov 2026</div></div>
+    <div class="kpi c-green"><div class="kpi-bar"></div><div class="kpi-label">Revenue target (Nov)</div><div class="kpi-value">$65,000</div><div class="kpi-sub">organic · Nov 2026</div></div>
+    <div class="kpi c-amber"><div class="kpi-bar"></div><div class="kpi-label">Non-brand share target</div><div class="kpi-value">25%+</div><div class="kpi-sub">by Aug 2026, currently ~5%</div></div>
+  </div>
+  <div class="s4-grid">
+    <div class="s4-left">
+      <div class="panel" style="overflow:hidden;">
+        <div class="panel-header">
+          <div class="panel-title">KPI targets vs. current baseline</div>
+          <div style="display:flex;gap:10px;"><div class="legend-item"><div class="legend-dot" style="background:var(--text-dim);opacity:0.5;"></div>Baseline</div><div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>ST target</div></div>
+        </div>
+        <table class="kpi-compare-table">
+          <thead><tr><th>Metric</th><th>Baseline</th><th>ST Target</th><th>By</th></tr></thead>
+          <tbody>
+            <tr class="section-header-row"><td colspan="4">Traffic and Visibility</td></tr>
+            <tr><td>Monthly organic traffic</td><td>3,866</td><td>18,000+</td><td><span class="target-pill tp-blue">Nov 26</span></td></tr>
+            <tr><td>Non-branded traffic share</td><td>~5%</td><td>25%+</td><td><span class="target-pill tp-green">Aug 26</span></td></tr>
+            <tr><td>Non-brand keywords top 20</td><td>~0</td><td>30+</td><td><span class="target-pill tp-green">Aug 26</span></td></tr>
+            <tr><td>Kids smartwatch AU ranking</td><td>Not ranking</td><td>Top 10</td><td><span class="target-pill tp-blue">Sep 26</span></td></tr>
+            <tr><td>AI Overview keywords</td><td>56</td><td>200+</td><td><span class="target-pill tp-blue">Oct 26</span></td></tr>
+            <tr class="section-header-row"><td colspan="4">Revenue and Conversions</td></tr>
+            <tr><td>Monthly organic revenue</td><td>~$3,300 to $5,000</td><td>$65,000</td><td><span class="target-pill tp-green">Nov 26</span></td></tr>
+            <tr><td>Organic purchases/month</td><td>14</td><td>100+</td><td><span class="target-pill tp-green">Nov 26</span></td></tr>
+            <tr><td>Product page CTR</td><td>~2.1 to 2.2%</td><td>4%</td><td><span class="target-pill tp-violet">Month 3</span></td></tr>
+            <tr class="section-header-row"><td colspan="4">Technical Health</td></tr>
+            <tr><td>Site health score (Semrush)</td><td>56%</td><td>75%+</td><td><span class="target-pill tp-violet">Month 2</span></td></tr>
+            <tr><td>Broken internal links</td><td>2,129</td><td>0</td><td><span class="target-pill tp-violet">Month 3</span></td></tr>
+            <tr><td>Domain Authority</td><td>36</td><td>45+</td><td><span class="target-pill tp-blue">Month 6</span></td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:9.5px;color:var(--text-dim);">Note: baseline traffic figure from Mavlers scoping period. Our GA4 data shows March at 6,263 sessions — worth aligning on methodology at kickoff.</div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">Scope of work · who does what</div></div>
+        <div class="scope-grid">
+          <div class="scope-col mavlers">
+            <div class="scope-col-header">Mavlers deliver</div>
+            <div class="scope-item"><div class="scope-dot"></div>Keyword research, mapping and prioritisation</div>
+            <div class="scope-item"><div class="scope-dot"></div>Title tags, meta descriptions, header and ALT tags</div>
+            <div class="scope-item"><div class="scope-dot"></div>Technical SEO audit, broken links and sitemap cleanup (2,129 links, 344 pages)</div>
+            <div class="scope-item"><div class="scope-dot"></div>Schema recommendation and implementation</div>
+            <div class="scope-item"><div class="scope-dot"></div>Guest post writing and outreach (backlinks)</div>
+            <div class="scope-item"><div class="scope-dot"></div>Blog content creation and publishing (3 to 4 per month from Month 3)</div>
+            <div class="scope-item"><div class="scope-dot"></div>CRO and Core Web Vitals recommendations</div>
+          </div>
+          <div class="scope-col spacetalk">
+            <div class="scope-col-header">Spacetalk implements</div>
+            <div class="scope-item"><div class="scope-dot"></div>Keyword list and content approval (priority basis)</div>
+            <div class="scope-item"><div class="scope-dot"></div>Internal linking restructure and URL changes</div>
+            <div class="scope-item"><div class="scope-dot"></div>CRO changes on product pages</div>
+            <div class="scope-item"><div class="scope-dot"></div>Page speed and mobile speed implementation</div>
+            <div class="scope-item"><div class="scope-dot"></div>Core Web Vitals implementation</div>
+            <div class="scope-item"><div class="scope-dot"></div>Launch blog and content hub (Month 3)</div>
+            <div class="scope-item"><div class="scope-dot"></div>GTM ecommerce tracking (Week 1 priority)</div>
+          </div>
+        </div>
+        <div style="background:var(--amber-bg);border:1px solid var(--amber-mid);border-radius:8px;padding:10px 14px;font-size:12.5px;color:var(--amber);line-height:1.6;">
+          <strong style="color:var(--amber);">Note:</strong> Landing page development, blog section creation, and page speed and CWV implementation are outside the standard package. Additional dev work is billed at A$40/hr after audit.
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">5-month execution timeline</div><div class="panel-sub">Apr to Sep 2026</div></div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-line"></div><div class="tl-num">1</div><div class="tl-content"><div class="tl-month">Month 1 · Apr/May 2026</div><div class="tl-title">Tracking setup and fix broken site</div><div class="tl-body">GTM ecommerce tracking live by Week 1. Fix 2,129 broken internal links and 344 4XX pages. Keyword research and mapping to anchor content strategy. Sitemap and robots.txt cleanup.</div></div></div>
+        <div class="tl-item"><div class="tl-line"></div><div class="tl-num">2</div><div class="tl-content"><div class="tl-month">Month 2 · May/Jun 2026</div><div class="tl-title">Technical fixes, metadata and backlinks begin</div><div class="tl-body">Complete technical fixes. Begin metadata optimisation on Category and Product pages. Initiate AU-focused backlink acquisition via guest posts and brand mentions. Finalise content strategy and topic clusters. CRO recommendations for product pages delivered.</div></div></div>
+        <div class="tl-item"><div class="tl-line"></div><div class="tl-num">3</div><div class="tl-content"><div class="tl-month">Month 3 · Jun/Jul 2026</div><div class="tl-title">Launch content hub and 8 blogs</div><div class="tl-body">Spacetalk launches blog and Insight hub. Mavlers begins publishing buying guides, comparisons, use-case content and Christmas-focused pieces. <strong style="color:var(--red);">All peak season content must be live by 31 July.</strong></div></div></div>
+        <div class="tl-item"><div class="tl-line"></div><div class="tl-num">4</div><div class="tl-content"><div class="tl-month">Month 4 · Jul/Aug 2026</div><div class="tl-title">All peak content live by 31 July</div><div class="tl-body">Front-load peak season content in Months 3 to 5 to ensure timely publishing and indexing before August. Critical window for Christmas gift-guide and comparison content to gain rankings before peak demand.</div></div></div>
+        <div class="tl-item"><div class="tl-num">5</div><div class="tl-content"><div class="tl-month">Month 5 · Aug/Sep 2026</div><div class="tl-title">Pre-peak optimisation (CWV, CRO, rankings)</div><div class="tl-body">Focus on Core Web Vitals improvements, CRO enhancements, and strengthening commercial keyword rankings. Target: Kids smartwatch Australia in top 10 by September.</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="analysis-section">
+    <div class="analysis-header"><div class="analysis-label">How this connects to our data</div><div class="analysis-line"></div></div>
+    <div class="insights-grid">
+      <div class="insight-card c-green"><div class="insight-tag">Our data validates the strategy</div><div class="insight-title">Slides 1 to 3 make a compelling case for this engagement</div><div class="insight-body">The keyword gap analysis shows <span class="insight-stat">45,470 missed searches per month</span>, directly justifying the content hub and category page investment. The $260k organic revenue proves the channel already converts well, meaning more traffic equals proportional revenue upside.</div></div>
+      <div class="insight-card c-blue"><div class="insight-tag">Revenue ambition</div><div class="insight-title">The November $65k target is achievable and then some</div><div class="insight-body">Our data shows November 2025 already delivered <span class="insight-stat">$62,595</span> organically. The target is a marginal step up on last year's peak. The <strong>real upside is in growing the off-peak months</strong>, where there is far more room to move by capturing non-brand traffic year-round.</div></div>
+      <div class="insight-card c-amber"><div class="insight-tag">Critical dependency</div><div class="insight-title">Spacetalk's implementation speed will determine success</div><div class="insight-body">Mavlers will <strong>recommend</strong> CRO, CWV, page speed, internal linking, and blog section changes — but Spacetalk's dev team must <strong>implement them</strong>. The 31 July peak content deadline is non-negotiable. Dev capacity needs to be confirmed and resourced now.</div></div>
+      <div class="insight-card c-violet"><div class="insight-tag">Non-brand is the real prize</div><div class="insight-title">25% non-brand traffic share by August is a transformational shift</div><div class="insight-body">Today ~95% of organic traffic is branded. Reaching 25% non-brand by August means people who have <strong>never heard of Spacetalk</strong> will start finding us when searching for kids smartwatches. That is new customer acquisition at a fraction of paid media cost.</div></div>
+    </div>
+  </div>
+  <footer><div class="footer-source">Source: Mavlers SEO Scope of Work · April 2026 · A$3,400/month · 6-month engagement</div><div class="slide-num">Slide <span>04</span> / 07</div></footer>
+</div>
+
+
+<!-- ═══════════════════════════════
+     SLIDE 5: WHY NOT AI ALONE
+═══════════════════════════════ -->
+<div class="slide" id="slide-5">
+  <header>
+    <div><div class="eyebrow">Strategic context · AI and SEO</div><h1>Why AI Alone <em>Is Not Enough</em></h1></div>
+    <div class="header-badges"><div class="badge-pill accent">AI + expert oversight = the right model</div></div>
+  </header>
+
+  <!-- Hero acknowledgement -->
+  <div class="s5-hero">
+    <div class="s5-hero-item">
+      <div class="s5-hero-num" style="color:var(--blue);">Yes</div>
+      <div class="s5-hero-label">AI genuinely helps with reporting, data analysis, content drafting, keyword research and competitive monitoring. This entire presentation was built using AI.</div>
+    </div>
+    <div class="s5-hero-item">
+      <div class="s5-hero-num" style="color:var(--amber);">But</div>
+      <div class="s5-hero-label">The question is not whether to use AI. It is whether AI alone is sufficient to execute the strategy our data shows we need. The answer is no.</div>
+    </div>
+    <div class="s5-hero-item">
+      <div class="s5-hero-num" style="color:var(--evergreen);">So</div>
+      <div class="s5-hero-label">The right model is AI as a tool within a professionally managed SEO program. Mavlers is how we turn the analysis into execution, with accountability and ownership of outcomes.</div>
+    </div>
+  </div>
+
+  <!-- 6 reasons grid -->
+  <div class="s5-grid">
+
+    <div class="s5-card c-red">
+      <div class="s5-tag">Site integrity risk</div>
+      <div class="s5-title">2,129 broken links cannot be fixed by automation safely</div>
+      <div class="s5-body">Automated tools touching URLs at scale on a live Shopify store risk breaking the entire URL structure, killing existing rankings overnight, and disrupting checkout flows. The downside is <strong>catastrophic and irreversible</strong>. These changes require someone who knows the site architecture to do them carefully and deliberately.</div>
+    </div>
+
+    <div class="s5-card c-amber">
+      <div class="s5-tag">Judgement calls</div>
+      <div class="s5-title">SEO requires decisions AI cannot make confidently</div>
+      <div class="s5-body">Which pages get consolidated? Which URLs get canonicalised? What gets redirected versus deleted? These decisions require knowledge of the site structure, Shopify theme limitations, and how Google is currently treating the domain. <strong>AI makes confident decisions that can be badly wrong</strong> in ways that take months to recover from.</div>
+    </div>
+
+    <div class="s5-card c-violet">
+      <div class="s5-tag">Content quality</div>
+      <div class="s5-title">Google penalises mass AI content without editorial oversight</div>
+      <div class="s5-body">Google's Helpful Content updates specifically target sites that mass-produce AI content without genuine expertise, authoritativeness and trustworthiness. Mavlers' value is not just the words — it is the <strong>strategy behind which content gets written</strong>, how it is structured, and how it earns links that signal authority.</div>
+    </div>
+
+    <div class="s5-card c-blue">
+      <div class="s5-tag">Backlinks</div>
+      <div class="s5-title">8 to 10 new referring domains per month cannot be automated</div>
+      <div class="s5-body">Backlink acquisition requires real outreach, real editorial relationships, and real placements in quality publications. No AI tool does this at the level needed. Backlinks are one of <strong>Google's strongest ranking signals</strong> and one of the highest-value parts of the Mavlers scope.</div>
+    </div>
+
+    <div class="s5-card c-evergreen">
+      <div class="s5-tag">Brand safety</div>
+      <div class="s5-title">Spacetalk sells to parents of children — accuracy matters</div>
+      <div class="s5-body">Every piece of content about GPS tracking, child safety, and smartwatch features must be <strong>factually accurate and reviewed by someone with product knowledge</strong>. An error in a buying guide about kids' GPS watches is a brand risk, not just an SEO risk. AI-generated content at speed without review creates real exposure.</div>
+    </div>
+
+    <div class="s5-card c-sky">
+      <div class="s5-tag">Accountability</div>
+      <div class="s5-title">AI has no ownership of the 31 July deadline</div>
+      <div class="s5-body">The peak season content window is our most critical delivery. Someone has to own that deadline, coordinate approvals, manage publishing, and escalate when things slip. <strong>AI is a tool, not a project manager</strong>. Mavlers provide the accountability structure that ensures the Christmas window is not missed.</div>
+    </div>
+
+  </div>
+
+  <!-- Bottom conclusion panels -->
+  <div class="s5-bottom">
+    <div class="s5-conclusion">
+      <div class="s5-conclusion-label">What AI does well in this engagement</div>
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div class="ai-role-item"><div class="ai-check">✓</div>Pulling and analysing GA4 and Semrush data for reporting and presentations like this one</div>
+        <div class="ai-role-item"><div class="ai-check">✓</div>First drafts of blog content, meta descriptions and product copy for Mavlers and Spacetalk team to review and approve</div>
+        <div class="ai-role-item"><div class="ai-check">✓</div>Keyword research interpretation and competitive gap identification</div>
+        <div class="ai-role-item"><div class="ai-check">✓</div>Monthly reporting dashboards and performance tracking summaries</div>
+        <div class="ai-role-item"><div class="ai-check">✓</div>Briefing documents and creative direction for content pieces</div>
+      </div>
+    </div>
+    <div class="s5-already">
+      <div class="s5-already-label">The right framing for management</div>
+      <div class="s5-already-text">
+        We are already using AI. This presentation was built using AI to pull our GA4 data, analyse keyword positions, and identify competitor gaps in real time.<br><br>
+        The question is not AI or Mavlers. It is <strong>AI plus Mavlers</strong>. The $3,400 per month buys accountability, expertise, hands-on execution, and ownership of outcomes — not just recommendations.<br><br>
+        AI accelerates the work. Mavlers ships it.
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="footer-source">Spacetalk SEO Strategy · Internal review · April 2026</div><div class="slide-num">Slide <span>05</span> / 07</div></footer>
+</div>
+
+
+
+
+<!-- ═══════════════════════════════
+     SLIDE 6: WEBSITE THEME IMPACT
+═══════════════════════════════ -->
+<div class="slide" id="slide-6">
+  <header>
+    <div><div class="eyebrow">GA4 · Before and After Analysis</div><h1>New Theme and <em>App Impact</em></h1></div>
+    <div class="header-badges">
+      <div class="badge-pill warn">App launch Nov 2025 · buggy</div>
+      <div class="badge-pill accent">New theme live 2 Mar 2026</div>
+    </div>
+  </header>
+
+  <!-- Timeline KPIs across 4 phases -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;">
+    <div class="kpi" style="border-top:3px solid var(--blue);background:var(--surface);">
+      <div class="kpi-label">Nov 2025 · App launch</div>
+      <div class="kpi-value" style="color:var(--blue);font-size:26px;">601</div>
+      <div class="kpi-sub">avg sessions/day</div>
+      <div style="margin-top:8px;font-family:var(--font-mono);font-size:11px;color:var(--text-dim);">CVR 1.76% · $2,087/day</div>
+    </div>
+    <div class="kpi" style="border-top:3px solid var(--amber);background:var(--surface);">
+      <div class="kpi-label">Jan 2026 · App bug period</div>
+      <div class="kpi-value" style="color:var(--amber);font-size:26px;">355</div>
+      <div class="kpi-sub">avg sessions/day</div>
+      <div style="margin-top:8px;font-family:var(--font-mono);font-size:11px;color:var(--text-dim);">CVR 1.76% · $456/day</div>
+    </div>
+    <div class="kpi" style="border-top:3px solid var(--red);background:var(--surface);">
+      <div class="kpi-label">Feb 2026 · Traffic crash</div>
+      <div class="kpi-value" style="color:var(--red);font-size:26px;">213</div>
+      <div class="kpi-sub">avg sessions/day</div>
+      <div style="margin-top:8px;font-family:var(--font-mono);font-size:11px;color:var(--text-dim);">CVR 1.95% · $250/day</div>
+    </div>
+    <div class="kpi" style="border-top:3px solid var(--evergreen);background:var(--green-bg);border:1px solid rgba(26,122,74,0.2);">
+      <div class="kpi-label">Mar/Apr 2026 · New theme</div>
+      <div class="kpi-value" style="color:var(--evergreen);font-size:26px;">191</div>
+      <div class="kpi-sub">avg sessions/day</div>
+      <div style="margin-top:8px;font-family:var(--font-mono);font-size:11px;color:var(--green);">CVR 2.48% · $358/day</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+
+    <!-- Left: daily sessions chart with annotations -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Daily organic sessions · Nov 2025 to Apr 2026</div>
+      </div>
+      <div style="position:relative;flex:1;min-height:240px;">
+        <canvas id="themeChart" role="img" aria-label="Daily organic sessions with key event annotations"></canvas>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:16px;flex-wrap:wrap;">
+        <div class="legend-item"><div class="legend-dot" style="background:#3315D0;border-radius:50%;width:10px;height:10px;"></div>Black Friday spike</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--amber);border-radius:50%;width:10px;height:10px;"></div>App bug period</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red);border-radius:50%;width:10px;height:10px;"></div>Traffic crash</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--evergreen);border-radius:50%;width:10px;height:10px;"></div>New theme live</div>
+      </div>
+    </div>
+
+    <!-- Right: before/after comparison table -->
+    <div class="panel" style="overflow:hidden;">
+      <div class="panel-header">
+        <div class="panel-title">Before vs. after · new theme (2 Mar 2026)</div>
+      </div>
+      <table class="data-table" style="font-size:13px;">
+        <thead>
+          <tr>
+            <th style="width:40%;text-align:left;">Metric</th>
+            <th style="width:30%;text-align:center;">Jan to Feb (before)</th>
+            <th style="width:30%;text-align:center;">Mar to Apr (after)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Avg daily sessions</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--text-mid);">287</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--amber);">191 <span style="font-size:10px;color:var(--red);">▼33%</span></td>
+          </tr>
+          <tr>
+            <td>Avg daily revenue</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--text-mid);">$358</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--evergreen);">$358 <span style="font-size:10px;color:var(--green);">= flat</span></td>
+          </tr>
+          <tr>
+            <td>Conversion rate</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--text-mid);">1.82%</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--evergreen);">2.48% <span style="font-size:10px;color:var(--green);">▲36%</span></td>
+          </tr>
+          <tr>
+            <td>Avg bounce rate</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--text-mid);">29.3%</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--evergreen);">4.6% <span style="font-size:10px;color:var(--green);">▼84%</span></td>
+          </tr>
+          <tr>
+            <td>Engagement rate</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--text-mid);">70.8%</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--evergreen);">95.5% <span style="font-size:10px;color:var(--green);">▲35%</span></td>
+          </tr>
+          <tr>
+            <td>Avg daily purchases</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--text-mid);">5.2</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--evergreen);">4.7 <span style="font-size:10px;color:var(--text-dim);">≈ stable</span></td>
+          </tr>
+          <tr style="background:var(--green-bg);">
+            <td style="color:var(--green);font-weight:600;">Revenue per session</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--text-mid);">$1.25</td>
+            <td style="text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--evergreen);font-weight:600;">$1.88 <span style="font-size:10px;color:var(--green);">▲50%</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:14px;padding:12px 14px;background:var(--green-bg);border:1px solid rgba(26,122,74,0.2);border-radius:8px;font-size:12.5px;color:var(--green);line-height:1.6;">
+        <strong>Key finding:</strong> The new theme did not recover traffic volume, but it significantly improved the quality of what arrives. Each session is worth 50% more revenue than before launch.
+      </div>
+    </div>
+  </div>
+
+  <!-- Analysis -->
+  <div class="analysis-section">
+    <div class="analysis-header"><div class="analysis-label">What the data tells us</div><div class="analysis-line"></div></div>
+    <div class="insights-grid">
+
+      <div class="insight-card c-violet">
+        <div class="insight-tag">The app launch</div>
+        <div class="insight-title">November App launch drove traffic but conversion was inconsistent</div>
+        <div class="insight-body">The app launch in November coincided with the Black Friday and Christmas peak, masking early conversion issues. Sessions hit <span class="insight-stat">1,675/day</span> at peak (Nov 18), but daily purchases were modest relative to that volume. The app problems likely suppressed post-purchase satisfaction, which then hit January hard through poor reviews and word of mouth.</div>
+      </div>
+
+      <div class="insight-card c-red">
+        <div class="insight-tag">The traffic crash</div>
+        <div class="insight-title">January to February saw a severe post-Christmas correction</div>
+        <div class="insight-body">January dropped from 601 avg sessions/day in November to <span class="insight-stat">355</span>, then February collapsed further to <span class="insight-stat">213</span>. This is far steeper than normal post-Christmas seasonality and aligns directly with the app bug period. People who received Spacetalk products at Christmas, found the app broken, and did not return. Negative sentiment likely suppressed branded search volume too.</div>
+      </div>
+
+      <div class="insight-card c-green">
+        <div class="insight-tag">New theme impact</div>
+        <div class="insight-title">The new theme improved quality but has not yet recovered volume</div>
+        <div class="insight-body">Since the 2 March 2026 theme launch, bounce rate dropped from <span class="insight-stat">29%</span> to <span class="insight-stat">4.6%</span> and conversion rate lifted from 1.82% to <span class="insight-stat">2.48%</span>. Revenue per session is up 50%. The theme is working. But organic traffic volume is still at post-crash lows, sitting around <span class="insight-stat">170 to 200 sessions/day</span> compared to 350 plus before the app issues.</div>
+      </div>
+
+      <div class="insight-card c-blue">
+        <div class="insight-tag">What this means for Mavlers</div>
+        <div class="insight-title">The site is now ready to receive more traffic · timing is good</div>
+        <div class="insight-body">The new theme has fixed the on-site experience. <strong>The Mavlers engagement is starting from a strong foundation</strong> — a site that now converts at 2.48% and earns $1.88 per organic session. The job now is to rebuild traffic volume through SEO. If Mavlers can lift sessions back to 350 per day with the current conversion rate, organic revenue would be <strong>roughly double</strong> what it was pre-Christmas.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-source">Source: Google Analytics 4 · SPACETALK AU · Organic Search · Daily data Nov 2025 to Apr 2026</div>
+    <div class="slide-num">Slide <span>06</span> / 07</div>
+  </footer>
+</div>
+
+
+
+
+<!-- ═══════════════════════════════
+     SLIDE 7: PAGE REVIEW
+═══════════════════════════════ -->
+<div class="slide" id="slide-7">
+  <header>
+    <div><div class="eyebrow">UX and SEO · Page Review</div><h1>New Category Page <em>and PDP</em></h1></div>
+    <div class="header-badges">
+      <div class="badge-pill accent"><a href="https://dantran-spacetalk.github.io/collection-product-planning/spacetalk-adventurer2-version1.html" target="_blank" style="color:inherit;text-decoration:none;">Category page ↗</a></div>
+      <div class="badge-pill accent"><a href="https://dantran-spacetalk.github.io/collection-product-planning/spacetalk-adv2-fullkit.html" target="_blank" style="color:inherit;text-decoration:none;">Full Kit PDP ↗</a></div>
+    </div>
+  </header>
+
+  <!-- Page screenshots side by side -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+
+    <!-- Category page preview -->
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <div style="background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="display:flex;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div><div style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;"></div><div style="width:10px;height:10px;border-radius:50%;background:#28C840;"></div></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:4px 12px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">dantran-spacetalk.github.io/...adventurer2-version1.html</div>
+        </div>
+        <a href="https://dantran-spacetalk.github.io/collection-product-planning/spacetalk-adventurer2-version1.html" target="_blank" style="font-family:var(--font-mono);font-size:10px;color:var(--blue);text-decoration:none;">Open ↗</a>
+      </div>
+      <div style="position:relative;width:100%;height:480px;overflow:hidden;">
+        <iframe
+          src="https://dantran-spacetalk.github.io/collection-product-planning/spacetalk-adventurer2-version1.html"
+          style="width:160%;height:160%;border:none;transform:scale(0.625);transform-origin:top left;pointer-events:none;"
+          loading="lazy"
+          title="Adventurer 2 category page preview">
+        </iframe>
+      </div>
+      <div style="padding:12px 16px;border-top:1px solid var(--border);">
+        <div style="font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:4px;">Category page · Adventurer 2 v1</div>
+        <div style="font-size:12.5px;color:var(--text-mid);line-height:1.5;">Hero, bundle selector, sticky nav, feature tiles, comparison table, social proof and FAQ. A complete SEO landing page.</div>
+      </div>
+    </div>
+
+    <!-- PDP preview -->
+    <div class="panel" style="padding:0;overflow:hidden;">
+      <div style="background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="display:flex;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div><div style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;"></div><div style="width:10px;height:10px;border-radius:50%;background:#28C840;"></div></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:4px 12px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">dantran-spacetalk.github.io/...spacetalk-adv2-fullkit.html</div>
+        </div>
+        <a href="https://dantran-spacetalk.github.io/collection-product-planning/spacetalk-adv2-fullkit.html" target="_blank" style="font-family:var(--font-mono);font-size:10px;color:var(--blue);text-decoration:none;">Open ↗</a>
+      </div>
+      <div style="position:relative;width:100%;height:480px;overflow:hidden;">
+        <iframe
+          src="https://dantran-spacetalk.github.io/collection-product-planning/spacetalk-adv2-fullkit.html"
+          style="width:160%;height:160%;border:none;transform:scale(0.625);transform-origin:top left;pointer-events:none;"
+          loading="lazy"
+          title="Full Kit PDP preview">
+        </iframe>
+      </div>
+      <div style="padding:12px 16px;border-top:1px solid var(--border);">
+        <div style="font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:4px;">Full Kit PDP · 5-step bundle builder</div>
+        <div style="font-size:12.5px;color:var(--text-mid);line-height:1.5;">Guided Watch, Plan, Straps, Accessories, Summary flow. Replaces the confusing multi-quantity Shopify bundle layout.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Three columns: Cat page strengths, Nav comparison, PDP strengths -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:24px;">
+
+    <!-- Category page: positives only -->
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Category page · what works</div></div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:var(--green-bg);border-radius:8px;font-size:12.5px;color:var(--black);">
+          <span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">+</span>
+          <div><strong>Bundle selector upfront</strong> — four clear tiers with contents shown, resolving the biggest purchase confusion on the current site where bundles are split across separate pages.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:var(--green-bg);border-radius:8px;font-size:12.5px;color:var(--black);">
+          <span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">+</span>
+          <div><strong>Sticky section nav</strong> (Overview, Bundles, Features, Compare, Accessories, FAQ) — the current PDP has nothing like this. Significantly reduces drop-off on a long page.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:var(--green-bg);border-radius:8px;font-size:12.5px;color:var(--black);">
+          <span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">+</span>
+          <div><strong>Adventurer 2 vs Loop comparison table</strong> — answers the most common pre-purchase question. Currently buried on a separate compare page that almost nobody finds organically.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:var(--green-bg);border-radius:8px;font-size:12.5px;color:var(--black);">
+          <span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">+</span>
+          <div><strong>Social proof integrated throughout</strong> — 4.4 stars, 3,200+ reviews, and 50,000+ families woven naturally into the page rather than bolted to the bottom.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav comparison -->
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Nav · current vs. new</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:9.5px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:10px;">Current spacetalk.co</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="padding:7px 10px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text-mid);">Join</div>
+            <div style="padding:7px 10px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text-mid);">App</div>
+            <div style="padding:7px 10px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text-mid);">About</div>
+            <div style="padding:7px 10px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text-mid);">Support</div>
+          </div>
+          <div style="margin-top:10px;font-size:12px;color:var(--text-dim);line-height:1.5;">"App" and "Support" lead with utility, not product. First-time visitors do not know what they are joining or buying.</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:9.5px;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:10px;">New nav</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="padding:7px 10px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text-mid);">The Spacetalk App</div>
+            <div style="padding:7px 10px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text-mid);">Smartwatches</div>
+            <div style="padding:7px 10px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text-mid);">Mobile</div>
+            <div style="padding:7px 10px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text-mid);">About</div>
+            <div style="padding:7px 10px;background:#EEF2FF;border-radius:6px;font-size:12px;color:var(--blue);font-weight:600;">Join Spacetalk →</div>
+          </div>
+          <div style="margin-top:10px;font-size:12px;color:var(--green);line-height:1.5;">Product-first structure. "Join Spacetalk" as a CTA rather than a nav item converts better. "Smartwatches" and "Mobile" are immediately clear to a first-time visitor.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDP: positives only -->
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Full Kit PDP · what works</div></div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:var(--green-bg);border-radius:8px;font-size:12.5px;color:var(--black);">
+          <span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">+</span>
+          <div><strong>5-step guided bundle builder</strong> (Watch, Plan, Straps, Accessories, Summary) — replaces the confusing multi-quantity-selector Shopify layout. Parents know exactly what they are building at every step.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:var(--green-bg);border-radius:8px;font-size:12.5px;color:var(--black);">
+          <span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">+</span>
+          <div><strong>"Why do I need a plan?" inline explanation</strong> — conversion-critical. Many buyers abandon at the plan step because the mandatory requirement is not clear. This answers it at the exact point of friction.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:var(--green-bg);border-radius:8px;font-size:12.5px;color:var(--black);">
+          <span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">+</span>
+          <div><strong>"Why not just give them a phone?" table</strong> — directly addresses the biggest purchase objection with an honest, parent-focused comparison. The current site has nothing like this.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:var(--green-bg);border-radius:8px;font-size:12.5px;color:var(--black);">
+          <span style="color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;">+</span>
+          <div><strong>Bundle savings shown clearly</strong> — "Save $47.01" with the original total crossed out. The current site shows savings inconsistently and rarely at the point of purchase decision.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Connection to SEO plan -->
+  <div class="analysis-section">
+    <div class="analysis-header"><div class="analysis-label">How these pages connect to the SEO plan</div><div class="analysis-line"></div></div>
+    <div class="insights-grid">
+
+      <div class="insight-card c-blue">
+        <div class="insight-tag">The category page is the SEO centrepiece</div>
+        <div class="insight-title">This page is what Mavlers will drive traffic to</div>
+        <div class="insight-body">Mavlers' entire Month 1 to 3 keyword strategy — targeting "kids smartwatch australia", "kids GPS watch", "kids phone watch" and the other 45,470 monthly gap searches — needs a destination to land on. The current live PDP is a thin Shopify product page that is not built to rank for category terms. This new category page is. It has the content depth, the comparison table, the FAQ structure, and the feature copy that Google rewards. <strong>Without this page live, the Mavlers engagement is traffic with nowhere to go.</strong></div>
+      </div>
+
+      <div class="insight-card c-violet">
+        <div class="insight-tag">FAQ structure fuels AI Overviews</div>
+        <div class="insight-title">The new pages directly support the 200 AIO keyword target</div>
+        <div class="insight-body">The Mavlers KPI targets <span class="insight-stat">200+ AI Overview keywords</span> by October 2026. Google's AI Overviews pull heavily from structured Q and A content — exactly what the new category page and PDP FAQ sections provide. Questions like "Does my kid need a plan?", "What age is it for?", and "Is it waterproof?" are precisely the queries Google serves AI answers for. <strong>These pages, once indexed, will accelerate the AIO count faster than any other single action in the plan.</strong></div>
+      </div>
+
+      <div class="insight-card c-green">
+        <div class="insight-tag">Conversion rate multiplier</div>
+        <div class="insight-title">Better pages mean the Mavlers traffic target is worth more</div>
+        <div class="insight-body">The new theme already lifted conversion rate from 1.82% to 2.48% — a 36% improvement. The new PDP's guided bundle builder and inline plan explanation should push that further. If Mavlers achieves their session target of 18,000 per month by November and the CVR holds at 2.48%, that is <span class="insight-stat">446 purchases</span> in November alone, compared to 317 last November. At an average order value of $116, that is <strong>roughly $51k in organic revenue just from CVR improvement compounding on higher traffic</strong> — before counting revenue uplift from the bundle builder increasing average order value.</div>
+      </div>
+
+      <div class="insight-card c-evergreen">
+        <div class="insight-tag">Backlink value</div>
+        <div class="insight-title">A strong category page earns better links than a thin PDP</div>
+        <div class="insight-body">Mavlers' off-page strategy targets <span class="insight-stat">8 to 10 new referring domains per month</span> through guest posts and brand mentions. Quality publications and parenting blogs are far more likely to link to a rich, informative category page — one with a comparison table, buying guide logic, and detailed feature breakdowns — than to a bare product page. <strong>The new category page gives the link-building strategy a credible, linkable asset to work with from day one.</strong></div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-source">Review: dantran-spacetalk.github.io/collection-product-planning · vs. spacetalk.co live pages · Apr 2026</div>
+    <div class="slide-num">Slide <span>07</span> / 07</div>
+  </footer>
+</div>
+
+
+<!-- Nav -->
+<div class="nav-bar">
+  <button class="nav-btn" id="prevBtn" onclick="navigate(-1)" disabled>&#8592;</button>
+  <div class="nav-dots">
+    <div class="nav-dot active" onclick="goToSlide(0)"></div>
+    <div class="nav-dot" onclick="goToSlide(1)"></div>
+    <div class="nav-dot" onclick="goToSlide(2)"></div>
+    <div class="nav-dot" onclick="goToSlide(3)"></div>
+    <div class="nav-dot" onclick="goToSlide(4)"></div>
+    <div class="nav-dot" onclick="goToSlide(5)"></div>
+    <div class="nav-dot" onclick="goToSlide(6)"></div>
+  </div>
+  <div class="nav-label" id="navLabel">Organic Traffic</div>
+  <button class="nav-btn" id="nextBtn" onclick="navigate(1)">&#8594;</button>
+</div>
+
+<script>
+const slideLabels=['Organic Traffic','Keyword Positions','Keyword Gap','Growth Plan','Why Not AI Alone','Website Impact','Page Review'];
+let current=0,donutBuilt=false,gapBuilt=false;
+function goToSlide(n){
+  document.querySelectorAll('.slide').forEach((s,i)=>s.classList.toggle('active',i===n));
+  document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('active',i===n));
+  document.getElementById('prevBtn').disabled=n===0;
+  document.getElementById('nextBtn').disabled=n===slideLabels.length-1;
+  document.getElementById('navLabel').textContent=slideLabels[n];
+  current=n;
+  if(n===1&&!donutBuilt)buildDonut();
+  if(n===2&&!gapBuilt)buildGap();
+  if(n===5)buildThemeChart();
+}
+function navigate(dir){goToSlide(current+dir);}
+
+/* Slide 1 */
+const tD=[
+  {label:"Apr '25",sessions:10568,purchases:109, revenue:11253.68},
+  {label:"May '25",sessions:11972,purchases:153, revenue:20993.13},
+  {label:"Jun '25",sessions:9135, purchases:116, revenue:15394.67},
+  {label:"Jul '25",sessions:8225, purchases:85,  revenue:10227.52},
+  {label:"Aug '25",sessions:6030, purchases:122, revenue:13293.47},
+  {label:"Sep '25",sessions:6994, purchases:169, revenue:21122.26},
+  {label:"Oct '25",sessions:9003, purchases:170, revenue:18323.78},
+  {label:"Nov '25",sessions:17623,purchases:317, revenue:62595.35},
+  {label:"Dec '25",sessions:16661,purchases:349, revenue:46671.73},
+  {label:"Jan '26",sessions:10996,purchases:193, revenue:14132.27},
+  {label:"Feb '26",sessions:5938, purchases:116, revenue:7005.95},
+  {label:"Mar '26",sessions:6263, purchases:147, revenue:11767.59},
+  {label:"Apr '26",sessions:3961, purchases:108, revenue:7814.27},
+];
+const BLUE='#3315D0',SKY_DIM='rgba(134,175,255,0.55)';
+const tCfg={
+  sessions: {key:'sessions', peak:BLUE,dim:SKY_DIM,yFmt:v=>v>=1000?(v/1000).toFixed(0)+'k':v,tip:v=>v.toLocaleString()+' sessions'},
+  purchases:{key:'purchases',peak:BLUE,dim:SKY_DIM,yFmt:v=>v,tip:v=>v+' purchases'},
+  revenue:  {key:'revenue',  peak:BLUE,dim:SKY_DIM,yFmt:v=>'$'+Math.round(v/1000)+'k',tip:v=>'$'+v.toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0})},
+};
+let mc;
+function buildChart(tab){
+  const c=tCfg[tab],vals=tD.map(d=>d[c.key]),maxV=Math.max(...vals);
+  if(mc)mc.destroy();
+  mc=new Chart(document.getElementById('mainChart'),{type:'bar',data:{labels:tD.map(d=>d.label),datasets:[{data:vals,backgroundColor:vals.map(v=>v===maxV?c.peak:c.dim),borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#171717',borderColor:'#333',borderWidth:1,titleColor:'#888',bodyColor:'#fff',titleFont:{family:"'DM Mono',monospace",size:10},bodyFont:{family:"'DM Mono',monospace",size:12},padding:10,callbacks:{label:ctx=>'  '+c.tip(ctx.parsed.y)}}},scales:{x:{grid:{display:false},border:{color:'#E4E4E4'},ticks:{color:'#888',font:{family:"'DM Mono',monospace",size:10},maxRotation:45,autoSkip:false}},y:{grid:{color:'#F0F0F0'},border:{display:false},ticks:{color:'#888',font:{family:"'DM Mono',monospace",size:10},callback:c.yFmt}}}}});
+}
+function switchTab(btn,tab){document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');buildChart(tab);}
+buildChart('sessions');
+const tb1=document.getElementById('tb1');
+tD.forEach(d=>{
+  const isPeak=d.label==="Nov '25"||d.label==="Dec '25",isMTD=d.label==="Apr '26";
+  const tr=document.createElement('tr');if(isPeak)tr.classList.add('peak-row');
+  tr.innerHTML=`<td>${d.label}${isMTD?'<span class="tbadge tbadge-mtd">MTD</span>':''}${isPeak?'<span class="tbadge tbadge-peak">peak</span>':''}</td><td>${d.sessions.toLocaleString()}</td><td class="${isPeak?'val-blue':''}">${d.purchases}</td><td class="${isPeak?'val-blue':''}">$${Math.round(d.revenue).toLocaleString()}</td>`;
+  tb1.appendChild(tr);
+});
+
+/* Slide 2 donut */
+function buildDonut(){
+  new Chart(document.getElementById('donutChart'),{type:'doughnut',data:{labels:['#1','2 to 3','4 to 10','11 to 20','21 plus'],datasets:[{data:[106,27,31,13,47],backgroundColor:['#3315D0','#86AFFF','#6C0590','#FFBFBF','#E4E4E4'],borderWidth:0,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,cutout:'72%',plugins:{legend:{display:false},tooltip:{backgroundColor:'#171717',titleColor:'#888',bodyColor:'#fff',titleFont:{family:"'DM Mono',monospace",size:10},bodyFont:{family:"'DM Mono',monospace",size:12},padding:10}}}});
+  donutBuilt=true;
+}
+
+/* Slide 3 */
+const gD=[
+  {kw:'kids smart watch',        vol:9900,kd:35,koc:12,gar:4, pix:3},
+  {kw:'kids watch',              vol:9900,kd:28,koc:22,gar:8, pix:18},
+  {kw:'smart watch for kids',    vol:2900,kd:31,koc:18,gar:3, pix:34},
+  {kw:'childrens smart watch AU',vol:1600,kd:28,koc:8, gar:9, pix:4},
+  {kw:'childrens tracker watch', vol:1300,kd:30,koc:6, gar:2, pix:9},
+  {kw:'smartwatch for kids',     vol:1300,kd:33,koc:3, gar:2, pix:9},
+  {kw:"children's tracking watch",vol:1000,kd:26,koc:5,gar:3, pix:8},
+  {kw:'gps tracker for kids',    vol:1000,kd:14,koc:32,gar:84,pix:10},
+  {kw:'kids phone watch',        vol:880, kd:28,koc:4, gar:8, pix:67},
+  {kw:'smart watch kids',        vol:880, kd:31,koc:12,gar:8, pix:5},
+  {kw:"children's phone watch",  vol:720, kd:29,koc:4, gar:8, pix:32},
+  {kw:'best kids smart watch AU',vol:480, kd:25,koc:8, gar:13,pix:15},
+  {kw:'kids smart watch with gps',vol:390,kd:25,koc:4, gar:3, pix:9},
+  {kw:'tracking device for kids',vol:390, kd:17,koc:12,gar:36,pix:25},
+  {kw:'child gps tracker AU',    vol:320, kd:24,koc:2, gar:8, pix:3},
+];
+const eW=[
+  {kw:'gps tracker for kids',          vol:1000,kd:14},
+  {kw:'best kids smart watch australia',vol:480, kd:25},
+  {kw:'kids smart watch with gps',      vol:390, kd:25},
+  {kw:'tracking device for kids',       vol:390, kd:17},
+  {kw:'child gps tracker watch AU',     vol:320, kd:24},
+  {kw:'childrens watch with gps',       vol:320, kd:25},
+  {kw:'kids fitness tracker',           vol:260, kd:22},
+  {kw:'kids smart watch 4g',            vol:260, kd:20},
+];
+function rankCell(p){if(!p)return'<span class="gap-cell-rank rank-none">—</span>';if(p<=5)return`<span class="gap-cell-rank rank-good">${p}</span>`;if(p<=15)return`<span class="gap-cell-rank rank-ok">${p}</span>`;if(p<=30)return`<span class="gap-cell-rank rank-mid">${p}</span>`;return`<span class="gap-cell-rank rank-bad">${p}</span>`;}
+function vc(v){return v>=1000?'high':v>=400?'med':'';}
+
+function buildGap(){
+  const top12=gD.slice(0,12);
+  const cols=top12.map(d=>d.vol>=1000?'rgba(192,57,43,0.7)':d.vol>=500?'rgba(212,134,10,0.7)':'rgba(134,175,255,0.7)');
+  new Chart(document.getElementById('gapChart'),{type:'bar',data:{labels:top12.map(d=>d.kw.length>18?d.kw.slice(0,17)+'…':d.kw),datasets:[{data:top12.map(d=>d.vol),backgroundColor:cols,borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{backgroundColor:'#171717',borderColor:'#333',borderWidth:1,titleColor:'#888',bodyColor:'#fff',titleFont:{family:"'DM Mono',monospace",size:10},bodyFont:{family:"'DM Mono',monospace",size:12},padding:10,callbacks:{label:ctx=>`  ${ctx.parsed.x.toLocaleString()} searches/mo`}}},scales:{x:{grid:{color:'#F0F0F0'},border:{display:false},ticks:{color:'#888',font:{family:"'DM Mono',monospace",size:10},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}},y:{grid:{display:false},border:{color:'#E4E4E4'},ticks:{color:'#444',font:{family:"'Outfit',sans-serif",size:11}}}}}});
+  const ew=document.getElementById('easyWins');
+  eW.forEach((d,i)=>{const r=document.createElement('div');r.style.cssText=`display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;padding:5px 0;${i<eW.length-1?'border-bottom:1px solid var(--border);':''}`;r.innerHTML=`<div style="font-size:12.5px;color:var(--black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${d.kw}</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);white-space:nowrap;">KD <strong style="color:var(--evergreen);">${d.kd}</strong></div><div style="font-family:var(--font-mono);font-size:11px;color:var(--amber);white-space:nowrap;">${d.vol.toLocaleString()}/mo</div>`;ew.appendChild(r);});
+  const tb=document.getElementById('gapTableBody');
+  gD.forEach(d=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${d.kw}</td><td><span class="vol-pill ${vc(d.vol)}">${d.vol>=1000?(d.vol/1000).toFixed(1)+'k':d.vol}</span></td><td style="font-family:var(--font-mono);font-size:12px;">${d.kd}</td><td>${rankCell(d.koc)}</td><td>${rankCell(d.gar)}</td><td>${rankCell(d.pix)}</td><td><span class="gap-cell-rank rank-none" style="font-size:9px;">—</span></td>`;tb.appendChild(tr);});
+  gapBuilt=true;
+}
+
+
+/* Slide 6 theme impact chart */
+function buildThemeChart() {
+  // Simplified weekly/key-date data points for the chart
+  const labels = [
+    'Nov 1','Nov 8','Nov 15','BF week','Nov 22','Nov 29',
+    'Dec 1','Dec 8','Xmas','Dec 31',
+    'Jan 8','Jan 15','Jan 22','Jan 31',
+    'Feb 7','Feb 14','Feb 21','Feb 28',
+    'Mar 2*','Mar 9','Mar 16','Mar 23','Mar 31',
+    'Apr 7','Apr 14','Apr 21'
+  ];
+  const sessions = [
+    247, 241, 885, 1675, 640, 527,
+    776, 544, 1341, 351,
+    327, 353, 356, 319,
+    262, 153, 52, 165,
+    202, 317, 248, 218, 159,
+    171, 168, 197
+  ];
+
+  const bgColors = sessions.map((s, i) => {
+    if (i >= 18) return 'rgba(26,122,74,0.65)';   // post theme
+    if (i >= 14) return 'rgba(192,57,43,0.65)';   // traffic crash
+    if (i >= 10) return 'rgba(212,134,10,0.65)';  // app bug
+    if (i === 3)  return '#3315D0';                // BF peak
+    return 'rgba(134,175,255,0.55)';               // normal
+  });
+
+  new Chart(document.getElementById('themeChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        data: sessions,
+        backgroundColor: bgColors,
+        borderRadius: 3,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#171717',
+          borderColor: '#333',
+          borderWidth: 1,
+          titleColor: '#888',
+          bodyColor: '#fff',
+          titleFont: { family: "'DM Mono',monospace", size: 10 },
+          bodyFont: { family: "'DM Mono',monospace", size: 12 },
+          padding: 10,
+          callbacks: {
+            label: ctx => '  ' + ctx.parsed.y.toLocaleString() + ' sessions',
+            afterLabel: ctx => {
+              const notes = {3: 'Black Friday peak', 12: 'App bug impact', 16: 'Traffic low point', 18: 'New theme launched'};
+              return notes[ctx.dataIndex] ? '  ' + notes[ctx.dataIndex] : '';
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          border: { color: '#E4E4E4' },
+          ticks: { color: '#888', font: { family: "'DM Mono',monospace", size: 9 }, maxRotation: 45, autoSkip: false }
+        },
+        y: {
+          grid: { color: '#F0F0F0' },
+          border: { display: false },
+          ticks: { color: '#888', font: { family: "'DM Mono',monospace", size: 10 }, callback: v => v >= 1000 ? (v/1000).toFixed(1)+'k' : v }
+        }
+      }
+    }
+  });
+}
+
+</script>
+</body>
+</html>
