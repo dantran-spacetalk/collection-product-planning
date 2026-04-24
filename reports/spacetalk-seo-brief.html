@@ -962,6 +962,7 @@ function goToSlide(n){
   document.getElementById('prevBtn').disabled=n===0;
   document.getElementById('nextBtn').disabled=n===slideLabels.length-1;
   document.getElementById('navLabel').textContent=slideLabels[n];
+  window.scrollTo({top:0,behavior:'instant'});
   current=n;
   if(n===1&&!donutBuilt)buildDonut();
   if(n===2&&!gapBuilt)buildGap();
