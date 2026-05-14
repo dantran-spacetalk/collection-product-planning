@@ -5,6 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spacetalk Adventurer 2 — Comparison Section</title>
 <style>
+  @font-face {
+    font-family: 'TWK Lausanne';
+    src: url('./assets/TWKLausanne-450.woff2') format('woff2'),
+         url('./assets/TWKLausanne-450.woff') format('woff');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'TWK Lausanne';
+    src: url('./assets/TWKLausanne-700.woff2') format('woff2'),
+         url('./assets/TWKLausanne-700.woff') format('woff');
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+  }
+
   :root {
     --blue:  #3315D0;
     --neon:  #D4FD00;
@@ -20,10 +37,12 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: #ebebeb;
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'TWK Lausanne', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     color: var(--black);
   }
+  button, input, textarea, select { font: inherit; }
 
   /* ── SECTION ── */
   .spa {
