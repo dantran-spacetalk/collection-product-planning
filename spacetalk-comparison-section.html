@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spacetalk Adventurer 2 — Comparison Section</title>
+<style>
+  :root {
+    --blue:  #3315D0;
+    --neon:  #D4FD00;
+    --black: #171717;
+    --g100:  #F2F2F2;
+    --g200:  #E8E8E8;
+    --gt:    #999;
+    --gm:    #555;
+    --white: #fff;
+    --pill:  100px;
+    --r:     12px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #ebebeb;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: var(--black);
+  }
+
+  /* ── SECTION ── */
+  .spa {
+    background: var(--white);
+    max-width: 1080px;
+    margin: 40px auto;
+    padding: 72px 48px 80px;
+    border-radius: 20px;
+  }
+
+  /* ── HEADER ── */
+  .hdr { text-align: center; margin-bottom: 44px; }
+  .hdr__eye { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+  .hdr__h   { font-size: clamp(26px, 3.5vw, 40px); font-weight: 700; letter-spacing: -.025em; line-height: 1.1; margin-bottom: 10px; }
+  .hdr__sub { font-size: 15px; color: var(--gm); max-width: 420px; margin: 0 auto; line-height: 1.55; }
+
+  /* ── TABS ── */
+  .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+  .tab {
+    padding: 10px 22px; border-radius: var(--pill);
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    border: 1.5px solid var(--g200);
+    background: var(--white); color: var(--gm);
+    transition: border-color .15s, color .15s, background .15s;
+    line-height: 1;
+  }
+  .tab:hover { border-color: var(--blue); color: var(--blue); }
+  .tab.on { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+  /* ── PANELS ── */
+  .panel { display: none; }
+  .panel.on { display: block; }
+
+  /* ── SECTION LABEL ── */
+  .lbl {
+    font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--black); margin-bottom: 16px; padding-bottom: 10px;
+    border-bottom: 2px solid var(--black);
+  }
+
+  /* ── USE CASE CARDS ── */
+  .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 44px; }
+  .uc { background: var(--white); border: 1.5px solid var(--blue); border-radius: var(--r); padding: 18px 18px 16px; }
+  .uc__ico { width: 34px; height: 34px; border-radius: 9px; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 15px; margin-bottom: 12px; }
+  .uc__title { font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 6px; line-height: 1.3; }
+  .uc__body  { font-size: 12px; color: var(--gm); line-height: 1.6; margin-bottom: 12px; }
+  .uc__tag   { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--blue); }
+  .uc__tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+
+  /* ── COMPARISON GRID ── */
+  .cmp { width: 100%; margin-bottom: 36px; }
+
+  /* column header row */
+  .cmp-head {
+    display: grid;
+    grid-template-columns: 44fr 28fr 28fr;
+    gap: 0;
+    margin-bottom: 0;
+  }
+  .cmp-head__spacer { /* empty left cell */ }
+  .cmp-head__adv {
+    background: var(--blue);
+    color: #fff;
+    text-align: center;
+    padding: 18px 16px 16px;
+    border-radius: 16px 16px 0 0;
+  }
+  .cmp-head__adv strong { display: block; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .cmp-head__adv span   { display: block; font-size: 11px; opacity: .7; }
+  .cmp-head__comp {
+    text-align: center;
+    padding: 18px 16px 16px;
+  }
+  .cmp-head__comp strong { display: block; font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+  .cmp-head__comp span   { display: block; font-size: 11px; color: var(--gt); }
+
+  /* section header rows */
+  .cmp-sec {
+    display: grid;
+    grid-template-columns: 44fr 28fr 28fr;
+  }
+  .cmp-sec__label {
+    background: var(--g100);
+    font-size: 10px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .1em;
+    color: var(--black);
+    padding: 7px 0;
+    border-top: 1px solid var(--g200);
+    border-bottom: 1px solid var(--g200);
+  }
+  .cmp-sec__adv {
+    background: var(--blue);
+    border-top: 1px solid var(--blue);
+    border-bottom: 1px solid var(--blue);
+  }
+  .cmp-sec__comp {
+    background: var(--g100);
+    border-top: 1px solid var(--g200);
+    border-bottom: 1px solid var(--g200);
+  }
+
+  /* data rows */
+  .cmp-row {
+    display: grid;
+    grid-template-columns: 44fr 28fr 28fr;
+    border-bottom: 1px solid var(--g200);
+  }
+  .cmp-row:last-child { border-bottom: none; }
+
+  .cmp-row__feat {
+    padding: 12px 0;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .cmp-row__feat .fl { font-size: 13px; color: var(--black); line-height: 1.3; }
+  .cmp-row__feat .fn { font-size: 11px; color: var(--gt); margin-top: 2px; }
+
+  .cmp-row__adv {
+    background: var(--white);
+    border-left: 2.5px solid var(--blue);
+    border-right: 2.5px solid var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .cmp-row:last-child .cmp-row__adv {
+    border-bottom: 2.5px solid var(--blue);
+    border-radius: 0 0 12px 12px;
+  }
+
+  .cmp-row__comp {
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 12px;
+    text-align: center;
+  }
+
+  /* badges */
+  .bw { display: inline-flex; align-items: center; gap: 5px; background: var(--blue); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 11px; border-radius: var(--pill); }
+  .bs { display: inline-flex; align-items: center; gap: 5px; background: var(--g100); color: var(--gm); font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: var(--pill); }
+  .bn { display: inline-flex; align-items: center; gap: 4px; color: var(--gt); font-size: 11px; font-weight: 500; }
+  .tw { font-size: 12px; font-weight: 700; color: var(--blue); }
+  .ts { font-size: 12px; font-weight: 500; color: var(--gm); }
+  .tn { font-size: 12px; font-weight: 500; color: var(--gt); }
+
+  /* ── BOTTOM BAR ── */
+  .bar { background: var(--blue); border-radius: var(--r); padding: 20px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+  .bar__pills { display: flex; flex-wrap: wrap; gap: 20px; }
+  .bar__pill { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,.9); }
+  .bar__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon); flex-shrink: 0; }
+  .bar__cta { display: inline-flex; align-items: center; gap: 7px; background: var(--neon); color: var(--black); font-size: 13px; font-weight: 700; padding: 10px 22px; border-radius: var(--pill); text-decoration: none; transition: opacity .15s; white-space: nowrap; }
+  .bar__cta:hover { opacity: .88; }
+  .bar__cta svg { width: 12px; height: 12px; }
+
+  @media (max-width: 700px) {
+    .spa { padding: 40px 16px 56px; border-radius: 0; margin: 0; }
+    .cases { grid-template-columns: 1fr 1fr; }
+    .bar { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 440px) { .cases { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<section class="spa">
+
+  <div class="hdr">
+    <p class="hdr__eye">How does it compare?</p>
+    <h2 class="hdr__h">Built differently.<br>For a reason.</h2>
+    <p class="hdr__sub">See how the Adventurer 2 stacks up against the most popular kids' smartwatches.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on"  onclick="go('koc',this)">vs KidsoClock GL50</button>
+    <button class="tab"     onclick="go('garmin',this)">vs Garmin Bounce 2</button>
+    <button class="tab"     onclick="go('xplora',this)">vs Xplora X6 Play</button>
+    <button class="tab"     onclick="go('pixbee',this)">vs Pixbee Pro</button>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ KidsoClock -->
+  <div id="p-koc" class="panel on">
+    <p class="lbl">Real-world scenarios</p>
+    <div class="cases">
+      <div class="uc"><div class="uc__ico">&#128196;</div><div class="uc__title">First walk to school alone</div><div class="uc__body">Your child walks solo for the first time. You need GPS, a quick SOS, and confirmation they arrived safely — without handing them a phone.</div><div class="uc__tag">Own network plans, GPS + safe zones</div></div>
+      <div class="uc"><div class="uc__ico">&#127909;</div><div class="uc__title">Calling home after sport</div><div class="uc__body">Training ran late. A quick face-to-face video call from the wrist, with contacts managed entirely through the Spacetalk App.</div><div class="uc__tag">5MP video calling + dedicated parental app</div></div>
+      <div class="uc"><div class="uc__ico">&#128274;</div><div class="uc__title">Keeping the internet off-limits</div><div class="uc__body">Kids don't need open web access on their wrist. Spacetalk locks it out by design, giving parents genuine peace of mind.</div><div class="uc__tag">No internet access, by design</div></div>
+      <div class="uc"><div class="uc__ico">&#128241;</div><div class="uc__title">One app for everything</div><div class="uc__body">Location, contacts, school mode, safe zones — all in the Spacetalk App, purpose-built for families, not a generic companion app.</div><div class="uc__tag">Purpose-built ecosystem, watch + plan together</div></div>
+    </div>
+    <p class="lbl">Feature comparison</p>
+    <div class="cmp">
+      <div class="cmp-head">
+        <div class="cmp-head__spacer"></div>
+        <div class="cmp-head__adv"><strong>Adventurer 2</strong><span>Spacetalk</span></div>
+        <div class="cmp-head__comp"><strong>GL50 Genius</strong><span>KidsoClock &middot; $239.95</span></div>
+      </div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Brand &amp; support</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Dedicated kids' safety brand</span><span class="fn">Kids' safety is the entire business</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Own watch + network plans</span><span class="fn">One provider for device and connectivity</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; 3rd party SIM</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Safety &amp; parental controls</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">GPS tracking</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Safe zones / geo-fence alerts</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">SOS button</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">School mode</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Parental contact control</span><span class="fn">Only approved numbers can call or message</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">No internet access</span><span class="fn">Kids can't browse the open web</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; Not confirmed</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Communication</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Camera</span></div><div class="cmp-row__adv"><span class="tw">5MP</span></div><div class="cmp-row__comp"><span class="ts">5MP</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Video calling</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Voice + text messaging</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">4G standalone</span><span class="fn">Works without a paired phone nearby</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Health &amp; fitness</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Heart rate monitor</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Step counter</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Hardware</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Display</span></div><div class="cmp-row__adv"><span class="tw">1.41&Prime; AMOLED</span></div><div class="cmp-row__comp"><span class="ts">1.78&Prime; Super AMOLED</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">RAM / storage</span></div><div class="cmp-row__adv"><span class="tw">1 GB / 8 GB</span></div><div class="cmp-row__comp"><span class="ts">1 GB / 8 GB</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Battery</span></div><div class="cmp-row__adv"><span class="tw">750 mAh &middot; 1&ndash;2 days</span></div><div class="cmp-row__comp"><span class="tn">36-hr standby</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Water resistance</span></div><div class="cmp-row__adv"><span class="tw">IP67</span></div><div class="cmp-row__comp"><span class="ts">IP67</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">WiFi</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ Garmin -->
+  <div id="p-garmin" class="panel">
+    <p class="lbl">Real-world scenarios</p>
+    <div class="cases">
+      <div class="uc"><div class="uc__ico">&#127909;</div><div class="uc__title">Calling home after school</div><div class="uc__body">Garmin Bounce 2 has no camera and no video call. Adventurer 2 lets kids wave hello from the wrist with a 5MP front-facing camera.</div><div class="uc__tag">5MP camera + video calling vs none</div></div>
+      <div class="uc"><div class="uc__ico">&#128205;</div><div class="uc__title">Child wanders outside the safe zone</div><div class="uc__body">Garmin Bounce 2 has no safe zone feature. Adventurer 2 fires an instant geo-fence alert the moment your child goes out of bounds.</div><div class="uc__tag">GPS safe zones included vs none</div></div>
+      <div class="uc"><div class="uc__ico">&#128176;</div><div class="uc__title">Value-conscious families</div><div class="uc__body">Garmin costs AU$479 upfront plus AU$17/mo for a mandatory plan. Adventurer 2 is $130 cheaper to start with more features included.</div><div class="uc__tag">$349 vs AU$479 — more for less</div></div>
+      <div class="uc"><div class="uc__ico">&#127979;</div><div class="uc__title">Managing focus at school</div><div class="uc__body">Garmin Bounce 2 has no school mode. Adventurer 2 lets parents schedule it remotely so the watch silences automatically during class.</div><div class="uc__tag">School mode + remote scheduling vs none</div></div>
+    </div>
+    <p class="lbl">Feature comparison</p>
+    <div class="cmp">
+      <div class="cmp-head">
+        <div class="cmp-head__spacer"></div>
+        <div class="cmp-head__adv"><strong>Adventurer 2</strong><span>Spacetalk &middot; $349</span></div>
+        <div class="cmp-head__comp"><strong>Bounce 2</strong><span>Garmin &middot; AU$479</span></div>
+      </div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Price</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">RRP</span><span class="fn">$130 less than Garmin Bounce 2</span></div><div class="cmp-row__adv"><span class="tw">$349</span></div><div class="cmp-row__comp"><span class="tn">AU$479</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Monthly plan</span></div><div class="cmp-row__adv"><span class="tw">Spacetalk plans</span></div><div class="cmp-row__comp"><span class="tn">AU$17/mo required</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Brand &amp; support</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Dedicated kids' safety brand</span><span class="fn">vs a fitness company's side product</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">Fitness brand</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Communication</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Camera</span></div><div class="cmp-row__adv"><span class="tw">5MP</span></div><div class="cmp-row__comp"><span class="bn">&#10005; None</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Video calling</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Voice &amp; text messaging</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">4G standalone</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Safety &amp; parental controls</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">GPS tracking</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Safe zones / geo-fence alerts</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">SOS button</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">School mode</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Parental contact control</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">No internet access</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; Not confirmed</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Health &amp; fitness</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Heart rate monitor</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Step counter</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Hardware</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Display</span><span class="fn">Adventurer 2 is larger at 1.41&Prime;</span></div><div class="cmp-row__adv"><span class="tw">1.41&Prime; AMOLED</span></div><div class="cmp-row__comp"><span class="tn">1.2&Prime; AMOLED</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">RAM / storage</span></div><div class="cmp-row__adv"><span class="tw">1 GB / 8 GB</span></div><div class="cmp-row__comp"><span class="tn">&#8212; / 4 GB</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Battery life</span></div><div class="cmp-row__adv"><span class="tw">1&ndash;2 days</span></div><div class="cmp-row__comp"><span class="ts">Up to 2 days</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">WiFi</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Water resistance</span></div><div class="cmp-row__adv"><span class="tw">IP67</span></div><div class="cmp-row__comp"><span class="ts">5 ATM</span></div></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ Xplora -->
+  <div id="p-xplora" class="panel">
+    <p class="lbl">Real-world scenarios</p>
+    <div class="cases">
+      <div class="uc"><div class="uc__ico">&#10084;</div><div class="uc__title">Child feels unwell during the day</div><div class="uc__body">Your child is feeling off. Adventurer 2's heart rate monitor gives you a live reading from the app. The X6 Play has no heart rate sensor at all.</div><div class="uc__tag">Heart rate monitoring included vs none</div></div>
+      <div class="uc"><div class="uc__ico">&#9728;</div><div class="uc__title">Checking the watch in bright sunlight</div><div class="uc__body">Adventurer 2's AMOLED display stays vivid and sharp outdoors. The X6 Play uses a TFT panel — noticeably duller in daylight.</div><div class="uc__tag">AMOLED display vs TFT</div></div>
+      <div class="uc"><div class="uc__ico">&#127381;</div><div class="uc__title">Getting support when something goes wrong</div><div class="uc__body">Spacetalk is a dedicated kids' safety company. Xplora is a Norwegian brand with no local presence or dedicated support team.</div><div class="uc__tag">Dedicated kids' safety brand</div></div>
+      <div class="uc"><div class="uc__ico">&#128241;</div><div class="uc__title">Managing everything from one place</div><div class="uc__body">Location, contacts, school mode, safe zones — all from the Spacetalk App, purpose-built for families, not bolted onto a telecom product.</div><div class="uc__tag">Purpose-built parental app + own network plans</div></div>
+    </div>
+    <p class="lbl">Feature comparison</p>
+    <div class="cmp">
+      <div class="cmp-head">
+        <div class="cmp-head__spacer"></div>
+        <div class="cmp-head__adv"><strong>Adventurer 2</strong><span>Spacetalk &middot; $349</span></div>
+        <div class="cmp-head__comp"><strong>X6 Play</strong><span>Xplora &middot; ~$329</span></div>
+      </div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Brand &amp; support</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Dedicated kids' safety brand</span><span class="fn">Kids' safety is the entire business</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">Telecom-backed</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Own network plans (local)</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No local plans</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Safety &amp; parental controls</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">GPS tracking</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Safe zones / geo-fence alerts</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">SOS button</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">School mode</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">No internet access</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Parental contact control</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Communication</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">5MP camera</span></div><div class="cmp-row__adv"><span class="tw">5MP</span></div><div class="cmp-row__comp"><span class="ts">5MP</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Video calling</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Voice &amp; text messaging</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">4G standalone</span><span class="fn">Works without a paired phone nearby</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Health &amp; fitness</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Heart rate monitor</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Step counter</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Hardware</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Display</span><span class="fn">AMOLED is sharper and more vivid than TFT</span></div><div class="cmp-row__adv"><span class="tw">1.41&Prime; AMOLED</span></div><div class="cmp-row__comp"><span class="tn">1.52&Prime; TFT</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">RAM / storage</span></div><div class="cmp-row__adv"><span class="tw">1 GB / 8 GB</span></div><div class="cmp-row__comp"><span class="ts">1 GB / 8 GB</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Battery</span></div><div class="cmp-row__adv"><span class="tw">750 mAh &middot; 1&ndash;2 days</span></div><div class="cmp-row__comp"><span class="ts">900 mAh &middot; ~3 days</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Water resistance</span></div><div class="cmp-row__adv"><span class="tw">IP67</span></div><div class="cmp-row__comp"><span class="ts">IP68</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">WiFi</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ Pixbee Pro -->
+  <div id="p-pixbee" class="panel">
+    <p class="lbl">Real-world scenarios</p>
+    <div class="cases">
+      <div class="uc"><div class="uc__ico">&#128200;</div><div class="uc__title">Smoother, faster performance</div><div class="uc__body">Pixbee Pro runs on 512MB RAM and 4GB storage. Adventurer 2 has double the memory — apps, video calls and GPS load faster and more reliably.</div><div class="uc__tag">1 GB RAM + 8 GB storage vs 512 MB / 4 GB</div></div>
+      <div class="uc"><div class="uc__ico">&#10084;</div><div class="uc__title">Checking in on your child's health</div><div class="uc__body">Pixbee Pro has no heart rate sensor. Adventurer 2 monitors heart rate continuously throughout the day so you always have a read on how they're going.</div><div class="uc__tag">Heart rate monitor included vs none</div></div>
+      <div class="uc"><div class="uc__ico">&#128241;</div><div class="uc__title">Watch + plan, all in one place</div><div class="uc__body">Pixbee Pro requires a BYO SIM from a third-party provider. Adventurer 2 comes with a SIM included and Spacetalk plans built specifically around the watch.</div><div class="uc__tag">Integrated network plans vs BYO SIM</div></div>
+      <div class="uc"><div class="uc__ico">&#9728;</div><div class="uc__title">Easier to read in bright light</div><div class="uc__body">Pixbee Pro uses an IPS display. Adventurer 2's AMOLED screen delivers deeper contrast, more vivid colours and is noticeably sharper in outdoor conditions.</div><div class="uc__tag">AMOLED display vs IPS</div></div>
+    </div>
+    <p class="lbl">Feature comparison</p>
+    <div class="cmp">
+      <div class="cmp-head">
+        <div class="cmp-head__spacer"></div>
+        <div class="cmp-head__adv"><strong>Adventurer 2</strong><span>Spacetalk &middot; $349</span></div>
+        <div class="cmp-head__comp"><strong>Pixbee Pro</strong><span>Pixbee &middot; $279.95</span></div>
+      </div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Brand &amp; support</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Dedicated kids' safety brand</span><span class="fn">Kids' safety is the entire business</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Integrated watch + network plans</span><span class="fn">SIM included, plans built around the watch</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; BYO SIM required</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Safety &amp; parental controls</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">GPS tracking</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Safe zones / geo-fence alerts</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">SOS button</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">School / classroom mode</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Parental contact control</span><span class="fn">Only approved numbers can call or message</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">No internet / social media access</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Communication</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Camera</span></div><div class="cmp-row__adv"><span class="tw">5MP</span></div><div class="cmp-row__comp"><span class="ts">5MP</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Video calling</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Voice + text messaging</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">4G standalone</span><span class="fn">Works without a paired phone nearby</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Health &amp; fitness</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Heart rate monitor</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Step counter</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-sec"><div class="cmp-sec__label">Hardware</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Display</span><span class="fn">AMOLED is sharper and more vivid than IPS</span></div><div class="cmp-row__adv"><span class="tw">1.41&Prime; AMOLED</span></div><div class="cmp-row__comp"><span class="tn">1.52&Prime; IPS</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">RAM / storage</span></div><div class="cmp-row__adv"><span class="tw">1 GB / 8 GB</span></div><div class="cmp-row__comp"><span class="tn">512 MB / 4 GB</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Battery</span></div><div class="cmp-row__adv"><span class="tw">750 mAh &middot; 1&ndash;2 days</span></div><div class="cmp-row__comp"><span class="ts">800 mAh</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Screen protection</span></div><div class="cmp-row__adv"><span class="tw">Gorilla Glass</span></div><div class="cmp-row__comp"><span class="tn">Not specified</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Water resistance</span></div><div class="cmp-row__adv"><span class="tw">IP67</span></div><div class="cmp-row__comp"><span class="ts">IP67</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">WiFi</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="bar">
+    <div class="bar__pills">
+      <div class="bar__pill"><span class="bar__dot"></span>Purpose-built for kids' safety</div>
+      <div class="bar__pill"><span class="bar__dot"></span>One app for everything</div>
+      <div class="bar__pill"><span class="bar__dot"></span>Trusted by families worldwide</div>
+    </div>
+    <a href="/products/spacetalk-adventurer-2-smartwatch-phone" class="bar__cta">
+      Shop Adventurer 2
+      <svg viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+</section>
+<script>
+function go(id, el) {
+  ['koc','garmin','xplora','pixbee'].forEach(function(k) { document.getElementById('p-'+k).classList.remove('on'); });
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('on'); });
+  document.getElementById('p-'+id).classList.add('on');
+  el.classList.add('on');
+}
+</script>
+</body>
+</html>
