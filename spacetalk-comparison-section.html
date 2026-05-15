@@ -17,6 +17,7 @@
     --white: #fff;
     --pill:  100px;
     --r:     12px;
+    --tab-selection-bar-height: 0px;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -63,7 +64,37 @@
   }
 
   /* ── TABS ── */
-  .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--white);
+    padding: 14px 0;
+  }
+  .tabs__arrow {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--g200);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--black);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    z-index: 2;
+  }
+  .tabs__arrow:hover { border-color: var(--blue); color: var(--blue); }
+  .tabs__arrow svg { width: 16px; height: 16px; }
   .tab {
     padding: 10px 22px; border-radius: var(--pill);
     font-size: 13px; font-weight: 600; cursor: pointer;
@@ -101,10 +132,15 @@
 
   /* column header row */
   .cmp-head {
+    position: sticky;
+    top: var(--tab-selection-bar-height);
+    z-index: 30;
     display: grid;
     grid-template-columns: 44fr 28fr 28fr;
     gap: 0;
     margin-bottom: 0;
+    background: var(--white);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
   }
   .cmp-head__spacer { display: block; }
   .cmp-head__adv {
@@ -260,6 +296,63 @@
     .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; padding-left: 0; padding-right: 0; }
     .stat { padding: 14px 8px 12px; }
     .stat__num { font-size: clamp(24px, 7vw, 34px); }
+    .tabs {
+      display: block;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      overflow: visible;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin: 0 -16px 28px;
+      padding: 10px 8px 12px;
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+    }
+    .tabs.is-stuck {
+      padding: 10px 8px 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.94) 100%);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      border-radius: 0 0 18px 18px;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tabs__arrow { display: inline-flex; }
+    .tabs__arrow--prev { left: 8px; }
+    .tabs__arrow--next { right: 8px; }
+    .tabs__scroll {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      width: 100%;
+      min-width: 0;
+      padding: 0 40px;
+    }
+    .tabs__scroll::-webkit-scrollbar { display: none; }
+    .tabs:not(.is-stuck) .tabs__arrow {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .tabs.is-stuck .tabs__arrow {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .tabs.is-at-start .tabs__arrow--prev {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .tabs.is-at-end .tabs__arrow--next {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .tab {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      padding: 9px 16px;
+      font-size: 12px;
+    }
     .cases { grid-template-columns: 1fr 1fr; }
     .panel .cases { min-height: auto; }
     .cmp-watch--adv { width: 54px; height: 54px; }
@@ -289,11 +382,19 @@
   </div>
 
   <div class="tabs">
-    <button class="tab on"  onclick="go('garmin',this)">vs Garmin Bounce 2</button>
-    <button class="tab"     onclick="go('koc',this)">vs KidsoClock GL50</button>
-    <button class="tab"     onclick="go('xplora',this)">vs Xplora X6 Play</button>
-    <button class="tab"     onclick="go('pixbee',this)">vs Pixbee Pro</button>
-    <button class="tab"     onclick="go('loop',this)">vs Spacetalk Loop</button>
+    <button class="tabs__arrow tabs__arrow--prev" type="button" aria-label="Scroll comparison tabs left" onclick="scrollTabs(-1)">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 6.5L9 12l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="tabs__scroll">
+      <button class="tab on"  onclick="go('garmin',this)">vs Garmin Bounce 2</button>
+      <button class="tab"     onclick="go('koc',this)">vs KidsoClock GL50</button>
+      <button class="tab"     onclick="go('xplora',this)">vs Xplora X6 Play</button>
+      <button class="tab"     onclick="go('pixbee',this)">vs Pixbee Pro</button>
+      <button class="tab"     onclick="go('loop',this)">vs Spacetalk Loop</button>
+    </div>
+    <button class="tabs__arrow tabs__arrow--next" type="button" aria-label="Scroll comparison tabs right" onclick="scrollTabs(1)">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 6.5L15 12l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </div>
 
   <!-- ════════════════════════════════════════════════ KidsoClock -->
@@ -559,6 +660,40 @@ function flagNegativeComparisonValues() {
   });
 }
 
+function scrollTabs(direction) {
+  var tabs = document.querySelector('.tabs__scroll');
+  if (!tabs) return;
+
+  tabs.scrollBy({
+    left: direction * Math.round(tabs.clientWidth * 0.7),
+    behavior: 'smooth'
+  });
+
+  scheduleMobileTabsStateUpdate();
+}
+
+function updateTabSelectionBarHeight() {
+  var tabs = document.querySelector('.tabs');
+  if (!tabs) return;
+
+  document.documentElement.style.setProperty('--tab-selection-bar-height', Math.ceil(tabs.getBoundingClientRect().height) + 'px');
+}
+
+function updateMobileTabsState() {
+  var tabs = document.querySelector('.tabs');
+  var tabsScroll = document.querySelector('.tabs__scroll');
+  if (!tabs) return;
+
+  var isMobile = window.matchMedia('(max-width: 700px)').matches;
+  var isStuck = isMobile && tabs.getBoundingClientRect().top <= 0;
+  var atStart = !tabsScroll || tabsScroll.scrollLeft <= 1;
+  var atEnd = !tabsScroll || tabsScroll.scrollLeft + tabsScroll.clientWidth >= tabsScroll.scrollWidth - 1;
+
+  tabs.classList.toggle('is-stuck', isStuck);
+  tabs.classList.toggle('is-at-start', atStart);
+  tabs.classList.toggle('is-at-end', atEnd);
+}
+
 function lockCasesHeight() {
   var referenceGroup = document.querySelector('#p-garmin .cases');
   if (!referenceGroup) return;
@@ -599,6 +734,8 @@ function lockCasesHeight() {
 }
 
 var lockCasesHeightRAF;
+var tabSelectionBarHeightRAF;
+var mobileTabsStateRAF;
 function scheduleCasesHeightLock() {
   if (lockCasesHeightRAF) {
     cancelAnimationFrame(lockCasesHeightRAF);
@@ -609,12 +746,50 @@ function scheduleCasesHeightLock() {
   });
 }
 
+function scheduleTabSelectionBarHeightUpdate() {
+  if (tabSelectionBarHeightRAF) {
+    cancelAnimationFrame(tabSelectionBarHeightRAF);
+  }
+
+  tabSelectionBarHeightRAF = requestAnimationFrame(function() {
+    updateTabSelectionBarHeight();
+  });
+}
+
+function scheduleMobileTabsStateUpdate() {
+  if (mobileTabsStateRAF) {
+    cancelAnimationFrame(mobileTabsStateRAF);
+  }
+
+  mobileTabsStateRAF = requestAnimationFrame(function() {
+    updateMobileTabsState();
+  });
+}
+
 flagNegativeComparisonValues();
 scheduleCasesHeightLock();
+scheduleTabSelectionBarHeightUpdate();
+scheduleMobileTabsStateUpdate();
 
 window.addEventListener('load', scheduleCasesHeightLock);
 window.addEventListener('resize', scheduleCasesHeightLock);
 window.addEventListener('orientationchange', scheduleCasesHeightLock);
+window.addEventListener('load', scheduleTabSelectionBarHeightUpdate);
+window.addEventListener('resize', scheduleTabSelectionBarHeightUpdate);
+window.addEventListener('orientationchange', scheduleTabSelectionBarHeightUpdate);
+window.addEventListener('load', scheduleMobileTabsStateUpdate);
+window.addEventListener('resize', scheduleMobileTabsStateUpdate);
+window.addEventListener('orientationchange', scheduleMobileTabsStateUpdate);
+window.addEventListener('scroll', scheduleMobileTabsStateUpdate, { passive: true });
+
+var tabsElement = document.querySelector('.tabs');
+if (tabsElement) {
+  tabsElement.addEventListener('scroll', scheduleMobileTabsStateUpdate, { passive: true });
+}
+var tabsScrollElement = document.querySelector('.tabs__scroll');
+if (tabsScrollElement) {
+  tabsScrollElement.addEventListener('scroll', scheduleMobileTabsStateUpdate, { passive: true });
+}
 </script>
 </body>
 </html>
