@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spacetalk Adventurer 2 — Comparison Section</title>
+<title>Spacetalk Adventurer 2  -  Comparison Section</title>
 <link rel="stylesheet" href="https://spacetalk.co/cdn/shop/t/164/assets/font.css?v=128279079393619495791777438268">
 <style>
   :root {
@@ -41,7 +41,26 @@
   .hdr { text-align: center; margin-bottom: 44px; }
   .hdr__eye { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
   .hdr__h   { font-size: clamp(26px, 3.5vw, 40px); font-weight: 700; letter-spacing: -.025em; line-height: 1.1; margin-bottom: 10px; }
-  .hdr__sub { font-size: 15px; color: var(--gm); max-width: 420px; margin: 0 auto; line-height: 1.55; }
+  .hdr__sub { font-size: 15px; color: var(--gm); max-width: 600px; margin: 0 auto; line-height: 1.55; }
+
+  /* ── INTRO CARDS ── */
+  .intro-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0 0 30px;
+  }
+  .intro-card {
+    border: 1.5px solid var(--g200);
+    background: linear-gradient(180deg, #ffffff 0%, #f9f9ff 100%);
+    border-radius: var(--r);
+    padding: 16px 16px 15px;
+  }
+  .intro-card__body {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--black);
+  }
 
   /* ── TABS ── */
   .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
@@ -68,7 +87,8 @@
   }
 
   /* ── USE CASE CARDS ── */
-  .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 44px; }
+  .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 44px; align-content: start; }
+  .panel .cases { min-height: var(--cases-lock-height, auto); }
   .uc { background: var(--white); border: 1.5px solid var(--blue); border-radius: var(--r); padding: 18px 18px 16px; display: flex; flex-direction: column; height: 100%; }
   .uc__ico { width: 34px; height: 34px; border-radius: 9px; background: var(--g200); color: var(--black); display: flex; align-items: center; justify-content: center; font-size: 15px; margin-bottom: 12px; }
   .uc__title { font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 6px; line-height: 1.3; }
@@ -86,7 +106,7 @@
     gap: 0;
     margin-bottom: 0;
   }
-  .cmp-head__spacer { /* empty left cell */ }
+  .cmp-head__spacer { display: block; }
   .cmp-head__adv {
     background: var(--blue);
     color: #fff;
@@ -131,7 +151,7 @@
     font-size: 10px; font-weight: 800;
     text-transform: uppercase; letter-spacing: .1em;
     color: var(--black);
-    padding: 7px 0;
+    padding: 7px 0 7px 16px;
     border-top: 1px solid var(--g200);
     border-bottom: 1px solid var(--g200);
   }
@@ -155,7 +175,7 @@
   .cmp-row:last-child { border-bottom: none; }
 
   .cmp-row__feat {
-    padding: 12px 0;
+    padding: 12px 0 12px 16px;
     display: flex; flex-direction: column; justify-content: center;
   }
   .cmp-row__feat .fl { font-size: 13px; color: var(--black); line-height: 1.3; }
@@ -188,6 +208,42 @@
   .ts { font-size: 12px; font-weight: 500; color: var(--gm); }
   .tn { font-size: 12px; font-weight: 500; color: var(--gt); }
 
+  /* Negative values stand out across all comparison panels */
+  .neg-flag {
+    color: #c31818 !important;
+    font-weight: 700;
+  }
+
+  /* ── TRUST STATS ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 0 22px;
+    padding: 0 24px;
+  }
+  .stat {
+    background: #f4f4f4;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 16px 10px 14px;
+    text-align: center;
+  }
+  .stat__num {
+    font-size: clamp(28px, 3.2vw, 44px);
+    line-height: 1;
+    letter-spacing: -.02em;
+    font-weight: 800;
+    color: #101010;
+    margin-bottom: 6px;
+  }
+  .stat__lbl {
+    font-size: 13px;
+    line-height: 1.25;
+    font-weight: 500;
+    color: #1f1f1f;
+  }
+
   /* ── BOTTOM BAR ── */
   .bar { background: var(--blue); border-radius: var(--r); padding: 20px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
   .bar__pills { display: flex; flex-wrap: wrap; gap: 20px; }
@@ -199,12 +255,21 @@
 
   @media (max-width: 700px) {
     .spa { padding: 40px 16px 56px; border-radius: 0; margin: 0; }
+    .intro-cards { grid-template-columns: 1fr; margin-bottom: 24px; }
+    .intro-card { padding: 14px 14px 13px; }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; padding-left: 0; padding-right: 0; }
+    .stat { padding: 14px 8px 12px; }
+    .stat__num { font-size: clamp(24px, 7vw, 34px); }
     .cases { grid-template-columns: 1fr 1fr; }
+    .panel .cases { min-height: auto; }
     .cmp-watch--adv { width: 54px; height: 54px; }
     .cmp-watch--comp { width: 54px; height: 54px; }
     .bar { flex-direction: column; align-items: flex-start; }
   }
-  @media (max-width: 440px) { .cases { grid-template-columns: 1fr; } }
+  @media (max-width: 440px) {
+    .cases { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -213,25 +278,32 @@
   <div class="hdr">
     <p class="hdr__eye">How does it compare?</p>
     <h2 class="hdr__h">Built differently.<br>For a reason.</h2>
-    <p class="hdr__sub">See how the Adventurer 2 stacks up against the most popular kids' smartwatches.</p>
+    <p class="hdr__sub">Adventurer 2 is built for safety-first families who don't want to compromise. From Spacetalk,  a brand trusted by over 30 million people with 20+ years of family safety leadership. Powered by Spacetalk Mobile, with competitive 4G data plans and app subscription included. All in one. Nothing you don't need.</p>
+  </div>
+
+  <div class="intro-cards">
+    <div class="intro-card"><p class="intro-card__body"><strong>20+ years of family safety.</strong> Spacetalk has been connecting and protecting families for decades. Trusted by over 30 million people, rated 4.4&#9733; by Australian families, and built with one purpose - keeping kids safe and families connected.</p></div>
+    <div class="intro-card"><p class="intro-card__body"><strong>Premium where it matters.</strong> GPS tracking, safe zones, SOS, school mode, video calling, and heart rate monitoring - all in one watch. Similar features exist elsewhere. Ours deliver top-tier audio, video, and network performance in real-world family use.</p></div>
+    <div class="intro-card"><p class="intro-card__body"><strong>Powered by Spacetalk Mobile 4G network coverage with our Spacetalk Family Safety App built into the life of the plan.</strong> Competitive data plans mean seamless connectivity - no add-ons, no compromise.</p></div>
+    <div class="intro-card"><p class="intro-card__body"><strong>Everything a parent needs.</strong> Nothing a kid should not have. No open internet. No unwanted contacts. No distractions. Just the features that matter - in a watch designed to earn the trust of parents and the love of kids.</p></div>
   </div>
 
   <div class="tabs">
-    <button class="tab on"  onclick="go('koc',this)">vs KidsoClock GL50</button>
-    <button class="tab"     onclick="go('garmin',this)">vs Garmin Bounce 2</button>
+    <button class="tab on"  onclick="go('garmin',this)">vs Garmin Bounce 2</button>
+    <button class="tab"     onclick="go('koc',this)">vs KidsoClock GL50</button>
     <button class="tab"     onclick="go('xplora',this)">vs Xplora X6 Play</button>
     <button class="tab"     onclick="go('pixbee',this)">vs Pixbee Pro</button>
     <button class="tab"     onclick="go('loop',this)">vs Spacetalk Loop</button>
   </div>
 
   <!-- ════════════════════════════════════════════════ KidsoClock -->
-  <div id="p-koc" class="panel on">
+  <div id="p-koc" class="panel">
     <p class="lbl">When safety matters most</p>
     <div class="cases">
-      <div class="uc"><div class="uc__ico">&#128196;</div><div class="uc__title">First walk to school alone</div><div class="uc__body">Your kid walks solo for the first time. You need GPS, a quick SOS, and confirmation they arrived safely — without handing them a phone.</div><div class="uc__tag">Own network plans, GPS + safe zones</div></div>
+      <div class="uc"><div class="uc__ico">&#128196;</div><div class="uc__title">First walk to school alone</div><div class="uc__body">Your kid walks solo for the first time. You need GPS, a quick SOS, and confirmation they arrived safely  -  without handing them a phone.</div><div class="uc__tag">Own network plans, GPS + safe zones</div></div>
       <div class="uc"><div class="uc__ico">&#127909;</div><div class="uc__title">Calling home after sport</div><div class="uc__body">Training ran late. A quick face-to-face video call from the wrist, with contacts managed entirely through the Spacetalk App.</div><div class="uc__tag">5MP video calling + dedicated parental app</div></div>
       <div class="uc"><div class="uc__ico">&#128274;</div><div class="uc__title">Keeping the internet off-limits</div><div class="uc__body">Kids don't need open web access on their wrist. Spacetalk locks it out by design, giving parents genuine peace of mind.</div><div class="uc__tag">No internet access, by design</div></div>
-      <div class="uc"><div class="uc__ico">&#128241;</div><div class="uc__title">One app for everything</div><div class="uc__body">Location, contacts, school mode, safe zones — all in the Spacetalk App, purpose-built for families, not a generic companion app.</div><div class="uc__tag">Purpose-built ecosystem, watch + plan together</div></div>
+      <div class="uc"><div class="uc__ico">&#128241;</div><div class="uc__title">One app for everything</div><div class="uc__body">Location, contacts, school mode, safe zones  -  all in the Spacetalk App, purpose-built for families, not a generic companion app.</div><div class="uc__tag">Purpose-built ecosystem, watch + plan together</div></div>
     </div>
     <p class="lbl">Feature comparison</p>
     <div class="cmp">
@@ -268,12 +340,12 @@
   </div>
 
   <!-- ════════════════════════════════════════════════ Garmin -->
-  <div id="p-garmin" class="panel">
+  <div id="p-garmin" class="panel on">
     <p class="lbl">When safety matters most</p>
     <div class="cases">
-      <div class="uc"><div class="uc__ico">&#127909;</div><div class="uc__title">Calling home after school</div><div class="uc__body">Garmin Bounce 2 has no camera and no video call. Adventurer 2 lets kids wave hello from the wrist with a 5MP front-facing camera.</div><div class="uc__tag">5MP camera + video calling vs none</div></div>
+      <div class="uc"><div class="uc__ico">&#127909;</div><div class="uc__title">Real video calling when kids need you</div><div class="uc__body">Garmin Bounce 2 has no camera and no video calling. Adventurer 2 gives families the full communication suite: 5MP video calls, voice calls, text messaging, and real 4G phone-number calling to approved contacts.</div><div class="uc__tag">Video call, voice, text + real 4G number calling</div></div>
       <div class="uc"><div class="uc__ico">&#128205;</div><div class="uc__title">Kid wanders outside the safe zone</div><div class="uc__body">Garmin Bounce 2 has no safe zone feature. Adventurer 2 fires an instant geo-fence alert the moment your kid goes out of bounds.</div><div class="uc__tag">GPS safe zones included vs none</div></div>
-      <div class="uc"><div class="uc__ico">&#128176;</div><div class="uc__title">Value-conscious families</div><div class="uc__body">Garmin costs AU$479 upfront plus AU$17/mo for a mandatory plan. Adventurer 2 is $130 cheaper to start with more features included.</div><div class="uc__tag">$349 vs AU$479 — more for less</div></div>
+      <div class="uc"><div class="uc__ico">&#128176;</div><div class="uc__title">Value-conscious families</div><div class="uc__body">Garmin costs AU$479 upfront plus AU$17/mo for a mandatory plan. Adventurer 2 is $130 cheaper to start with more features included.</div><div class="uc__tag">$349 vs AU$479  -  more for less</div></div>
       <div class="uc"><div class="uc__ico">&#127979;</div><div class="uc__title">Managing focus at school</div><div class="uc__body">Garmin Bounce 2 has no school mode. Adventurer 2 lets parents schedule it remotely so the watch silences automatically during class.</div><div class="uc__tag">School mode + remote scheduling vs none</div></div>
     </div>
     <p class="lbl">Feature comparison</p>
@@ -290,9 +362,9 @@
       <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Dedicated kids' safety brand</span><span class="fn">vs a fitness company's side product</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">Fitness brand</span></div></div>
       <div class="cmp-sec"><div class="cmp-sec__label">Communication</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
       <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Camera</span></div><div class="cmp-row__adv"><span class="tw">5MP</span></div><div class="cmp-row__comp"><span class="bn">&#10005; None</span></div></div>
-      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Video calling</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No</span></div></div>
-      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Voice &amp; text messaging</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
-      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">4G standalone</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Video calling</span><span class="fn">Face-to-face calls from the wrist with 5MP camera</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Voice &amp; text messaging</span><span class="fn">Part of a full suite: video + voice + text</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; App-only calling</span></div></div>
+      <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">4G standalone with phone number</span><span class="fn">Native cellular calling to approved numbers</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; Data-to-app only</span></div></div>
       <div class="cmp-sec"><div class="cmp-sec__label">Safety &amp; parental controls</div><div class="cmp-sec__adv"></div><div class="cmp-sec__comp"></div></div>
       <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">GPS tracking</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bs">&#10003; Yes</span></div></div>
       <div class="cmp-row"><div class="cmp-row__feat"><span class="fl">Safe zones / geo-fence alerts</span></div><div class="cmp-row__adv"><span class="bw">&#10003; Yes</span></div><div class="cmp-row__comp"><span class="bn">&#10005; No</span></div></div>
@@ -317,9 +389,9 @@
     <p class="lbl">When safety matters most</p>
     <div class="cases">
       <div class="uc"><div class="uc__ico">&#10084;</div><div class="uc__title">Kid feels unwell during the day</div><div class="uc__body">Your kid is feeling off. Adventurer 2's heart rate monitor gives you a live reading from the app. The X6 Play has no heart rate sensor at all.</div><div class="uc__tag">Heart rate monitoring included vs none</div></div>
-      <div class="uc"><div class="uc__ico">&#9728;</div><div class="uc__title">Checking the watch in bright sunlight</div><div class="uc__body">Adventurer 2's AMOLED display stays vivid and sharp outdoors. The X6 Play uses a TFT panel — noticeably duller in daylight.</div><div class="uc__tag">AMOLED display vs TFT</div></div>
+      <div class="uc"><div class="uc__ico">&#9728;</div><div class="uc__title">Checking the watch in bright sunlight</div><div class="uc__body">Adventurer 2's AMOLED display stays vivid and sharp outdoors. The X6 Play uses a TFT panel  -  noticeably duller in daylight.</div><div class="uc__tag">AMOLED display vs TFT</div></div>
       <div class="uc"><div class="uc__ico">&#127381;</div><div class="uc__title">Getting support when something goes wrong</div><div class="uc__body">Spacetalk is a dedicated kids' safety company. Xplora is a Norwegian brand with no local presence or dedicated support team.</div><div class="uc__tag">Dedicated kids' safety brand</div></div>
-      <div class="uc"><div class="uc__ico">&#128241;</div><div class="uc__title">Managing everything from one place</div><div class="uc__body">Location, contacts, school mode, safe zones — all from the Spacetalk App, purpose-built for families, not bolted onto a telecom product.</div><div class="uc__tag">Purpose-built parental app + own network plans</div></div>
+      <div class="uc"><div class="uc__ico">&#128241;</div><div class="uc__title">Managing everything from one place</div><div class="uc__body">Location, contacts, school mode, safe zones  -  all from the Spacetalk App, purpose-built for families, not bolted onto a telecom product.</div><div class="uc__tag">Purpose-built parental app + own network plans</div></div>
     </div>
     <p class="lbl">Feature comparison</p>
     <div class="cmp">
@@ -359,7 +431,7 @@
   <div id="p-pixbee" class="panel">
     <p class="lbl">When safety matters most</p>
     <div class="cases">
-      <div class="uc"><div class="uc__ico">&#128200;</div><div class="uc__title">Smoother, faster performance</div><div class="uc__body">Pixbee Pro runs on 512MB RAM and 4GB storage. Adventurer 2 has double the memory — apps, video calls and GPS load faster and more reliably.</div><div class="uc__tag">1 GB RAM + 8 GB storage vs 512 MB / 4 GB</div></div>
+      <div class="uc"><div class="uc__ico">&#128200;</div><div class="uc__title">Smoother, faster performance</div><div class="uc__body">Pixbee Pro runs on 512MB RAM and 4GB storage. Adventurer 2 has double the memory  -  apps, video calls and GPS load faster and more reliably.</div><div class="uc__tag">1 GB RAM + 8 GB storage vs 512 MB / 4 GB</div></div>
       <div class="uc"><div class="uc__ico">&#10084;</div><div class="uc__title">Checking in on your kid's health</div><div class="uc__body">Pixbee Pro has no heart rate sensor. Adventurer 2 monitors heart rate continuously throughout the day so you always have a read on how they're going.</div><div class="uc__tag">Heart rate monitor included vs none</div></div>
       <div class="uc"><div class="uc__ico">&#128241;</div><div class="uc__title">Watch + plan, all in one place</div><div class="uc__body">Pixbee Pro requires a BYO SIM from a third-party provider. Adventurer 2 comes with a SIM included and Spacetalk plans built specifically around the watch.</div><div class="uc__tag">Integrated network plans vs BYO SIM</div></div>
       <div class="uc"><div class="uc__ico">&#9728;</div><div class="uc__title">Easier to read in bright light</div><div class="uc__body">Pixbee Pro uses an IPS display. Adventurer 2's AMOLED screen delivers deeper contrast, more vivid colours and is noticeably sharper in outdoor conditions.</div><div class="uc__tag">AMOLED display vs IPS</div></div>
@@ -404,10 +476,10 @@
   <div id="p-loop" class="panel">
     <p class="lbl">Why upgrade to Adventurer 2?</p>
     <div class="cases">
-      <div class="uc"><div class="uc__ico">&#127909;</div><div class="uc__title">Face-to-face calls home</div><div class="uc__body">Loop is voice and text only — no video calling. Adventurer 2's 5MP front camera lets kids make face-to-face video calls to approved contacts, straight from the wrist.</div><div class="uc__tag">Video calling + 5MP camera vs voice calls only</div></div>
+      <div class="uc"><div class="uc__ico">&#127909;</div><div class="uc__title">Face-to-face calls home</div><div class="uc__body">Loop is voice and text only  -  no video calling. Adventurer 2's 5MP front camera lets kids make face-to-face video calls to approved contacts, straight from the wrist.</div><div class="uc__tag">Video calling + 5MP camera vs voice calls only</div></div>
       <div class="uc"><div class="uc__ico">&#9728;</div><div class="uc__title">A screen that's easy to read anywhere</div><div class="uc__body">Loop has a 1.5" IPS panel. Adventurer 2's AMOLED delivers deeper blacks, more vivid colours and stays sharp and readable in bright outdoor light.</div><div class="uc__tag">AMOLED display vs IPS</div></div>
-      <div class="uc"><div class="uc__ico">&#128200;</div><div class="uc__title">More power under the hood</div><div class="uc__body">Loop runs on 16MB RAM with a lightweight RTOS. Adventurer 2 runs Android 8.1 with 1GB RAM and 8GB storage — faster, smoother, and more capable across the board.</div><div class="uc__tag">1 GB RAM / 8 GB storage vs 16 MB / 88 MB</div></div>
-      <div class="uc"><div class="uc__ico">&#128247;</div><div class="uc__title">Sharper photos and memories</div><div class="uc__body">Loop's 2MP camera captures the basics. Adventurer 2's 5MP camera takes noticeably clearer shots — great for kids who love snapping their adventures.</div><div class="uc__tag">5MP camera vs 2MP</div></div>
+      <div class="uc"><div class="uc__ico">&#128200;</div><div class="uc__title">More power under the hood</div><div class="uc__body">Loop runs on 16MB RAM with a lightweight RTOS. Adventurer 2 runs Android 8.1 with 1GB RAM and 8GB storage  -  faster, smoother, and more capable across the board.</div><div class="uc__tag">1 GB RAM / 8 GB storage vs 16 MB / 88 MB</div></div>
+      <div class="uc"><div class="uc__ico">&#128247;</div><div class="uc__title">Sharper photos and memories</div><div class="uc__body">Loop's 2MP camera captures the basics. Adventurer 2's 5MP camera takes noticeably clearer shots  -  great for kids who love snapping their adventures.</div><div class="uc__tag">5MP camera vs 2MP</div></div>
     </div>
     <p class="lbl">Feature comparison</p>
     <div class="cmp">
@@ -442,6 +514,14 @@
     </div>
   </div>
 
+  <!-- TRUST STATS -->
+  <div class="stats" aria-label="Spacetalk trust stats">
+    <div class="stat"><p class="stat__num">500K+</p><p class="stat__lbl">App Downloads</p></div>
+    <div class="stat"><p class="stat__num">4.4&#9733;</p><p class="stat__lbl">App Store Rating</p></div>
+    <div class="stat"><p class="stat__num">20+</p><p class="stat__lbl">Years of Family Safety</p></div>
+    <div class="stat"><p class="stat__num">30M+</p><p class="stat__lbl">People Connected</p></div>
+  </div>
+
   <!-- BOTTOM BAR -->
   <div class="bar">
     <div class="bar__pills">
@@ -462,7 +542,79 @@ function go(id, el) {
   document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('on'); });
   document.getElementById('p-'+id).classList.add('on');
   el.classList.add('on');
+
+  scheduleCasesHeightLock();
 }
+
+function flagNegativeComparisonValues() {
+  var valueNodes = document.querySelectorAll('.cmp-row__adv span, .cmp-row__comp span');
+
+  valueNodes.forEach(function(node) {
+    var text = (node.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+    var isNegative = /(^|\b)(no|none)\b/.test(text) || text.indexOf('✕') !== -1 || text.indexOf('✖') !== -1 || text.indexOf('✗') !== -1;
+
+    if (isNegative) {
+      node.classList.add('neg-flag');
+    }
+  });
+}
+
+function lockCasesHeight() {
+  var referenceGroup = document.querySelector('#p-garmin .cases');
+  if (!referenceGroup) return;
+
+  if (window.matchMedia('(max-width: 700px)').matches) {
+    document.documentElement.style.removeProperty('--cases-lock-height');
+    return;
+  }
+
+  var panel = referenceGroup.closest('.panel');
+  if (!panel) return;
+
+  var wasActive = panel.classList.contains('on');
+  var previousDisplay = panel.style.display;
+  var previousPosition = panel.style.position;
+  var previousVisibility = panel.style.visibility;
+  var previousPointerEvents = panel.style.pointerEvents;
+
+  if (!wasActive) {
+    panel.style.display = 'block';
+    panel.style.position = 'absolute';
+    panel.style.visibility = 'hidden';
+    panel.style.pointerEvents = 'none';
+  }
+
+  var lockHeight = Math.ceil(referenceGroup.offsetHeight);
+
+  if (!wasActive) {
+    panel.style.display = previousDisplay;
+    panel.style.position = previousPosition;
+    panel.style.visibility = previousVisibility;
+    panel.style.pointerEvents = previousPointerEvents;
+  }
+
+  if (lockHeight > 0) {
+    document.documentElement.style.setProperty('--cases-lock-height', lockHeight + 'px');
+  }
+}
+
+var lockCasesHeightRAF;
+function scheduleCasesHeightLock() {
+  if (lockCasesHeightRAF) {
+    cancelAnimationFrame(lockCasesHeightRAF);
+  }
+
+  lockCasesHeightRAF = requestAnimationFrame(function() {
+    lockCasesHeight();
+  });
+}
+
+flagNegativeComparisonValues();
+scheduleCasesHeightLock();
+
+window.addEventListener('load', scheduleCasesHeightLock);
+window.addEventListener('resize', scheduleCasesHeightLock);
+window.addEventListener('orientationchange', scheduleCasesHeightLock);
 </script>
 </body>
 </html>
