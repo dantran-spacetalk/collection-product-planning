@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kids Smartwatches — Adventurer 2 & Loop | Spacetalk</title>
+<link rel="stylesheet" href="https://spacetalk.co/cdn/shop/t/164/assets/font.css?v=128279079393619495791777438268">
+<style>
+/* ── RESET ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── TOKENS ───────────────────────────────────────────── */
+:root {
+  --black:     #171717;
+  --blue:      #3315D0;
+  --sky:       #86AFFF;
+  --violet:    #6C0590;
+  --sakura:    #FFBFBF;
+  --evergreen: #0C4029;
+  --neon:      #D4FD00;
+  --white:     #ffffff;
+  --g50:       #F9F9F9;
+  --g100:      #F2F2F2;
+  --g200:      #E4E4E4;
+  --g400:      #7A7A7A;
+  --g600:      #444444;
+  --r:         14px;
+  --rp:        999px;
+  --ease:      cubic-bezier(.65,0,.35,1);
+  --max:       1180px;
+}
+
+/* ── BASE ─────────────────────────────────────────────── */
+html  { scroll-behavior: smooth; }
+body  {
+  font-family: 'TWK Lausanne', 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+img    { max-width: 100%; display: block; }
+button { cursor: pointer; font: inherit; border: none; background: none; }
+a      { color: inherit; text-decoration: none; }
+
+/* ── LAYOUT ───────────────────────────────────────────── */
+.container { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+@media (max-width: 768px) { .container { padding: 0 16px; } }
+
+/* ── STICKY NAV ───────────────────────────────────────── */
+.snav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--black);
+  height: 54px;
+  display: flex; align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.snav__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 28px;
+}
+.snav__logo { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--white); }
+.snav__links { display: flex; gap: 20px; }
+.snav__link { font-size: 13px; color: rgba(255,255,255,0.55); transition: color .2s; }
+.snav__link:hover { color: var(--white); }
+.snav__cta {
+  background: var(--blue); color: var(--white);
+  padding: 8px 18px; border-radius: var(--rp);
+  font-size: 13px; font-weight: 600; transition: background .2s;
+}
+.snav__cta:hover { background: #2810b8; }
+@media (max-width: 768px) {
+  .snav__links { display: none; }
+  .snav__inner { padding: 0 16px; }
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.hero {
+  background: var(--black);
+  color: var(--white);
+  padding: 88px 28px 72px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 0%, rgba(51,21,208,0.45) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 30% at 80% 80%, rgba(108,5,144,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero__inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+.hero__eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--neon); margin-bottom: 24px;
+}
+.hero__eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon); }
+.hero__title {
+  font-size: clamp(38px, 5.5vw, 72px);
+  font-weight: 700; letter-spacing: -0.035em; line-height: 1.0;
+  margin-bottom: 22px;
+}
+.hero__title em { font-style: normal; color: var(--sky); }
+.hero__sub {
+  font-size: clamp(15px, 1.4vw, 17px);
+  color: rgba(255,255,255,0.6); max-width: 520px; margin: 0 auto 44px;
+  line-height: 1.65;
+}
+.hero__btns {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 52px;
+}
+.hbtn {
+  height: 52px; padding: 0 26px;
+  border-radius: var(--rp); font-size: 15px; font-weight: 600;
+  transition: all .2s; display: inline-flex; align-items: center; gap: 6px;
+}
+.hbtn--adv2  { background: var(--blue); color: var(--white); }
+.hbtn--adv2:hover { background: #2810b8; }
+.hbtn--loop  {
+  background: rgba(255,255,255,0.1); color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.2);
+}
+.hbtn--loop:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.45); }
+.hbtn--quiz  { background: var(--neon); color: var(--black); }
+.hbtn--quiz:hover { background: #c0e300; }
+.hero__trust {
+  display: flex; gap: 28px; justify-content: center; flex-wrap: wrap;
+  padding-top: 44px; border-top: 1px solid rgba(255,255,255,0.08);
+}
+.hero__trust-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; color: rgba(255,255,255,0.45);
+}
+@media (max-width: 600px) {
+  .hero { padding: 64px 16px 56px; }
+  .hero__btns { flex-direction: column; align-items: center; }
+  .hbtn { width: 280px; justify-content: center; }
+  .hero__trust { gap: 16px; }
+}
+
+/* ── QUIZ ─────────────────────────────────────────────── */
+#quiz-wrap {
+  background: var(--black);
+  overflow: hidden; max-height: 0;
+  transition: max-height .55s var(--ease);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+#quiz-wrap.open { max-height: 640px; }
+.quiz { max-width: 600px; margin: 0 auto; padding: 0 24px 64px; }
+.quiz__prog {
+  display: flex; gap: 6px; justify-content: center;
+  padding-top: 40px; margin-bottom: 36px;
+}
+.quiz__dot {
+  height: 3px; border-radius: 2px; background: rgba(255,255,255,0.15);
+  transition: all .3s; flex: 1; max-width: 40px;
+}
+.quiz__dot.active { background: var(--neon); }
+.quiz__step { display: none; animation: qFadeIn .3s ease; }
+.quiz__step.active { display: block; }
+@keyframes qFadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+.quiz__qnum {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--sky); text-align: center; margin-bottom: 12px;
+}
+.quiz__qtext {
+  font-size: clamp(22px, 3vw, 30px); font-weight: 700;
+  color: var(--white); text-align: center; margin-bottom: 28px;
+  letter-spacing: -0.02em;
+}
+.quiz__opts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+.quiz__opt {
+  padding: 20px 16px; border-radius: 12px;
+  border: 1.5px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  color: var(--white); text-align: center;
+  font-size: 15px; font-weight: 500;
+  transition: all .18s; line-height: 1.3;
+}
+.quiz__opt:hover, .quiz__opt.selected {
+  border-color: var(--neon); background: rgba(212,253,0,0.1); color: var(--neon);
+}
+.quiz__result { display: none; text-align: center; padding: 8px 0 0; animation: qFadeIn .35s ease; }
+.quiz__result.active { display: block; }
+.quiz__res-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--neon); margin-bottom: 14px;
+}
+.quiz__res-title {
+  font-size: clamp(24px, 3.5vw, 36px); font-weight: 700;
+  color: var(--white); margin-bottom: 12px; letter-spacing: -0.025em;
+}
+.quiz__res-sub {
+  font-size: 15px; color: rgba(255,255,255,0.6);
+  max-width: 420px; margin: 0 auto 28px; line-height: 1.6;
+}
+.quiz__res-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--neon); color: var(--black);
+  padding: 16px 36px; border-radius: var(--rp);
+  font-size: 16px; font-weight: 700; cursor: pointer;
+  transition: background .2s;
+}
+.quiz__res-btn:hover { background: #c0e300; }
+.quiz__restart {
+  display: block; margin-top: 16px;
+  font-size: 13px; color: rgba(255,255,255,0.35);
+  text-decoration: underline; cursor: pointer; background: none; border: none;
+}
+
+/* ── SECTION CHROME ───────────────────────────────────── */
+.sec-hd { text-align: center; margin-bottom: 52px; }
+.sec-eye {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 14px;
+}
+.sec-title {
+  font-size: clamp(30px, 3.8vw, 48px); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 16px;
+}
+.sec-sub {
+  font-size: 16px; color: var(--g600);
+  max-width: 540px; margin: 0 auto; line-height: 1.65;
+}
+.section--white { padding: 88px 0; background: var(--white); }
+.section--light  { padding: 88px 0; background: var(--g50); }
+.section--dark   { padding: 88px 0; background: var(--black); color: var(--white); }
+.section--dark .sec-eye  { color: var(--sky); }
+.section--dark .sec-sub  { color: rgba(255,255,255,0.55); }
+.section--green  { padding: 40px 0; background: var(--evergreen); color: var(--white); }
+
+/* ── SKU CARDS ────────────────────────────────────────── */
+.sku-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-bottom: 20px;
+}
+@media (max-width: 840px) {
+  .sku-row { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto 20px; }
+}
+.sku-card {
+  border-radius: 16px; border: 1.5px solid var(--g200);
+  background: var(--white); overflow: hidden;
+  position: relative; transition: border-color .2s, box-shadow .2s, transform .2s;
+  display: flex; flex-direction: column;
+}
+.sku-card:hover {
+  border-color: var(--blue); box-shadow: 0 6px 32px rgba(51,21,208,0.14);
+  transform: translateY(-3px);
+}
+/* Dark variant for Loop section */
+.sku-card--dark {
+  background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: var(--white);
+}
+.sku-card--dark:hover { border-color: var(--sky); box-shadow: 0 6px 32px rgba(134,175,255,0.2); }
+
+/* Neon quiz result pulse */
+.sku-card.quiz-pulse { animation: neonPulse 1.4s ease 3; }
+@keyframes neonPulse {
+  0%   { border-color: var(--neon); box-shadow: 0 0 0 0   rgba(212,253,0,0); }
+  25%  { border-color: var(--neon); box-shadow: 0 0 0 10px rgba(212,253,0,0.28); }
+  50%  { border-color: var(--neon); box-shadow: 0 0 0 6px  rgba(212,253,0,0.14); }
+  75%  { border-color: var(--neon); box-shadow: 0 0 0 10px rgba(212,253,0,0.08); }
+  100% { border-color: var(--neon); box-shadow: 0 0 0 0   rgba(212,253,0,0); }
+}
+
+.sku-badge {
+  position: absolute; top: 12px; right: 12px; z-index: 2;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: var(--rp);
+}
+.badge--pop   { background: var(--blue); color: var(--white); }
+.badge--value { background: var(--neon); color: var(--black); }
+
+.sku-img {
+  width: 100%; aspect-ratio: 1 / 1; overflow: hidden;
+  background: var(--g50); display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.sku-card--dark .sku-img { background: rgba(255,255,255,0.04); }
+.sku-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sku-img-ph {
+  width: 100%; height: 100%; position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.sku-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.sku-name { font-size: 18px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 6px; }
+.sku-includes { font-size: 12px; color: var(--g400); margin-bottom: 16px; line-height: 1.5; }
+.sku-card--dark .sku-includes { color: rgba(255,255,255,0.4); }
+.sku-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
+.sku-price { font-size: 30px; font-weight: 700; letter-spacing: -0.025em; }
+.sku-compare { font-size: 15px; color: var(--g400); text-decoration: line-through; }
+.sku-save { font-size: 11px; font-weight: 700; color: #D01515; }
+.sku-apy { font-size: 11px; color: var(--g400); margin-bottom: 18px; }
+.sku-card--dark .sku-apy { color: rgba(255,255,255,0.3); }
+.sku-cta {
+  display: block; width: 100%; padding: 14px;
+  background: var(--blue); color: var(--white);
+  border-radius: 10px; font-size: 14px; font-weight: 600;
+  text-align: center; transition: background .2s; margin-bottom: 10px; margin-top: auto;
+}
+.sku-cta:hover { background: #2810b8; }
+.sku-feat-btn {
+  width: 100%; padding: 11px;
+  border: 1.5px solid var(--g200); border-radius: 10px;
+  font-size: 13px; font-weight: 500; color: var(--black);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: all .2s;
+}
+.sku-feat-btn:hover { border-color: var(--blue); color: var(--blue); }
+.sku-card--dark .sku-feat-btn { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.65); }
+.sku-card--dark .sku-feat-btn:hover { border-color: var(--sky); color: var(--sky); }
+.sku-feat-btn svg { transition: transform .2s; }
+.sku-feat-btn.open svg { transform: rotate(180deg); }
+
+/* ── INLINE FEATURES (mobile) ─────────────────────────── */
+.feat-inline { overflow: hidden; max-height: 0; transition: max-height .45s var(--ease); }
+.feat-inline.open { max-height: 1000px; }
+.feat-inline-body {
+  border-top: 1px solid var(--g100); background: var(--g50);
+  padding: 20px;
+}
+.sku-card--dark .feat-inline-body { background: rgba(255,255,255,0.04); border-top-color: rgba(255,255,255,0.08); }
+.feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.feat-item { display: flex; gap: 10px; align-items: flex-start; }
+.feat-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 17px;
+  background: rgba(51,21,208,0.09);
+}
+.feat-label { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+.feat-desc  { font-size: 11px; color: var(--g600); line-height: 1.45; }
+.sku-card--dark .feat-label { color: rgba(255,255,255,0.9); }
+.sku-card--dark .feat-desc  { color: rgba(255,255,255,0.45); }
+
+/* ── DESKTOP FEATURES DRAWER ─────────────────────────── */
+#feat-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 499;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+#feat-overlay.open { opacity: 1; pointer-events: auto; }
+#feat-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(500px, 92vw);
+  background: var(--white); z-index: 500;
+  transform: translateX(110%); transition: transform .38s var(--ease);
+  box-shadow: -12px 0 48px rgba(0,0,0,0.18);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+#feat-drawer.open { transform: translateX(0); }
+.drawer-hd {
+  padding: 24px; border-bottom: 1px solid var(--g100);
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; background: var(--white); z-index: 1;
+}
+.drawer-name { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+.drawer-close {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--g100); font-size: 20px; color: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.drawer-close:hover { background: var(--g200); }
+.drawer-body { padding: 24px 24px 48px; overflow-y: auto; flex: 1; }
+.dfeat-item {
+  display: flex; gap: 16px; padding: 16px 0;
+  border-bottom: 1px solid var(--g100); align-items: flex-start;
+}
+.dfeat-item:last-child { border-bottom: none; }
+.dfeat-emoji { font-size: 26px; width: 44px; text-align: center; flex-shrink: 0; padding-top: 2px; }
+.dfeat-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.dfeat-desc  { font-size: 13px; color: var(--g600); line-height: 1.55; }
+
+/* ── PLAN NOTE ────────────────────────────────────────── */
+.plan-note {
+  text-align: center; font-size: 13px; color: var(--g400);
+  margin-top: 4px; padding: 14px;
+  border-top: 1px solid var(--g100);
+}
+.section--dark .plan-note { color: rgba(255,255,255,0.3); border-top-color: rgba(255,255,255,0.06); }
+
+/* ── COMPARISON ───────────────────────────────────────── */
+.comp-wrap {
+  background: var(--white); border-radius: 20px;
+  overflow: hidden; border: 1.5px solid var(--g200);
+}
+.comp-tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+.comp-tbl th {
+  padding: 22px 24px; text-align: left;
+  font-size: 17px; font-weight: 700; background: var(--white);
+}
+.comp-tbl th:nth-child(2) { color: var(--blue); }
+.comp-tbl th:nth-child(3) { color: var(--evergreen); }
+.comp-cat {
+  padding: 14px 24px 8px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--g400); background: var(--g100);
+}
+.comp-tbl td { padding: 13px 24px; border-bottom: 1px solid var(--g100); vertical-align: middle; }
+.comp-tbl tr:last-child td { border-bottom: none; }
+.comp-feat { font-weight: 500; }
+.comp-yes   { color: #0a7c2e; font-weight: 600; }
+.comp-no    { color: var(--g400); }
+.comp-hl    { background: rgba(51,21,208,0.025); }
+@media (max-width: 640px) {
+  .comp-tbl th { padding: 16px 12px; font-size: 14px; }
+  .comp-tbl td { padding: 11px 12px; font-size: 12px; }
+}
+
+/* ── ECOSYSTEM ────────────────────────────────────────── */
+.eco-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px; margin-top: 52px;
+}
+@media (max-width: 768px) { .eco-grid { grid-template-columns: 1fr; } }
+.eco-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 16px; padding: 36px 32px;
+}
+.eco-who {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--sky); margin-bottom: 10px;
+}
+.eco-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.02em; }
+.eco-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.eco-list li {
+  font-size: 14px; color: rgba(255,255,255,0.65);
+  display: flex; align-items: flex-start; gap: 10px; line-height: 1.45;
+}
+.eco-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--neon); margin-top: 7px; flex-shrink: 0;
+}
+.eco-app-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  color: var(--white); padding: 14px 28px; border-radius: var(--rp);
+  font-size: 14px; font-weight: 600; margin-top: 40px;
+  transition: background .2s;
+}
+.eco-app-link:hover { background: rgba(255,255,255,0.14); }
+
+/* ── OBJECTIONS ───────────────────────────────────────── */
+.obj-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-top: 52px;
+}
+@media (max-width: 840px) { .obj-grid { grid-template-columns: 1fr; } }
+.obj-card { border-radius: 16px; padding: 36px 30px; }
+.obj-card--neon  { background: var(--neon); color: var(--black); }
+.obj-card--dark  { background: var(--black); color: var(--white); }
+.obj-card--blue  { background: var(--blue); color: var(--white); }
+.obj-icon  { font-size: 34px; margin-bottom: 18px; }
+.obj-title {
+  font-size: 21px; font-weight: 700; letter-spacing: -0.02em;
+  margin-bottom: 14px; line-height: 1.2;
+}
+.obj-text  { font-size: 14px; line-height: 1.65; opacity: 0.75; }
+
+/* ── SETUP ────────────────────────────────────────────── */
+.setup-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 14px; margin: 52px 0 32px;
+}
+@media (max-width: 768px) { .setup-steps { grid-template-columns: 1fr 1fr; } }
+.setup-step {
+  background: var(--white); border-radius: 14px;
+  padding: 28px 22px; text-align: center;
+  border: 1.5px solid var(--g200);
+}
+.step-num {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--blue); color: var(--white);
+  font-size: 17px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+.step-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.step-text  { font-size: 13px; color: var(--g600); line-height: 1.55; }
+.setup-note {
+  background: rgba(212,253,0,0.12); border: 1.5px solid rgba(212,253,0,0.5);
+  border-radius: 12px; padding: 18px 22px;
+  display: flex; gap: 14px; align-items: flex-start;
+  max-width: 580px; margin: 0 auto 32px;
+}
+.setup-note-icon { font-size: 20px; flex-shrink: 0; }
+.setup-note-text { font-size: 14px; color: var(--g600); line-height: 1.55; }
+
+/* ── SUPPORT STRIP ────────────────────────────────────── */
+.sup-inner {
+  display: flex; gap: 28px; flex-wrap: wrap;
+  align-items: center; justify-content: space-between;
+}
+.sup-item { display: flex; align-items: center; gap: 14px; }
+.sup-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.sup-label { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
+.sup-value { font-size: 14px; font-weight: 600; }
+@media (max-width: 640px) { .sup-inner { gap: 20px; } .sup-item { width: calc(50% - 10px); } }
+
+/* ── REVIEWS ──────────────────────────────────────────── */
+.reviews-agg {
+  display: flex; align-items: center; gap: 28px;
+  background: var(--g50); border-radius: 14px;
+  padding: 28px 32px; margin-bottom: 44px; flex-wrap: wrap;
+}
+.rev-score { font-size: 52px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+.rev-stars-big { font-size: 22px; color: #F59E0B; margin-bottom: 4px; }
+.rev-count { font-size: 12px; color: var(--g400); }
+.rev-divider { width: 1px; height: 60px; background: var(--g200); flex-shrink: 0; }
+.rev-note { font-size: 14px; color: var(--g600); max-width: 260px; line-height: 1.55; }
+.reviews-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 840px) { .reviews-grid { grid-template-columns: 1fr; } }
+.rev-card { background: var(--g50); border-radius: 14px; padding: 28px 24px; }
+.rev-stars { color: #F59E0B; font-size: 15px; margin-bottom: 12px; letter-spacing: 1px; }
+.rev-text  { font-size: 14px; line-height: 1.65; color: var(--g600); margin-bottom: 18px; font-style: italic; }
+.rev-name  { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.rev-verified { font-size: 11px; color: #0a7c2e; font-weight: 500; }
+
+/* ── SEO ──────────────────────────────────────────────── */
+.seo-inner { max-width: 800px; margin: 0 auto; }
+.seo-inner h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+.seo-inner p  { font-size: 14px; color: var(--g600); line-height: 1.75; margin-bottom: 12px; }
+
+/* ── UTILITIES ────────────────────────────────────────── */
+.text-center { text-align: center; }
+.mt-8  { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mt-40 { margin-top: 40px; }
+
+/* Primary CTA button (reusable) */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue); color: var(--white);
+  padding: 15px 34px; border-radius: var(--rp);
+  font-size: 15px; font-weight: 600; transition: background .2s; cursor: pointer;
+}
+.btn-primary:hover { background: #2810b8; }
+
+/* ── Scroll-reveal ────────────────────────────────────── */
+.st-reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
+}
+.st-reveal.is-visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ NAV ══════════════════════════════════ -->
+<nav class="snav">
+  <div class="snav__inner">
+    <span class="snav__logo">Spacetalk</span>
+    <div class="snav__links">
+      <a class="snav__link" href="#adventurer-2">Adventurer 2</a>
+      <a class="snav__link" href="#loop">Loop</a>
+      <a class="snav__link" href="#comparison">Compare</a>
+      <a class="snav__link" href="#setup">Setup</a>
+    </div>
+    <a class="snav__cta" href="#adventurer-2">Shop now</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════ HERO ═════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero__inner">
+    <div class="hero__eyebrow">
+      <span class="hero__eyebrow-dot"></span>
+      Australia's #1 kids smartwatch
+    </div>
+    <h1 class="hero__title">Freedom for them.<br><em>Peace of mind</em> for you.</h1>
+    <p class="hero__sub">GPS tracking, 4G calling, SOS and School Mode — on the Telstra network. No internet. No social media. Just connection.</p>
+
+    <div class="hero__btns">
+      <button class="hbtn hbtn--adv2" onclick="scrollTo('adventurer-2')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="15" r="2.5"/></svg>
+        Adventurer 2
+      </button>
+      <button class="hbtn hbtn--loop" onclick="scrollTo('loop')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+        Loop
+      </button>
+      <button class="hbtn hbtn--quiz" onclick="toggleQuiz()">
+        Not sure? Take the quiz →
+      </button>
+    </div>
+
+    <div class="hero__trust">
+      <div class="hero__trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        4.4 stars · 3,200+ reviews
+      </div>
+      <div class="hero__trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Free shipping on orders $299+
+      </div>
+      <div class="hero__trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Telstra 4G network
+      </div>
+      <div class="hero__trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Made for Australian families
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ QUIZ ═════════════════════════════════ -->
+<div id="quiz-wrap">
+  <div class="quiz">
+    <div class="quiz__prog">
+      <div class="quiz__dot active" id="qd1"></div>
+      <div class="quiz__dot" id="qd2"></div>
+      <div class="quiz__dot" id="qd3"></div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="quiz__step active" id="qs1">
+      <div class="quiz__qnum">Question 1 of 3</div>
+      <div class="quiz__qtext">How old is your child?</div>
+      <div class="quiz__opts">
+        <button class="quiz__opt" onclick="qa(1,'u6')">Under 6</button>
+        <button class="quiz__opt" onclick="qa(1,'6-9')">6 – 9</button>
+        <button class="quiz__opt" onclick="qa(1,'10p')">10+</button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz__step" id="qs2">
+      <div class="quiz__qnum">Question 2 of 3</div>
+      <div class="quiz__qtext">What matters most to you?</div>
+      <div class="quiz__opts">
+        <button class="quiz__opt" onclick="qa(2,'video')">📹 Video calling</button>
+        <button class="quiz__opt" onclick="qa(2,'gps')">📍 GPS &amp; safety</button>
+        <button class="quiz__opt" onclick="qa(2,'both')">✨ Both</button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz__step" id="qs3">
+      <div class="quiz__qnum">Question 3 of 3</div>
+      <div class="quiz__qtext">What's your budget?</div>
+      <div class="quiz__opts">
+        <button class="quiz__opt" onclick="qa(3,'u250')">Under $250</button>
+        <button class="quiz__opt" onclick="qa(3,'250p')">$250 and above</button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="quiz__result" id="quiz-result">
+      <div class="quiz__res-label">We recommend</div>
+      <div class="quiz__res-title" id="qr-title"></div>
+      <div class="quiz__res-sub" id="qr-sub"></div>
+      <button class="quiz__res-btn" onclick="scrollToResult()">
+        Show me this watch ↓
+      </button>
+      <button class="quiz__restart" onclick="resetQuiz()">Start again</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ TRUST STATS ═════════════════════════════ -->
+<div style="background:var(--black);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);padding:36px 0">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center">
+      <div>
+        <div style="font-size:clamp(28px,4vw,42px);font-weight:700;letter-spacing:-0.04em;color:var(--white);line-height:1">#1</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:6px;line-height:1.4">Kids smartwatch brand<br>in Australia</div>
+      </div>
+      <div>
+        <div style="font-size:clamp(28px,4vw,42px);font-weight:700;letter-spacing:-0.04em;color:var(--white);line-height:1">4.4★</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:6px;line-height:1.4">Average App Store<br>rating from families</div>
+      </div>
+      <div>
+        <div style="font-size:clamp(28px,4vw,42px);font-weight:700;letter-spacing:-0.04em;color:var(--neon);line-height:1">3,200+</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:6px;line-height:1.4">Verified reviews from<br>Australian families</div>
+      </div>
+      <div>
+        <div style="font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-0.03em;color:var(--white);line-height:1;padding-top:4px">Telstra</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:6px;line-height:1.4">Australia's largest<br>4G network</div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>@media(max-width:640px){.trust-stats-inner{grid-template-columns:1fr 1fr!important}}</style>
+
+<!-- ══════════════════════════ ADVENTURER 2 SECTION ══════════════════════════ -->
+<section class="section--white" id="adventurer-2">
+  <div class="container">
+    <div class="sec-hd">
+      <div class="sec-eye">Adventurer 2</div>
+      <h2 class="sec-title">Video calling. Real-time GPS.<br>Total safety.</h2>
+      <p class="sec-sub">The full Spacetalk experience — face-to-face HD video calls, 5MP camera, precise GPS tracking and SOS. Recommended for kids aged 6–14.</p>
+    </div>
+
+    <div class="sku-row">
+
+      <!-- Watch Only -->
+      <div class="sku-card" id="adv2-watch">
+        <div class="sku-img">
+          <img src="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=800"
+               onerror="this.style.display='none';this.parentElement.querySelector('.sku-img-ph').style.display='flex'"
+               alt="Adventurer 2 Watch">
+          <div class="sku-img-ph" style="display:none">
+            <svg width="90" height="120" viewBox="0 0 90 140" fill="none">
+              <rect x="18" y="20" width="54" height="100" rx="14" fill="#E4E4E4"/>
+              <rect x="24" y="28" width="42" height="58" rx="6" fill="#D0D0D0"/>
+              <circle cx="45" cy="104" r="8" fill="#D0D0D0"/>
+              <rect x="30" y="2" width="30" height="10" rx="5" fill="#CBCBCB"/>
+              <rect x="30" y="128" width="30" height="10" rx="5" fill="#CBCBCB"/>
+            </svg>
+          </div>
+        </div>
+        <div class="sku-body">
+          <div class="sku-name">Watch Only</div>
+          <div class="sku-includes">Adventurer 2 smartwatch · Magnetic charger</div>
+          <div class="sku-price-row">
+            <span class="sku-price">$299</span>
+          </div>
+          <div class="sku-apy">or 4 × $74.75 with Afterpay</div>
+          <a href="https://spacetalk.co/products/spacetalk-adventurer-2" class="sku-cta">Add to cart</a>
+          <button class="sku-feat-btn" id="adv2-watch-featbtn" onclick="toggleInline('adv2-watch', 'adv2')">
+            See features
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="feat-inline" id="adv2-watch-inline">
+            <div class="feat-inline-body" id="adv2-watch-inline-body"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Essential Bundle — Most Popular -->
+      <div class="sku-card" id="adv2-essential">
+        <div class="sku-badge badge--pop">Most popular</div>
+        <div class="sku-img">
+          <img src="https://spacetalk.co/cdn/shop/files/adv2-essential-bundle.jpg?v=1772377570&width=1000"
+               onerror="this.style.display='none';this.parentElement.querySelector('.sku-img-ph').style.display='flex'"
+               alt="Adventurer 2 Essential Bundle">
+          <div class="sku-img-ph" style="display:none">
+            <svg width="110" height="120" viewBox="0 0 120 140" fill="none">
+              <rect x="12" y="20" width="54" height="100" rx="14" fill="#DCDCDC"/>
+              <rect x="18" y="28" width="42" height="58" rx="6" fill="#C8C8C8"/>
+              <circle cx="39" cy="104" r="8" fill="#C8C8C8"/>
+              <rect x="72" y="40" width="38" height="56" rx="8" fill="#E8E8E8"/>
+              <rect x="76" y="48" width="30" height="36" rx="4" fill="#D8D8D8"/>
+            </svg>
+          </div>
+        </div>
+        <div class="sku-body">
+          <div class="sku-name">Essential Bundle</div>
+          <div class="sku-includes">Watch · Coloured band · Protective case · Charger</div>
+          <div class="sku-price-row">
+            <span class="sku-price">$349</span>
+            <span class="sku-compare">$379</span>
+            <span class="sku-save">Save $30</span>
+          </div>
+          <div class="sku-apy">or 4 × $87.25 with Afterpay</div>
+          <a href="https://spacetalk.co/products/spacetalk-adventurer-2-essential-bundle" class="sku-cta">Add to cart</a>
+          <button class="sku-feat-btn" id="adv2-essential-featbtn" onclick="toggleInline('adv2-essential', 'adv2')">
+            See features
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="feat-inline" id="adv2-essential-inline">
+            <div class="feat-inline-body" id="adv2-essential-inline-body"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Smart Bundle — Best Value -->
+      <div class="sku-card" id="adv2-smart">
+        <div class="sku-badge badge--value">Best value</div>
+        <div class="sku-img">
+          <img src="https://spacetalk.co/cdn/shop/files/ADV2-StandardBundle-1.jpg?v=1772377570&width=1000"
+               onerror="this.style.display='none';this.parentElement.querySelector('.sku-img-ph').style.display='flex'"
+               alt="Adventurer 2 Smart Bundle">
+          <div class="sku-img-ph" style="display:none">
+            <svg width="120" height="120" viewBox="0 0 140 140" fill="none">
+              <rect x="8" y="20" width="54" height="100" rx="14" fill="#D8D8D8"/>
+              <rect x="14" y="28" width="42" height="58" rx="6" fill="#C4C4C4"/>
+              <circle cx="35" cy="104" r="8" fill="#C4C4C4"/>
+              <rect x="68" y="30" width="36" height="52" rx="8" fill="#E4E4E4"/>
+              <rect x="68" y="90" width="36" height="18" rx="6" fill="#DADADA"/>
+              <rect x="68" y="114" width="36" height="10" rx="5" fill="#D0D0D0"/>
+            </svg>
+          </div>
+        </div>
+        <div class="sku-body">
+          <div class="sku-name">Smart Bundle</div>
+          <div class="sku-includes">Watch · 2 bands · Case · Charger · Screen protector</div>
+          <div class="sku-price-row">
+            <span class="sku-price">$399</span>
+            <span class="sku-compare">$449</span>
+            <span class="sku-save">Save $50</span>
+          </div>
+          <div class="sku-apy">or 4 × $99.75 with Afterpay</div>
+          <a href="https://spacetalk.co/products/spacetalk-adventurer-2-smart-bundle" class="sku-cta">Add to cart</a>
+          <button class="sku-feat-btn" id="adv2-smart-featbtn" onclick="toggleInline('adv2-smart', 'adv2')">
+            See features
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="feat-inline" id="adv2-smart-inline">
+            <div class="feat-inline-body" id="adv2-smart-inline-body"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="plan-note">⚡ A Spacetalk plan is required to activate calling, GPS and the app. Plans from $13.75/mo on the Telstra network.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ LOOP ═════════════════════════════════ -->
+<section class="section--dark" id="loop">
+  <div class="container">
+    <div class="sec-hd">
+      <div class="sec-eye">Loop</div>
+      <h2 class="sec-title" style="color:var(--white)">The simple first smartwatch.</h2>
+      <p class="sec-sub">GPS, calling, SOS and School Mode in a lighter design with longer battery life. The perfect starting point for younger kids aged 4–10.</p>
+    </div>
+
+    <div class="sku-row">
+
+      <!-- Loop Watch Only -->
+      <div class="sku-card sku-card--dark" id="loop-watch">
+        <div class="sku-img">
+          <div class="sku-img-ph" style="display:flex;background:rgba(255,255,255,0.04)">
+            <svg width="80" height="110" viewBox="0 0 80 120" fill="none">
+              <rect x="13" y="14" width="54" height="92" rx="16" fill="rgba(255,255,255,0.12)"/>
+              <rect x="19" y="22" width="42" height="54" rx="6" fill="rgba(255,255,255,0.1)"/>
+              <circle cx="40" cy="90" r="7" fill="rgba(255,255,255,0.1)"/>
+              <rect x="25" y="2" width="30" height="8" rx="4" fill="rgba(255,255,255,0.08)"/>
+              <rect x="25" y="110" width="30" height="8" rx="4" fill="rgba(255,255,255,0.08)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="sku-body">
+          <div class="sku-name">Watch Only</div>
+          <div class="sku-includes">Loop smartwatch · Magnetic charger</div>
+          <div class="sku-price-row">
+            <span class="sku-price">$189</span>
+          </div>
+          <div class="sku-apy">or 4 × $47.25 with Afterpay</div>
+          <a href="https://spacetalk.co/products/spacetalk-loop" class="sku-cta">Add to cart</a>
+          <button class="sku-feat-btn" id="loop-watch-featbtn" onclick="toggleInline('loop-watch', 'loop')">
+            See features
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="feat-inline" id="loop-watch-inline">
+            <div class="feat-inline-body" id="loop-watch-inline-body"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loop Essential Bundle -->
+      <div class="sku-card sku-card--dark" id="loop-essential">
+        <div class="sku-badge badge--pop">Most popular</div>
+        <div class="sku-img">
+          <div class="sku-img-ph" style="display:flex;background:rgba(255,255,255,0.04)">
+            <svg width="100" height="110" viewBox="0 0 110 120" fill="none">
+              <rect x="8" y="14" width="54" height="92" rx="16" fill="rgba(255,255,255,0.12)"/>
+              <rect x="14" y="22" width="42" height="54" rx="6" fill="rgba(255,255,255,0.1)"/>
+              <circle cx="35" cy="90" r="7" fill="rgba(255,255,255,0.1)"/>
+              <rect x="66" y="32" width="36" height="52" rx="8" fill="rgba(255,255,255,0.08)"/>
+              <rect x="70" y="40" width="28" height="34" rx="4" fill="rgba(255,255,255,0.07)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="sku-body">
+          <div class="sku-name">Essential Bundle</div>
+          <div class="sku-includes">Watch · Coloured band · Protective case · Charger</div>
+          <div class="sku-price-row">
+            <span class="sku-price">$229</span>
+            <span class="sku-compare" style="color:rgba(255,255,255,0.35)">$249</span>
+            <span class="sku-save">Save $20</span>
+          </div>
+          <div class="sku-apy">or 4 × $57.25 with Afterpay</div>
+          <a href="https://spacetalk.co/products/spacetalk-loop-essential-bundle" class="sku-cta">Add to cart</a>
+          <button class="sku-feat-btn" id="loop-essential-featbtn" onclick="toggleInline('loop-essential', 'loop')">
+            See features
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="feat-inline" id="loop-essential-inline">
+            <div class="feat-inline-body" id="loop-essential-inline-body"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loop Smart Bundle -->
+      <div class="sku-card sku-card--dark" id="loop-smart">
+        <div class="sku-badge badge--value">Best value</div>
+        <div class="sku-img">
+          <div class="sku-img-ph" style="display:flex;background:rgba(255,255,255,0.04)">
+            <svg width="110" height="110" viewBox="0 0 130 120" fill="none">
+              <rect x="6" y="14" width="54" height="92" rx="16" fill="rgba(255,255,255,0.12)"/>
+              <rect x="12" y="22" width="42" height="54" rx="6" fill="rgba(255,255,255,0.1)"/>
+              <circle cx="33" cy="90" r="7" fill="rgba(255,255,255,0.1)"/>
+              <rect x="64" y="22" width="36" height="48" rx="8" fill="rgba(255,255,255,0.08)"/>
+              <rect x="64" y="78" width="36" height="18" rx="6" fill="rgba(255,255,255,0.06)"/>
+              <rect x="64" y="100" width="36" height="10" rx="5" fill="rgba(255,255,255,0.05)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="sku-body">
+          <div class="sku-name">Smart Bundle</div>
+          <div class="sku-includes">Watch · 2 bands · Case · Charger · Screen protector</div>
+          <div class="sku-price-row">
+            <span class="sku-price">$259</span>
+            <span class="sku-compare" style="color:rgba(255,255,255,0.35)">$299</span>
+            <span class="sku-save">Save $40</span>
+          </div>
+          <div class="sku-apy">or 4 × $64.75 with Afterpay</div>
+          <a href="https://spacetalk.co/products/spacetalk-loop-smart-bundle" class="sku-cta">Add to cart</a>
+          <button class="sku-feat-btn" id="loop-smart-featbtn" onclick="toggleInline('loop-smart', 'loop')">
+            See features
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="feat-inline" id="loop-smart-inline">
+            <div class="feat-inline-body" id="loop-smart-inline-body"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="plan-note">⚡ A Spacetalk plan is required to activate calling, GPS and the app. Plans from $13.75/mo on the Telstra network.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ COMPARISON ═══════════════════════════════ -->
+<style>
+.uc-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:0 0 44px; }
+@media(max-width:640px){ .uc-grid{ grid-template-columns:1fr; } }
+.uc-card { background:var(--white); border:1.5px solid var(--g200); border-radius:var(--r); padding:22px 22px 18px; }
+.uc-icon { font-size:26px; margin-bottom:10px; }
+.uc-title { font-size:14px; font-weight:700; color:var(--black); margin-bottom:6px; line-height:1.3; }
+.uc-body  { font-size:13px; color:var(--g600); line-height:1.55; margin-bottom:12px; }
+.uc-verdict { font-size:12px; font-weight:700; }
+.uc-verdict--adv2 { color:var(--blue); }
+.uc-verdict--loop { color:var(--evergreen); }
+.cmp-v2 { background:var(--white); border-radius:20px; overflow:hidden; border:1.5px solid var(--g200); margin-bottom:20px; }
+.cmp-v2-head { display:grid; grid-template-columns:44fr 28fr 28fr; box-shadow:0 1px 0 var(--g200); }
+.cmp-v2-head__adv2 { background:var(--blue); color:#fff; text-align:center; padding:20px 16px 18px; border-radius:16px 16px 0 0; }
+.cmp-v2-head__adv2 img { width:66px; height:66px; border-radius:12px; object-fit:contain; background:rgba(255,255,255,0.15); padding:6px; margin:0 auto 10px; display:block; }
+.cmp-v2-head__adv2 strong { display:block; font-size:15px; font-weight:700; margin-bottom:4px; }
+.cmp-v2-head__adv2 span   { display:block; font-size:12px; opacity:0.7; }
+.cmp-v2-head__loop { text-align:center; padding:20px 16px 18px; }
+.cmp-v2-ph { width:66px; height:66px; border-radius:12px; background:var(--g100); margin:0 auto 10px; display:flex; align-items:center; justify-content:center; }
+.cmp-v2-head__loop strong { display:block; font-size:15px; font-weight:700; color:var(--black); margin-bottom:4px; }
+.cmp-v2-head__loop span   { display:block; font-size:12px; color:var(--g400); }
+.cmp-v2-cat { display:grid; grid-template-columns:44fr 28fr 28fr; }
+.cmp-v2-cat__lbl { background:var(--g100); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--black); padding:8px 0 8px 16px; border-top:1px solid var(--g200); border-bottom:1px solid var(--g200); }
+.cmp-v2-cat__adv2 { background:var(--blue); border-top:1px solid var(--blue); border-bottom:1px solid var(--blue); }
+.cmp-v2-cat__loop { background:var(--g100); border-top:1px solid var(--g200); border-bottom:1px solid var(--g200); }
+.cmp-v2-row { display:grid; grid-template-columns:44fr 28fr 28fr; border-bottom:1px solid var(--g200); }
+.cmp-v2-row:last-child { border-bottom:none; }
+.cmp-v2-feat { padding:13px 0 13px 16px; font-size:13px; color:var(--black); line-height:1.3; display:flex; flex-direction:column; justify-content:center; }
+.cmp-v2-feat span { font-size:11px; color:var(--g400); margin-top:2px; }
+.cmp-v2-adv2 { background:var(--white); border-left:2.5px solid var(--blue); border-right:2.5px solid var(--blue); display:flex; align-items:center; justify-content:center; padding:10px 12px; text-align:center; }
+.cmp-v2-row:last-child .cmp-v2-adv2 { border-bottom:2.5px solid var(--blue); }
+.cmp-v2-loop { display:flex; align-items:center; justify-content:center; padding:10px 12px; text-align:center; }
+.bw { display:inline-flex;align-items:center;gap:4px;background:var(--neon);color:var(--black);font-size:11px;font-weight:700;padding:4px 11px;border-radius:var(--rp); }
+.bs { display:inline-flex;align-items:center;gap:4px;background:var(--g100);color:var(--g600);font-size:11px;font-weight:500;padding:4px 11px;border-radius:var(--rp); }
+.bn { display:inline-flex;align-items:center;gap:4px;color:var(--g400);font-size:11px;font-weight:500; }
+.tw { font-size:12px;font-weight:700;color:var(--blue); }
+.ts { font-size:12px;font-weight:500;color:var(--g600); }
+.cmp-bar { background:var(--blue); border-radius:var(--r); padding:22px 28px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin-top:20px; }
+.cmp-bar__pills { display:flex; flex-wrap:wrap; gap:20px; }
+.cmp-bar__pill { display:flex; align-items:center; gap:8px; font-size:13px; color:rgba(255,255,255,0.9); }
+.cmp-bar__dot { width:6px; height:6px; border-radius:50%; background:var(--neon); flex-shrink:0; }
+.cmp-bar__ctas { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+.cmp-bar__btn { display:inline-flex; align-items:center; gap:6px; background:var(--neon); color:var(--black); font-size:13px; font-weight:700; padding:11px 24px; border-radius:var(--rp); transition:background .2s; }
+.cmp-bar__btn:hover { background:#c0e300; }
+.cmp-bar__btn-sec { color:rgba(255,255,255,0.75); font-size:13px; text-decoration:underline; text-underline-offset:3px; }
+@media(max-width:640px){ .cmp-v2-feat{ padding:11px 0 11px 10px; font-size:12px; } .cmp-v2-adv2,.cmp-v2-loop{ padding:8px; } .bw,.bs{ font-size:10px; padding:3px 8px; } .cmp-bar{ flex-direction:column; } }
+</style>
+
+<section class="section--light" id="comparison">
+  <div class="container">
+    <div class="sec-hd">
+      <div class="sec-eye">Not sure which to choose?</div>
+      <h2 class="sec-title">Built differently.<br>For a reason.</h2>
+      <p class="sec-sub">Both models share GPS, SOS, 4G calling and School Mode on Telstra. The difference comes down to age, features, and budget.</p>
+    </div>
+
+    <!-- Use-case scenario cards -->
+    <div class="uc-grid">
+      <div class="uc-card">
+        <div class="uc-icon">📹</div>
+        <div class="uc-title">Your child wants to video call home from school</div>
+        <div class="uc-body">Only the Adventurer 2 has a 5MP camera and HD video calling. The Loop does voice calls only — great for younger kids who don't need a camera yet.</div>
+        <div class="uc-verdict uc-verdict--adv2">→ Choose Adventurer 2</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">👶</div>
+        <div class="uc-title">They're under 6 and it's their first smartwatch</div>
+        <div class="uc-body">The Loop is lighter, simpler to use, and has a 36-hour battery. All the safety essentials — GPS, SOS, calling — without overwhelming a younger child.</div>
+        <div class="uc-verdict uc-verdict--loop">→ Choose Loop</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">💰</div>
+        <div class="uc-title">You want full safety coverage for under $260</div>
+        <div class="uc-body">The Loop Smart Bundle at $259 includes GPS, 4G calling, SOS, School Mode, accessories and a screen protector. Best value for first-time buyers.</div>
+        <div class="uc-verdict uc-verdict--loop">→ Choose Loop Smart Bundle</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">🎒</div>
+        <div class="uc-title">They're 8–14 and ready for the full feature set</div>
+        <div class="uc-body">The Adventurer 2 grows with them — video calls, a larger 1.4″ screen, 5MP camera, and richer messaging. The watch for more independent, older kids.</div>
+        <div class="uc-verdict uc-verdict--adv2">→ Choose Adventurer 2</div>
+      </div>
+    </div>
+
+    <!-- Column comparison grid -->
+    <div class="cmp-v2">
+      <div class="cmp-v2-head">
+        <div style="flex:1"></div>
+        <div class="cmp-v2-head__adv2">
+          <img src="https://spacetalk.co/cdn/shop/files/Adv-2-frost.png?v=1773355283&width=200"
+               onerror="this.style.display='none'" alt="Adventurer 2">
+          <strong>Adventurer 2</strong>
+          <span>From $299</span>
+        </div>
+        <div class="cmp-v2-head__loop">
+          <div class="cmp-v2-ph">
+            <svg width="36" height="50" viewBox="0 0 40 56" fill="none"><rect x="4" y="4" width="32" height="48" rx="9" fill="rgba(0,0,0,0.12)"/><rect x="8" y="8" width="24" height="28" rx="4" fill="rgba(0,0,0,0.09)"/></svg>
+          </div>
+          <strong>Loop</strong>
+          <span>From $189</span>
+        </div>
+      </div>
+
+      <div class="cmp-v2-cat"><div class="cmp-v2-cat__lbl">Calling &amp; communication</div><div class="cmp-v2-cat__adv2"></div><div class="cmp-v2-cat__loop"></div></div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">Video calls<span>Face-to-face from the wrist</span></div>
+        <div class="cmp-v2-adv2"><span class="bw">✓ HD video</span></div>
+        <div class="cmp-v2-loop"><span class="bn">✗ Voice only</span></div>
+      </div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">Voice calls</div>
+        <div class="cmp-v2-adv2"><span class="bw">✓ Yes</span></div>
+        <div class="cmp-v2-loop"><span class="bs">✓ Yes</span></div>
+      </div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">Messaging</div>
+        <div class="cmp-v2-adv2"><span class="tw">Text + emoji</span></div>
+        <div class="cmp-v2-loop"><span style="font-size:12px;font-weight:500;color:var(--g600)">Quick replies</span></div>
+      </div>
+
+      <div class="cmp-v2-cat"><div class="cmp-v2-cat__lbl">Safety &amp; parental controls</div><div class="cmp-v2-cat__adv2"></div><div class="cmp-v2-cat__loop"></div></div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">Real-time GPS<span>Live location on Telstra 4G</span></div>
+        <div class="cmp-v2-adv2"><span class="bw">✓ Yes</span></div>
+        <div class="cmp-v2-loop"><span class="bs">✓ Yes</span></div>
+      </div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">SOS button</div>
+        <div class="cmp-v2-adv2"><span class="bw">✓ Yes</span></div>
+        <div class="cmp-v2-loop"><span class="bs">✓ Yes</span></div>
+      </div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">Safe zones + arrival alerts</div>
+        <div class="cmp-v2-adv2"><span class="bw">✓ Yes</span></div>
+        <div class="cmp-v2-loop"><span class="bs">✓ Yes</span></div>
+      </div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">School Mode<span>Auto-silences during class</span></div>
+        <div class="cmp-v2-adv2"><span class="bw">✓ Yes</span></div>
+        <div class="cmp-v2-loop"><span class="bs">✓ Yes</span></div>
+      </div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">No internet / no social media</div>
+        <div class="cmp-v2-adv2"><span class="bw">✓ Yes</span></div>
+        <div class="cmp-v2-loop"><span class="bs">✓ Yes</span></div>
+      </div>
+
+      <div class="cmp-v2-cat"><div class="cmp-v2-cat__lbl">Hardware</div><div class="cmp-v2-cat__adv2"></div><div class="cmp-v2-cat__loop"></div></div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">Camera<span>Front-facing for video calls</span></div>
+        <div class="cmp-v2-adv2"><span class="bw">✓ 5MP</span></div>
+        <div class="cmp-v2-loop"><span class="bn">✗ None</span></div>
+      </div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">Display size</div>
+        <div class="cmp-v2-adv2"><span class="tw">1.4″ colour</span></div>
+        <div class="cmp-v2-loop"><span style="font-size:12px;font-weight:500;color:var(--g600)">1.2″ colour</span></div>
+      </div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">Battery life</div>
+        <div class="cmp-v2-adv2"><span class="tw">Up to 24 hrs</span></div>
+        <div class="cmp-v2-loop"><span style="font-size:12px;font-weight:700;color:var(--evergreen)">Up to 36 hrs</span></div>
+      </div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">Water resistance</div>
+        <div class="cmp-v2-adv2"><span class="bw">IP68</span></div>
+        <div class="cmp-v2-loop"><span class="bs">IP68</span></div>
+      </div>
+
+      <div class="cmp-v2-cat"><div class="cmp-v2-cat__lbl">Summary</div><div class="cmp-v2-cat__adv2"></div><div class="cmp-v2-cat__loop"></div></div>
+      <div class="cmp-v2-row">
+        <div class="cmp-v2-feat">Recommended age</div>
+        <div class="cmp-v2-adv2"><span class="tw">6–14 years</span></div>
+        <div class="cmp-v2-loop"><span style="font-size:12px;font-weight:500;color:var(--g600)">4–10 years</span></div>
+      </div>
+      <div class="cmp-v2-row" style="background:var(--g50)">
+        <div class="cmp-v2-feat" style="font-weight:700">Starting price</div>
+        <div class="cmp-v2-adv2" style="font-size:18px;font-weight:700;color:var(--blue)">$299</div>
+        <div class="cmp-v2-loop" style="font-size:18px;font-weight:700;color:var(--black)">$189</div>
+      </div>
+    </div>
+
+    <!-- CTA bar -->
+    <div class="cmp-bar">
+      <div class="cmp-bar__pills">
+        <div class="cmp-bar__pill"><div class="cmp-bar__dot"></div>Both run on Telstra 4G</div>
+        <div class="cmp-bar__pill"><div class="cmp-bar__dot"></div>Both include GPS + SOS + School Mode</div>
+        <div class="cmp-bar__pill"><div class="cmp-bar__dot"></div>Managed via the same Spacetalk App</div>
+      </div>
+      <div class="cmp-bar__ctas">
+        <a href="#adventurer-2" class="cmp-bar__btn">Shop Adventurer 2 →</a>
+        <a href="#loop" class="cmp-bar__btn-sec">Shop Loop →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ ECOSYSTEM ════════════════════════════════ -->
+<section class="section--dark" id="ecosystem" style="padding-top: 0; border-top: 1px solid rgba(255,255,255,0.06)">
+  <div class="container" style="padding-top: 88px">
+    <div class="sec-hd">
+      <div class="sec-eye">The Spacetalk ecosystem</div>
+      <h2 class="sec-title" style="color:var(--white)">One app. Total visibility.</h2>
+      <p class="sec-sub">The free Spacetalk App keeps parents in control and gives kids the connection they need — safely.</p>
+    </div>
+    <div class="eco-grid">
+      <div class="eco-card">
+        <div class="eco-who">For parents — via the Spacetalk App</div>
+        <div class="eco-title">You're always in control.</div>
+        <ul class="eco-list">
+          <li><span class="eco-dot"></span>See live GPS location at any time</li>
+          <li><span class="eco-dot"></span>Approve contacts for calls &amp; messages</li>
+          <li><span class="eco-dot"></span>Set School Mode hours and safe zones</li>
+          <li><span class="eco-dot"></span>Receive SOS alerts with live location instantly</li>
+          <li><span class="eco-dot"></span>Check battery level remotely</li>
+          <li><span class="eco-dot"></span>Review call and message history</li>
+          <li><span class="eco-dot"></span>Block/unblock features at any time</li>
+        </ul>
+      </div>
+      <div class="eco-card">
+        <div class="eco-who">For kids — on the watch</div>
+        <div class="eco-title">Independence they can handle.</div>
+        <ul class="eco-list">
+          <li><span class="eco-dot"></span>Call and message approved contacts only</li>
+          <li><span class="eco-dot"></span>Share location with a single tap</li>
+          <li><span class="eco-dot"></span>Set personal alarms and reminders</li>
+          <li><span class="eco-dot"></span>Take selfies (Adventurer 2)</li>
+          <li><span class="eco-dot"></span>Track steps and activity goals</li>
+          <li><span class="eco-dot"></span>No internet, no app store, no social media — ever</li>
+          <li><span class="eco-dot"></span>Press SOS if they need help</li>
+        </ul>
+      </div>
+    </div>
+    <div class="text-center mt-40">
+      <a href="https://spacetalk.co/pages/app" class="eco-app-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+        Learn about the Spacetalk App
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ OBJECTIONS ═══════════════════════════════ -->
+<section class="section--white" id="objections">
+  <div class="container">
+    <div class="sec-hd">
+      <div class="sec-eye">Built for families</div>
+      <h2 class="sec-title">Every concern,<br>answered by design.</h2>
+      <p class="sec-sub">We know the questions parents ask. Here's the honest truth.</p>
+    </div>
+    <div class="obj-grid">
+      <div class="obj-card obj-card--neon">
+        <div class="obj-icon">🚫</div>
+        <div class="obj-title">"No internet. No social media."</div>
+        <div class="obj-text">Spacetalk watches have no browser, no app store, no social media and no YouTube. Kids can only contact people you've approved — full stop. Connection without the risks of a smartphone.</div>
+      </div>
+      <div class="obj-card obj-card--dark">
+        <div class="obj-icon">🏫</div>
+        <div class="obj-title">School Mode built-in.</div>
+        <div class="obj-text">Set your school hours once. The watch silences automatically during class — no notifications, no distractions. The SOS button stays active at all times. Many Australian schools actively recommend Spacetalk as a smartphone alternative.</div>
+      </div>
+      <div class="obj-card obj-card--blue">
+        <div class="obj-icon">📡</div>
+        <div class="obj-title">Telstra. Australia's largest network.</div>
+        <div class="obj-text">Spacetalk runs exclusively on Telstra's 4G network — the most reliable in Australia. Wherever your child goes — school, sport, a friend's place, grandparents — they stay connected.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════ SETUP ══════════════════════════════════ -->
+<section class="section--light" id="setup">
+  <div class="container">
+    <div class="sec-hd">
+      <div class="sec-eye">Getting started</div>
+      <h2 class="sec-title">Up and running<br>in 5 minutes.</h2>
+      <p class="sec-sub">No technical knowledge needed. Just follow four simple steps.</p>
+    </div>
+    <div class="setup-steps">
+      <div class="setup-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Charge the watch</div>
+        <div class="step-text">Place on the magnetic charger for 30–40 mins before first use. A full charge takes about 2 hours.</div>
+      </div>
+      <div class="setup-step">
+        <div class="step-num">2</div>
+        <div class="step-title">Download the app</div>
+        <div class="step-text">Get the free Spacetalk App on iOS or Android. Create your family account — takes 2 minutes.</div>
+      </div>
+      <div class="setup-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Insert &amp; activate the SIM</div>
+        <div class="step-text">Your Spacetalk SIM is included. Slide it in and activate in the app. <strong>Allow 10–30 minutes</strong> for the Telstra network to activate.</div>
+      </div>
+      <div class="setup-step">
+        <div class="step-num">4</div>
+        <div class="step-title">Pair &amp; personalise</div>
+        <div class="step-text">Scan the QR code in the app to pair the watch. Add contacts, set School Mode hours, and draw your safe zones. Done.</div>
+      </div>
+    </div>
+    <div class="setup-note">
+      <div class="setup-note-icon">⏱️</div>
+      <div class="setup-note-text"><strong>SIM activation takes 10–30 minutes.</strong> Once inserted, your SIM activates automatically on the Telstra 4G network. You'll receive a confirmation notification in the Spacetalk App once it's live. The watch can't make calls until activation is complete.</div>
+    </div>
+    <div class="text-center">
+      <a href="https://spacetalk.co/pages/get-started" class="btn-primary">
+        Full setup guide →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ SUPPORT STRIP ══════════════════════════════ -->
+<div class="section--green" id="support">
+  <div class="container">
+    <div class="sup-inner">
+      <div class="sup-item">
+        <div class="sup-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div class="sup-label">Average response time</div>
+          <div class="sup-value">Under 2 hours</div>
+        </div>
+      </div>
+      <div class="sup-item">
+        <div class="sup-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="sup-label">Support hours</div>
+          <div class="sup-value">Mon–Fri, 9am–5pm AEST</div>
+        </div>
+      </div>
+      <div class="sup-item">
+        <div class="sup-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
+        </div>
+        <div>
+          <div class="sup-label">Knowledge base</div>
+          <div class="sup-value">
+            <a href="https://support.spacetalk.co" style="color:var(--neon)">support.spacetalk.co</a>
+          </div>
+        </div>
+      </div>
+      <div class="sup-item">
+        <div class="sup-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.9 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.3 6.3l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="sup-label">Get in touch</div>
+          <div class="sup-value">
+            <a href="https://spacetalk.co/pages/contact-us" style="color:var(--neon)">Contact support</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ REVIEWS ══════════════════════════════════ -->
+<section class="section--white" id="reviews">
+  <div class="container">
+    <div class="sec-hd">
+      <div class="sec-eye">Real families</div>
+      <h2 class="sec-title">What parents say.</h2>
+    </div>
+    <div class="reviews-agg">
+      <div>
+        <div class="rev-score">4.4</div>
+        <div class="rev-stars-big">★★★★½</div>
+        <div class="rev-count">3,200+ verified reviews</div>
+      </div>
+      <div class="rev-divider"></div>
+      <div class="rev-note">Australia's #1 kids smartwatch brand, verified by GFK Market Research — Kids Smartwatch category, 12 months ending Jan 2026.</div>
+    </div>
+    <div class="reviews-grid">
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"I was honestly worried setup would be a nightmare — I'm not very tech-savvy. But from box open to first call was maybe 8 minutes. My daughter called me from school on day one. It's incredible."</p>
+        <div class="rev-name">Sarah M. — Sydney, NSW</div>
+        <div class="rev-verified">✓ Verified purchase · Adventurer 2 Essential Bundle</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"My son is only 5 and the Loop has been absolutely perfect. He loves checking his own GPS location like a little explorer. Battery easily lasts two full school days without a charge."</p>
+        <div class="rev-name">James K. — Melbourne, VIC</div>
+        <div class="rev-verified">✓ Verified purchase · Loop Smart Bundle</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <p class="rev-text">"I was sceptical about spending this much on a kids watch. Six months later — zero regrets. School Mode means no arguments about the watch at dinner. The SOS alert gave me peace of mind from day one. Worth every cent."</p>
+        <div class="rev-name">Priya L. — Brisbane, QLD</div>
+        <div class="rev-verified">✓ Verified purchase · Adventurer 2 Smart Bundle</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ SEO ══════════════════════════════════ -->
+<section class="section--light" id="seo">
+  <div class="container">
+    <div class="seo-inner">
+      <h2>Kids GPS Smartwatches in Australia — Spacetalk</h2>
+      <p>Spacetalk is Australia's leading kids GPS smartwatch brand, designed for families who want their children to have real-world independence without the risks of a smartphone. Every Spacetalk watch includes real-time GPS tracking, 4G calling on the Telstra network, SOS emergency alerts, and School Mode — with no internet browser and no social media of any kind.</p>
+      <p>The <strong>Spacetalk Adventurer 2</strong> is a full-featured 4G smartwatch for kids aged 6–14, with HD video calling, a 5MP front-facing camera, and precise GPS location tracking. It's the school-safe watch with everything a growing child needs for independence. The <strong>Spacetalk Loop</strong> is a simpler first smartwatch designed for younger children aged 4–10, offering all the essential safety features — GPS, calling, SOS, School Mode — in a lighter design with longer battery life.</p>
+      <p>Both models run on Australia's Telstra 4G network and are managed through the free Spacetalk App, available on iOS and Android. Parents can approve contacts, set geofence safe zones, activate School Mode, and see live location from anywhere. Both watches are IP68 rated, durable, and built for daily school and outdoor use.</p>
+      <p>Whether you're searching for a school-safe kids smartwatch, a 4G GPS watch for your child, or an affordable first smartwatch with parental controls, Spacetalk has a model and bundle to suit your family. Australian-owned. Australian support team. Free shipping on qualifying orders. Australia-wide Telstra 4G coverage.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FEATURES DRAWER ══════════════════════════════ -->
+<div id="feat-overlay" onclick="closeDrawer()"></div>
+<div id="feat-drawer">
+  <div class="drawer-hd">
+    <div class="drawer-name" id="drawer-title">Features</div>
+    <button class="drawer-close" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</div>
+
+<!-- ═══════════════════════════════ SCRIPTS ══════════════════════════════════ -->
+<script>
+/* ── Feature data ──────────────────────────────────────────── */
+var FEATURES = {
+  adv2: {
+    name: 'Adventurer 2',
+    items: [
+      { e:'📹', t:'4G HD video calling',        d:'Face-to-face video calls with parent-approved contacts only. No unknown callers ever reach in.' },
+      { e:'📍', t:'Real-time GPS tracking',     d:'Live location visible in the Spacetalk App at any time, updating every 30 seconds on Telstra 4G.' },
+      { e:'🆘', t:'SOS emergency button',       d:'Press and hold to instantly alert all emergency contacts with your child\'s live GPS location.' },
+      { e:'🏫', t:'School Mode',                d:'Set school hours once. The watch silences all notifications automatically. SOS always stays active.' },
+      { e:'📸', t:'5MP front-facing camera',    d:'For video calls and selfies. Photos stored locally on the watch — no cloud upload without approval.' },
+      { e:'🔒', t:'Safe zones &amp; geofences', d:'Draw zones on a map (home, school, sports field). Get instant arrival and departure alerts.' },
+      { e:'💬', t:'Text &amp; emoji messaging', d:'Quick messages to approved contacts with emoji and preset replies. No open keyboard.' },
+      { e:'📞', t:'Voice calls',                d:'Crystal-clear 4G voice calls to parent-approved contacts at any time.' },
+      { e:'🔋', t:'All-day battery',            d:'Up to 24 hours of typical use. Charges fully in around 2 hours via magnetic charger.' },
+      { e:'💧', t:'IP68 water resistant',       d:'Splash-proof and sweat-resistant for active days, sport and rain. Not designed for swimming.' },
+      { e:'📡', t:'Telstra 4G network',         d:'Australia\'s largest 4G network — maximum coverage wherever kids go in Australia.' },
+      { e:'⌚', t:'1.4″ colour touchscreen',    d:'Bright, responsive touch display designed to be easy to use with small fingers.' },
+    ]
+  },
+  loop: {
+    name: 'Loop',
+    items: [
+      { e:'📍', t:'Real-time GPS tracking',     d:'Same precise Telstra 4G GPS as the Adventurer 2. Live location visible in the Spacetalk App.' },
+      { e:'📞', t:'4G voice calling',           d:'Crystal-clear calls to parent-approved contacts. Simple one-tap calling for young kids.' },
+      { e:'🆘', t:'SOS emergency button',       d:'One-press emergency alert sends location to all emergency contacts immediately.' },
+      { e:'🏫', t:'School Mode',                d:'Auto-silences during school hours you configure. SOS remains active at all times.' },
+      { e:'🔒', t:'Safe zones &amp; geofences', d:'Set home, school and other zones. Instant arrival/departure alerts in the parent app.' },
+      { e:'💬', t:'Quick message replies',      d:'Preset replies and emoji reactions so kids can respond without a keyboard.' },
+      { e:'🔋', t:'36-hour battery',            d:'Over a day and a half on a single charge — great for busy school weeks.' },
+      { e:'💧', t:'IP68 water resistant',       d:'Splash-proof for sport, rain and outdoor activities.' },
+      { e:'📡', t:'Telstra 4G network',         d:'Australia\'s largest and most reliable 4G network.' },
+      { e:'🧡', t:'Designed for young kids',    d:'Lighter, simpler interface and a more compact profile — ideal for ages 4–10.' },
+      { e:'⌚', t:'1.2″ colour touchscreen',    d:'Easy-to-read display with large touch targets for small fingers.' },
+    ]
+  }
+};
+
+/* ── Helpers ───────────────────────────────────────────────── */
+function scrollTo(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function isDesktop() { return window.innerWidth >= 768; }
+
+/* ── QUIZ ──────────────────────────────────────────────────── */
+var qState = {};
+var qTarget = null;   // { sectionId, cardId }
+
+function toggleQuiz() {
+  var w = document.getElementById('quiz-wrap');
+  w.classList.toggle('open');
+  if (w.classList.contains('open')) {
+    setTimeout(function(){ w.scrollIntoView({ behavior:'smooth', block:'start' }); }, 80);
+  }
+}
+
+function qa(q, val) {
+  qState['q'+q] = val;
+
+  // Flash selected button
+  var step = document.getElementById('qs'+q);
+  step.querySelectorAll('.quiz__opt').forEach(function(b){ b.classList.remove('selected'); });
+  event.currentTarget.classList.add('selected');
+
+  setTimeout(function() {
+    // Routing logic
+    if (q === 1) {
+      if (val === 'u6')  { showResult('loop',        'loop-essential', 'Spacetalk Loop — Essential Bundle',  'For children under 6, the Loop is the perfect first smartwatch. GPS, calling and SOS in a simple, light design. The Essential Bundle is our most popular pick for this age group.'); return; }
+      if (val === '10p') { showResult('adventurer-2','adv2-smart',     'Adventurer 2 — Smart Bundle',         'For kids 10 and above, the Adventurer 2 is the clear choice. Video calling, full safety suite, camera, and a watch they\'ll actually want to wear. The Smart Bundle is the best-value option.'); return; }
+      showStep(2); return;
+    }
+    if (q === 2) {
+      if (val === 'video'){ showResult('adventurer-2','adv2-essential','Adventurer 2 — Essential Bundle',     'Video calling is the Adventurer 2\'s defining feature — HD face-to-face calls with approved contacts. The Essential Bundle is the sweet spot of price and accessories.'); return; }
+      if (val === 'gps')  { showResult('loop',        'loop-smart',   'Loop — Smart Bundle',                  'The Loop\'s GPS tracking is equally precise to the Adventurer 2, and the longer battery is a bonus. The Smart Bundle gives the best protection for the price.'); return; }
+      showStep(3); return;
+    }
+    if (q === 3) {
+      if (val === 'u250') { showResult('loop',        'loop-smart',   'Loop — Smart Bundle',                  'The Loop Smart Bundle at $259 delivers excellent value — GPS, calling, School Mode and accessories. Everything you need, within budget.'); }
+      else                { showResult('adventurer-2','adv2-smart',   'Adventurer 2 — Smart Bundle',          'With a $250+ budget, the Adventurer 2 Smart Bundle is the best investment — video calling, full safety suite, camera, two bands and full protection.'); }
+    }
+  }, 200);
+}
+
+function showStep(n) {
+  document.querySelectorAll('.quiz__step').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('qs'+n).classList.add('active');
+  document.querySelectorAll('.quiz__dot').forEach(function(d,i){ d.classList.toggle('active', i < n); });
+}
+
+function showResult(sectionId, cardId, title, sub) {
+  qTarget = { sectionId: sectionId, cardId: cardId };
+  document.getElementById('qr-title').textContent = title;
+  document.getElementById('qr-sub').textContent = sub;
+  document.querySelectorAll('.quiz__step').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.quiz__dot').forEach(function(d){ d.classList.add('active'); });
+  document.getElementById('quiz-result').classList.add('active');
+}
+
+function scrollToResult() {
+  if (!qTarget) return;
+  var section = document.getElementById(qTarget.sectionId);
+  var card    = document.getElementById(qTarget.cardId);
+  if (section) section.scrollIntoView({ behavior:'smooth', block:'start' });
+  setTimeout(function(){
+    if (card) {
+      card.scrollIntoView({ behavior:'smooth', block:'center' });
+      card.classList.add('quiz-pulse');
+      setTimeout(function(){ card.classList.remove('quiz-pulse'); }, 4500);
+    }
+  }, 700);
+}
+
+function resetQuiz() {
+  qState = {}; qTarget = null;
+  document.getElementById('quiz-result').classList.remove('active');
+  document.querySelectorAll('.quiz__step').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('qs1').classList.add('active');
+  document.querySelectorAll('.quiz__dot').forEach(function(d,i){ d.classList.toggle('active', i===0); });
+}
+
+/* ── FEATURES: inline mobile / drawer desktop ──────────────── */
+function buildFeatGridHTML(product) {
+  var feats = FEATURES[product].items.slice(0, 8);
+  return '<div class="feat-grid">' +
+    feats.map(function(f){
+      return '<div class="feat-item">' +
+        '<div class="feat-icon">' + f.e + '</div>' +
+        '<div>' +
+          '<div class="feat-label">' + f.t + '</div>' +
+          '<div class="feat-desc">' + f.d + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('') +
+  '</div>';
+}
+
+function buildFeatDrawerHTML(product) {
+  return FEATURES[product].items.map(function(f){
+    return '<div class="dfeat-item">' +
+      '<div class="dfeat-emoji">' + f.e + '</div>' +
+      '<div><div class="dfeat-title">' + f.t + '</div>' +
+      '<div class="dfeat-desc">' + f.d + '</div></div>' +
+    '</div>';
+  }).join('');
+}
+
+function toggleInline(cardId, product) {
+  if (isDesktop()) { openDrawer(product); return; }
+
+  var inline  = document.getElementById(cardId + '-inline');
+  var body    = document.getElementById(cardId + '-inline-body');
+  var btn     = document.getElementById(cardId + '-featbtn');
+  if (!inline || !body) return;
+
+  var opening = !inline.classList.contains('open');
+
+  // Close all other inlines for the same product
+  ['adv2-watch','adv2-essential','adv2-smart','loop-watch','loop-essential','loop-smart'].forEach(function(id){
+    if (id !== cardId) {
+      var el = document.getElementById(id+'-inline');
+      var bt = document.getElementById(id+'-featbtn');
+      if (el) el.classList.remove('open');
+      if (bt) { bt.classList.remove('open'); }
+    }
+  });
+
+  if (opening) {
+    body.innerHTML = buildFeatGridHTML(product);
+    inline.classList.add('open');
+    btn.classList.add('open');
+  } else {
+    inline.classList.remove('open');
+    btn.classList.remove('open');
+  }
+}
+
+function openDrawer(product) {
+  document.getElementById('drawer-title').innerHTML = FEATURES[product].name + ' — All features';
+  document.getElementById('drawer-body').innerHTML  = buildFeatDrawerHTML(product);
+  document.getElementById('feat-drawer').classList.add('open');
+  document.getElementById('feat-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  document.getElementById('feat-drawer').classList.remove('open');
+  document.getElementById('feat-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeDrawer(); });
+
+/* ── Scroll-reveal ─────────────────────────────────────── */
+(function() {
+  var ro = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        ro.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  /* Apply reveal to key elements */
+  var targets = '.sec-hd, .sku-card, .uc-card, .rev-card, .setup-step, .obj-card, .reviews-agg, .eco-card, .cmp-v2, .cmp-bar';
+  document.querySelectorAll(targets).forEach(function(el, i) {
+    el.classList.add('st-reveal');
+    el.style.transitionDelay = (i % 4 * 0.07) + 's';
+    ro.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
