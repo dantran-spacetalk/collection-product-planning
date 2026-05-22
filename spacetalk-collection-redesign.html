@@ -110,7 +110,7 @@ a      { color: inherit; text-decoration: none; }
 }
 .hero__btns {
   display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
-  margin-bottom: 52px;
+  margin-bottom: 0;
 }
 .hbtn {
   height: 52px; padding: 0 26px;
@@ -126,33 +126,58 @@ a      { color: inherit; text-decoration: none; }
 .hbtn--loop:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.45); }
 .hbtn--quiz  { background: var(--neon); color: var(--black); }
 .hbtn--quiz:hover { background: #c0e300; }
-.hero__trust {
-  display: flex; gap: 28px; justify-content: center; flex-wrap: wrap;
-  padding-top: 44px; border-top: 1px solid rgba(255,255,255,0.08);
-}
-.hero__trust-item {
-  display: flex; align-items: center; gap: 7px;
-  font-size: 12px; color: rgba(255,255,255,0.45);
-}
 @media (max-width: 600px) {
   .hero { padding: 64px 16px 56px; }
   .hero__btns { flex-direction: column; align-items: center; }
   .hbtn { width: 280px; justify-content: center; }
-  .hero__trust { gap: 16px; }
 }
 
-/* ── QUIZ ─────────────────────────────────────────────── */
-#quiz-wrap {
-  background: var(--black);
-  overflow: hidden; max-height: 0;
-  transition: max-height .55s var(--ease);
-  border-top: 1px solid rgba(255,255,255,0.06);
+/* ── QUIZ DRAWER ─────────────────────────────────────── */
+#quiz-overlay {
+  position: fixed; inset: 0; z-index: 598;
+  background: rgba(0,0,0,0.55);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s;
 }
-#quiz-wrap.open { max-height: 640px; }
-.quiz { max-width: 600px; margin: 0 auto; padding: 0 24px 64px; }
+#quiz-overlay.open { opacity: 1; pointer-events: auto; }
+#quiz-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(480px, 93vw);
+  background: var(--black); z-index: 599;
+  transform: translateX(110%); transition: transform .38s var(--ease);
+  box-shadow: -12px 0 48px rgba(0,0,0,0.5);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+#quiz-drawer.open { transform: translateX(0); }
+@media (max-width: 640px) {
+  #quiz-drawer {
+    top: auto; right: 0; left: 0; bottom: 0;
+    width: 100%; max-height: 88svh;
+    border-radius: 20px 20px 0 0;
+    transform: translateY(110%);
+    box-shadow: 0 -12px 48px rgba(0,0,0,0.5);
+  }
+  #quiz-drawer.open { transform: translateY(0); }
+}
+.quiz-drawer-hd {
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.quiz-drawer-title { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.04em; text-transform: uppercase; }
+.quiz-drawer-close {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.08); font-size: 20px; color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s; flex-shrink: 0; line-height: 1;
+}
+.quiz-drawer-close:hover { background: rgba(255,255,255,0.16); }
+.quiz-drawer-body { flex: 1; overflow-y: auto; }
+.quiz { padding: 0 24px 48px; }
 .quiz__prog {
   display: flex; gap: 6px; justify-content: center;
-  padding-top: 40px; margin-bottom: 36px;
+  padding-top: 32px; margin-bottom: 32px;
 }
 .quiz__dot {
   height: 3px; border-radius: 2px; background: rgba(255,255,255,0.15);
@@ -574,7 +599,7 @@ a      { color: inherit; text-decoration: none; }
       <a class="snav__link" href="#comparison">Compare</a>
       <a class="snav__link" href="#setup">Setup</a>
     </div>
-    <a class="snav__cta" href="#adventurer-2">Shop now</a>
+    <button class="snav__cta" onclick="openQuizDrawer()">Take the quiz →</button>
   </div>
 </nav>
 
@@ -597,82 +622,70 @@ a      { color: inherit; text-decoration: none; }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
         Loop
       </button>
-      <button class="hbtn hbtn--quiz" onclick="toggleQuiz()">
+      <button class="hbtn hbtn--quiz" onclick="openQuizDrawer()">
         Not sure? Take the quiz →
       </button>
-    </div>
-
-    <div class="hero__trust">
-      <div class="hero__trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        4.4 stars · 3,200+ reviews
-      </div>
-      <div class="hero__trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        Free shipping on orders $299+
-      </div>
-      <div class="hero__trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Telstra 4G network
-      </div>
-      <div class="hero__trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Made for Australian families
-      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════ QUIZ ═════════════════════════════════ -->
-<div id="quiz-wrap">
-  <div class="quiz">
-    <div class="quiz__prog">
-      <div class="quiz__dot active" id="qd1"></div>
-      <div class="quiz__dot" id="qd2"></div>
-      <div class="quiz__dot" id="qd3"></div>
-    </div>
-
-    <!-- Q1 -->
-    <div class="quiz__step active" id="qs1">
-      <div class="quiz__qnum">Question 1 of 3</div>
-      <div class="quiz__qtext">How old is your child?</div>
-      <div class="quiz__opts">
-        <button class="quiz__opt" onclick="qa(1,'u6')">Under 6</button>
-        <button class="quiz__opt" onclick="qa(1,'6-9')">6 – 9</button>
-        <button class="quiz__opt" onclick="qa(1,'10p')">10+</button>
+<!-- ═══════════════════════════════ QUIZ DRAWER ══════════════════════════════ -->
+<div id="quiz-overlay" onclick="closeQuizDrawer()"></div>
+<div id="quiz-drawer" role="dialog" aria-modal="true" aria-label="Find the right watch">
+  <div class="quiz-drawer-hd">
+    <span class="quiz-drawer-title">Find the right watch</span>
+    <button class="quiz-drawer-close" onclick="closeQuizDrawer()" aria-label="Close quiz">&#x2715;</button>
+  </div>
+  <div class="quiz-drawer-body">
+    <div class="quiz">
+      <div class="quiz__prog">
+        <div class="quiz__dot active" id="qd1"></div>
+        <div class="quiz__dot" id="qd2"></div>
+        <div class="quiz__dot" id="qd3"></div>
       </div>
-    </div>
 
-    <!-- Q2 -->
-    <div class="quiz__step" id="qs2">
-      <div class="quiz__qnum">Question 2 of 3</div>
-      <div class="quiz__qtext">What matters most to you?</div>
-      <div class="quiz__opts">
-        <button class="quiz__opt" onclick="qa(2,'video')">📹 Video calling</button>
-        <button class="quiz__opt" onclick="qa(2,'gps')">📍 GPS &amp; safety</button>
-        <button class="quiz__opt" onclick="qa(2,'both')">✨ Both</button>
+      <!-- Q1 -->
+      <div class="quiz__step active" id="qs1">
+        <div class="quiz__qnum">Question 1 of 3</div>
+        <div class="quiz__qtext">How old is your child?</div>
+        <div class="quiz__opts">
+          <button class="quiz__opt" onclick="qa(1,'u6')">Under 6</button>
+          <button class="quiz__opt" onclick="qa(1,'6-9')">6 – 9</button>
+          <button class="quiz__opt" onclick="qa(1,'10p')">10+</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Q3 -->
-    <div class="quiz__step" id="qs3">
-      <div class="quiz__qnum">Question 3 of 3</div>
-      <div class="quiz__qtext">What's your budget?</div>
-      <div class="quiz__opts">
-        <button class="quiz__opt" onclick="qa(3,'u250')">Under $250</button>
-        <button class="quiz__opt" onclick="qa(3,'250p')">$250 and above</button>
+      <!-- Q2 -->
+      <div class="quiz__step" id="qs2">
+        <div class="quiz__qnum">Question 2 of 3</div>
+        <div class="quiz__qtext">What matters most to you?</div>
+        <div class="quiz__opts">
+          <button class="quiz__opt" onclick="qa(2,'video')">📹 Video calling</button>
+          <button class="quiz__opt" onclick="qa(2,'gps')">📍 GPS &amp; safety</button>
+          <button class="quiz__opt" onclick="qa(2,'both')">✨ Both</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Result -->
-    <div class="quiz__result" id="quiz-result">
-      <div class="quiz__res-label">We recommend</div>
-      <div class="quiz__res-title" id="qr-title"></div>
-      <div class="quiz__res-sub" id="qr-sub"></div>
-      <button class="quiz__res-btn" onclick="scrollToResult()">
-        Show me this watch ↓
-      </button>
-      <button class="quiz__restart" onclick="resetQuiz()">Start again</button>
+      <!-- Q3 -->
+      <div class="quiz__step" id="qs3">
+        <div class="quiz__qnum">Question 3 of 3</div>
+        <div class="quiz__qtext">What's your budget?</div>
+        <div class="quiz__opts">
+          <button class="quiz__opt" onclick="qa(3,'u250')">Under $250</button>
+          <button class="quiz__opt" onclick="qa(3,'250p')">$250 and above</button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="quiz__result" id="quiz-result">
+        <div class="quiz__res-label">We recommend</div>
+        <div class="quiz__res-title" id="qr-title"></div>
+        <div class="quiz__res-sub" id="qr-sub"></div>
+        <button class="quiz__res-btn" onclick="scrollToResult()">
+          Show me →
+        </button>
+        <button class="quiz__restart" onclick="resetQuiz()">Start again</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1416,12 +1429,16 @@ function isDesktop() { return window.innerWidth >= 768; }
 var qState = {};
 var qTarget = null;   // { sectionId, cardId }
 
-function toggleQuiz() {
-  var w = document.getElementById('quiz-wrap');
-  w.classList.toggle('open');
-  if (w.classList.contains('open')) {
-    setTimeout(function(){ w.scrollIntoView({ behavior:'smooth', block:'start' }); }, 80);
-  }
+function openQuizDrawer() {
+  document.getElementById('quiz-drawer').classList.add('open');
+  document.getElementById('quiz-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQuizDrawer() {
+  document.getElementById('quiz-drawer').classList.remove('open');
+  document.getElementById('quiz-overlay').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 function qa(q, val) {
@@ -1468,16 +1485,19 @@ function showResult(sectionId, cardId, title, sub) {
 
 function scrollToResult() {
   if (!qTarget) return;
+  closeQuizDrawer();
   var section = document.getElementById(qTarget.sectionId);
   var card    = document.getElementById(qTarget.cardId);
-  if (section) section.scrollIntoView({ behavior:'smooth', block:'start' });
-  setTimeout(function(){
-    if (card) {
-      card.scrollIntoView({ behavior:'smooth', block:'center' });
-      card.classList.add('quiz-pulse');
-      setTimeout(function(){ card.classList.remove('quiz-pulse'); }, 4500);
-    }
-  }, 700);
+  setTimeout(function() {
+    if (section) section.scrollIntoView({ behavior:'smooth', block:'start' });
+    setTimeout(function(){
+      if (card) {
+        card.scrollIntoView({ behavior:'smooth', block:'center' });
+        card.classList.add('quiz-pulse');
+        setTimeout(function(){ card.classList.remove('quiz-pulse'); }, 4500);
+      }
+    }, 500);
+  }, 320);
 }
 
 function resetQuiz() {
@@ -1558,7 +1578,7 @@ function closeDrawer() {
   document.body.style.overflow = '';
 }
 
-document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeDrawer(); });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') { closeDrawer(); closeQuizDrawer(); } });
 
 /* ── Scroll-reveal ─────────────────────────────────────── */
 (function() {
