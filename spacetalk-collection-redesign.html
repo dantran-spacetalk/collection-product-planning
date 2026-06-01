@@ -323,8 +323,12 @@ a      { color: inherit; text-decoration: none; }
 .sku-price { font-size: 30px; font-weight: 700; letter-spacing: -0.025em; }
 .sku-compare { font-size: 15px; color: var(--g400); text-decoration: line-through; }
 .sku-save { font-size: 11px; font-weight: 700; color: #D01515; }
-.sku-apy { font-size: 11px; color: var(--g400); margin-bottom: 18px; }
+.sku-apy { font-size: 11px; color: var(--g400); margin-bottom: 4px; }
 .sku-card--dark .sku-apy { color: rgba(255,255,255,0.3); }
+.sku-plan { font-size: 11px; color: var(--blue); margin-bottom: 14px; font-weight: 500; }
+.sku-plan a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
+.sku-card--dark .sku-plan { color: var(--sky); }
+.sku-card--dark .sku-plan a { color: var(--sky); }
 .sku-cta {
   display: block; width: 100%; padding: 14px;
   background: var(--blue); color: var(--white);
@@ -610,7 +614,7 @@ a      { color: inherit; text-decoration: none; }
       <span class="hero__eyebrow-dot"></span>
       Australia's #1 kids smartwatch
     </div>
-    <h1 class="hero__title">Freedom for them.<br><em>Peace of mind</em> for you.</h1>
+    <h1 class="hero__title">Shop Kids Smartwatches</h1>
     <p class="hero__sub">GPS tracking, 4G calling, SOS and School Mode — on the Telstra network. No internet. No social media. Just connection.</p>
 
     <div class="hero__btns">
@@ -690,31 +694,6 @@ a      { color: inherit; text-decoration: none; }
   </div>
 </div>
 
-<!-- ══════════════════════════════ TRUST STATS ═════════════════════════════ -->
-<div style="background:var(--black);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);padding:36px 0">
-  <div class="container">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center">
-      <div>
-        <div style="font-size:clamp(28px,4vw,42px);font-weight:700;letter-spacing:-0.04em;color:var(--white);line-height:1">#1</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:6px;line-height:1.4">Kids smartwatch brand<br>in Australia</div>
-      </div>
-      <div>
-        <div style="font-size:clamp(28px,4vw,42px);font-weight:700;letter-spacing:-0.04em;color:var(--white);line-height:1">4.4★</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:6px;line-height:1.4">Average App Store<br>rating from families</div>
-      </div>
-      <div>
-        <div style="font-size:clamp(28px,4vw,42px);font-weight:700;letter-spacing:-0.04em;color:var(--neon);line-height:1">3,200+</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:6px;line-height:1.4">Verified reviews from<br>Australian families</div>
-      </div>
-      <div>
-        <div style="font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-0.03em;color:var(--white);line-height:1;padding-top:4px">Telstra</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:6px;line-height:1.4">Australia's largest<br>4G network</div>
-      </div>
-    </div>
-  </div>
-</div>
-<style>@media(max-width:640px){.trust-stats-inner{grid-template-columns:1fr 1fr!important}}</style>
-
 <!-- ══════════════════════════ ADVENTURER 2 SECTION ══════════════════════════ -->
 <section class="section--white" id="adventurer-2">
   <div class="container">
@@ -749,6 +728,7 @@ a      { color: inherit; text-decoration: none; }
             <span class="sku-price">$299</span>
           </div>
           <div class="sku-apy">or 4 × $74.75 with Afterpay</div>
+          <div class="sku-plan">+ From $13.75/mo plan required · <a href="https://spacetalk.co/pages/plans">See plans</a></div>
           <a href="https://spacetalk.co/products/spacetalk-adventurer-2" class="sku-cta">Add to cart</a>
           <button class="sku-feat-btn" id="adv2-watch-featbtn" onclick="toggleInline('adv2-watch', 'adv2')">
             See features
@@ -786,6 +766,7 @@ a      { color: inherit; text-decoration: none; }
             <span class="sku-save">Save $30</span>
           </div>
           <div class="sku-apy">or 4 × $87.25 with Afterpay</div>
+          <div class="sku-plan">+ From $13.75/mo plan required · <a href="https://spacetalk.co/pages/plans">See plans</a></div>
           <a href="https://spacetalk.co/products/spacetalk-adventurer-2-essential-bundle" class="sku-cta">Add to cart</a>
           <button class="sku-feat-btn" id="adv2-essential-featbtn" onclick="toggleInline('adv2-essential', 'adv2')">
             See features
@@ -824,6 +805,7 @@ a      { color: inherit; text-decoration: none; }
             <span class="sku-save">Save $50</span>
           </div>
           <div class="sku-apy">or 4 × $99.75 with Afterpay</div>
+          <div class="sku-plan">+ From $13.75/mo plan required · <a href="https://spacetalk.co/pages/plans">See plans</a></div>
           <a href="https://spacetalk.co/products/spacetalk-adventurer-2-smart-bundle" class="sku-cta">Add to cart</a>
           <button class="sku-feat-btn" id="adv2-smart-featbtn" onclick="toggleInline('adv2-smart', 'adv2')">
             See features
@@ -871,6 +853,7 @@ a      { color: inherit; text-decoration: none; }
             <span class="sku-price">$189</span>
           </div>
           <div class="sku-apy">or 4 × $47.25 with Afterpay</div>
+          <div class="sku-plan">+ From $13.75/mo plan required · <a href="https://spacetalk.co/pages/plans">See plans</a></div>
           <a href="https://spacetalk.co/products/spacetalk-loop" class="sku-cta">Add to cart</a>
           <button class="sku-feat-btn" id="loop-watch-featbtn" onclick="toggleInline('loop-watch', 'loop')">
             See features
@@ -905,6 +888,7 @@ a      { color: inherit; text-decoration: none; }
             <span class="sku-save">Save $20</span>
           </div>
           <div class="sku-apy">or 4 × $57.25 with Afterpay</div>
+          <div class="sku-plan">+ From $13.75/mo plan required · <a href="https://spacetalk.co/pages/plans">See plans</a></div>
           <a href="https://spacetalk.co/products/spacetalk-loop-essential-bundle" class="sku-cta">Add to cart</a>
           <button class="sku-feat-btn" id="loop-essential-featbtn" onclick="toggleInline('loop-essential', 'loop')">
             See features
@@ -940,6 +924,7 @@ a      { color: inherit; text-decoration: none; }
             <span class="sku-save">Save $40</span>
           </div>
           <div class="sku-apy">or 4 × $64.75 with Afterpay</div>
+          <div class="sku-plan">+ From $13.75/mo plan required · <a href="https://spacetalk.co/pages/plans">See plans</a></div>
           <a href="https://spacetalk.co/products/spacetalk-loop-smart-bundle" class="sku-cta">Add to cart</a>
           <button class="sku-feat-btn" id="loop-smart-featbtn" onclick="toggleInline('loop-smart', 'loop')">
             See features
@@ -1226,6 +1211,142 @@ a      { color: inherit; text-decoration: none; }
   </div>
 </section>
 
+<!-- ════════════════════════ SMARTWATCH VS SMARTPHONE ════════════════════════ -->
+<style>
+.vsph { padding: 88px 0; background: var(--white); color: var(--black); }
+.vsph .sec-eye { color: var(--blue); }
+.vsph .sec-title { color: var(--black); }
+.vsph-tbl { width: 100%; border-radius: 16px; overflow: hidden; border: 1.5px solid var(--g200); margin-top: 44px; background: var(--white); box-shadow: 0 2px 24px rgba(0,0,0,0.06); }
+.vsph-head { display: grid; grid-template-columns: 2fr 1fr 1fr; }
+.vsph-head__feat { padding: 18px 20px; background: var(--g50); border-bottom: 1.5px solid var(--g200); }
+.vsph-head__sp { background: var(--blue); padding: 18px 16px; text-align: center; border-bottom: 1.5px solid var(--blue); }
+.vsph-head__ph { background: var(--g100); padding: 18px 16px; text-align: center; border-bottom: 1.5px solid var(--g200); }
+.vsph-head__sp-lbl { font-size: 14px; font-weight: 700; color: var(--white); }
+.vsph-head__ph-lbl { font-size: 14px; font-weight: 700; color: var(--g400); }
+.vsph-head__sp-sub, .vsph-head__ph-sub { font-size: 11px; margin-top: 3px; }
+.vsph-head__sp-sub { color: rgba(255,255,255,0.55); }
+.vsph-head__ph-sub { color: var(--g400); }
+.vsph-cat { display: grid; grid-template-columns: 2fr 1fr 1fr; border-top: 1.5px solid var(--g200); }
+.vsph-cat__lbl { padding: 8px 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--g400); background: var(--g100); }
+.vsph-cat__sp { background: #EEF2FF; border-left: 2px solid var(--blue); }
+.vsph-cat__ph { background: var(--g100); }
+.vsph-row { display: grid; grid-template-columns: 2fr 1fr 1fr; border-top: 1px solid var(--g200); }
+.vsph-row:hover { background: var(--g50); }
+.vsph-feat { padding: 14px 20px; font-size: 13px; color: var(--black); font-weight: 500; display: flex; flex-direction: column; justify-content: center; line-height: 1.3; }
+.vsph-feat span { font-size: 11px; color: var(--g400); margin-top: 2px; font-weight: 400; }
+.vsph-sp { background: #F5F7FF; border-left: 2px solid var(--blue); display: flex; align-items: center; justify-content: center; padding: 12px 10px; text-align: center; }
+.vsph-ph { background: var(--white); display: flex; align-items: center; justify-content: center; padding: 12px 10px; text-align: center; }
+.vwin { font-size: 12px; font-weight: 700; color: #1a7f37; }
+.vneutral { font-size: 12px; color: var(--g400); font-weight: 500; }
+.vlose { font-size: 12px; color: #c0392b; font-weight: 500; opacity: 0.75; }
+.vsph-note { font-size: 12px; color: var(--g400); text-align: center; margin-top: 20px; line-height: 1.5; }
+.vsph-cta-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: center; margin-top: 36px; }
+@media(max-width:640px) {
+  .vsph-feat { padding: 11px 12px; font-size: 12px; }
+  .vsph-sp, .vsph-ph { padding: 9px 6px; }
+}
+</style>
+<section class="vsph" id="vs-smartphone">
+  <div class="container">
+    <div class="sec-hd">
+      <div class="sec-eye">Why a smartwatch, not a smartphone?</div>
+      <h2 class="sec-title">Why not just give them a phone?</h2>
+      <p class="sec-sub">It's the question every parent asks. Here's the honest answer.</p>
+    </div>
+    <div class="vsph-tbl">
+      <div class="vsph-head">
+        <div class="vsph-head__feat"></div>
+        <div class="vsph-head__sp">
+          <div class="vsph-head__sp-lbl">Spacetalk</div>
+          <div class="vsph-head__sp-sub">Kids smartwatch</div>
+        </div>
+        <div class="vsph-head__ph">
+          <div class="vsph-head__ph-lbl">Smartphone</div>
+          <div class="vsph-head__ph-sub">iPhone / Android</div>
+        </div>
+      </div>
+
+      <div class="vsph-cat"><div class="vsph-cat__lbl">Safety &amp; parental control</div><div class="vsph-cat__sp"></div><div class="vsph-cat__ph"></div></div>
+      <div class="vsph-row">
+        <div class="vsph-feat">Internet browser<span>Can your child browse the open web?</span></div>
+        <div class="vsph-sp"><span class="vwin">✓ None — ever</span></div>
+        <div class="vsph-ph"><span class="vlose">✗ Open web access</span></div>
+      </div>
+      <div class="vsph-row">
+        <div class="vsph-feat">Social media &amp; YouTube<span>TikTok, Instagram, Snapchat</span></div>
+        <div class="vsph-sp"><span class="vwin">✓ Blocked by design</span></div>
+        <div class="vsph-ph"><span class="vlose">✗ Freely downloadable</span></div>
+      </div>
+      <div class="vsph-row">
+        <div class="vsph-feat">App store<span>Can your child download apps?</span></div>
+        <div class="vsph-sp"><span class="vwin">✓ No app store</span></div>
+        <div class="vsph-ph"><span class="vlose">✗ Unrestricted access</span></div>
+      </div>
+      <div class="vsph-row">
+        <div class="vsph-feat">Who your child can contact<span>Calls and messages</span></div>
+        <div class="vsph-sp"><span class="vwin">✓ Parent-approved only</span></div>
+        <div class="vsph-ph"><span class="vlose">✗ Anyone, anywhere</span></div>
+      </div>
+      <div class="vsph-row">
+        <div class="vsph-feat">Strangers reaching your child</div>
+        <div class="vsph-sp"><span class="vwin">✓ Impossible</span></div>
+        <div class="vsph-ph"><span class="vlose">✗ Possible via apps</span></div>
+      </div>
+
+      <div class="vsph-cat"><div class="vsph-cat__lbl">School &amp; wellbeing</div><div class="vsph-cat__sp"></div><div class="vsph-cat__ph"></div></div>
+      <div class="vsph-row">
+        <div class="vsph-feat">School Mode<span>Auto-silences during class hours</span></div>
+        <div class="vsph-sp"><span class="vwin">✓ Built-in</span></div>
+        <div class="vsph-ph"><span class="vneutral">Manual only</span></div>
+      </div>
+      <div class="vsph-row">
+        <div class="vsph-feat">Screen time distraction risk<span>Homework, dinner, bedtime</span></div>
+        <div class="vsph-sp"><span class="vwin">✓ Very low</span></div>
+        <div class="vsph-ph"><span class="vlose">✗ Very high</span></div>
+      </div>
+      <div class="vsph-row">
+        <div class="vsph-feat">Allowed at Australian schools</div>
+        <div class="vsph-sp"><span class="vwin">✓ Recommended by many</span></div>
+        <div class="vsph-ph"><span class="vlose">✗ Increasingly banned</span></div>
+      </div>
+
+      <div class="vsph-cat"><div class="vsph-cat__lbl">Safety features</div><div class="vsph-cat__sp"></div><div class="vsph-cat__ph"></div></div>
+      <div class="vsph-row">
+        <div class="vsph-feat">Real-time GPS tracking<span>Live location in parent app</span></div>
+        <div class="vsph-sp"><span class="vwin">✓ Always-on</span></div>
+        <div class="vsph-ph"><span class="vneutral">Find My (limited)</span></div>
+      </div>
+      <div class="vsph-row">
+        <div class="vsph-feat">SOS emergency button<span>Instant alert with live location</span></div>
+        <div class="vsph-sp"><span class="vwin">✓ Dedicated button</span></div>
+        <div class="vsph-ph"><span class="vneutral">Emergency SOS only</span></div>
+      </div>
+      <div class="vsph-row">
+        <div class="vsph-feat">Safe zone arrival &amp; departure alerts</div>
+        <div class="vsph-sp"><span class="vwin">✓ Included</span></div>
+        <div class="vsph-ph"><span class="vneutral">Third-party apps needed</span></div>
+      </div>
+
+      <div class="vsph-cat"><div class="vsph-cat__lbl">Cost</div><div class="vsph-cat__sp"></div><div class="vsph-cat__ph"></div></div>
+      <div class="vsph-row">
+        <div class="vsph-feat">Device cost<span>Entry-level option</span></div>
+        <div class="vsph-sp"><span class="vwin">✓ From $189</span></div>
+        <div class="vsph-ph"><span class="vlose">✗ From $500+</span></div>
+      </div>
+      <div class="vsph-row">
+        <div class="vsph-feat">Monthly plan cost</div>
+        <div class="vsph-sp"><span class="vwin">✓ From $13.75/mo</span></div>
+        <div class="vsph-ph"><span class="vlose">✗ From $30+/mo</span></div>
+      </div>
+    </div>
+    <p class="vsph-note">Smartphone comparison based on typical entry-level iPhone/Android with standard family plan. Parental controls on smartphones vary and require ongoing management.</p>
+    <div class="vsph-cta-row">
+      <a href="#adventurer-2" class="btn-primary">Shop Adventurer 2 →</a>
+      <a href="#loop" style="color:var(--blue);font-size:14px;text-decoration:underline;text-underline-offset:3px">Shop Loop →</a>
+    </div>
+  </div>
+</section>
+
 <!-- ════════════════════════════════ SETUP ══════════════════════════════════ -->
 <section class="section--light" id="setup">
   <div class="container">
@@ -1315,6 +1436,107 @@ a      { color: inherit; text-decoration: none; }
     </div>
   </div>
 </div>
+
+<!-- ════════════════════════════════ FAQ ════════════════════════════════════ -->
+<style>
+.faq-list { max-width: 760px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--g200); }
+.faq-item:first-child { border-top: 1px solid var(--g200); }
+.faq-q {
+  width: 100%; text-align: left; padding: 20px 0;
+  font-size: 15px; font-weight: 600; color: var(--black);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  cursor: pointer; background: none; border: none; line-height: 1.35;
+  transition: color .2s;
+}
+.faq-q:hover { color: var(--blue); }
+.faq-icon {
+  flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+  border: 1.5px solid var(--g200); display: flex; align-items: center; justify-content: center;
+  transition: transform .25s, background .25s, border-color .25s;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--blue); border-color: var(--blue); }
+.faq-icon svg { stroke: var(--g400); transition: stroke .2s; }
+.faq-item.open .faq-icon svg { stroke: var(--white); }
+.faq-a { display: none; padding: 0 40px 20px 0; font-size: 14px; color: var(--g600); line-height: 1.65; }
+.faq-a a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
+.faq-item.open .faq-a { display: block; }
+</style>
+<section class="section--light" id="faq">
+  <div class="container">
+    <div class="sec-hd">
+      <div class="sec-eye">Common questions</div>
+      <h2 class="sec-title">Got a question?<br>We've got the answer.</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Does Spacetalk work with both iPhone and Android?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a">Yes — the free Spacetalk App is available on both iOS (iPhone) and Android. It doesn't matter which phone you use; you'll have full access to parental controls, GPS tracking, School Mode, and real-time notifications.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What does a Spacetalk plan cost, and what's included?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a">Plans start from $13.75/month on the Telstra 4G network. Your plan includes calling, GPS tracking data, and app connectivity — everything the watch needs to work. There are no contracts; plans are month-to-month and can be paused or cancelled anytime. <a href="https://spacetalk.co/pages/plans">Compare all plans here</a>.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can my child contact anyone, or only people I've approved?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a">Only contacts you've approved. You add contacts through the Spacetalk App, and your child can only call or message those people. There's no way for anyone outside your approved list to reach your child — no unknown numbers, no random messages.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          My child's school bans phones. Will a Spacetalk watch be allowed?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a">Many Australian schools actively recommend or permit Spacetalk because it's not a smartphone — there's no browser, no social media, and no distractions. School Mode auto-silences the watch during class hours. We recommend checking with your school directly, as policies vary. A growing number of school communities list Spacetalk as an approved device.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How long does the battery last?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a">The Adventurer 2 lasts up to 24 hours on a full charge — enough for a full school day and evening. The Loop lasts up to 36 hours, so most parents charge it every second night. Both charge via a magnetic cable in approximately 2 hours.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What's the warranty, and what if the watch breaks?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a">All Spacetalk watches come with a 12-month manufacturer's warranty covering defects. Both models are IP68 rated — submerged in up to 1.5m of water for 30 minutes. Our Australian support team typically responds within 2 hours, Monday–Friday. <a href="https://support.spacetalk.co">Visit support.spacetalk.co</a> to lodge a claim.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I upgrade from Loop to Adventurer 2 as my child gets older?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a">Yes. Many families start with the Loop for younger kids and upgrade to the Adventurer 2 when they're ready for video calling, a bigger screen, and more independence. Your Spacetalk App account, approved contacts, and settings transfer over — so the upgrade is quick and straightforward.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Does the watch work overseas or in New Zealand?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a">Spacetalk watches are designed for use in Australia on the Telstra 4G network. International roaming is not currently supported, so calling and GPS won't be active while travelling abroad. Offline features remain accessible. Check <a href="https://support.spacetalk.co">support.spacetalk.co</a> for the latest on international availability.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- ══════════════════════════════ REVIEWS ══════════════════════════════════ -->
 <section class="section--white" id="reviews">
@@ -1532,6 +1754,13 @@ function buildFeatDrawerHTML(product) {
       '<div class="dfeat-desc">' + f.d + '</div></div>' +
     '</div>';
   }).join('');
+}
+
+function toggleFaq(btn) {
+  var item = btn.closest('.faq-item');
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(i) { i.classList.remove('open'); });
+  if (!isOpen) item.classList.add('open');
 }
 
 function toggleInline(cardId, product) {
