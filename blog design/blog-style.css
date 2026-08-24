@@ -1,0 +1,249 @@
+/* ==========================================================================
+   SPACETALK BLOG COMPONENT LIBRARY
+   Reusable classes for blog articles. Drop these classes onto elements
+   inside the Shopify blog post body/liquid template and they will render
+   consistently across every post.
+
+   To ship into the theme: paste this whole file into theme.css (or import
+   it via {{ 'blog-style.css' | asset_url | stylesheet_tag }} as its own
+   asset). Do not rename classes without updating blog.liquid / the
+   article template, and any existing blog post content already using
+   these classes.
+
+   Wrap post content in <div class="spacetalk-blog">...</div> (a div, not
+   an <article> - Shopify's blog template already renders its own
+   <article> around the post, so nesting another one is redundant).
+   ========================================================================== */
+
+.spacetalk-blog { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: #171717; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+/* ---- Image: any <img> directly inside .spacetalk-blog, no class needed ---- */
+.spacetalk-blog > img { display: block; width: 100%; height: auto; border-radius: 16px; margin: 0 0 32px; }
+
+/* ---- Excerpt / opening paragraph (blue left border) ---- */
+.spacetalk-blog > p.blog-excerpt {
+  font-size: 18px; line-height: 1.75; color: #444;
+  border-left: 3px solid #86AFFF; padding-left: 20px; margin: 0 0 18px;
+}
+
+/* ---- Body copy: plain <p> directly inside .spacetalk-blog, no class needed ---- */
+.spacetalk-blog > p { font-size: 17px; line-height: 1.75; margin: 0 0 18px; }
+
+/* ---- Comparison table ---- */
+.blog-comparison-table { width: 100%; overflow-x: auto; margin: 0 0 32px; }
+.blog-comparison-table table { width: 100%; min-width: 560px; border-collapse: collapse; text-align: left; }
+.blog-comparison-table th, .blog-comparison-table td { padding: 14px 16px; border-bottom: 1px solid #eee; vertical-align: top; line-height: 1.6; }
+.blog-comparison-table th { background: #171717; color: #fff; font-size: 14px; font-weight: 800; }
+.blog-comparison-table td { color: #444; font-size: 15px; }
+.blog-comparison-table tr:nth-child(even) td { background: #f8f8f8; }
+
+/* ---- Key takeaway ---- */
+.blog-key-takeaway { background: #D4FD00; padding: 24px 28px; margin: 36px 0; border-radius: 12px; }
+.blog-key-takeaway h2 { font-size: 20px; font-weight: 800; color: #171717; margin: 0 0 10px; }
+.blog-key-takeaway p { font-size: 17px; line-height: 1.7; color: #171717; margin: 0; }
+
+/* ---- Pros and cons ---- */
+.blog-pros-cons { display: flex; gap: 16px; margin: 0 0 32px; }
+.blog-pros-cons > div { flex: 1 1 50%; padding: 24px; border-radius: 12px; }
+.blog-pros-cons > div:first-child { background: #EAF7EF; }
+.blog-pros-cons > div:last-child { background: #FFF0F0; }
+.blog-pros-cons h3 { font-size: 18px; margin: 0 0 12px; }
+.blog-pros-cons ul { margin: 0; padding-left: 20px; }
+.blog-pros-cons li { font-size: 16px; line-height: 1.65; margin-bottom: 8px; }
+.blog-pros-cons li:last-child { margin-bottom: 0; }
+
+/* ---- Image caption ---- */
+.blog-image-caption { margin: 0 0 32px; }
+.blog-image-caption img { display: block; width: 100%; height: auto; border-radius: 16px; }
+.blog-image-caption figcaption { color: #666; font-size: 13px; line-height: 1.5; margin-top: 8px; }
+
+/* ---- Neon/yellow callout (pull quote) ---- */
+.blog-callout {
+  background: #D4FD00; padding: 24px 28px; margin: 36px 0; border-radius: 12px;
+}
+.blog-callout p {
+  font-size: 18px; font-weight: bold; font-style: italic; color: #171717;
+  line-height: 1.65; margin: 0;
+}
+
+/* ---- Section heading ---- */
+.blog-h2 {
+  font-size: 24px; font-weight: 800; color: #171717;
+  margin: 48px 0 24px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;
+}
+.blog-h2:first-child { margin-top: 0; }
+
+/* ---- Numbered list items ("What to look for" / "What to avoid" etc) ----
+   Add a colour modifier class to .blog-number-badge:
+   is-spacetalk-blue (#3315D0, white text)
+   is-spacetalk-neon (#D4FD00, black text)
+   is-spacetalk-violet (#6C0590, white text)
+   is-spacetalk-sky (#86AFFF, black text)
+   is-spacetalk-evergreen (#0C4029, white text)
+   is-spacetalk-sakura (#FFBFBF, black text) */
+.blog-numbered-item { margin: 0 0 32px; }
+.blog-numbered-item h3 {
+  font-size: 17px; font-weight: bold; color: #171717; margin: 0 0 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.blog-numbered-item p { font-size: 17px; line-height: 1.75; margin: 0 0 12px; }
+.blog-numbered-item p:last-child { margin-bottom: 0; }
+.blog-number-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; min-width: 26px; border-radius: 50%;
+  color: #fff; font-size: 13px; font-weight: 800; background: #3315D0;
+}
+.blog-number-badge.is-spacetalk-blue { background: #3315D0; color: #fff; }
+.blog-number-badge.is-spacetalk-neon { background: #D4FD00; color: #000; }
+.blog-number-badge.is-spacetalk-violet { background: #6C0590; color: #fff; }
+.blog-number-badge.is-spacetalk-sky { background: #86AFFF; color: #000; }
+.blog-number-badge.is-spacetalk-evergreen { background: #0C4029; color: #fff; }
+.blog-number-badge.is-spacetalk-sakura { background: #FFBFBF; color: #000; }
+
+/* ---- Image (fallback class) ----
+   An <img> directly inside .spacetalk-blog needs no class (see above).
+   Only use .blog-image when an image sits somewhere that isn't a direct
+   child of .spacetalk-blog or .blog-media-row. */
+.blog-image { display: block; width: 100%; height: auto; border-radius: 16px; margin: 0 0 32px; }
+
+/* ---- Media row: image + content side by side ----
+   Classes:
+   .blog-media-row        - required wrapper
+   .is-image-right        - flips the image to the right on desktop (default: left)
+   .is-mobile-image-last  - puts the image below the content on mobile,
+                            regardless of the desktop orientation
+   .width-10 .. .width-90 - sets the image's share of the row on desktop
+                            in 10% steps (e.g. .width-30 = 30% image,
+                            70% content). Default with no width class is
+                            50/50. Ignored on mobile - always stacks full width.
+
+   On mobile, the image ALWAYS stacks first (on top) by default, no
+   matter which side it's on for desktop. Add .is-mobile-image-last if
+   you want the content to appear above the image on mobile instead.
+   The image and content always match each other's height on desktop. */
+.blog-media-row {
+  display: flex; align-items: stretch; gap: 32px; margin: 0 0 48px;
+}
+.blog-media-row > img, .blog-media-row > div { flex: 1 1 50%; min-width: 0; }
+.blog-media-row > img { border-radius: 16px; width: 100%; height: 100%; display: block; object-fit: cover; }
+.blog-media-row.is-image-right { flex-direction: row-reverse; }
+
+.blog-media-row.width-10 > img { flex-basis: 10%; }
+.blog-media-row.width-10 > div { flex-basis: 90%; }
+.blog-media-row.width-20 > img { flex-basis: 20%; }
+.blog-media-row.width-20 > div { flex-basis: 80%; }
+.blog-media-row.width-30 > img { flex-basis: 30%; }
+.blog-media-row.width-30 > div { flex-basis: 70%; }
+.blog-media-row.width-40 > img { flex-basis: 40%; }
+.blog-media-row.width-40 > div { flex-basis: 60%; }
+.blog-media-row.width-50 > img { flex-basis: 50%; }
+.blog-media-row.width-50 > div { flex-basis: 50%; }
+.blog-media-row.width-60 > img { flex-basis: 60%; }
+.blog-media-row.width-60 > div { flex-basis: 40%; }
+.blog-media-row.width-70 > img { flex-basis: 70%; }
+.blog-media-row.width-70 > div { flex-basis: 30%; }
+.blog-media-row.width-80 > img { flex-basis: 80%; }
+.blog-media-row.width-80 > div { flex-basis: 20%; }
+.blog-media-row.width-90 > img { flex-basis: 90%; }
+.blog-media-row.width-90 > div { flex-basis: 10%; }
+
+/* ---- Bulleted list (plain, non-numbered) ----
+   !important overrides the theme's own ul/li defaults in blog articles. */
+.blog-bullet-list { margin: 0 0 32px !important; padding-left: 20px !important; list-style: disc !important; }
+.blog-bullet-list li { font-size: 17px !important; line-height: 1.75 !important; margin: 0 0 10px !important; }
+.blog-bullet-list li:last-child { margin-bottom: 0 !important; }
+
+/* ---- Spacetalk product callout block ----
+  Reusable, precoded "shop the products mentioned" block. Use
+  .is-stacked on the wrapper for one card per row; without it, up to 4
+  cards form a 2x2 desktop grid. Use .is-last-full for 3 cards when the
+  third card should span the full row beneath the first two.
+  Only one
+   class needed: .spacetalk-callout-products. Structure inside is plain
+   tags - a <p> (eyebrow), <h2> (heading), then a <div> of up to 4
+   nested <div> "cards", each with 3 <p> tags (tag/title/description,
+   in that order) and an <a> (CTA). Order matters since styling is
+   applied by position, not by class. */
+.spacetalk-callout-products {
+  background: #171717; border-radius: 16px; padding: 48px 40px; margin: 0 0 64px;
+}
+.spacetalk-callout-products > p {
+  font-size: 12px; font-weight: bold; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #86afff; margin: 0 0 8px;
+}
+.spacetalk-callout-products > h2 {
+  font-size: 28px; font-weight: 800; color: #fff; margin: 0 0 32px; line-height: 1.2;
+}
+.spacetalk-callout-products > div { display: flex; flex-wrap: wrap; gap: 16px; }
+.spacetalk-callout-products > div > div {
+  flex: 0 0 calc(50% - 8px); width: calc(50% - 8px); min-width: 0;
+  box-sizing: border-box; background: #fff; border-radius: 12px;
+  padding: 24px; display: flex; flex-direction: column;
+}
+.spacetalk-callout-products.is-stacked > div { flex-direction: column; }
+.spacetalk-callout-products.is-stacked > div > div { flex: 0 0 100%; width: 100%; }
+.spacetalk-callout-products.is-last-full > div > div:last-child {
+  flex: 0 0 100%; width: 100%;
+}
+.spacetalk-callout-products > div > div > p:nth-of-type(1) {
+  font-size: 12px; font-weight: bold; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #3315d0; margin: 0 0 8px;
+}
+.spacetalk-callout-products > div > div > p:nth-of-type(2) {
+  font-size: 17px; font-weight: 800; color: #171717; margin: 0 0 8px; line-height: 1.3;
+}
+.spacetalk-callout-products > div > div > p:nth-of-type(3) {
+  font-size: 14px; color: #555; line-height: 1.6; margin: 0 0 20px; flex-grow: 1;
+}
+.spacetalk-callout-products > div > div > a {
+  display: inline-block; background: #3315D0; color: #fff; font-size: 14px; font-weight: bold;
+  text-decoration: none; padding: 11px 22px; border-radius: 100px; text-align: center;
+}
+
+/* ---- FAQ (auto-generates FAQPage schema, see blog-schema.js) ----
+   Usage: wrap the section in .blog-faq. Each question is a
+   .blog-faq-item containing a plain <h3> for the question and a plain
+   <p> for the answer - no extra classes needed. A script reads these
+   and injects application/ld+json automatically - no manual schema
+   writing required. */
+.blog-faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+.blog-faq-item:last-child { border-bottom: none; }
+.blog-faq-item h3 { font-weight: bold; font-size: 16px; color: #171717; margin: 0 0 8px; }
+.blog-faq-item p { font-size: 15.5px; color: #444; line-height: 1.75; margin: 0; }
+
+/* ==========================================================================
+   MOBILE RESPONSIVE OVERRIDES
+   Every component above adapts automatically at this breakpoint - no
+   extra classes needed on mobile except .is-mobile-image-last (see the
+   media row notes above).
+   ========================================================================== */
+@media (max-width: 640px) {
+  .spacetalk-blog > p, .spacetalk-blog > p.blog-excerpt { font-size: 16px; }
+  .blog-callout { padding: 18px 20px; }
+  .blog-callout p { font-size: 16px; }
+  .blog-key-takeaway { padding: 18px 20px; }
+  .blog-key-takeaway p { font-size: 16px; }
+  .blog-pros-cons { flex-direction: column; }
+  .blog-pros-cons > div { flex-basis: 100%; }
+  .blog-comparison-table { margin-right: -20px; }
+  .blog-h2 { font-size: 20px; margin: 32px 0 16px; }
+  .blog-numbered-item h3 { font-size: 16px; }
+  .blog-numbered-item p { font-size: 16px; }
+  .blog-bullet-list li { font-size: 16px !important; }
+
+  /* Image always stacks first (on top) on mobile by default. Add
+     .is-mobile-image-last to put the content above the image instead,
+     regardless of the desktop image side. Width modifiers only apply
+     on desktop - both image and content always go full-width here. */
+  .blog-media-row, .blog-media-row.is-image-right { flex-direction: column; }
+  .blog-media-row.is-mobile-image-last { flex-direction: column-reverse; }
+  .blog-media-row > img, .blog-media-row > div { flex-basis: auto !important; }
+  .blog-media-row > img { height: auto; }
+
+  .spacetalk-callout-products { padding: 32px 24px; }
+  .spacetalk-callout-products > h2 { font-size: 22px; }
+  .spacetalk-callout-products > div > div { flex: 0 0 100%; width: 100%; }
+
+  .blog-faq-item h3 { font-size: 15px; }
+  .blog-faq-item p { font-size: 15px; }
+}

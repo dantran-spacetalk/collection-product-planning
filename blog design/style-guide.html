@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Component Style Guide</title>
+<link rel="stylesheet" href="blog-style.css">
+<style>
+  /* Style-guide-only styles. None of this ships to the theme. */
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: #fafafa; margin: 0; padding: 0 0 80px; }
+  .guide-header { background: #171717; color: #fff; padding: 40px 24px; }
+  .guide-header h1 { margin: 0 0 8px; font-size: 28px; }
+  .guide-header p { margin: 0; color: #ccc; font-size: 15px; max-width: 700px; }
+  .guide-header a { color: #86afff; text-decoration: none; font-weight: bold; font-size: 13px; }
+  .guide-wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; }
+  .guide-toc { order: 0; }
+  .guide-category { color: #3315D0; font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 2px solid #3315D0; padding: 32px 0 8px; }
+  #category-main { order: 1; }
+  #wrapper { order: 2; }
+  #excerpt { order: 3; }
+  #body { order: 4; }
+  #callout { order: 5; }
+  #heading { order: 6; }
+  #key-takeaway { order: 7; }
+  #category-images { order: 8; }
+  #image { order: 9; }
+  #image-caption { order: 10; }
+  #media-row { order: 11; }
+  #category-comparison { order: 12; }
+  #comparison { order: 13; }
+  #pros-cons { order: 14; }
+  #category-lists { order: 15; }
+  #bullets { order: 16; }
+  #faq { order: 17; }
+  #numbered { order: 18; }
+  #category-products { order: 19; }
+  #products { order: 20; }
+  .guide-section { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 32px; margin: 32px 0; }
+  .guide-section h2 { font-size: 20px; margin: 0 0 6px; }
+  .guide-section .desc { color: #666; font-size: 14px; margin: 0 0 24px; }
+  .guide-preview { border: 1px dashed #ddd; border-radius: 8px; padding: 24px; margin: 0 0 16px; background: #fdfdfd; }
+  .guide-code { background: #171717; color: #d4fd00; font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; padding: 18px 20px; border-radius: 8px; overflow-x: auto; white-space: pre; margin: 0; }
+  .guide-toc { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 24px 32px; margin: 32px 0; }
+  .guide-toc h2 { font-size: 16px; margin: 0 0 12px; }
+  .guide-toc-groups { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+  .guide-toc-group h3 { color: #3315D0; font-size: 13px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .guide-toc-group ul { margin: 0; padding-left: 18px; }
+  .guide-toc-group li { font-size: 14px; margin-bottom: 8px; }
+  .guide-toc a { color: #3315D0; text-decoration: none; }
+  .guide-classlist { font-size: 14px; color: #444; margin: 0 0 24px; padding-left: 20px; }
+  .guide-classlist li { margin-bottom: 6px; }
+  .guide-auto { border: 2px dashed #86AFFF; border-radius: 8px; padding: 16px 20px; margin: 16px 0 0; background: #f4f7ff; }
+  .guide-auto-label { display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #3315D0; background: #fff; border: 1px solid #86AFFF; padding: 3px 10px; border-radius: 100px; margin-bottom: 12px; }
+  .guide-auto pre { background: none; color: #171717; font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.6; margin: 0; padding: 0; white-space: pre; overflow-x: auto; }
+  @media (max-width: 700px) {
+    .guide-toc-groups { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 420px) {
+    .guide-toc-groups { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="guide-header">
+  <p><a href="index.html">&larr; Back to blog draft</a></p>
+  <h1>Spacetalk Blog Component Style Guide</h1>
+  <p>Every reusable class available for blog posts, with a live preview and the exact markup to paste into a post. Styles live in <code>blog-style.css</code> — the same file that will be merged into <code>theme.css</code>.</p>
+</div>
+
+<div class="guide-wrap">
+
+  <div class="guide-toc">
+    <h2>Components</h2>
+    <div class="guide-toc-groups">
+      <div class="guide-toc-group">
+        <h3>Main</h3>
+        <ul>
+          <li><a href="#wrapper">Blog opening wrapper</a></li>
+          <li><a href="#excerpt">Opening paragraph</a></li>
+          <li><a href="#body">Body copy</a></li>
+          <li><a href="#callout">Neon callout</a></li>
+          <li><a href="#key-takeaway">Key takeaway</a></li>
+          <li><a href="#heading">Section heading</a></li>
+        </ul>
+      </div>
+      <div class="guide-toc-group">
+        <h3>Images</h3>
+        <ul>
+          <li><a href="#image">Image</a></li>
+          <li><a href="#image-caption">Image caption</a></li>
+          <li><a href="#media-row">Media row</a></li>
+        </ul>
+      </div>
+      <div class="guide-toc-group">
+        <h3>Comparison</h3>
+        <ul>
+          <li><a href="#comparison">Comparison table</a></li>
+          <li><a href="#pros-cons">Pros and cons</a></li>
+        </ul>
+      </div>
+      <div class="guide-toc-group">
+        <h3>Lists</h3>
+        <ul>
+          <li><a href="#bullets">Bullet list</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#numbered">Numbered list</a></li>
+        </ul>
+      </div>
+      <div class="guide-toc-group">
+        <h3>Products</h3>
+        <ul>
+          <li><a href="#products">Product callout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-category" id="category-main">Main</div>
+  <div class="guide-category" id="category-images">Images</div>
+  <div class="guide-category" id="category-comparison">Comparison</div>
+  <div class="guide-category" id="category-lists">Lists</div>
+  <div class="guide-category" id="category-products">Products</div>
+
+  <!-- WRAPPER -->
+  <div class="guide-section" id="wrapper">
+    <h2>Blog opening wrapper</h2>
+    <p class="desc">Every blog post starts with this wrapper. Use a plain <code>&lt;div&gt;</code>, not an <code>&lt;article&gt;</code> tag: Shopify's blog template already renders its own <code>&lt;article&gt;</code> around the post, so nesting a second one is redundant.</p>
+    <ul class="guide-classlist">
+      <li><code>.spacetalk-blog</code> — required wrapper. Sets max content width, side padding, font and base text colour for everything inside.</li>
+    </ul>
+    <pre class="guide-code">&lt;div class="spacetalk-blog"&gt;
+  ... rest of the post content goes here ...
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- EXCERPT -->
+  <div class="guide-section" id="excerpt">
+    <h2>Intro / opening paragraph</h2>
+    <p class="desc">This is the distinct opening excerpt, so it needs its own class. Normal paragraphs after it do not need a class.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-excerpt</code> — put this on the opening <code>&lt;p&gt;</code>.</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="spacetalk-blog" style="max-width:none;margin:0;padding:0;">
+        <p class="blog-excerpt">For many Australian parents, location sharing isn't about monitoring every movement.</p>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;p class="blog-excerpt"&gt;Your intro sentence goes here.&lt;/p&gt;</pre>
+  </div>
+
+  <!-- BODY -->
+  <div class="guide-section" id="body">
+    <h2>Body copy</h2>
+    <p class="desc">No class needed — plain body <code>&lt;p&gt;</code> elements directly inside <code>.spacetalk-blog</code> are automatically styled as standard paragraph copy.</p>
+    <ul class="guide-classlist">
+      <li>No class — just <code>&lt;p&gt;</code> as a direct child of <code>.spacetalk-blog</code>.</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="spacetalk-blog" style="max-width:none;margin:0;padding:0;">
+        <p>Standard paragraph text sits at 17px with generous line height for readability.</p>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;p&gt;
+  Your paragraph text goes here.
+&lt;/p&gt;</pre>
+  </div>
+
+  <!-- CALLOUT -->
+  <div class="guide-section" id="callout">
+    <h2>Neon callout / pull quote</h2>
+    <p class="desc">The yellow/neon highlight box for pull quotes or key takeaways.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-callout</code> — wrapping <code>&lt;div&gt;</code>. The <code>&lt;p&gt;</code> inside needs no class.</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="blog-callout">
+        <p>"A short, punchy quote or takeaway goes here."</p>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;div class="blog-callout"&gt;
+  &lt;p&gt;"Your pull quote goes here."&lt;/p&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- HEADING -->
+  <div class="guide-section" id="heading">
+    <h2>Section heading</h2>
+    <p class="desc">Bold heading with a light underline used to divide major sections.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-h2</code> — put on an <code>&lt;h2&gt;</code>.</li>
+    </ul>
+    <div class="guide-preview">
+      <h2 class="blog-h2" style="margin-top:0;">What to look for</h2>
+    </div>
+    <pre class="guide-code">&lt;h2 class="blog-h2"&gt;Section title&lt;/h2&gt;</pre>
+  </div>
+
+  <!-- NUMBERED -->
+  <div class="guide-section" id="numbered">
+    <h2>Numbered list items</h2>
+    <p class="desc">Numbered circle + heading, used for "what to look for" / "what to avoid" style lists.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-numbered-item</code> — wrapping <code>&lt;div&gt;</code> for each point.</li>
+      <li><code>.blog-number-badge</code> — put on the number <code>&lt;span&gt;</code>, plus one colour modifier:</li>
+      <li style="margin-left:20px;"><code>.is-spacetalk-blue</code> — #3315D0, white text</li>
+      <li style="margin-left:20px;"><code>.is-spacetalk-neon</code> — #D4FD00, black text</li>
+      <li style="margin-left:20px;"><code>.is-spacetalk-violet</code> — #6C0590, white text</li>
+      <li style="margin-left:20px;"><code>.is-spacetalk-sky</code> — #86AFFF, black text</li>
+      <li style="margin-left:20px;"><code>.is-spacetalk-evergreen</code> — #0C4029, white text</li>
+      <li style="margin-left:20px;"><code>.is-spacetalk-sakura</code> — #FFBFBF, black text</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="blog-numbered-item">
+        <h3><span class="blog-number-badge is-spacetalk-blue">1</span> Spacetalk blue</h3>
+      </div>
+      <div class="blog-numbered-item">
+        <h3><span class="blog-number-badge is-spacetalk-neon">2</span> Spacetalk neon</h3>
+      </div>
+      <div class="blog-numbered-item">
+        <h3><span class="blog-number-badge is-spacetalk-violet">3</span> Spacetalk violet</h3>
+      </div>
+      <div class="blog-numbered-item">
+        <h3><span class="blog-number-badge is-spacetalk-sky">4</span> Spacetalk sky</h3>
+      </div>
+      <div class="blog-numbered-item">
+        <h3><span class="blog-number-badge is-spacetalk-evergreen">5</span> Spacetalk evergreen</h3>
+      </div>
+      <div class="blog-numbered-item" style="margin-bottom:0;">
+        <h3><span class="blog-number-badge is-spacetalk-sakura">6</span> Spacetalk sakura</h3>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;div class="blog-numbered-item"&gt;
+  &lt;h3&gt;&lt;span class="blog-number-badge is-spacetalk-blue"&gt;1&lt;/span&gt; Heading&lt;/h3&gt;
+  &lt;p&gt;Supporting paragraph.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="blog-numbered-item"&gt;
+  &lt;h3&gt;&lt;span class="blog-number-badge is-spacetalk-violet"&gt;2&lt;/span&gt; Heading&lt;/h3&gt;
+  &lt;p&gt;Supporting paragraph.&lt;/p&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- BULLETS -->
+  <div class="guide-section" id="bullets">
+    <h2>Bullet list</h2>
+    <p class="desc">Plain bulleted list for simpler point lists that don't need numbered circles.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-bullet-list</code> — put on the <code>&lt;ul&gt;</code>. <code>&lt;li&gt;</code> items need no class.</li>
+    </ul>
+    <div class="guide-preview">
+      <ul class="blog-bullet-list">
+        <li>First point</li>
+        <li>Second point</li>
+        <li>Third point</li>
+      </ul>
+    </div>
+    <pre class="guide-code">&lt;ul class="blog-bullet-list"&gt;
+  &lt;li&gt;First point&lt;/li&gt;
+  &lt;li&gt;Second point&lt;/li&gt;
+  &lt;li&gt;Third point&lt;/li&gt;
+&lt;/ul&gt;</pre>
+  </div>
+
+  <!-- IMAGE -->
+  <div class="guide-section" id="image">
+    <h2>Image</h2>
+    <p class="desc">Matches the site's rounded corners (16px), no border. No class needed when it's a direct child of <code>.spacetalk-blog</code>.</p>
+    <ul class="guide-classlist">
+      <li>No class — just <code>&lt;img&gt;</code> as a direct child of <code>.spacetalk-blog</code>.</li>
+      <li><code>.blog-image</code> — fallback class, only needed if the image sits somewhere else (not a direct child of <code>.spacetalk-blog</code> or <code>.blog-media-row</code>).</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="blog-image" style="height:180px; background: linear-gradient(135deg,#3315D0,#86AFFF); display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:bold;">Image placeholder</div>
+    </div>
+    <pre class="guide-code">&lt;img src="{{ 'your-image.jpg' | asset_url }}" alt="Description"&gt;</pre>
+  </div>
+
+  <!-- MEDIA ROW -->
+  <div class="guide-section" id="media-row">
+    <h2>Media row (image + content)</h2>
+    <p class="desc">Wraps an <code>&lt;img&gt;</code> and a content <code>&lt;div&gt;</code> side by side on desktop, always matching each other's height. <strong>On mobile, the image always stacks first (on top) by default</strong> — no matter which side or width it's set to on desktop.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-media-row</code> — required wrapper.</li>
+      <li><code>.is-image-right</code> — flips the image to the right on desktop (default: left).</li>
+      <li><code>.is-mobile-image-last</code> — puts the image below the content regardless of desktop orientation on mobile screens.</li>
+      <li><code>.width-10</code> through <code>.width-90</code> (steps of 10) — sets the image's share of the row on desktop, e.g. <code>.width-30</code> = 30% image / 70% content. Ignored on mobile. Default with no width class is 50/50.</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="blog-media-row">
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236C0590'/%3E%3Cstop offset='1' stop-color='%23FFBFBF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g1)'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3EImage (left)%3C/text%3E%3C/svg%3E" alt="Image (left)">
+        <div>
+          <h2 class="blog-h2" style="margin-top:0;">Content on the right</h2>
+          <p>Default layout: image on the left, content on the right, 50/50.</p>
+        </div>
+      </div>
+      <div class="blog-media-row is-image-right" style="margin-bottom:16px;">
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230C4029'/%3E%3Cstop offset='1' stop-color='%23D4FD00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g2)'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3EImage (right)%3C/text%3E%3C/svg%3E" alt="Image (right)">
+        <div>
+          <h2 class="blog-h2" style="margin-top:0;">Content on the left</h2>
+          <p>With <code>.is-image-right</code>, the image moves to the right on desktop.</p>
+        </div>
+      </div>
+      <div class="blog-media-row width-30" style="margin-bottom:0;">
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233315D0'/%3E%3Cstop offset='1' stop-color='%23D4FD00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g3)'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3E30%25%3C/text%3E%3C/svg%3E" alt="30% width image">
+        <div>
+          <h2 class="blog-h2" style="margin-top:0;">70% content</h2>
+          <p>With <code>.width-30</code>, the image takes 30% of the row and the content takes the remaining 70%.</p>
+        </div>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;!-- image left, content right, 50/50 (default) --&gt;
+&lt;div class="blog-media-row"&gt;
+  &lt;img src="..." alt="..."&gt;
+  &lt;div&gt;
+    &lt;h2 class="blog-h2"&gt;Heading&lt;/h2&gt;
+    &lt;p&gt;Supporting copy.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- image right, content left, 30% image / 70% content --&gt;
+&lt;div class="blog-media-row is-image-right width-30"&gt;
+  &lt;img src="..." alt="..."&gt;
+  &lt;div&gt;
+    &lt;h2 class="blog-h2"&gt;Heading&lt;/h2&gt;
+    &lt;p&gt;Supporting copy.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- image ALWAYS stacks first on mobile by default (width classes are
+     ignored on mobile). Add is-mobile-image-last to put content above
+     the image on mobile instead, regardless of desktop side --&gt;
+&lt;div class="blog-media-row is-image-right width-30 is-mobile-image-last"&gt;
+  &lt;img src="..." alt="..."&gt;
+  &lt;div&gt;...&lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="guide-section" id="products">
+    <h2>Spacetalk product callout</h2>
+    <p class="desc">Precoded dark "shop the products mentioned" block. On desktop, cards display as a 2x2 grid by default. Add <code>.is-stacked</code> when you want one card per row. Both layouts stack to one card per row on mobile.</p>
+    <ul class="guide-classlist">
+      <li><code>.spacetalk-callout-products</code> — the only class needed, on the outer wrapper.</li>
+      <li><code>.is-stacked</code> — optional modifier on the same wrapper; changes the desktop layout from 2x2 to one card per row.</li>
+      <li><code>.is-last-full</code> — optional modifier for 3 cards; keeps the first 2 side by side and makes the third card span the full row beneath them.</li>
+      <li>Inside the wrapper: plain tags only. Keep each card's 3 <code>&lt;p&gt;</code>s in tag/title/description order, followed by its <code>&lt;a&gt;</code> CTA.</li>
+    </ul>
+    <div class="guide-preview">
+      <p style="font-size:13px; font-weight:800; color:#3315D0; margin:0 0 16px;">2x2 desktop grid (default)</p>
+      <div class="spacetalk-callout-products">
+        <p>Explore Spacetalk</p>
+        <h2>Built for exactly this</h2>
+        <div>
+          <div>
+            <p>Smartwatch · Kids</p>
+            <p>Product name</p>
+            <p>Short product description goes here.</p>
+            <a href="#">Shop now</a>
+          </div>
+          <div>
+            <p style="color:#6c0590;">Plans · Family</p>
+            <p>Product name</p>
+            <p>Short product description goes here.</p>
+            <a href="#">Shop now</a>
+          </div>
+          <div>
+            <p>App · Setup</p>
+            <p>Product name</p>
+            <p>Short product description goes here.</p>
+            <a href="#">Shop now</a>
+          </div>
+          <div>
+            <p>Plans · Family</p>
+            <p>Product name</p>
+            <p>Short product description goes here.</p>
+            <a href="#">Shop now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-preview">
+      <p style="font-size:13px; font-weight:800; color:#3315D0; margin:0 0 16px;">Stacked cards</p>
+      <div class="spacetalk-callout-products is-stacked">
+        <p>Explore Spacetalk</p>
+        <h2>Built for exactly this</h2>
+        <div>
+          <div>
+            <p>Smartwatch · Kids</p>
+            <p>Product name</p>
+            <p>Short product description goes here.</p>
+            <a href="#">Shop now</a>
+          </div>
+          <div>
+            <p>Plans · Family</p>
+            <p>Product name</p>
+            <p>Short product description goes here.</p>
+            <a href="#">Shop now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;!-- 2x2 desktop grid (default) --&gt;
+  &lt;div class="spacetalk-callout-products"&gt;
+  &lt;p&gt;Explore Spacetalk&lt;/p&gt;
+  &lt;h2&gt;Built for exactly this&lt;/h2&gt;
+  &lt;div&gt;
+
+    &lt;div&gt;
+      &lt;p&gt;Smartwatch · Kids&lt;/p&gt;
+      &lt;p&gt;Product name&lt;/p&gt;
+      &lt;p&gt;Short description.&lt;/p&gt;
+      &lt;a href="https://spacetalk.co/products/..."&gt;Shop now&lt;/a&gt;
+    &lt;/div&gt;
+
+    &lt;!-- repeat the card &lt;div&gt; up to 4 times --&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+    <pre class="guide-code">&lt;!-- stacked cards on desktop --&gt;
+&lt;div class="spacetalk-callout-products is-stacked"&gt;
+  &lt;p&gt;Explore Spacetalk&lt;/p&gt;
+  &lt;h2&gt;Built for exactly this&lt;/h2&gt;
+  &lt;div&gt;
+    &lt;div&gt;
+      &lt;p&gt;Smartwatch · Kids&lt;/p&gt;
+      &lt;p&gt;Product name&lt;/p&gt;
+      &lt;p&gt;Short description.&lt;/p&gt;
+      &lt;a href="https://spacetalk.co/products/..."&gt;Shop now&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;!-- repeat the card &lt;div&gt; for each product --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+    <pre class="guide-code">&lt;!-- 3 cards: 2 on the first row, final card full-width --&gt;
+&lt;div class="spacetalk-callout-products is-last-full"&gt;
+  &lt;p&gt;Explore Spacetalk&lt;/p&gt;
+  &lt;h2&gt;Built for exactly this&lt;/h2&gt;
+  &lt;div&gt;
+    &lt;div&gt;...first card...&lt;/div&gt;
+    &lt;div&gt;...second card...&lt;/div&gt;
+    &lt;div&gt;...third card...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="guide-section" id="comparison">
+    <h2>Comparison table</h2>
+    <p class="desc">Responsive table for comparing products, features or plans. On mobile, the table scrolls horizontally instead of breaking the page.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-comparison-table</code> — wrapper around a standard <code>&lt;table&gt;</code>.</li>
+      <li>Use plain <code>&lt;th&gt;</code>, <code>&lt;tr&gt;</code> and <code>&lt;td&gt;</code> inside.</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="blog-comparison-table">
+        <table>
+          <thead><tr><th>Feature</th><th>Watch A</th><th>Watch B</th></tr></thead>
+          <tbody><tr><td>GPS location</td><td>Yes</td><td>Yes</td></tr><tr><td>Video calling</td><td>Yes</td><td>No</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;div class="blog-comparison-table"&gt;
+  &lt;table&gt;
+    &lt;tr&gt;&lt;th&gt;Feature&lt;/th&gt;&lt;th&gt;Watch A&lt;/th&gt;&lt;th&gt;Watch B&lt;/th&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;GPS location&lt;/td&gt;&lt;td&gt;Yes&lt;/td&gt;&lt;td&gt;Yes&lt;/td&gt;&lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- IMAGE CAPTION -->
+  <div class="guide-section" id="image-caption">
+    <h2>Image caption</h2>
+    <p class="desc">Accessible caption below a rounded image.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-image-caption</code> — put on a <code>&lt;figure&gt;</code>.</li>
+      <li>Use a plain <code>&lt;img&gt;</code> and <code>&lt;figcaption&gt;</code> inside.</li>
+    </ul>
+    <div class="guide-preview">
+      <figure class="blog-image-caption">
+        <div style="height:140px; border-radius:16px; background:linear-gradient(135deg,#3315D0,#86AFFF); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:bold;">Image</div>
+        <figcaption>Caption explaining what the image shows.</figcaption>
+      </figure>
+    </div>
+    <pre class="guide-code">&lt;figure class="blog-image-caption"&gt;
+  &lt;img src="..." alt="Description"&gt;
+  &lt;figcaption&gt;Caption explaining the image.&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+  </div>
+
+  <!-- KEY TAKEAWAY -->
+  <div class="guide-section" id="key-takeaway">
+    <h2>Key takeaway</h2>
+    <p class="desc">A short, high-visibility summary box for the main point of an article.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-key-takeaway</code> — wrapping <code>&lt;div&gt;</code>.</li>
+      <li>Use a plain <code>&lt;h2&gt;</code> and <code>&lt;p&gt;</code> inside.</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="blog-key-takeaway">
+        <h2>Key takeaway</h2>
+        <p>Choose a setup that supports independence without replacing communication.</p>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;div class="blog-key-takeaway"&gt;
+  &lt;h2&gt;Key takeaway&lt;/h2&gt;
+  &lt;p&gt;Your main point in one or two sentences.&lt;/p&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- PROS AND CONS -->
+  <div class="guide-section" id="pros-cons">
+    <h2>Pros and cons</h2>
+    <p class="desc">Two-column decision support that stacks vertically on mobile.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-pros-cons</code> — wrapping <code>&lt;div&gt;</code>.</li>
+      <li>Use two plain child <code>&lt;div&gt;</code>s, each with an <code>&lt;h3&gt;</code> and <code>&lt;ul&gt;</code>.</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="blog-pros-cons">
+        <div><h3>Pros</h3><ul><li>Clear family communication</li><li>Helpful safety alerts</li></ul></div>
+        <div><h3>Cons</h3><ul><li>Requires charging habits</li><li>Needs shared expectations</li></ul></div>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;div class="blog-pros-cons"&gt;
+  &lt;div&gt;
+    &lt;h3&gt;Pros&lt;/h3&gt;
+    &lt;ul&gt;&lt;li&gt;Positive point&lt;/li&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;h3&gt;Cons&lt;/h3&gt;
+    &lt;ul&gt;&lt;li&gt;Trade-off&lt;/li&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- FAQ -->
+  <div class="guide-section" id="faq">
+    <h2>FAQ + auto schema generation</h2>
+    <p class="desc">The question and answer are just a plain <code>&lt;h3&gt;</code> and <code>&lt;p&gt;</code> inside <code>.blog-faq-item</code> — no extra classes needed.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-faq</code> — wraps the whole FAQ section; the script scans for this.</li>
+      <li><code>.blog-faq-item</code> — wraps each question/answer pair.</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="blog-faq">
+        <div class="blog-faq-item">
+          <h3>Example question goes here?</h3>
+          <p>Example answer goes here, written in full sentences.</p>
+        </div>
+        <div class="blog-faq-item">
+          <h3>A second example question?</h3>
+          <p>A second example answer.</p>
+        </div>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;div class="blog-faq"&gt;
+
+  &lt;div class="blog-faq-item"&gt;
+    &lt;h3&gt;Question goes here?&lt;/h3&gt;
+    &lt;p&gt;Answer goes here.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;!-- repeat .blog-faq-item for each question --&gt;
+
+&lt;/div&gt;
+
+&lt;!-- once per page, usually just before &lt;/body&gt; --&gt;
+&lt;script src="blog-schema.js"&gt;&lt;/script&gt;</pre>
+
+    <div class="guide-auto">
+      <span class="guide-auto-label">Auto-generated — don't add this yourself</span>
+      <p class="desc" style="margin-bottom:12px;">The script reads each question/answer above and writes this for Google:</p>
+      <pre>&lt;script type="application/ld+json"&gt;
+{ "@type": "FAQPage", "mainEntity": [
+  { "@type": "Question", "name": "Question goes here?",
+    "acceptedAnswer": { "@type": "Answer", "text": "Answer goes here." } }
+] }
+&lt;/script&gt;</pre>
+    </div>
+  </div>
+
+</div>
+
+<script src="blog-schema.js"></script>
+</body>
+</html>

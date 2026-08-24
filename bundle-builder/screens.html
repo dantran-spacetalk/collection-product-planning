@@ -1,0 +1,2791 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Upsell Drawer Screen Gallery</title>
+  <link rel="stylesheet" href="./live-snippet-styles.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      background: #edf2fb;
+      color: #0f172a;
+    }
+    .g-wrap {
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 12px;
+    }
+    .g-top {
+      background: #fff;
+      border: 1px solid #dbe4f3;
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 24px rgba(15,23,42,0.08);
+    }
+    .g-top h1 { margin: 0 0 4px; font-size: 24px; }
+    .g-top p { margin: 0 0 10px; color: #64748b; font-size: 13px; }
+    .g-controls {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .g-controls label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #dbe4f3;
+      border-radius: 8px;
+      padding: 6px 8px;
+      background: #f8fbff;
+      font-size: 12px;
+      color: #64748b;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .g-controls select {
+      border: 1px solid #dbe4f3;
+      border-radius: 8px;
+      padding: 4px 6px;
+      min-width: 150px;
+      max-width: 58%;
+    }
+    .g-note {
+      margin-top: 10px;
+      display: none;
+      border: 1px solid #fed7aa;
+      background: #fff7ed;
+      color: #92400e;
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 12px;
+    }
+    .g-data-source {
+      margin-top: 10px;
+      border: 1px solid #dbe4f3;
+      border-radius: 10px;
+      background: #f8fbff;
+      padding: 8px;
+    }
+    .g-data-source label {
+      display: block;
+      font-size: 12px;
+      color: #475569;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .g-data-source textarea {
+      width: 100%;
+      min-height: 88px;
+      border: 1px solid #dbe4f3;
+      border-radius: 8px;
+      padding: 8px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      line-height: 1.35;
+      color: #0f172a;
+      background: #fff;
+    }
+    .g-section { margin-bottom: 18px; }
+    .g-section h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .g-pill {
+      font-size: 10px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-weight: 700;
+    }
+    .g-plan-header-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .g-pill.bundle { background: #ecebff; color: #3f33d1; }
+    .g-pill.standalone { background: #eaf1ff; color: #3351d0; }
+    .g-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .g-card {
+      border: 1px solid #dbe4f3;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(15,23,42,0.08);
+      overflow: hidden;
+    }
+    .g-card-head {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e7edf7;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .g-badge {
+      font-size: 10px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-weight: 700;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .g-stage {
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      background: linear-gradient(180deg, #f6f9ff 0%, #eef3fb 100%);
+    }
+    .g-frame {
+      width: min(100%, 390px);
+      max-width: 390px;
+      height: 742px;
+      position: relative;
+    }
+    .g-frame .pud-partner__drawer,
+    .g-frame .plan-drawer {
+      width: 100% !important;
+      height: 100% !important;
+      max-height: none !important;
+      transform: none !important;
+      box-shadow: 0 24px 70px rgba(2,6,23,0.16) !important;
+      border: 1px solid #dbe4f3 !important;
+      border-radius: 30px !important;
+      overflow: hidden !important;
+      position: relative !important;
+      margin: 0 !important;
+    }
+    .g-frame .pud-partner__screen,
+    .g-frame .plan-drawer__screen {
+      display: flex !important;
+      position: absolute !important;
+      inset: 0 !important;
+      transform: none !important;
+      opacity: 1 !important;
+      border-radius: 30px !important;
+      overflow: hidden !important;
+    }
+    .g-frame .pud-partner__screen[hidden],
+    .g-frame .plan-drawer__screen[hidden] {
+      display: none !important;
+    }
+    .g-upsell-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .g-included-accessories {
+      margin-top: 8px;
+      border: 1px solid #d6dde8;
+      border-radius: 16px;
+      background: #f5f7fb;
+      padding: 10px;
+    }
+    .g-included-accessories__title {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 700;
+      color: #374151;
+    }
+    .g-accessory-addon-summary {
+      margin-top: 12px;
+    }
+    [data-accessory-addon-card] {
+      cursor: pointer;
+      display: grid;
+      justify-items: center;
+      align-content: start;
+      text-align: center;
+    }
+    .g-strap-addon-card {
+      background: #f3f4f6;
+    }
+    .g-strap-addon-card .pud-partner__strap-label {
+      padding-bottom: 2px;
+    }
+    [data-accessory-addon-card] .pud-partner__strap-label {
+      display: block;
+      width: 100%;
+      padding: 8px 4px 4px;
+      line-height: 1.25;
+      text-align: center;
+    }
+    .g-strap-addon-price {
+      display: block;
+      padding: 0 4px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #374151;
+      line-height: 1.2;
+    }
+    [data-free-strap-card] .g-strap-addon-price:empty {
+      display: none;
+    }
+    [data-free-strap-card].is-selected .g-strap-addon-price {
+      color: #3f33d1;
+    }
+    .g-strap-addon-card.is-selected .g-strap-addon-price {
+      color: #3f33d1;
+    }
+    .g-accessory-qty-row {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      padding: 2px 4px 8px;
+    }
+    .g-accessory-qty-row [data-accessory-price] {
+      display: none;
+    }
+    .g-accessory-qty-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #dce2ef;
+      border-radius: 999px;
+      background: #f8fafc;
+      padding: 4px 6px;
+      min-height: 36px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+    .g-accessory-qty-btn {
+      width: 26px;
+      height: 26px;
+      border: 1px solid #dbe2ef;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #475569;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(15,23,42,0.06);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .g-accessory-qty-btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 1px 3px rgba(30,41,59,0.1);
+    }
+    .g-accessory-qty-btn:disabled {
+      opacity: 1;
+      cursor: not-allowed;
+      background: #f8fafc;
+      color: #94a3b8;
+      border-color: #e2e8f0;
+      box-shadow: none;
+    }
+    .g-accessory-qty-value {
+      min-width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+      background: #eef2f7;
+      border: 1px solid #dbe2ef;
+      border-radius: 999px;
+      box-shadow: none;
+      letter-spacing: 0;
+    }
+    .g-accessory-add-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid #cfd9f3;
+      background: linear-gradient(180deg, #f4f7ff 0%, #eaf0ff 100%);
+      color: #3f33d1;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 0 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(63,51,209,0.12);
+    }
+    [data-accessory-addon-card].is-selected .g-accessory-add-btn {
+      display: none;
+    }
+    [data-accessory-addon-card]:not(.is-selected) .g-accessory-qty-controls {
+      display: none;
+    }
+    [data-accessory-addon-card].is-selected .g-accessory-qty-controls {
+      display: inline-flex;
+    }
+    [data-accessory-addon-card] .pud-partner__strap-remove {
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    .g-upsell-empty {
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: #64748b;
+      padding: 10px;
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+      background: #f8fafc;
+      display: none;
+    }
+    .g-hidden { display: none !important; }
+
+    .g-plan-compact {
+      margin: 8px 20px 10px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+    }
+    .g-plan-compact-alert {
+      display: grid;
+      gap: 4px;
+      color: #1f2937;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .g-plan-compact-alert strong {
+      color: #111827;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .g-plan-compact-proof {
+      background: #D4FD00;
+      color: #1f2937;
+      padding: 0 3px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+    .g-plan-compact-sub {
+      margin: 0;
+      color: #4b5563;
+    }
+    .g-plan-compact-network {
+      margin: 0;
+      font-size: 11px;
+      color: #6b7280;
+      text-align: center;
+    }
+    .g-plan-compact-perks {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .g-plan-compact-perk {
+      border: 1px solid #e6d9cb;
+      border-radius: 999px;
+      background: #fff;
+      color: #475569;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      padding: 6px 4px;
+      line-height: 1.15;
+    }
+
+    .pud-partner__step-pill {
+      display: none !important;
+    }
+
+    .g-mobile-mvp .plan-drawer__s2-header {
+      padding: 18px 20px 14px !important;
+      align-items: center !important;
+      gap: 12px !important;
+      border-bottom: 1px solid #f3f4f6 !important;
+    }
+    .g-mobile-mvp .plan-drawer__s2-heading {
+      flex: 1 !important;
+    }
+    .g-mobile-mvp .plan-drawer__s2-title {
+      margin: 0 0 3px !important;
+      font-size: 17px !important;
+      line-height: 1.2 !important;
+      color: #0f0f1a !important;
+      letter-spacing: -0.02em !important;
+    }
+    .g-mobile-mvp .plan-drawer__s2-body {
+      padding-top: 8px !important;
+    }
+    .pud-partner__close,
+    .plan-drawer__close {
+      transition: background-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
+    }
+    .pud-partner__close:hover,
+    .plan-drawer__close:hover {
+      background: #e5e7eb !important;
+      color: #374151 !important;
+    }
+    .pud-partner__close:focus-visible,
+    .plan-drawer__close:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(63, 51, 209, 0.25);
+    }
+    .g-mobile-mvp .plan-drawer__deal-carousel {
+      margin-top: 14px !important;
+      margin-bottom: 12px !important;
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 8px !important;
+      overflow: visible !important;
+    }
+    .g-mobile-mvp .plan-drawer__deal-card {
+      width: auto !important;
+      min-width: 0 !important;
+      margin: 0 !important;
+      height: 100%;
+      padding: 14px !important;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    }
+    .g-mobile-mvp .plan-drawer__deal-meta {
+      display: none;
+    }
+    .g-mobile-mvp .plan-drawer__deal-top {
+      align-items: center !important;
+      margin-bottom: 8px !important;
+    }
+    .g-mobile-mvp .plan-drawer__deal-badges {
+      align-items: center !important;
+    }
+    .g-mobile-mvp .plan-drawer__deal-price-row {
+      gap: 3px !important;
+      margin-bottom: 8px !important;
+    }
+    .g-mobile-mvp .plan-drawer__deal-price-note {
+      margin-bottom: 0 !important;
+    }
+    .g-mobile-mvp .plan-drawer__deal-price-was {
+      font-size: 12px !important;
+      font-weight: 400 !important;
+    }
+    .g-mobile-plan-check {
+      display: none;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: #3351d0;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      box-shadow: 0 4px 10px rgba(51, 81, 208, 0.18);
+      align-items: center;
+      justify-content: center;
+    }
+    .g-mobile-mvp .plan-drawer__deal-badge,
+    .g-mobile-mvp .plan-drawer__deal-badges .plan-drawer__badge {
+      position: relative;
+      top: -3px;
+    }
+    .g-mobile-mvp .plan-drawer__plan {
+      transition: border-color 140ms ease, background-color 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .g-mobile-mvp .plan-drawer__plan:not(.is-selected) {
+      border-color: #cfd8e6 !important;
+      background: #ffffff !important;
+      opacity: 1;
+    }
+    .g-mobile-mvp .plan-drawer__plan:hover {
+      border-color: #b9c6db !important;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+    }
+    .g-mobile-mvp .plan-drawer__plan.is-selected {
+      border-color: #3351d0 !important;
+      background: #f6f8ff !important;
+      box-shadow: 0 0 0 2px rgba(51, 81, 208, 0.18), 0 8px 18px rgba(51, 81, 208, 0.08);
+      opacity: 1;
+    }
+    .g-mobile-mvp .plan-drawer__plan.is-selected .plan-drawer__deal-name {
+      color: #1f2a44 !important;
+    }
+    .g-mobile-mvp .plan-drawer__plan.is-selected .plan-drawer__deal-price-now {
+      color: #3040cc !important;
+    }
+    .g-mobile-mvp .plan-drawer__plan.is-selected .g-mobile-plan-check {
+      display: inline-flex;
+    }
+    .plan-drawer__plan-renew-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-top: 1px;
+      font-size: 10px;
+      line-height: 1.25;
+      color: #64748b;
+    }
+    .plan-drawer__plan-name {
+      margin: 0 !important;
+    }
+    .plan-drawer__plan-renew-row span:last-child {
+      text-align: right;
+    }
+    .plan-drawer__screen[data-watch-plan-screen] .plan-drawer__plans {
+      padding-bottom: 8px !important;
+    }
+    .plan-drawer__screen[data-watch-plan-screen] .plan-drawer__plans-note {
+      margin: 2px 0 0 !important;
+    }
+    .plan-drawer__screen[data-watch-plan-screen] .plan-drawer__footer {
+      margin-top: 0 !important;
+      padding-top: 12px !important;
+    }
+    .g-mobile-mvp .plan-drawer__sim-optin {
+      width: 100%;
+      margin-top: 10px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+      font: inherit;
+      color: #64748b;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .g-mobile-mvp .plan-drawer__sim-optin-box {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: transparent;
+      flex-shrink: 0;
+      display: inline-grid;
+      place-items: center;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+    .g-mobile-mvp .plan-drawer__sim-optin-box svg {
+      width: 12px;
+      height: 12px;
+      opacity: 0;
+      transition: opacity 140ms ease;
+    }
+    .g-mobile-mvp .plan-drawer__sim-optin-text {
+      font-size: 11px;
+      line-height: 1.3;
+      font-weight: 600;
+    }
+    .g-mobile-mvp .plan-drawer__sim-optin.is-checked {
+      background: transparent;
+    }
+    .g-mobile-mvp .plan-drawer__sim-optin.is-checked .plan-drawer__sim-optin-box {
+      background: #16a34a;
+      border-color: #16a34a;
+      color: #fff;
+    }
+    .g-mobile-mvp .plan-drawer__sim-optin.is-checked .plan-drawer__sim-optin-box svg {
+      opacity: 1;
+    }
+    .g-mobile-mvp .plan-drawer__sim-optin.is-checked .plan-drawer__sim-optin-text {
+      color: #16a34a;
+    }
+    .g-mobile-mvp .plan-drawer__sim-toggle {
+      margin: 0 0 12px !important;
+    }
+    .g-mobile-mvp .plan-drawer__sim-toggle-box {
+      gap: 10px !important;
+      padding: 10px 12px !important;
+      border-radius: 10px !important;
+    }
+    .g-mobile-mvp .plan-drawer__sim-toggle-text {
+      font-size: 12px !important;
+      line-height: 1.3 !important;
+    }
+    .g-mobile-mvp .plan-drawer__sim-toggle-switch {
+      width: 40px !important;
+      height: 24px !important;
+    }
+    .g-mobile-mvp .plan-drawer__sim-toggle-switch::after {
+      top: 2px !important;
+      left: 2px !important;
+      width: 20px !important;
+      height: 20px !important;
+    }
+    .plan-drawer__screen[data-watch-plan-screen] #PlanDefault365 {
+      background: #ffffff !important;
+      border-color: #e5e7eb !important;
+    }
+    .plan-drawer__screen[data-watch-plan-screen] #PlanDefault365.is-selected {
+      background: #ffffff !important;
+      border-color: #3351D0 !important;
+    }
+    .g-mobile-selected-meta {
+      margin: 0 0 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      background: #ffffff;
+      padding: 12px 12px 11px;
+      font-size: 12px;
+      line-height: 1.35;
+      color: #334155;
+      display: grid;
+      gap: 7px;
+      white-space: normal;
+      overflow: visible;
+      overflow-wrap: break-word;
+    }
+    .g-mobile-selected-meta-title {
+      margin: 0;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1f2a44;
+      line-height: 1.3;
+    }
+    .g-mobile-selected-meta-desc {
+      margin: 0;
+      font-size: 12px;
+      color: #334155;
+      line-height: 1.35;
+    }
+    .g-mobile-selected-meta-note {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.3;
+      color: #475569;
+      font-weight: 500;
+    }
+    .g-mobile-mvp .g-mobile-selected-optin {
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0 0 12px;
+      padding: 12px 14px;
+      border: 1px solid #cfd8e6;
+      border-radius: 14px;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .g-mobile-mvp .g-mobile-selected-optin .plan-drawer__sim-optin-text {
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .g-mobile-mvp .g-mobile-selected-optin .plan-drawer__sim-optin-box {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+    }
+    .g-mobile-mvp .g-mobile-selected-optin.is-checked {
+      border-color: #16a34a;
+      background: #ecfdf3;
+    }
+    .g-mobile-mvp .g-mobile-selected-optin.is-checked .plan-drawer__sim-optin-box {
+      background: #16a34a;
+      border-color: #16a34a;
+      color: #fff;
+    }
+    .g-mobile-mvp .g-mobile-selected-optin.is-checked .plan-drawer__sim-optin-text {
+      color: #16a34a;
+    }
+    .g-mobile-mvp .plan-drawer__offer-bullets {
+      margin: 0 !important;
+      padding: 12px 12px 0 !important;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px 12px 0 0;
+      background: #f8fafc;
+    }
+    .g-mobile-mvp .plan-drawer__offer-note {
+      margin: 0 !important;
+      padding: 10px 12px 0 !important;
+      border-left: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      background: #f8fafc;
+    }
+    .g-mobile-mvp .plan-drawer__legal-links {
+      margin-bottom: 0 !important;
+      padding: 10px 12px 12px !important;
+      border: 1px solid #e2e8f0;
+      border-top: 0;
+      border-radius: 0 0 12px 12px;
+      background: #f8fafc;
+    }
+
+    .g-summary-compact {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: #fff;
+      padding: 18px 10px;
+      display: grid;
+      gap: 10px;
+      margin: 0;
+    }
+    .g-summary-compact .pud-partner__summary-tag {
+      margin-bottom: 1px;
+    }
+    .g-summary-compact .pud-partner__summary-name {
+      font-size: 13px;
+      line-height: 1.25;
+    }
+    .g-summary-compact .pud-partner__summary-price {
+      font-size: 13px;
+      color: #334155;
+      font-weight: 600;
+    }
+    .g-summary-compact .pud-partner__summary-price--free {
+      color: #475569;
+    }
+    .g-summary-section {
+      padding: 0;
+      display: grid;
+      gap: 6px;
+    }
+    .g-summary-section + .g-summary-section {
+      margin-top: 2px;
+    }
+    .g-summary-section[data-summary-section="watch-sim"],
+    .g-summary-section[data-summary-section="watch-straps"],
+    .g-summary-section[data-summary-section="accessories"] {
+      margin-top: 10px;
+      padding-top: 2px;
+    }
+    .g-summary-section-title {
+      margin: 0;
+    }
+    .g-summary-section-head {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .g-summary-edit-link {
+      flex-shrink: 0;
+      border: 1px solid #d6def0;
+      background: #f8fbff;
+      padding: 1px 6px 1px 5px;
+      border-radius: 999px;
+      color: #3351d0;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      transform: none;
+      font-size: 9px;
+      font-weight: 600;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+    .g-summary-edit-link svg {
+      width: 10px;
+      height: 10px;
+      display: block;
+      flex-shrink: 0;
+    }
+    .g-summary-edit-link:hover {
+      color: #243cc4;
+      background: #eef4ff;
+      border-color: #c9d7ff;
+    }
+    .g-summary-edit-link:focus-visible {
+      outline: 2px solid #3351d0;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    .g-summary-target-flash {
+      animation: summary-target-flash 1.1s ease;
+    }
+    @keyframes summary-target-flash {
+      0% { box-shadow: 0 0 0 0 rgba(51, 81, 208, 0); }
+      25% { box-shadow: 0 0 0 3px rgba(51, 81, 208, 0.16); }
+      100% { box-shadow: 0 0 0 0 rgba(51, 81, 208, 0); }
+    }
+    .g-sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+    .g-summary-items {
+      display: grid;
+      gap: 6px;
+    }
+    .g-summary-items .pud-partner__summary-row {
+      margin: 0;
+      border: 0;
+      padding: 0;
+    }
+    .g-summary-compact .pud-partner__summary-row {
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+    .g-summary-compact .pud-partner__summary-row-end {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-shrink: 0;
+    }
+    .g-summary-compact .pud-partner__summary-info {
+      display: grid;
+      gap: 1px;
+    }
+    .g-summary-qty {
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 10px;
+      font-weight: 500;
+      color: #64748b;
+      background: #e8edf3;
+      border-radius: 999px;
+      padding: 1px 5px;
+      vertical-align: middle;
+      line-height: 1.2;
+    }
+    .g-summary-total-compact {
+      margin-top: 18px;
+      background: #efefef;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .g-summary-mini-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+    .g-summary-mini-row span:last-child {
+      color: #0f766e;
+      font-weight: 700;
+    }
+    .g-mobile-optin-compact {
+      margin-bottom: 18px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f7f7ff;
+    }
+    .g-mobile-optin-compact .pud-partner__mobile-optin-title {
+      margin-bottom: 2px;
+      font-size: 12px;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .g-mobile-optin-compact .pud-partner__mobile-optin-desc {
+      margin-bottom: 7px;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+    .g-mobile-optin-compact .pud-partner__mobile-optin-row {
+      min-height: 18px;
+    }
+    .g-mobile-optin-compact .pud-partner__mobile-optin-box {
+      width: 18px;
+      height: 18px;
+    }
+    .g-mobile-optin-compact .pud-partner__mobile-optin-label-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .g-mobile-optin-compact.is-checked .pud-partner__mobile-optin-label-text {
+      color: #16a34a;
+    }
+
+    @media (min-width: 980px) {
+      .g-wrap {
+        max-width: 1500px;
+        padding: 16px;
+      }
+      .g-controls {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .g-controls label {
+        width: auto;
+        justify-content: flex-start;
+      }
+      .g-controls select {
+        min-width: 0;
+        max-width: none;
+      }
+      .g-grid {
+        grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+        gap: 14px;
+      }
+      .g-frame {
+        width: 390px;
+        height: 742px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="g-wrap">
+    <section class="g-top">
+      <h1>Upsell Drawer Gallery (From Real Snippets)</h1>
+      <p>This gallery is shown mobile-first on an iPhone-sized canvas so the drawer flows are designed at phone resolution before desktop review.</p>
+      <div class="g-controls">
+        <label>
+          Market
+          <select id="market">
+            <option value="AU">AU</option>
+            <option value="GB">GB</option>
+          </select>
+        </label>
+        <label>
+          View Source Set
+          <select id="viewFilter">
+            <option value="all">All screens</option>
+            <option value="bundle">Bundle drawer only</option>
+            <option value="standalone">Standalone plan drawer only</option>
+          </select>
+        </label>
+        <label>
+          Strap Offer
+          <select id="strapOffer">
+            <option value="half">50% off</option>
+            <option value="none" selected>No discount</option>
+          </select>
+        </label>
+        <label>
+          Accessory Offer
+          <select id="accessoryOffer">
+            <option value="half" selected>50% off</option>
+            <option value="free">Free</option>
+            <option value="none">No discount</option>
+          </select>
+        </label>
+      </div>
+      <div class="g-data-source">
+        <label for="priceSourceJson">Price Source (metafield/products JSON by product ID)</label>
+        <textarea id="priceSourceJson" placeholder='{"prices":{"acc-watch-stand":{"AU":59.95},"acc-screen-protector":{"AU":12.95},"acc-charging-cable":{"AU":29.95}}}'></textarea>
+      </div>
+      <div class="g-data-source">
+        <label for="smartwatchFeaturesJson">product.custom.smartwatch_features</label>
+        <textarea id="smartwatchFeaturesJson" placeholder='["4G Video, Voice Calls and Text","Location Tracking and Alerts","SOS Button and School Mode"]'></textarea>
+      </div>
+      <div class="g-data-source">
+        <label for="accessoryProductsJson">product.custom.accessory_products</label>
+        <textarea id="accessoryProductsJson" placeholder='["acc-watch-stand","acc-screen-protector","acc-charging-cable"]'></textarea>
+      </div>
+      <div id="marketNote" class="g-note"></div>
+    </section>
+
+    <section class="g-section" data-group="bundle">
+      <h2>Spacetalk Bundle Drawer <span class="g-pill bundle">7 screens</span></h2>
+      <div class="g-grid">
+        <article class="g-card" data-group="bundle" id="bundle-smartwatch">
+          <div class="g-card-head">Watch Variant Selector <span class="g-badge">spacetalk-drawer-bundle</span></div>
+          <div class="g-stage">
+            <div class="g-frame">
+              <div class="pud-partner__drawer">
+                <div class="pud-partner__screen" data-watch-variant-screen>
+                  <div class="pud-partner__header">
+                    <div>
+                      <p class="pud-partner__title">Choose your watch colour</p>
+                      <p class="pud-partner__subtitle">Pick their favourite colour to start building.</p>
+                    </div>
+                    <button class="pud-partner__close" type="button" aria-label="Close">&#10005;</button>
+                  </div>
+                  <div class="pud-partner__body">
+                    <p class="pud-partner__step-pill">YOUR WATCH</p>
+                    <h2 class="pud-partner__heading">Adventurer 2 Smartwatch</h2>
+                    <section class="pud-partner__watch-grid" data-watch-variant-grid aria-label="Select watch colour">
+                      <button class="pud-partner__watch is-selected" data-watch-variant-option type="button">
+                        <div class="pud-partner__watch-box"><span class="pud-partner__watch-placeholder"></span></div>
+                        <p class="pud-partner__watch-name">Frost</p>
+                      </button>
+                      <button class="pud-partner__watch" data-watch-variant-option type="button">
+                        <div class="pud-partner__watch-box"><span class="pud-partner__watch-placeholder"></span></div>
+                        <p class="pud-partner__watch-name">Dusk</p>
+                      </button>
+                    </section>
+                    <section class="pud-partner__features">
+                      <div class="pud-partner__feat-col">
+                        <h3 class="pud-partner__feat-heading">WHAT'S INCLUDED</h3>
+                        <ul class="pud-partner__feat-list" id="smartwatchFeaturesList">
+                          <li class="pud-partner__feat-item"><span class="pud-partner__tick">&#10003;</span><span>4G Video, Voice Calls and Text</span></li>
+                          <li class="pud-partner__feat-item"><span class="pud-partner__tick">&#10003;</span><span>Location Tracking and Alerts</span></li>
+                          <li class="pud-partner__feat-item"><span class="pud-partner__tick">&#10003;</span><span>SOS Button and School Mode</span></li>
+                        </ul>
+                      </div>
+                      <div class="pud-partner__feat-col">
+                        <h3 class="pud-partner__feat-heading">SPACETALK APP FEATURES</h3>
+                        <ul class="pud-partner__feat-list">
+                          <li class="pud-partner__feat-item"><span class="pud-partner__tick">&#10003;</span><span>Real-time GPS location tracking</span></li>
+                          <li class="pud-partner__feat-item"><span class="pud-partner__tick">&#10003;</span><span>Safe zone alerts and SOS notifications</span></li>
+                          <li class="pud-partner__feat-item"><span class="pud-partner__tick">&#10003;</span><span>Manage contacts and safe messaging</span></li>
+                          <li class="pud-partner__feat-item"><span class="pud-partner__tick">&#10003;</span><span>School mode and activity scheduling</span></li>
+                          <li class="pud-partner__feat-item"><span class="pud-partner__tick">&#10003;</span><span>Group family chat and check-ins</span></li>
+                        </ul>
+                        <a class="pud-partner__feat-link" href="https://spacetalk.co/pages/spacetalk-app-features" target="_blank" rel="noopener">Learn more about the app &#8594;</a>
+                      </div>
+                    </section>
+                  </div>
+                  <div class="pud-partner__footer">
+                    <button class="pud-partner__cta" type="button" data-watch-variant-cta>Select Frost</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="g-card" data-group="bundle" id="bundle-watch-plan" data-mobile-au-only="true">
+          <div class="g-card-head">Watch Plan Selector <span class="g-badge">plan-upsell-drawer</span></div>
+          <div class="g-stage">
+            <div class="g-frame">
+              <div class="plan-drawer">
+                <div class="plan-drawer__screen" data-watch-plan-screen>
+                  <div class="plan-drawer__handle" aria-hidden="true"></div>
+                  <div class="plan-drawer__header">
+                    <div class="g-plan-header-main">
+                      <button class="plan-drawer__back" type="button" aria-label="Back">&#8592;</button>
+                      <div>
+                        <p class="plan-drawer__title">Add a Watch SIM Plan</p>
+                        <p class="plan-drawer__subtitle">Location tracking and real-time alerts.</p>
+                      </div>
+                    </div>
+                    <button class="plan-drawer__close" type="button" aria-label="Close">&#x2715;</button>
+                  </div>
+                  <div class="g-plan-compact">
+                    <div class="g-plan-compact-alert">
+                      <p style="margin:0;"><strong>Join <span class="g-plan-compact-proof">40,000+</span> families already connected.</strong></p>
+                      <p class="g-plan-compact-sub">An active plan is required to enable the features below via the Spacetalk App.</p>
+                    </div>
+                    <div class="g-plan-compact-perks" aria-label="Watch plan benefits">
+                      <div class="g-plan-compact-perk">Location tracking</div>
+                      <div class="g-plan-compact-perk">Calls &amp; messages</div>
+                      <div class="g-plan-compact-perk">SOS alerts</div>
+                    </div>
+                    <p class="g-plan-compact-network">Locked to Spacetalk Mobile - Telstra wholesale network</p>
+                  </div>
+                  <div class="plan-drawer__plans" data-watch-plan-grid>
+                    <div class="plan-drawer__plan is-selected" data-watch-plan-option id="PlanDefault365Shared"><div class="plan-drawer__plan-wrapper"><div class="plan-drawer__badges"><span class="plan-drawer__badge plan-drawer__badge--popular">Most popular</span><span class="plan-drawer__badge plan-drawer__badge--save">Save 24%*</span></div><div class="plan-drawer__plan-main-row"><p class="plan-drawer__plan-name">365 Day Watch Plan</p><div class="plan-drawer__plan-price-main"><span class="plan-drawer__plan-permo">$164.99</span><span class="plan-drawer__plan-permounit">upfront</span></div></div><div class="plan-drawer__plan-sub-row"><p class="plan-drawer__plan-detail">30GB data</p><span class="plan-drawer__plan-bill-note">$13.75/mo</span></div><div class="plan-drawer__plan-renew-row"><span>Auto-renews every 365 days</span><span>Cancel anytime</span></div></div></div>
+                    <div class="plan-drawer__plan" data-watch-plan-option><div class="plan-drawer__plan-wrapper"><div class="plan-drawer__badges"><span class="plan-drawer__badge plan-drawer__badge--save">Save 16%*</span></div><div class="plan-drawer__plan-main-row"><p class="plan-drawer__plan-name">180 Day Watch Plan</p><div class="plan-drawer__plan-price-main"><span class="plan-drawer__plan-permo">$90.99</span><span class="plan-drawer__plan-permounit">upfront</span></div></div><div class="plan-drawer__plan-sub-row"><p class="plan-drawer__plan-detail">10GB data</p><span class="plan-drawer__plan-bill-note">$15.17/mo</span></div><div class="plan-drawer__plan-renew-row"><span>Auto-renews every 180 days</span><span>Cancel anytime</span></div></div></div>
+                    <div class="plan-drawer__plan" data-watch-plan-option><div class="plan-drawer__plan-wrapper"><div class="plan-drawer__badges"><span class="plan-drawer__badge plan-drawer__badge--flex">Most flexible</span></div><div class="plan-drawer__plan-main-row"><p class="plan-drawer__plan-name">30 Day Watch Plan</p><div class="plan-drawer__plan-price-main"><span class="plan-drawer__plan-permo">$17.99</span><span class="plan-drawer__plan-permounit">upfront</span></div></div><div class="plan-drawer__plan-sub-row"><p class="plan-drawer__plan-detail">1GB data</p><span class="plan-drawer__plan-bill-note">$17.99/mo</span></div><div class="plan-drawer__plan-renew-row"><span>Auto-renews every 30 days</span><span>Cancel anytime</span></div></div></div>
+                    <p class="plan-drawer__plans-note">*Savings per month in comparison to a 30 Day Watch plan</p>
+                  </div>
+                  <div class="plan-drawer__footer">
+                    <button class="plan-drawer__cta" type="button"><span class="plan-drawer__btn-label" data-watch-plan-cta-label>Select 365 Day Watch Plan ($164.99)</span></button>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="g-card" data-group="bundle" id="bundle-watch-straps">
+          <div class="g-card-head">Strap Selector (Free Included) <span class="g-badge">spacetalk-drawer-bundle</span></div>
+          <div class="g-stage">
+            <div class="g-frame">
+              <div class="pud-partner__drawer">
+                <div class="pud-partner__screen">
+                  <div class="pud-partner__s2-header">
+                    <button class="pud-partner__back" type="button" aria-label="Back">&#8592;</button>
+                    <div class="pud-partner__s2-heading">
+                      <p class="pud-partner__s2-title">Select your strap</p>
+                      <p class="pud-partner__s2-sub">Choose from a variety of colours.</p>
+                    </div>
+                    <button class="pud-partner__close" type="button" aria-label="Close">&#10005;</button>
+                  </div>
+                  <div class="pud-partner__body">
+                    <p class="pud-partner__step-pill">YOUR STRAP</p>
+                    <div class="pud-partner__strap-allowance" data-free-strap-allowance="1">0 of 1 strap selected</div>
+                    <div class="pud-partner__strap-grid" data-free-strap-grid>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Arctic" data-product-id="strap-arctic" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Arctic</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Black" data-product-id="strap-black" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Black</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Candy" data-product-id="strap-candy" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Candy</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Cherry" data-product-id="strap-cherry" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Cherry</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Flamingo" data-product-id="strap-flamingo" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Flamingo</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Lemon" data-product-id="strap-lemon" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Lemon</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Lilac" data-product-id="strap-lilac" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Lilac</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Olive" data-product-id="strap-olive" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Olive</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Peach" data-product-id="strap-peach" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Peach</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Slate" data-product-id="strap-slate" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Slate</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Stone" data-product-id="strap-stone" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Stone</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Sky" data-product-id="strap-sky" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Sky</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-free-strap-card data-item-type="strap" data-name="Teal" data-product-id="strap-teal" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Teal</span>
+                        <span class="g-strap-addon-price" data-free-strap-price></span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="pud-partner__footer">
+                    <button class="pud-partner__cta" type="button" data-free-strap-cta disabled>Select 1 strap to continue</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="g-card" data-group="bundle" id="bundle-accessories">
+          <div class="g-card-head">Strap Selector (Add-ons, Multi-Select) <span class="g-badge">spacetalk-drawer-bundle</span></div>
+          <div class="g-stage">
+            <div class="g-frame">
+              <div class="pud-partner__drawer">
+                <div class="pud-partner__screen">
+                  <div class="pud-partner__s2-header">
+                    <button class="pud-partner__back" type="button" aria-label="Back">&#8592;</button>
+                    <div class="pud-partner__s2-heading">
+                      <p class="pud-partner__s2-title">Add on extra watch straps</p>
+                      <p class="pud-partner__s2-sub">Choose from a variety of colours.</p>
+                    </div>
+                    <button class="pud-partner__close" type="button" aria-label="Close">&#10005;</button>
+                  </div>
+                  <div class="pud-partner__body">
+                    <p class="pud-partner__step-pill">EXTRA STRAPS</p>
+                    <div class="pud-partner__strap-allowance" data-strap-addon-summary>No straps selected</div>
+                    <div class="pud-partner__strap-grid" data-strap-addon-grid>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Arctic" data-product-id="strap-arctic" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Arctic</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Black" data-product-id="strap-black" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Black</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Candy" data-product-id="strap-candy" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Candy</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Cherry" data-product-id="strap-cherry" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Cherry</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Flamingo" data-product-id="strap-flamingo" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Flamingo</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Lemon" data-product-id="strap-lemon" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Lemon</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Lilac" data-product-id="strap-lilac" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Lilac</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Olive" data-product-id="strap-olive" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Olive</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Peach" data-product-id="strap-peach" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Peach</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Slate" data-product-id="strap-slate" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Slate</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Stone" data-product-id="strap-stone" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Stone</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Sky" data-product-id="strap-sky" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Sky</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                      <button class="pud-partner__strap-card g-strap-addon-card" data-strap-addon-card data-item-type="strap" data-name="Teal" data-product-id="strap-teal" data-au="1" data-gb="1" aria-pressed="false" type="button">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Teal</span>
+                        <span class="g-strap-addon-price" data-strap-addon-price>$29.95</span>
+                      </button>
+                    </div>
+                    <p class="g-upsell-empty">No strap add-ons are available for this market.</p>
+                  </div>
+                  <div class="pud-partner__footer">
+                    <button class="pud-partner__cta" type="button" data-strap-addon-cta>Continue without extra straps</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="g-card" data-group="bundle">
+          <div class="g-card-head">Accessory Selector (1 Included + Add-ons)</div>
+          <div class="g-stage">
+            <div class="g-frame">
+              <div class="pud-partner__drawer">
+                <div class="pud-partner__screen" data-accessory-screen>
+                  <div class="pud-partner__s2-header">
+                    <button class="pud-partner__back" type="button" aria-label="Back">&#8592;</button>
+                    <div class="pud-partner__s2-heading">
+                      <p class="pud-partner__s2-title">Add Extra Accessories</p>
+                      <p class="pud-partner__s2-sub">Official accessories made for your watch</p>
+                    </div>
+                    <button class="pud-partner__close" type="button" aria-label="Close">&#10005;</button>
+                  </div>
+                  <div class="pud-partner__body">
+                    <p class="pud-partner__step-pill">ADD ACCESSORIES</p>
+                    <div class="g-included-accessories">
+                      <p class="g-included-accessories__title">Included Accessories:</p>
+                      <div class="g-upsell-grid">
+                        <button class="pud-partner__strap-card g-strap-addon-card is-selected" data-included-accessory-card data-item-type="accessory" data-name="Watch Stand" data-product-id="acc-watch-stand" data-au="1" data-gb="1" aria-pressed="true" type="button" disabled>
+                          <span class="pud-partner__strap-swatch"></span>
+                          <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                          <span class="pud-partner__strap-label">Watch Stand</span>
+                          <span class="g-strap-addon-price" data-accessory-price></span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="pud-partner__strap-allowance g-accessory-addon-summary" data-accessory-addon-summary>0 extra accessories added</div>
+                    <div class="g-upsell-grid" data-accessory-addon-grid style="margin-top:10px;">
+                      <div class="pud-partner__strap-card g-strap-addon-card" data-accessory-addon-card data-item-type="accessory" data-name="Watch Stand" data-product-id="acc-watch-stand" data-au="1" data-gb="1" data-qty="0" role="group" aria-label="Watch Stand add-on">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Watch Stand</span>
+                        <div class="g-accessory-qty-row">
+                          <span class="g-strap-addon-price" data-accessory-price></span>
+                          <button class="g-accessory-add-btn" type="button" data-accessory-qty-add>Add +</button>
+                          <span class="g-accessory-qty-controls">
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-dec aria-label="Decrease quantity">-</button>
+                            <span class="g-accessory-qty-value" data-accessory-qty>0</span>
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-inc aria-label="Increase quantity">+</button>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="pud-partner__strap-card g-strap-addon-card" data-accessory-addon-card data-item-type="accessory" data-name="Screen Protector" data-product-id="acc-screen-protector" data-au="1" data-gb="1" data-qty="0" role="group" aria-label="Screen Protector add-on">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Screen Protector</span>
+                        <div class="g-accessory-qty-row">
+                          <span class="g-strap-addon-price" data-accessory-price></span>
+                          <button class="g-accessory-add-btn" type="button" data-accessory-qty-add>Add +</button>
+                          <span class="g-accessory-qty-controls">
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-dec aria-label="Decrease quantity">-</button>
+                            <span class="g-accessory-qty-value" data-accessory-qty>0</span>
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-inc aria-label="Increase quantity">+</button>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="pud-partner__strap-card g-strap-addon-card" data-accessory-addon-card data-item-type="accessory" data-name="Charging Cable" data-product-id="acc-charging-cable" data-au="1" data-gb="1" data-qty="0" role="group" aria-label="Charging Cable add-on">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Charging Cable</span>
+                        <div class="g-accessory-qty-row">
+                          <span class="g-strap-addon-price" data-accessory-price></span>
+                          <button class="g-accessory-add-btn" type="button" data-accessory-qty-add>Add +</button>
+                          <span class="g-accessory-qty-controls">
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-dec aria-label="Decrease quantity">-</button>
+                            <span class="g-accessory-qty-value" data-accessory-qty>0</span>
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-inc aria-label="Increase quantity">+</button>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="pud-partner__strap-card g-strap-addon-card" data-accessory-addon-card data-item-type="accessory" data-name="Travel Case" data-product-id="acc-travel-case" data-au="0" data-gb="1" data-qty="0" role="group" aria-label="Travel Case add-on">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Travel Case</span>
+                        <div class="g-accessory-qty-row">
+                          <span class="g-strap-addon-price" data-accessory-price></span>
+                          <button class="g-accessory-add-btn" type="button" data-accessory-qty-add>Add +</button>
+                          <span class="g-accessory-qty-controls">
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-dec aria-label="Decrease quantity">-</button>
+                            <span class="g-accessory-qty-value" data-accessory-qty>0</span>
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-inc aria-label="Increase quantity">+</button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="g-upsell-empty">No accessory add-ons are available for this market.</p>
+                  </div>
+                  <div class="pud-partner__footer">
+                    <button class="pud-partner__cta" type="button" data-accessory-cta>Skip Accessories</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="g-card" data-group="bundle">
+          <div class="g-card-head">Accessory Selector (No Included Accessories)</div>
+          <div class="g-stage">
+            <div class="g-frame">
+              <div class="pud-partner__drawer">
+                <div class="pud-partner__screen" data-accessory-screen>
+                  <div class="pud-partner__s2-header">
+                    <button class="pud-partner__back" type="button" aria-label="Back">&#8592;</button>
+                    <div class="pud-partner__s2-heading">
+                      <p class="pud-partner__s2-title">Add Extra Accessories</p>
+                      <p class="pud-partner__s2-sub">Official accessories made for your watch</p>
+                    </div>
+                    <button class="pud-partner__close" type="button" aria-label="Close">&#10005;</button>
+                  </div>
+                  <div class="pud-partner__body">
+                    <p class="pud-partner__step-pill">ADD ACCESSORIES</p>
+                    <div class="pud-partner__strap-allowance g-accessory-addon-summary" data-accessory-addon-summary>0 extra accessories added</div>
+                    <div class="g-upsell-grid" data-accessory-addon-grid style="margin-top:10px;">
+                      <div class="pud-partner__strap-card g-strap-addon-card" data-accessory-addon-card data-item-type="accessory" data-name="Watch Stand" data-product-id="acc-watch-stand" data-au="1" data-gb="1" data-qty="0" role="group" aria-label="Watch Stand add-on">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Watch Stand</span>
+                        <div class="g-accessory-qty-row">
+                          <span class="g-strap-addon-price" data-accessory-price></span>
+                          <button class="g-accessory-add-btn" type="button" data-accessory-qty-add>Add +</button>
+                          <span class="g-accessory-qty-controls">
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-dec aria-label="Decrease quantity">-</button>
+                            <span class="g-accessory-qty-value" data-accessory-qty>0</span>
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-inc aria-label="Increase quantity">+</button>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="pud-partner__strap-card g-strap-addon-card" data-accessory-addon-card data-item-type="accessory" data-name="Screen Protector" data-product-id="acc-screen-protector" data-au="1" data-gb="1" data-qty="0" role="group" aria-label="Screen Protector add-on">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Screen Protector</span>
+                        <div class="g-accessory-qty-row">
+                          <span class="g-strap-addon-price" data-accessory-price></span>
+                          <button class="g-accessory-add-btn" type="button" data-accessory-qty-add>Add +</button>
+                          <span class="g-accessory-qty-controls">
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-dec aria-label="Decrease quantity">-</button>
+                            <span class="g-accessory-qty-value" data-accessory-qty>0</span>
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-inc aria-label="Increase quantity">+</button>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="pud-partner__strap-card g-strap-addon-card" data-accessory-addon-card data-item-type="accessory" data-name="Charging Cable" data-product-id="acc-charging-cable" data-au="1" data-gb="1" data-qty="0" role="group" aria-label="Charging Cable add-on">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Charging Cable</span>
+                        <div class="g-accessory-qty-row">
+                          <span class="g-strap-addon-price" data-accessory-price></span>
+                          <button class="g-accessory-add-btn" type="button" data-accessory-qty-add>Add +</button>
+                          <span class="g-accessory-qty-controls">
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-dec aria-label="Decrease quantity">-</button>
+                            <span class="g-accessory-qty-value" data-accessory-qty>0</span>
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-inc aria-label="Increase quantity">+</button>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="pud-partner__strap-card g-strap-addon-card" data-accessory-addon-card data-item-type="accessory" data-name="Travel Case" data-product-id="acc-travel-case" data-au="0" data-gb="1" data-qty="0" role="group" aria-label="Travel Case add-on">
+                        <span class="pud-partner__strap-swatch"></span>
+                        <span class="pud-partner__strap-tick" aria-hidden="true">&#10003;</span>
+                        <span class="pud-partner__strap-remove" aria-hidden="true">&#10005;</span>
+                        <span class="pud-partner__strap-label">Travel Case</span>
+                        <div class="g-accessory-qty-row">
+                          <span class="g-strap-addon-price" data-accessory-price></span>
+                          <button class="g-accessory-add-btn" type="button" data-accessory-qty-add>Add +</button>
+                          <span class="g-accessory-qty-controls">
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-dec aria-label="Decrease quantity">-</button>
+                            <span class="g-accessory-qty-value" data-accessory-qty>0</span>
+                            <button class="g-accessory-qty-btn" type="button" data-accessory-qty-inc aria-label="Increase quantity">+</button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="g-upsell-empty">No accessory add-ons are available for this market.</p>
+                  </div>
+                  <div class="pud-partner__footer">
+                    <button class="pud-partner__cta" type="button" data-accessory-cta>Skip Accessories</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="g-card" data-group="bundle">
+          <div class="g-card-head">Order Summary <span class="g-badge">spacetalk-drawer-bundle</span></div>
+          <div class="g-stage">
+            <div class="g-frame">
+              <div class="pud-partner__drawer">
+                <div class="pud-partner__screen">
+                  <div class="pud-partner__s2-header">
+                    <button class="pud-partner__back" type="button" aria-label="Back">&#8592;</button>
+                    <div class="pud-partner__s2-heading">
+                      <p class="pud-partner__s2-title">Your customised bundle</p>
+                      <p class="pud-partner__s2-sub">Review your current Spacetalk setup.</p>
+                    </div>
+                    <button class="pud-partner__close" type="button" aria-label="Close">&#10005;</button>
+                  </div>
+                  <div class="pud-partner__body">
+                    <p class="pud-partner__step-pill">YOUR ORDER SUMMARY</p>
+                    <div
+                      class="pud-partner__mobile-optin g-mobile-optin-compact is-checked"
+                      data-mobile-hide-in-gb="true"
+                      data-mobile-optin
+                      role="button"
+                      tabindex="0"
+                      aria-pressed="true"
+                    >
+                      <p class="pud-partner__mobile-optin-title">You've unlocked 70%&nbsp;off Spacetalk Mobile</p>
+                      <p class="pud-partner__mobile-optin-desc">Add a mobile plan for your phone and your first month is 70% off.</p>
+                      <div class="pud-partner__mobile-optin-row">
+                        <span class="pud-partner__mobile-optin-box" aria-hidden="true">
+                          <svg width="12" height="12" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 10.5L8.4 14L15 6.8" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                          </svg>
+                        </span>
+                        <span class="pud-partner__mobile-optin-label-text" data-mobile-optin-label>Yes, I'm interested</span>
+                      </div>
+                    </div>
+                    <div class="pud-partner__summary-list g-summary-compact">
+                      <section class="g-summary-section" data-summary-section="smartwatch" aria-label="Smartwatch summary">
+                        <div class="g-summary-section-head">
+                          <p class="pud-partner__summary-tag g-summary-section-title">Smartwatch</p>
+                          <a class="g-summary-edit-link" href="#bundle-smartwatch" data-summary-target="bundle-smartwatch" aria-label="Edit Smartwatch">
+                            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                              <path d="M11.9 1.9a1.5 1.5 0 0 1 2.1 2.1l-7.9 7.9-3.2.8.8-3.2 8.2-7.6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                              <path d="M10.4 3.4 12.6 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                            </svg>
+                            <span>Edit</span>
+                          </a>
+                        </div>
+                        <div class="g-summary-items">
+                          <div class="pud-partner__summary-row" data-summary-item>
+                            <div class="pud-partner__summary-info">
+                              <p class="pud-partner__summary-name">Adventurer 2 - Dusk</p>
+                            </div>
+                            <div class="pud-partner__summary-row-end">
+                              <p class="pud-partner__summary-price pud-partner__summary-price--free">Included</p>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                      <section class="g-summary-section" data-summary-section="watch-sim" aria-label="Watch sim plan summary">
+                        <div class="g-summary-section-head">
+                          <p class="pud-partner__summary-tag g-summary-section-title">Watch sim Plan</p>
+                          <a class="g-summary-edit-link" href="#bundle-watch-plan" data-summary-target="bundle-watch-plan" aria-label="Edit Watch sim Plan">
+                            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                              <path d="M11.9 1.9a1.5 1.5 0 0 1 2.1 2.1l-7.9 7.9-3.2.8.8-3.2 8.2-7.6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                              <path d="M10.4 3.4 12.6 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                            </svg>
+                            <span>Edit</span>
+                          </a>
+                        </div>
+                        <div class="g-summary-items">
+                          <div class="pud-partner__summary-row" data-summary-item>
+                            <div class="pud-partner__summary-info">
+                              <p class="pud-partner__summary-name">365-day plan</p>
+                            </div>
+                            <div class="pud-partner__summary-row-end">
+                              <p class="pud-partner__summary-price">$164.99</p>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                      <section class="g-summary-section" data-summary-section="watch-straps" aria-label="Watch strap summary">
+                        <div class="g-summary-section-head">
+                          <p class="pud-partner__summary-tag g-summary-section-title">Watch Strap</p>
+                          <a class="g-summary-edit-link" href="#bundle-watch-straps" data-summary-target="bundle-watch-straps" aria-label="Edit Watch Strap">
+                            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                              <path d="M11.9 1.9a1.5 1.5 0 0 1 2.1 2.1l-7.9 7.9-3.2.8.8-3.2 8.2-7.6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                              <path d="M10.4 3.4 12.6 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                            </svg>
+                            <span>Edit</span>
+                          </a>
+                        </div>
+                        <div class="g-summary-items">
+                          <div class="pud-partner__summary-row" data-summary-item>
+                            <div class="pud-partner__summary-info">
+                              <p class="pud-partner__summary-name">Black <span class="g-summary-qty">x1</span></p>
+                            </div>
+                            <div class="pud-partner__summary-row-end">
+                              <p class="pud-partner__summary-price pud-partner__summary-price--free">Free</p>
+                            </div>
+                          </div>
+                          <div class="pud-partner__summary-row" data-summary-item>
+                            <div class="pud-partner__summary-info">
+                              <p class="pud-partner__summary-name">Lilac <span class="g-summary-qty">x1</span></p>
+                            </div>
+                            <div class="pud-partner__summary-row-end">
+                              <p class="pud-partner__summary-price">$19.95</p>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                      <section class="g-summary-section" data-summary-section="accessories" aria-label="Accessories summary">
+                        <div class="g-summary-section-head">
+                          <p class="pud-partner__summary-tag g-summary-section-title">Accessories</p>
+                          <a class="g-summary-edit-link" href="#bundle-accessories" data-summary-target="bundle-accessories" aria-label="Edit Accessories">
+                            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                              <path d="M11.9 1.9a1.5 1.5 0 0 1 2.1 2.1l-7.9 7.9-3.2.8.8-3.2 8.2-7.6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                              <path d="M10.4 3.4 12.6 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                            </svg>
+                            <span>Edit</span>
+                          </a>
+                        </div>
+                        <div class="g-summary-items">
+                          <div class="pud-partner__summary-row" data-summary-item>
+                            <div class="pud-partner__summary-info">
+                              <p class="pud-partner__summary-name">Screen Protector <span class="g-summary-qty">x1</span></p>
+                            </div>
+                            <div class="pud-partner__summary-row-end">
+                              <p class="pud-partner__summary-price pud-partner__summary-price--free">Included</p>
+                            </div>
+                          </div>
+                          <div class="pud-partner__summary-row" data-summary-item>
+                            <div class="pud-partner__summary-info">
+                              <p class="pud-partner__summary-name">Charging Cable <span class="g-summary-qty">x1</span></p>
+                            </div>
+                            <div class="pud-partner__summary-row-end">
+                              <p class="pud-partner__summary-price">$29.95</p>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                    <div class="pud-partner__summary-total-card g-summary-total-compact">
+                      <div class="g-summary-mini-row"><span>Subtotal</span><span>$214.89</span></div>
+                      <div class="g-summary-mini-row"><span>Bundle savings</span><span>-$29.95</span></div>
+                      <div class="pud-partner__summary-total"><span>Bundle total</span><div class="pud-partner__summary-total-right"><strong>$184.94</strong></div></div>
+                    </div>
+                  </div>
+                  <div class="pud-partner__footer">
+                    <button class="pud-partner__cta" type="button">Add bundle to cart</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="g-card" data-group="bundle" data-mobile-au-only="true">
+          <div class="g-card-head">Paid Mobile Selector <span class="g-badge">plan-upsell-drawer</span></div>
+          <div class="g-stage">
+            <div class="g-frame">
+              <div class="plan-drawer">
+                <div class="plan-drawer__screen g-mobile-mvp">
+                  <div class="plan-drawer__s2-header">
+                    <button class="plan-drawer__back" type="button" aria-label="Back">&#8592;</button>
+                    <div class="plan-drawer__s2-heading">
+                      <p class="plan-drawer__s2-title">Switch your mobile plan and get 70% off your first month.*</p>
+                    </div>
+                    <button class="plan-drawer__close" type="button" data-mobile-close aria-label="Close">&#x2715;</button>
+                  </div>
+                  <div class="plan-drawer__s2-body">
+                    <div class="plan-drawer__deal-carousel">
+                      <article class="plan-drawer__deal-card plan-drawer__plan">
+                        <div class="plan-drawer__deal-body">
+                          <div class="plan-drawer__deal-top">
+                            <p class="plan-drawer__deal-name">15GB Plan</p>
+                            <div class="plan-drawer__deal-badges"><span class="plan-drawer__badge plan-drawer__badge--popular">4G</span></div>
+                          </div>
+                          <div class="plan-drawer__deal-price-row"><span class="plan-drawer__deal-price-was">$20</span><span class="plan-drawer__deal-price-now">$6.00</span><span class="plan-drawer__deal-price-unit">/month</span></div>
+                          <p class="plan-drawer__deal-price-note">for the first month,<br><strong>$20 thereafter*</strong></p>
+                          <p class="plan-drawer__deal-meta">Unlimited calls &amp; texts to standard Australian numbers.</p>
+                        </div>
+                      </article>
+                      <article class="plan-drawer__deal-card plan-drawer__plan is-selected">
+                        <div class="plan-drawer__deal-body">
+                          <div class="plan-drawer__deal-top">
+                            <p class="plan-drawer__deal-name">29GB Plan</p>
+                            <div class="plan-drawer__deal-badges"><span class="plan-drawer__badge plan-drawer__badge--popular">5G</span></div>
+                          </div>
+                          <div class="plan-drawer__deal-price-row"><span class="plan-drawer__deal-price-was">$25</span><span class="plan-drawer__deal-price-now">$7.50</span><span class="plan-drawer__deal-price-unit">/month</span></div>
+                          <p class="plan-drawer__deal-price-note">for the first month,<br><strong>$25 thereafter*</strong></p>
+                          <p class="plan-drawer__deal-meta">Unlimited calls &amp; texts to standard Australian numbers and 15 countries included.</p>
+                        </div>
+                      </article>
+                      <article class="plan-drawer__deal-card plan-drawer__plan">
+                        <div class="plan-drawer__deal-body">
+                          <div class="plan-drawer__deal-top">
+                            <p class="plan-drawer__deal-name">40GB Plan</p>
+                            <div class="plan-drawer__deal-badges"><span class="plan-drawer__badge plan-drawer__badge--popular">5G</span></div>
+                          </div>
+                          <div class="plan-drawer__deal-price-row"><span class="plan-drawer__deal-price-was">$35</span><span class="plan-drawer__deal-price-now">$10.50</span><span class="plan-drawer__deal-price-unit">/month</span></div>
+                          <p class="plan-drawer__deal-price-note">for the first month,<br><strong>$35 thereafter*</strong></p>
+                          <p class="plan-drawer__deal-meta">Unlimited calls &amp; texts to standard Australian numbers and 15 countries included.</p>
+                        </div>
+                      </article>
+                      <article class="plan-drawer__deal-card plan-drawer__plan">
+                        <div class="plan-drawer__deal-body">
+                          <div class="plan-drawer__deal-top">
+                            <p class="plan-drawer__deal-name">100GB Plan</p>
+                            <div class="plan-drawer__deal-badges"><span class="plan-drawer__badge plan-drawer__badge--popular">5G</span></div>
+                          </div>
+                          <div class="plan-drawer__deal-price-row"><span class="plan-drawer__deal-price-was">$45</span><span class="plan-drawer__deal-price-now">$13.50</span><span class="plan-drawer__deal-price-unit">/month</span></div>
+                          <p class="plan-drawer__deal-price-note">for the first month,<br><strong>$45 thereafter*</strong></p>
+                          <p class="plan-drawer__deal-meta">Unlimited calls &amp; texts to standard Australian numbers and 15 countries included.</p>
+                        </div>
+                      </article>
+                    </div>
+                    <div class="g-mobile-selected-meta" data-mobile-selected-meta>
+                      <p class="g-mobile-selected-meta-title">Selected Mobile plan: <span data-mobile-selected-name>29GB Plan</span></p>
+                      <p class="g-mobile-selected-meta-desc" data-mobile-selected-detail>Unlimited calls &amp; texts to standard Australian numbers and 15 countries included.</p>
+                      <p class="g-mobile-selected-meta-note">1-month rolling &bull; No lock-in contracts</p>
+                    </div>
+                    <button class="plan-drawer__sim-optin g-mobile-selected-optin is-checked" type="button" data-mobile-sim-optin aria-pressed="true">
+                      <span class="plan-drawer__sim-optin-box" aria-hidden="true">
+                        <svg width="12" height="12" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5 10.5L8.4 14L15 6.8" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                      <span class="plan-drawer__sim-optin-text" data-mobile-sim-label>I'd like a physical SIM card included</span>
+                    </button>
+                    <div class="plan-drawer__offer-bullets">
+                      <p><strong>Keep your number.</strong>Everything moves across seamlessly.</p>
+                      <p><strong>Data gifting.</strong>Share your data with family and friends also on Spacetalk Mobile Plans.</p>
+                      <p><strong>No lock-in contracts.</strong>All plans are 1 month rolling.</p>
+                      <p><strong>Stay in the loop.</strong>Unlimited calls &amp; texts to standard Australian numbers.</p>
+                    </div>
+                    <div class="plan-drawer__legal-links">
+                      <a class="plan-drawer__legal-link" href="https://cdn.shopify.com/s/files/1/2141/2237/files/251224_Handset_Critical_Information_Summary.pdf?v=1766543637" target="_blank" rel="noopener">Critical Information Summary</a>
+                      <a class="plan-drawer__legal-link" href="https://cdn.shopify.com/s/files/1/2141/2237/files/Discounted_mobile_plan_118782.2.pdf?v=1779087039" target="_blank" rel="noopener">* T&amp;C's Apply - View our Promotions Terms of Use</a>
+                    </div>
+                  </div>
+                  <div class="plan-drawer__s2-footer">
+                    <button class="plan-drawer__mobile-cta-paid" type="button"><span class="plan-drawer__btn-label">Add 29GB plan ($7.50 first month)</span></button>
+                    <button class="plan-drawer__skip" type="button">No thanks, please skip this offer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="g-section" data-group="standalone">
+      <h2>Standalone Plan Upsell Drawer <span class="g-pill standalone">2 screens</span></h2>
+      <div class="g-grid">
+        <article class="g-card" data-group="standalone" data-mobile-au-only="true">
+          <div class="g-card-head">Watch Plan Selector <span class="g-badge">plan-upsell-drawer</span></div>
+          <div class="g-stage">
+            <div class="g-frame">
+              <div class="plan-drawer">
+                <div class="plan-drawer__screen" data-watch-plan-screen>
+                  <div class="plan-drawer__handle" aria-hidden="true"></div>
+                  <div class="plan-drawer__header">
+                    <div>
+                      <p class="plan-drawer__title">Add a Watch SIM Plan</p>
+                      <p class="plan-drawer__subtitle">Location tracking and real-time alerts.</p>
+                    </div>
+                    <button class="plan-drawer__close" type="button" aria-label="Close">&#x2715;</button>
+                  </div>
+                  <div class="g-plan-compact">
+                    <div class="g-plan-compact-alert">
+                      <p style="margin:0;"><strong>Join <span class="g-plan-compact-proof">40,000+</span> families already connected.</strong></p>
+                      <p class="g-plan-compact-sub">An active plan is required to enable the features below via the Spacetalk App.</p>
+                    </div>
+                    <div class="g-plan-compact-perks" aria-label="Watch plan benefits">
+                      <div class="g-plan-compact-perk">Location tracking</div>
+                      <div class="g-plan-compact-perk">Calls &amp; messages</div>
+                      <div class="g-plan-compact-perk">SOS alerts</div>
+                    </div>
+                    <p class="g-plan-compact-network">Locked to Spacetalk Mobile - Telstra wholesale network</p>
+                  </div>
+                  <div class="plan-drawer__plans" data-watch-plan-grid>
+                    <div class="plan-drawer__plan is-selected" data-watch-plan-option><div class="plan-drawer__plan-wrapper"><div class="plan-drawer__badges"><span class="plan-drawer__badge plan-drawer__badge--popular">Most popular</span><span class="plan-drawer__badge plan-drawer__badge--save">Save 24%*</span></div><div class="plan-drawer__plan-main-row"><p class="plan-drawer__plan-name">365 Day Watch Plan</p><div class="plan-drawer__plan-price-main"><span class="plan-drawer__plan-permo">$164.99</span><span class="plan-drawer__plan-permounit">upfront</span></div></div><div class="plan-drawer__plan-sub-row"><p class="plan-drawer__plan-detail">30GB data</p><span class="plan-drawer__plan-bill-note">$13.75/mo</span></div><div class="plan-drawer__plan-renew-row"><span>Auto-renews every 365 days</span><span>Cancel anytime</span></div></div></div>
+                    <div class="plan-drawer__plan" data-watch-plan-option><div class="plan-drawer__plan-wrapper"><div class="plan-drawer__badges"><span class="plan-drawer__badge plan-drawer__badge--save">Save 16%*</span></div><div class="plan-drawer__plan-main-row"><p class="plan-drawer__plan-name">180 Day Watch Plan</p><div class="plan-drawer__plan-price-main"><span class="plan-drawer__plan-permo">$90.99</span><span class="plan-drawer__plan-permounit">upfront</span></div></div><div class="plan-drawer__plan-sub-row"><p class="plan-drawer__plan-detail">10GB data</p><span class="plan-drawer__plan-bill-note">$15.17/mo</span></div><div class="plan-drawer__plan-renew-row"><span>Auto-renews every 180 days</span><span>Cancel anytime</span></div></div></div>
+                    <div class="plan-drawer__plan" data-watch-plan-option><div class="plan-drawer__plan-wrapper"><div class="plan-drawer__badges"><span class="plan-drawer__badge plan-drawer__badge--flex">Most flexible</span></div><div class="plan-drawer__plan-main-row"><p class="plan-drawer__plan-name">30 Day Watch Plan</p><div class="plan-drawer__plan-price-main"><span class="plan-drawer__plan-permo">$17.99</span><span class="plan-drawer__plan-permounit">upfront</span></div></div><div class="plan-drawer__plan-sub-row"><p class="plan-drawer__plan-detail">1GB data</p><span class="plan-drawer__plan-bill-note">$17.99/mo</span></div><div class="plan-drawer__plan-renew-row"><span>Auto-renews every 30 days</span><span>Cancel anytime</span></div></div></div>
+                    <p class="plan-drawer__plans-note">*Savings per month in comparison to a 30 Day Watch plan</p>
+                  </div>
+                  <div class="plan-drawer__footer">
+                    <button class="plan-drawer__cta" type="button"><span class="plan-drawer__btn-label" data-watch-plan-cta-label>Select 365 Day Watch Plan ($164.99)</span></button>
+                    <button class="plan-drawer__skip" type="button">Continue &mdash; I'll add a plan later</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="g-card" data-group="standalone" data-mobile-au-only="true">
+          <div class="g-card-head">Paid Mobile Selector <span class="g-badge">plan-upsell-drawer</span></div>
+          <div class="g-stage">
+            <div class="g-frame">
+              <div class="plan-drawer">
+                <div class="plan-drawer__screen g-mobile-mvp">
+                  <div class="plan-drawer__s2-header">
+                    <button class="plan-drawer__back" type="button" aria-label="Back">&#8592;</button>
+                    <div class="plan-drawer__s2-heading">
+                      <p class="plan-drawer__s2-title">Switch your mobile plan and get 70% off your first month.*</p>
+                    </div>
+                    <button class="plan-drawer__close" type="button" data-mobile-close aria-label="Close">&#x2715;</button>
+                  </div>
+                  <div class="plan-drawer__s2-body">
+                    <div class="plan-drawer__deal-carousel">
+                      <article class="plan-drawer__deal-card plan-drawer__plan">
+                        <div class="plan-drawer__deal-body">
+                          <div class="plan-drawer__deal-top">
+                            <p class="plan-drawer__deal-name">15GB Plan</p>
+                            <div class="plan-drawer__deal-badges"><span class="plan-drawer__badge plan-drawer__badge--popular">4G</span></div>
+                          </div>
+                          <div class="plan-drawer__deal-price-row"><span class="plan-drawer__deal-price-was">$20</span><span class="plan-drawer__deal-price-now">$6.00</span><span class="plan-drawer__deal-price-unit">/month</span></div>
+                          <p class="plan-drawer__deal-price-note">for the first month,<br><strong>$20 thereafter*</strong></p>
+                          <p class="plan-drawer__deal-meta">Unlimited calls &amp; texts to standard Australian numbers.</p>
+                        </div>
+                      </article>
+                      <article class="plan-drawer__deal-card plan-drawer__plan is-selected">
+                        <div class="plan-drawer__deal-body">
+                          <div class="plan-drawer__deal-top">
+                            <p class="plan-drawer__deal-name">29GB Plan</p>
+                            <div class="plan-drawer__deal-badges"><span class="plan-drawer__badge plan-drawer__badge--popular">5G</span></div>
+                          </div>
+                          <div class="plan-drawer__deal-price-row"><span class="plan-drawer__deal-price-was">$25</span><span class="plan-drawer__deal-price-now">$7.50</span><span class="plan-drawer__deal-price-unit">/month</span></div>
+                          <p class="plan-drawer__deal-price-note">for the first month,<br><strong>$25 thereafter*</strong></p>
+                          <p class="plan-drawer__deal-meta">Unlimited calls &amp; texts to standard Australian numbers and 15 countries included.</p>
+                        </div>
+                      </article>
+                      <article class="plan-drawer__deal-card plan-drawer__plan">
+                        <div class="plan-drawer__deal-body">
+                          <div class="plan-drawer__deal-top">
+                            <p class="plan-drawer__deal-name">40GB Plan</p>
+                            <div class="plan-drawer__deal-badges"><span class="plan-drawer__badge plan-drawer__badge--popular">5G</span></div>
+                          </div>
+                          <div class="plan-drawer__deal-price-row"><span class="plan-drawer__deal-price-was">$35</span><span class="plan-drawer__deal-price-now">$10.50</span><span class="plan-drawer__deal-price-unit">/month</span></div>
+                          <p class="plan-drawer__deal-price-note">for the first month,<br><strong>$35 thereafter*</strong></p>
+                          <p class="plan-drawer__deal-meta">Unlimited calls &amp; texts to standard Australian numbers and 15 countries included.</p>
+                        </div>
+                      </article>
+                      <article class="plan-drawer__deal-card plan-drawer__plan">
+                        <div class="plan-drawer__deal-body">
+                          <div class="plan-drawer__deal-top">
+                            <p class="plan-drawer__deal-name">100GB Plan</p>
+                            <div class="plan-drawer__deal-badges"><span class="plan-drawer__badge plan-drawer__badge--popular">5G</span></div>
+                          </div>
+                          <div class="plan-drawer__deal-price-row"><span class="plan-drawer__deal-price-was">$45</span><span class="plan-drawer__deal-price-now">$13.50</span><span class="plan-drawer__deal-price-unit">/month</span></div>
+                          <p class="plan-drawer__deal-price-note">for the first month,<br><strong>$45 thereafter*</strong></p>
+                          <p class="plan-drawer__deal-meta">Unlimited calls &amp; texts to standard Australian numbers and 15 countries included.</p>
+                        </div>
+                      </article>
+                    </div>
+                    <div class="g-mobile-selected-meta" data-mobile-selected-meta>
+                      <p class="g-mobile-selected-meta-title">Selected Mobile plan: <span data-mobile-selected-name>29GB Plan</span></p>
+                      <p class="g-mobile-selected-meta-desc" data-mobile-selected-detail>Unlimited calls &amp; texts to standard Australian numbers and 15 countries included.</p>
+                      <p class="g-mobile-selected-meta-note">1-month rolling &bull; No lock-in contracts</p>
+                    </div>
+                    <button class="plan-drawer__sim-optin g-mobile-selected-optin is-checked" type="button" data-mobile-sim-optin aria-pressed="true">
+                      <span class="plan-drawer__sim-optin-box" aria-hidden="true">
+                        <svg width="12" height="12" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5 10.5L8.4 14L15 6.8" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                      <span class="plan-drawer__sim-optin-text" data-mobile-sim-label>I'd like a physical SIM card included</span>
+                    </button>
+                    <div class="plan-drawer__offer-bullets">
+                      <p><strong>Keep your number.</strong>Everything moves across seamlessly.</p>
+                      <p><strong>Data gifting.</strong>Share your data with family and friends also on Spacetalk Mobile Plans.</p>
+                      <p><strong>No lock-in contracts.</strong>All plans are 1 month rolling.</p>
+                      <p><strong>Stay in the loop.</strong>Unlimited calls &amp; texts to standard Australian numbers.</p>
+                    </div>
+                    <div class="plan-drawer__legal-links">
+                      <a class="plan-drawer__legal-link" href="https://cdn.shopify.com/s/files/1/2141/2237/files/251224_Handset_Critical_Information_Summary.pdf?v=1766543637" target="_blank" rel="noopener">Critical Information Summary</a>
+                      <a class="plan-drawer__legal-link" href="https://cdn.shopify.com/s/files/1/2141/2237/files/Discounted_mobile_plan_118782.2.pdf?v=1779087039" target="_blank" rel="noopener">* T&amp;C's Apply - View our Promotions Terms of Use</a>
+                    </div>
+                  </div>
+                  <div class="plan-drawer__s2-footer">
+                    <button class="plan-drawer__mobile-cta-paid" type="button"><span class="plan-drawer__btn-label">Add 29GB plan ($7.50 first month)</span></button>
+                    <button class="plan-drawer__skip" type="button">No thanks, please skip this offer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      var marketEl = document.getElementById("market");
+      var filterEl = document.getElementById("viewFilter");
+      var strapOfferEl = document.getElementById("strapOffer");
+      var accessoryOfferEl = document.getElementById("accessoryOffer");
+      var priceSourceJsonEl = document.getElementById("priceSourceJson");
+      var smartwatchFeaturesJsonEl = document.getElementById("smartwatchFeaturesJson");
+      var accessoryProductsJsonEl = document.getElementById("accessoryProductsJson");
+      var noteEl = document.getElementById("marketNote");
+      var defaultSmartwatchFeatures = [
+        "4G Video, Voice Calls and Text",
+        "Location Tracking and Alerts",
+        "SOS Button and School Mode"
+      ];
+
+      function normalizeFeatures(value) {
+        if (!value) return [];
+        if (Array.isArray(value)) return value.map(function (item) { return String(item).trim(); }).filter(Boolean);
+        if (typeof value === "string") {
+          return value.split(/\r?\n|,/).map(function (item) { return item.trim(); }).filter(Boolean);
+        }
+        if (typeof value === "object") {
+          if (Array.isArray(value.value)) return normalizeFeatures(value.value);
+          if (typeof value.value === "string") return normalizeFeatures(value.value);
+          if (Array.isArray(value.features)) return normalizeFeatures(value.features);
+        }
+        return [];
+      }
+
+      function readFeaturesFromWindow() {
+        if (window.__SMARTWATCH_FEATURES__) {
+          return normalizeFeatures(window.__SMARTWATCH_FEATURES__);
+        }
+        if (window.__PRODUCT_METAFIELDS__ && window.__PRODUCT_METAFIELDS__.product && window.__PRODUCT_METAFIELDS__.product.custom) {
+          return normalizeFeatures(window.__PRODUCT_METAFIELDS__.product.custom.smartwatch_features);
+        }
+        if (window.__PRODUCT__ && window.__PRODUCT__.custom) {
+          return normalizeFeatures(window.__PRODUCT__.custom.smartwatch_features);
+        }
+        return [];
+      }
+
+      function parseSmartwatchFeatures() {
+        var raw = (smartwatchFeaturesJsonEl.value || "").trim();
+        if (!raw) {
+          var fromWindow = readFeaturesFromWindow();
+          return fromWindow.length ? fromWindow : defaultSmartwatchFeatures;
+        }
+
+        try {
+          var parsed = JSON.parse(raw);
+          var normalized = normalizeFeatures(parsed);
+          return normalized.length ? normalized : defaultSmartwatchFeatures;
+        } catch (err) {
+          return defaultSmartwatchFeatures;
+        }
+      }
+
+      function normalizeAccessoryProductIds(value) {
+        if (!value) return [];
+        if (Array.isArray(value)) {
+          return value.map(function (item) {
+            if (typeof item === "string") return item.trim();
+            if (item && typeof item === "object") {
+              return String(item.product_id || item.productId || item.id || item.handle || "").trim();
+            }
+            return String(item || "").trim();
+          }).filter(Boolean);
+        }
+        if (typeof value === "string") {
+          return value.split(/\r?\n|,/).map(function (item) { return item.trim(); }).filter(Boolean);
+        }
+        if (typeof value === "object") {
+          if (Array.isArray(value.value)) return normalizeAccessoryProductIds(value.value);
+          if (typeof value.value === "string") return normalizeAccessoryProductIds(value.value);
+          if (Array.isArray(value.products)) return normalizeAccessoryProductIds(value.products);
+          if (Array.isArray(value.items)) return normalizeAccessoryProductIds(value.items);
+        }
+        return [];
+      }
+
+      function readAccessoryProductsFromWindow() {
+        if (window.__PRODUCT_METAFIELDS__ && window.__PRODUCT_METAFIELDS__.product && window.__PRODUCT_METAFIELDS__.product.custom) {
+          var custom = window.__PRODUCT_METAFIELDS__.product.custom;
+          return normalizeAccessoryProductIds(custom.accessory_products || custom.accessory_product_ids || custom.accessory_items);
+        }
+        return [];
+      }
+
+      function parseAccessoryProductIds() {
+        var raw = (accessoryProductsJsonEl && accessoryProductsJsonEl.value || "").trim();
+        if (!raw) {
+          var fromWindow = readAccessoryProductsFromWindow();
+          return fromWindow;
+        }
+
+        try {
+          var parsed = JSON.parse(raw);
+          var normalized = normalizeAccessoryProductIds(parsed);
+          return normalized;
+        } catch (err) {
+          return [];
+        }
+      }
+
+      function renderSmartwatchFeatures() {
+        var listEl = document.getElementById("smartwatchFeaturesList");
+        if (!listEl) return;
+        var features = parseSmartwatchFeatures();
+
+        listEl.innerHTML = "";
+        features.forEach(function (feature) {
+          var li = document.createElement("li");
+          li.className = "pud-partner__feat-item";
+
+          var tick = document.createElement("span");
+          tick.className = "pud-partner__tick";
+          tick.innerHTML = "&#10003;";
+
+          var text = document.createElement("span");
+          text.textContent = feature;
+
+          li.appendChild(tick);
+          li.appendChild(text);
+          listEl.appendChild(li);
+        });
+      }
+
+      function toNumber(value) {
+        var num = Number(value);
+        return Number.isFinite(num) ? num : null;
+      }
+
+      function readMarketValue(entry, market) {
+        if (entry == null) return null;
+        if (typeof entry === "number" || typeof entry === "string") return toNumber(entry);
+        if (typeof entry !== "object") return null;
+        if (entry[market] != null) return readMarketValue(entry[market], market);
+        if (entry.price != null) return readMarketValue(entry.price, market);
+        if (entry.amount != null) return readMarketValue(entry.amount, market);
+        return null;
+      }
+
+      function readCompareAt(entry, market) {
+        if (!entry || typeof entry !== "object") return null;
+        if (entry.compareAtPrice != null) return readMarketValue(entry.compareAtPrice, market);
+        if (entry.compare_at_price != null) return readMarketValue(entry.compare_at_price, market);
+        if (entry.compareAt != null) return readMarketValue(entry.compareAt, market);
+        return null;
+      }
+
+      function parsePriceSource() {
+        var raw = (priceSourceJsonEl.value || "").trim();
+        if (!raw) {
+          return window.__UPSELL_PRICE_SOURCE__ || null;
+        }
+        try {
+          return JSON.parse(raw);
+        } catch (err) {
+          return null;
+        }
+      }
+
+      function getProductEntry(source, productId) {
+        if (!productId) return null;
+        if (source && source.prices && source.prices[productId] != null) return source.prices[productId];
+        if (source && source.products && source.products[productId] != null) return source.products[productId];
+        if (source && source[productId] != null) return source[productId];
+        if (productId === "acc-watch-stand") return { AU: 59.95, GB: 59.95 };
+        if (productId === "acc-screen-protector") return { AU: 12.95, GB: 12.95 };
+        if (productId === "acc-charging-cable") return { AU: 29.95, GB: 29.95 };
+        return null;
+      }
+
+      function resolveCardBasePrice(card, market, source) {
+        var productId = card.getAttribute("data-product-id");
+        var entry = getProductEntry(source, productId);
+        if (entry == null) {
+          return null;
+        }
+        var price = readMarketValue(entry, market);
+        var compareAt = readCompareAt(entry, market);
+        if (price == null && typeof entry === "object") {
+          if (entry.value != null) price = readMarketValue(entry.value, market);
+        }
+        if (price == null) {
+          return null;
+        }
+        return {
+          price: price,
+          compareAt: compareAt
+        };
+      }
+
+      function formatPrice(num, market) {
+        var resolvedMarket = market || (marketEl && marketEl.value) || "AU";
+        return (resolvedMarket === "GB" ? "£" : "$") + Number(num).toFixed(2);
+      }
+
+      function applyOffer(card, offer, market, source) {
+        var priceLabelEl = card.querySelector("[data-accessory-price]");
+        if (!priceLabelEl) return;
+
+        var isAvailable = card.getAttribute("data-" + market.toLowerCase()) === "1";
+        card.classList.toggle("is-unavailable", !isAvailable);
+        if (!isAvailable) {
+          card.style.display = "none";
+          if (priceLabelEl) priceLabelEl.textContent = "";
+          return;
+        }
+        card.style.display = "";
+
+        priceLabelEl.textContent = "";
+
+        var resolved = resolveCardBasePrice(card, market, source);
+        if (!resolved) {
+          priceLabelEl.textContent = "Set from product/metafield";
+          return;
+        }
+
+        var base = resolved.price;
+        if (offer === "free") {
+          priceLabelEl.textContent = "Free";
+          return;
+        }
+
+        if (offer === "half") {
+          priceLabelEl.textContent = formatPrice(base * 0.5, market);
+          return;
+        }
+
+        priceLabelEl.textContent = formatPrice(base, market);
+      }
+
+      function resolveStrapAddonUnitPrice(card, market, source, offer) {
+        var resolved = resolveCardBasePrice(card, market, source);
+        var base = resolved && resolved.price != null ? resolved.price : 29.95;
+        if (offer === "half") return base * 0.5;
+        if (offer === "free") return 0;
+        return base;
+      }
+
+      function renderStrapAddonSelector(market, offer, source) {
+        var grid = document.querySelector("[data-strap-addon-grid]");
+        var summaryEl = document.querySelector("[data-strap-addon-summary]");
+        var ctaEl = document.querySelector("[data-strap-addon-cta]");
+        var emptyEl = grid ? grid.parentElement.querySelector(".g-upsell-empty") : null;
+        if (!grid || !summaryEl || !ctaEl) return;
+
+        var visibleCount = 0;
+        var selectedCount = 0;
+        var selectedTotal = 0;
+        var selectedNames = [];
+
+        grid.querySelectorAll("[data-strap-addon-card]").forEach(function (card) {
+          var isAvailable = card.getAttribute("data-" + market.toLowerCase()) === "1";
+          if (!isAvailable) {
+            card.style.display = "none";
+            card.classList.remove("is-selected");
+            card.setAttribute("aria-pressed", "false");
+            return;
+          }
+
+          card.style.display = "";
+          visibleCount += 1;
+
+          var priceEl = card.querySelector("[data-strap-addon-price]");
+          var unitPrice = resolveStrapAddonUnitPrice(card, market, source, offer);
+          if (priceEl) {
+            priceEl.textContent = offer === "free" ? "Free" : "+" + formatPrice(unitPrice, market);
+          }
+
+          if (card.classList.contains("is-selected")) {
+            selectedCount += 1;
+            selectedTotal += unitPrice;
+            selectedNames.push(card.getAttribute("data-name") || "Colour");
+          }
+        });
+
+        if (emptyEl) emptyEl.style.display = visibleCount === 0 ? "block" : "none";
+
+        if (selectedCount === 0) {
+          summaryEl.textContent = "No straps selected";
+          ctaEl.textContent = "Skip extra add-on straps";
+        } else if (selectedCount === 1) {
+          summaryEl.textContent = "1 strap selected \u00b7 +" + formatPrice(selectedTotal, market) + " extra";
+          ctaEl.textContent = "Select " + selectedNames.join(", ") + " \u00b7 +" + formatPrice(selectedTotal, market);
+        } else {
+          summaryEl.textContent = selectedCount + " straps selected \u00b7 +" + formatPrice(selectedTotal, market) + " extra";
+          ctaEl.textContent = "Select " + selectedNames.join(", ") + " \u00b7 +" + formatPrice(selectedTotal, market);
+        }
+      }
+
+      function wireStrapAddonSelector() {
+        var grid = document.querySelector("[data-strap-addon-grid]");
+        if (!grid) return;
+
+        grid.querySelectorAll("[data-strap-addon-card]").forEach(function (card) {
+          card.addEventListener("click", function () {
+            if (card.style.display === "none" || card.classList.contains("is-disabled")) return;
+            var nextState = !card.classList.contains("is-selected");
+            card.classList.toggle("is-selected", nextState);
+            card.setAttribute("aria-pressed", nextState ? "true" : "false");
+            renderUpsellCards();
+          });
+        });
+      }
+
+      function renderUpsellCards() {
+        var market = marketEl.value;
+        var strapOffer = strapOfferEl.value;
+        var accessoryOffer = accessoryOfferEl.value;
+        var priceSource = parsePriceSource();
+
+        renderStrapAddonSelector(market, strapOffer, priceSource);
+        renderAccessorySelector(market, accessoryOffer, priceSource);
+      }
+
+      function resolveAccessoryUnitPrice(card, market, source, offer) {
+        var resolved = resolveCardBasePrice(card, market, source);
+        var base = resolved && resolved.price != null ? resolved.price : 0;
+        if (offer === "half") return base * 0.5;
+        if (offer === "free") return 0;
+        return base;
+      }
+
+      function syncAccessoryNamePriceLine(card) {
+        var nameEl = card.querySelector(".pud-partner__strap-label");
+        var priceEl = card.querySelector("[data-accessory-price]");
+        if (!nameEl) return;
+        var baseName = card.getAttribute("data-name") || "Accessory";
+        var priceText = priceEl ? String(priceEl.textContent || "").trim() : "";
+        nameEl.textContent = priceText ? baseName + " - " + priceText : baseName;
+      }
+
+      function renderAccessorySelector(market, offer, source) {
+        document.querySelectorAll("[data-accessory-screen]").forEach(function (screen) {
+          var includedWrap = screen.querySelector(".g-included-accessories");
+          var includedCards = screen.querySelectorAll("[data-included-accessory-card]");
+          var summaryEl = screen.querySelector("[data-accessory-addon-summary]");
+          var addonGrid = screen.querySelector("[data-accessory-addon-grid]");
+          var ctaEl = screen.querySelector("[data-accessory-cta]");
+          var emptyEl = addonGrid ? addonGrid.parentElement.querySelector(".g-upsell-empty") : null;
+          if (!summaryEl || !addonGrid) return;
+
+          var selectedAccessoryIds = parseAccessoryProductIds();
+          var hasAccessoryFilter = selectedAccessoryIds.length > 0;
+
+          var includedVisible = 0;
+          includedCards.forEach(function (card) {
+            var cardProductId = card.getAttribute("data-product-id");
+            if (hasAccessoryFilter && cardProductId && selectedAccessoryIds.indexOf(cardProductId) === -1) {
+              card.style.display = "none";
+              return;
+            }
+            var isAvailable = card.getAttribute("data-" + market.toLowerCase()) !== "0";
+            if (!isAvailable) {
+              card.style.display = "none";
+              return;
+            }
+            card.style.display = "";
+            includedVisible += 1;
+          });
+
+          if (includedWrap) {
+            includedWrap.style.display = includedVisible === 0 ? "none" : "block";
+          }
+
+          var visibleCount = 0;
+          var totalQty = 0;
+          var totalCost = 0;
+
+          addonGrid.querySelectorAll("[data-accessory-addon-card]").forEach(function (card) {
+            var cardProductId = card.getAttribute("data-product-id");
+            if (hasAccessoryFilter && selectedAccessoryIds.indexOf(cardProductId) === -1) {
+              card.style.display = "none";
+              card.classList.remove("is-selected");
+              card.setAttribute("aria-pressed", "false");
+              card.setAttribute("data-qty", "0");
+              var hiddenQtyEl = card.querySelector("[data-accessory-qty]");
+              if (hiddenQtyEl) hiddenQtyEl.textContent = "0";
+              return;
+            }
+
+            var isAvailable = card.getAttribute("data-" + market.toLowerCase()) === "1";
+            if (!isAvailable) {
+              card.style.display = "none";
+              card.classList.remove("is-selected");
+              card.setAttribute("aria-pressed", "false");
+              card.setAttribute("data-qty", "0");
+              var hiddenQtyEl = card.querySelector("[data-accessory-qty]");
+              if (hiddenQtyEl) hiddenQtyEl.textContent = "0";
+              return;
+            }
+
+            card.style.display = "";
+            visibleCount += 1;
+            applyOffer(card, offer, market, source);
+            syncAccessoryNamePriceLine(card);
+
+            var qty = Number(card.getAttribute("data-qty") || 0);
+            if (!Number.isFinite(qty) || qty < 0) qty = 0;
+            qty = Math.floor(qty);
+
+            var qtyEl = card.querySelector("[data-accessory-qty]");
+            if (qtyEl) qtyEl.textContent = String(qty);
+
+            var decBtn = card.querySelector("[data-accessory-qty-dec]");
+            if (decBtn) decBtn.disabled = qty === 0;
+
+            var addBtn = card.querySelector("[data-accessory-qty-add]");
+            if (addBtn) addBtn.style.display = qty === 0 ? "inline-flex" : "none";
+
+            var selected = qty > 0;
+            card.classList.toggle("is-selected", selected);
+            card.setAttribute("aria-pressed", selected ? "true" : "false");
+
+            totalQty += qty;
+            totalCost += qty * resolveAccessoryUnitPrice(card, market, source, offer);
+          });
+
+          if (emptyEl) emptyEl.style.display = visibleCount === 0 ? "block" : "none";
+
+          if (totalQty === 0) {
+            summaryEl.textContent = "0 extra accessories added";
+          } else if (totalQty === 1) {
+            summaryEl.textContent = "1 extra accessory added \u00b7 +" + formatPrice(totalCost, market);
+          } else {
+            summaryEl.textContent = totalQty + " extra accessories added \u00b7 +" + formatPrice(totalCost, market);
+          }
+
+          if (ctaEl) {
+            var ctaAmount = totalQty > 0 && totalCost > 0 ? " (+" + formatPrice(totalCost, market) + ")" : "";
+            ctaEl.textContent = totalQty === 0 && includedVisible === 0 ? "Skip Accessories" + ctaAmount : "Continue with accessories" + ctaAmount;
+          }
+        });
+      }
+
+      function wireAccessoryAddonSelector() {
+        document.querySelectorAll("[data-accessory-addon-grid]").forEach(function (grid) {
+          grid.querySelectorAll("[data-accessory-addon-card]").forEach(function (card) {
+            var addBtn = card.querySelector("[data-accessory-qty-add]");
+            var decBtn = card.querySelector("[data-accessory-qty-dec]");
+            var incBtn = card.querySelector("[data-accessory-qty-inc]");
+
+            if (addBtn) {
+              addBtn.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var qty = Number(card.getAttribute("data-qty") || 0);
+                if (!Number.isFinite(qty) || qty < 0) qty = 0;
+                qty = Math.min(99, Math.floor(qty) + 1);
+                card.setAttribute("data-qty", String(qty));
+                renderUpsellCards();
+              });
+            }
+
+            if (decBtn) {
+              decBtn.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var qty = Number(card.getAttribute("data-qty") || 0);
+                if (!Number.isFinite(qty) || qty < 0) qty = 0;
+                qty = Math.max(0, Math.floor(qty) - 1);
+                card.setAttribute("data-qty", String(qty));
+                renderUpsellCards();
+              });
+            }
+
+            if (incBtn) {
+              incBtn.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var qty = Number(card.getAttribute("data-qty") || 0);
+                if (!Number.isFinite(qty) || qty < 0) qty = 0;
+                qty = Math.min(99, Math.floor(qty) + 1);
+                card.setAttribute("data-qty", String(qty));
+                renderUpsellCards();
+              });
+            }
+
+            card.addEventListener("click", function (event) {
+              if (card.style.display === "none" || card.classList.contains("is-unavailable") || card.classList.contains("is-disabled")) return;
+              if (event.target.closest("[data-accessory-qty-dec]") || event.target.closest("[data-accessory-qty-inc]") || event.target.closest("[data-accessory-qty-add]")) return;
+
+              if (event.target.closest(".pud-partner__strap-remove")) {
+                card.setAttribute("data-qty", "0");
+                renderUpsellCards();
+                return;
+              }
+
+              var qty = Number(card.getAttribute("data-qty") || 0);
+              if (!Number.isFinite(qty) || qty < 0) qty = 0;
+              qty = Math.min(99, Math.floor(qty) + 1);
+              card.setAttribute("data-qty", String(qty));
+              renderUpsellCards();
+            });
+          });
+        });
+      }
+
+      var freeStrapSelectionOrder = 0;
+
+      function renderFreeStrapSelector(market, source) {
+        var grid = document.querySelector("[data-free-strap-grid]");
+        var allowanceEl = document.querySelector("[data-free-strap-allowance]");
+        var ctaEl = document.querySelector("[data-free-strap-cta]");
+        if (!grid || !allowanceEl || !ctaEl) return;
+
+        var allowance = Number(allowanceEl.getAttribute("data-free-strap-allowance") || 1);
+        if (!Number.isFinite(allowance) || allowance < 1) allowance = 1;
+
+        var selectedCards = Array.prototype.slice.call(grid.querySelectorAll("[data-free-strap-card].is-selected")).sort(function (left, right) {
+          var leftRank = Number(left.getAttribute("data-free-strap-rank") || 0);
+          var rightRank = Number(right.getAttribute("data-free-strap-rank") || 0);
+          return leftRank - rightRank;
+        });
+        var selectedCount = selectedCards.length;
+        var paidCards = selectedCards.slice(allowance);
+        var extraTotal = paidCards.reduce(function (total, card) {
+          return total + resolveStrapAddonUnitPrice(card, market, source, "none");
+        }, 0);
+
+        if (selectedCount === 0) {
+          allowanceEl.textContent = "Choose 1 strap for free";
+        } else if (extraTotal > 0) {
+          allowanceEl.textContent = selectedCount + " " + (selectedCount === 1 ? "strap" : "straps") + " selected \u00b7 +" + formatPrice(extraTotal, market) + " extra";
+        } else {
+          allowanceEl.textContent = selectedCount + " " + (selectedCount === 1 ? "strap" : "straps") + " selected \u00b7 Free";
+        }
+
+        grid.querySelectorAll("[data-free-strap-card]").forEach(function (card) {
+          var priceEl = card.querySelector("[data-free-strap-price]");
+          var isSelected = card.classList.contains("is-selected");
+          var isFreeIncluded = selectedCards.slice(0, allowance).indexOf(card) !== -1;
+          var unitPrice = resolveStrapAddonUnitPrice(card, market, source, "none");
+          card.classList.remove("is-disabled");
+          if (priceEl) {
+            if (selectedCount < allowance) {
+              priceEl.textContent = "";
+            } else if (isFreeIncluded) {
+              priceEl.textContent = "FREE";
+            } else {
+              priceEl.textContent = "+" + formatPrice(unitPrice, market);
+            }
+          }
+          if (isSelected) {
+            card.setAttribute("aria-pressed", "true");
+          }
+        });
+
+        var ready = selectedCount >= allowance;
+        ctaEl.disabled = !ready;
+        if (ready) {
+          var ctaAmount = extraTotal > 0 ? " (+" + formatPrice(extraTotal, market) + ")" : "";
+          ctaEl.textContent = "Continue with " + selectedCount + " " + (selectedCount === 1 ? "strap" : "straps") + ctaAmount;
+        } else {
+          ctaEl.textContent = "Select 1 strap to continue";
+        }
+      }
+
+      function wireFreeStrapSelector() {
+        var grid = document.querySelector("[data-free-strap-grid]");
+        if (!grid) return;
+
+        grid.querySelectorAll("[data-free-strap-card]").forEach(function (card) {
+          card.addEventListener("click", function () {
+            if (card.classList.contains("is-unavailable") || card.classList.contains("is-disabled")) return;
+            if (card.classList.contains("is-selected")) {
+              card.classList.remove("is-selected");
+              card.setAttribute("aria-pressed", "false");
+              card.removeAttribute("data-free-strap-rank");
+            } else {
+              freeStrapSelectionOrder += 1;
+              card.classList.add("is-selected");
+              card.setAttribute("aria-pressed", "true");
+              card.setAttribute("data-free-strap-rank", String(freeStrapSelectionOrder));
+            }
+            renderFreeStrapSelector(marketEl.value, parsePriceSource());
+          });
+        });
+
+        renderFreeStrapSelector(marketEl.value, parsePriceSource());
+      }
+
+      function renderWatchVariantSelector() {
+        var screen = document.querySelector("[data-watch-variant-screen]");
+        if (!screen) return;
+
+        var selectedCard = screen.querySelector("[data-watch-variant-option].is-selected");
+        var ctaEl = screen.querySelector("[data-watch-variant-cta]");
+        if (!ctaEl || !selectedCard) return;
+
+        var nameEl = selectedCard.querySelector(".pud-partner__watch-name");
+        var variantName = nameEl ? nameEl.textContent.trim() : "Watch";
+        ctaEl.textContent = "Select " + variantName;
+      }
+
+      function wireWatchVariantSelector() {
+        var grid = document.querySelector("[data-watch-variant-grid]");
+        if (!grid) return;
+
+        grid.querySelectorAll("[data-watch-variant-option]").forEach(function (card) {
+          card.addEventListener("click", function () {
+            grid.querySelectorAll("[data-watch-variant-option]").forEach(function (item) {
+              item.classList.remove("is-selected");
+            });
+            card.classList.add("is-selected");
+            renderWatchVariantSelector();
+          });
+        });
+
+        renderWatchVariantSelector();
+      }
+
+      function renderWatchPlanSelector(screen) {
+        if (!screen) return;
+
+        var selectedPlan = screen.querySelector("[data-watch-plan-option].is-selected");
+        var labelEl = screen.querySelector("[data-watch-plan-cta-label]");
+        if (!selectedPlan || !labelEl) return;
+
+        var nameEl = selectedPlan.querySelector(".plan-drawer__plan-name");
+        var priceEl = selectedPlan.querySelector(".plan-drawer__plan-permo");
+        var planName = nameEl ? nameEl.textContent.trim() : "Watch Plan";
+        var planPrice = priceEl ? priceEl.textContent.trim() : "";
+        labelEl.textContent = "Select " + planName + (planPrice ? " (" + planPrice + ")" : "");
+      }
+
+      function wireWatchPlanSelector() {
+        document.querySelectorAll("[data-watch-plan-screen]").forEach(function (screen) {
+          var grid = screen.querySelector("[data-watch-plan-grid]");
+          if (!grid) return;
+
+          grid.querySelectorAll("[data-watch-plan-option]").forEach(function (plan) {
+            plan.addEventListener("click", function () {
+              grid.querySelectorAll("[data-watch-plan-option]").forEach(function (item) {
+                item.classList.remove("is-selected");
+              });
+              plan.classList.add("is-selected");
+              renderWatchPlanSelector(screen);
+            });
+          });
+
+          renderWatchPlanSelector(screen);
+        });
+      }
+
+      function wirePaidMobileSelector() {
+        document.querySelectorAll(".g-mobile-mvp").forEach(function (screen) {
+          var grid = screen.querySelector(".plan-drawer__deal-carousel");
+          var detailEl = screen.querySelector("[data-mobile-selected-detail]");
+          var selectedNameEl = screen.querySelector("[data-mobile-selected-name]");
+          if (!grid || !detailEl) return;
+
+          var plans = Array.prototype.slice.call(grid.querySelectorAll(".plan-drawer__plan"));
+          if (!plans.length) return;
+
+          function updateFromSelected() {
+            var selected = grid.querySelector(".plan-drawer__plan.is-selected") || plans[0];
+            var metaEl = selected.querySelector(".plan-drawer__deal-meta");
+            var nameEl = selected.querySelector(".plan-drawer__deal-name");
+            if (metaEl) {
+              detailEl.textContent = metaEl.textContent.trim();
+            }
+            if (selectedNameEl && nameEl) {
+              selectedNameEl.textContent = nameEl.textContent.trim();
+            }
+          }
+
+          plans.forEach(function (plan) {
+            plan.addEventListener("click", function () {
+              plans.forEach(function (item) {
+                item.classList.remove("is-selected");
+              });
+              plan.classList.add("is-selected");
+              updateFromSelected();
+            });
+          });
+
+          updateFromSelected();
+        });
+      }
+
+      function wirePaidMobileClose() {
+        document.querySelectorAll("[data-mobile-close]").forEach(function (closeBtn) {
+          closeBtn.addEventListener("click", function () {
+            var screen = closeBtn.closest(".plan-drawer__screen");
+            if (!screen) return;
+            var skipBtn = screen.querySelector(".plan-drawer__skip");
+            if (skipBtn) {
+              skipBtn.click();
+            }
+          });
+        });
+      }
+
+      function wireMobileSimOptin() {
+        document.querySelectorAll(".g-mobile-mvp [data-mobile-sim-optin]").forEach(function (card) {
+          var label = card.querySelector("[data-mobile-sim-label]");
+
+          function syncLabel() {
+            var checked = card.classList.contains("is-checked");
+            card.setAttribute("aria-pressed", checked ? "true" : "false");
+            if (label) {
+              label.textContent = checked
+                ? "I'd like a physical SIM card included"
+                : "I will connect via e-SIM";
+            }
+          }
+
+          function toggle() {
+            card.classList.toggle("is-checked");
+            syncLabel();
+          }
+
+          card.addEventListener("click", toggle);
+          card.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              toggle();
+            }
+          });
+
+          syncLabel();
+        });
+      }
+
+      function renderSummarySections() {
+        document.querySelectorAll("[data-summary-section]").forEach(function (section) {
+          var hasVisibleItems = Array.prototype.some.call(section.querySelectorAll("[data-summary-item]"), function (item) {
+            return !item.hidden && item.style.display !== "none";
+          });
+          section.hidden = !hasVisibleItems;
+        });
+      }
+
+      function wireSummaryEditLinks() {
+        document.querySelectorAll("[data-summary-target]").forEach(function (link) {
+          link.addEventListener("click", function (event) {
+            var targetId = link.getAttribute("data-summary-target");
+            var target = targetId ? document.getElementById(targetId) : null;
+            if (!target) return;
+
+            event.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            target.classList.remove("g-summary-target-flash");
+            window.setTimeout(function () {
+              target.classList.add("g-summary-target-flash");
+              window.setTimeout(function () {
+                target.classList.remove("g-summary-target-flash");
+              }, 1200);
+            }, 20);
+          });
+        });
+      }
+
+      function wireMobileOptinToggle() {
+        document.querySelectorAll("[data-mobile-optin]").forEach(function (card) {
+          var label = card.querySelector("[data-mobile-optin-label]");
+
+          function syncLabel() {
+            var checked = card.classList.contains("is-checked");
+            card.setAttribute("aria-pressed", checked ? "true" : "false");
+            if (label) {
+              label.textContent = checked ? "Yes, I'm interested" : "No, thanks";
+            }
+          }
+
+          function toggle() {
+            card.classList.toggle("is-checked");
+            syncLabel();
+          }
+
+          card.addEventListener("click", toggle);
+          card.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              toggle();
+            }
+          });
+
+          syncLabel();
+        });
+      }
+
+      function render() {
+        var market = marketEl.value;
+        var filter = filterEl.value;
+
+        document.querySelectorAll("[data-group]").forEach(function (el) {
+          if (!el.classList.contains("g-section") && filter !== "all" && el.getAttribute("data-group") !== filter) {
+            el.style.display = "none";
+            return;
+          }
+          if (!el.classList.contains("g-section")) {
+            el.style.display = "block";
+            return;
+          }
+          if (filter === "all" || el.getAttribute("data-group") === filter) {
+            el.style.display = "block";
+          } else {
+            el.style.display = "none";
+          }
+        });
+
+        document.querySelectorAll("[data-mobile-au-only='true']").forEach(function (el) {
+          if (market === "GB") {
+            el.style.opacity = "0.52";
+          } else {
+            el.style.opacity = "1";
+          }
+        });
+
+        document.querySelectorAll("[data-mobile-hide-in-gb='true']").forEach(function (el) {
+          el.style.display = market === "GB" ? "none" : "";
+        });
+
+        if (market === "GB") {
+          noteEl.style.display = "block";
+          noteEl.textContent = "GB review mode: mobile 70% screens are dimmed as AU reference. Strap and accessory cards now show market availability, so products like Watch Stand can be configured as unavailable in GB.";
+        } else {
+          noteEl.style.display = "none";
+          noteEl.textContent = "";
+        }
+
+        renderSmartwatchFeatures();
+        renderUpsellCards();
+        renderSummarySections();
+      }
+
+      marketEl.addEventListener("change", render);
+      filterEl.addEventListener("change", render);
+      strapOfferEl.addEventListener("change", renderUpsellCards);
+      accessoryOfferEl.addEventListener("change", renderUpsellCards);
+      priceSourceJsonEl.addEventListener("input", renderUpsellCards);
+      smartwatchFeaturesJsonEl.addEventListener("input", renderSmartwatchFeatures);
+      if (accessoryProductsJsonEl) {
+        accessoryProductsJsonEl.addEventListener("input", renderUpsellCards);
+      }
+      wireFreeStrapSelector();
+      wireStrapAddonSelector();
+      wireAccessoryAddonSelector();
+      wireWatchVariantSelector();
+      wireWatchPlanSelector();
+      wirePaidMobileSelector();
+      wirePaidMobileClose();
+      wireMobileSimOptin();
+      wireSummaryEditLinks();
+      wireMobileOptinToggle();
+      render();
+    })();
+  </script>
+</body>
+</html>

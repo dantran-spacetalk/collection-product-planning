@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bundle Builder Config Studio</title>
+  <link rel="stylesheet" href="./builder.css" />
+</head>
+<body>
+  <div class="page">
+    <section class="panel controls">
+      <h1>Bundle Builder Config Studio</h1>
+      <p class="helper">Configure flow, test market availability, and export JSON for custom.upsell_config.</p>
+
+      <div class="section">
+        <h2>Quick Presets</h2>
+        <div class="row">
+          <button id="presetAuStandalone">AU Standalone</button>
+          <button id="presetAuSmart">AU Smart Bundle</button>
+        </div>
+        <button id="presetUkStarter">UK Starter Set</button>
+      </div>
+
+      <div class="section">
+        <h2>Core Settings</h2>
+        <div class="row">
+          <label>Market
+            <select id="market">
+              <option value="AU">AU</option>
+              <option value="GB">GB</option>
+            </select>
+          </label>
+          <label>Mode
+            <select id="mode">
+              <option value="bundle">bundle</option>
+              <option value="standalone">standalone</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Screens</h2>
+        <div class="row">
+          <label>Add Screen
+            <select id="screenToAdd">
+              <option value="variant">Variant Selector</option>
+              <option value="plan">Plan Selector</option>
+              <option value="strap">Strap Selector</option>
+              <option value="accessory">Accessory Selector</option>
+              <option value="summary">Summary Screen</option>
+              <option value="mobile">Mobile Upsell Screen</option>
+            </select>
+          </label>
+          <div style="display:flex;align-items:end;">
+            <button id="addScreen" class="primary">Add</button>
+          </div>
+        </div>
+        <div id="screenOrder" class="screen-list"></div>
+      </div>
+
+      <div class="section">
+        <h2>Rules</h2>
+        <div class="row">
+          <label>Strap free qty
+            <input id="strapFreeQty" type="number" min="0" step="1" value="1" />
+          </label>
+          <label>Accessory free qty
+            <input id="accessoryFreeQty" type="number" min="0" step="1" value="0" />
+          </label>
+        </div>
+        <div class="row">
+          <label>Accessory discount type
+            <select id="accessoryDiscountType">
+              <option value="none">none</option>
+              <option value="percent">percent</option>
+              <option value="fixed_price">fixed_price</option>
+            </select>
+          </label>
+          <label>Accessory discount value
+            <input id="accessoryDiscountValue" type="number" min="0" step="1" value="0" />
+          </label>
+        </div>
+        <label style="display:flex;grid-auto-flow:column;justify-content:start;align-items:center;gap:8px;color:#0f172a;">
+          <input id="requirePlan" type="checkbox" checked /> Require watch plan
+        </label>
+      </div>
+
+      <div class="section">
+        <h2>Mobile Offer</h2>
+        <label style="display:flex;grid-auto-flow:column;justify-content:start;align-items:center;gap:8px;color:#0f172a;">
+          <input id="mobileEnabled" type="checkbox" checked /> Enable mobile upsell (70% first month)
+        </label>
+      </div>
+
+      <div class="section">
+        <h2>Export JSON</h2>
+        <textarea id="jsonOutput" spellcheck="false"></textarea>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+          <button id="copyJson" class="primary">Copy JSON</button>
+          <span id="copyStatus" class="status"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel preview">
+      <div>
+        <div class="preview-top" id="previewFlow"></div>
+        <p id="marketIssue" class="market-note" style="display:none;"></p>
+      </div>
+
+      <div class="drawer">
+        <div class="drawer-header">
+          <p class="drawer-title">Live Drawer Mock</p>
+          <p class="drawer-sub">Preview updates as you change settings on the left.</p>
+        </div>
+        <div id="previewBody" class="drawer-body"></div>
+        <div class="drawer-footer">
+          <button>Back</button>
+          <button class="primary">Next</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="./builder.js"></script>
+</body>
+</html>
