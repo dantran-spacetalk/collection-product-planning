@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Markup Validator</title>
+<link rel="stylesheet" href="blog-style.css">
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: #fafafa; margin: 0; padding: 0 0 60px; }
+  .v-header { background: #171717; color: #fff; padding: 32px 24px; }
+  .v-header h1 { margin: 0 0 8px; font-size: 24px; }
+  .v-header p { margin: 0; color: #ccc; font-size: 14px; max-width: 720px; }
+  .v-header a { color: #86afff; text-decoration: none; font-weight: bold; font-size: 13px; }
+  .v-wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .v-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+  @media (max-width: 860px) { .v-grid { grid-template-columns: 1fr; } }
+  .v-panel { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 20px; }
+  .v-panel h2 { font-size: 15px; margin: 0 0 12px; }
+  textarea { width: 100%; height: 340px; font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12px; line-height: 1.5; border: 1px solid #ddd; border-radius: 8px; padding: 12px; resize: vertical; }
+  button { background: #3315D0; color: #fff; border: 0; border-radius: 100px; padding: 11px 24px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 12px; }
+  button:hover { background: #2810a8; }
+  .v-score { font-size: 15px; font-weight: 800; padding: 12px 16px; border-radius: 8px; margin-bottom: 14px; }
+  .v-score.pass { background: #EAF7EF; color: #0C4029; }
+  .v-score.fail { background: #FFF0F0; color: #8a0000; }
+  .v-list { list-style: none; margin: 0; padding: 0; font-size: 13.5px; }
+  .v-list li { padding: 9px 0; border-bottom: 1px solid #f0f0f0; line-height: 1.5; }
+  .v-list li:last-child { border-bottom: 0; }
+  .v-ok::before { content: 'PASS'; color: #0C4029; font-weight: 800; font-size: 11px; margin-right: 8px; }
+  .v-err::before { content: 'FAIL'; color: #b00000; font-weight: 800; font-size: 11px; margin-right: 8px; }
+  .v-warn::before { content: 'WARN'; color: #8a6d00; font-weight: 800; font-size: 11px; margin-right: 8px; }
+  .v-detail { display: block; color: #666; font-size: 12px; margin-top: 3px; font-family: "SF Mono", Menlo, monospace; word-break: break-all; }
+  #preview { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 24px; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="v-header">
+  <p><a href="style-guide.html">&larr; Back to style guide</a></p>
+  <h1>Blog Markup Validator</h1>
+  <p>Paste AI-generated (or hand-written) blog markup below to check it against the component system. This is mechanical — it doesn't care which model produced the HTML, so you don't have to trust the AI followed the brief.</p>
+</div>
+
+<div class="v-wrap">
+  <div class="v-grid">
+    <div class="v-panel">
+      <h2>Paste markup</h2>
+      <textarea id="input" placeholder="&lt;div class=&quot;spacetalk-blog&quot;&gt;&#10;  ...&#10;&lt;/div&gt;"></textarea>
+      <button type="button" onclick="validate()">Validate</button>
+    </div>
+    <div class="v-panel">
+      <h2>Results</h2>
+      <div id="results"><p style="color:#666;font-size:13.5px;margin:0;">Paste markup and press Validate.</p></div>
+    </div>
+  </div>
+
+  <div id="preview" hidden>
+    <h2 style="font-size:15px;margin:0 0 16px;">Live preview</h2>
+    <div id="preview-body"></div>
+  </div>
+</div>
+
+<script>
+// Every class the stylesheet actually defines. Anything outside this list is
+// either invented by the AI or a leftover from the source content.
+const KNOWN = new Set(['spacetalk-blog','blog-excerpt','blog-h2','blog-h3','blog-toc','blog-author','blog-author-bio','blog-callout','blog-key-takeaway','blog-bullet-list','blog-numbered-item','blog-number-badge','blog-media-row','blog-image','blog-image-caption','blog-comparison-table','blog-pros-cons','blog-faq','blog-faq-item','spacetalk-callout-products','blog-space-sm','blog-space-md','blog-space-lg','blog-space-none','is-image-right','is-mobile-image-last','is-stacked','is-last-full','align-top','align-middle','is-spacetalk-blue','is-spacetalk-neon','is-spacetalk-violet','is-spacetalk-sky','is-spacetalk-evergreen','is-spacetalk-sakura',
+...Array.from({length:9},(_,i)=>'width-'+(i+1)*10)]);
+
+function validate() {
+  const raw = document.getElementById('input').value.trim();
+  const out = [];
+  if (!raw) { render([{level:'err',msg:'Nothing pasted.'}]); return; }
+
+  const doc = new DOMParser().parseFromString(raw, 'text/html');
+  const body = doc.body;
+  const check = (ok, msg, detail) => out.push({ level: ok ? 'ok' : 'err', msg, detail });
+  const warn = (ok, msg, detail) => out.push({ level: ok ? 'ok' : 'warn', msg, detail });
+
+  // Wrapper
+  const wrappers = body.querySelectorAll('.spacetalk-blog');
+  check(wrappers.length === 1, 'Exactly one .spacetalk-blog wrapper', wrappers.length === 1 ? '' : `found ${wrappers.length}`);
+  const root = wrappers[0] || body;
+  check(root.tagName !== 'ARTICLE', 'Wrapper is a <div>, not <article>', root.tagName === 'ARTICLE' ? 'Shopify already renders an <article>' : '');
+
+  // Inline styles
+  const styled = [...root.querySelectorAll('[style]')];
+  check(styled.length === 0, 'No inline style attributes', styled.length ? styled.slice(0,3).map(e=>`<${e.tagName.toLowerCase()} style="${e.getAttribute('style').slice(0,40)}">`).join('  ') : '');
+
+  // Images wrapped in <p>
+  const wrappedImgs = [...root.querySelectorAll('p img')];
+  check(wrappedImgs.length === 0, 'No <img> wrapped inside a <p>', wrappedImgs.length ? `${wrappedImgs.length} image(s) — move them out, the <p> blocks the styling` : '');
+
+  // Unknown classes
+  const bad = new Set();
+  root.querySelectorAll('[class]').forEach(el => el.classList.forEach(c => { if (!KNOWN.has(c)) bad.add(c); }));
+  if (root.classList) root.classList.forEach(c => { if (!KNOWN.has(c)) bad.add(c); });
+  check(bad.size === 0, 'No unknown / invented classes', bad.size ? [...bad].join(', ') : '');
+
+  // Scripts / schema
+  const scripts = root.querySelectorAll('script');
+  check(scripts.length === 0, 'No hand-written <script> or JSON-LD', scripts.length ? 'blog-schema.js generates schema automatically' : '');
+
+  // Font declarations
+  check(!/font-family/i.test(root.innerHTML), 'No font-family declared', /font-family/i.test(root.innerHTML) ? 'typography is inherited from the theme' : '');
+
+  // Excerpt
+  const ex = root.querySelectorAll('.blog-excerpt');
+  warn(ex.length === 1, 'One .blog-excerpt opening paragraph', ex.length === 0 ? 'missing — first paragraph should usually be the excerpt' : ex.length > 1 ? `found ${ex.length}` : '');
+
+  // TOC
+  const tocs = root.querySelectorAll('.blog-toc');
+  if (tocs.length) {
+    check([...tocs].every(t => t.children.length === 0), '.blog-toc left empty for the script to fill', [...tocs].some(t=>t.children.length) ? 'remove the hand-written list inside it' : '');
+  } else {
+    out.push({ level:'warn', msg:'No .blog-toc found', detail:'add <nav class="blog-toc"></nav> if the article has sections' });
+  }
+
+  // blog-h2 inside media rows
+  const strayH2 = root.querySelectorAll('.blog-media-row .blog-h2, .blog-key-takeaway .blog-h2, .spacetalk-callout-products .blog-h2');
+  check(strayH2.length === 0, 'No .blog-h2 nested inside another component', strayH2.length ? 'these would pollute the table of contents — use <h3>' : '');
+
+  // Headings exist
+  const h2s = root.querySelectorAll('.blog-h2');
+  warn(h2s.length > 0, 'Has at least one .blog-h2 section heading', h2s.length ? '' : 'nothing for the table of contents to list');
+
+  // Numbered items
+  const badges = root.querySelectorAll('.blog-number-badge');
+  const badgeNoColour = [...badges].filter(b => ![...b.classList].some(c => c.startsWith('is-spacetalk-')));
+  if (badges.length) check(badgeNoColour.length === 0, 'Every .blog-number-badge has a colour modifier', badgeNoColour.length ? `${badgeNoColour.length} missing is-spacetalk-*` : '');
+
+  // Product cards: 3 <p> then <a>, styled by position
+  const grids = root.querySelectorAll('.spacetalk-callout-products > div');
+  let cardIssues = [];
+  grids.forEach(g => [...g.children].forEach((card, i) => {
+    const ps = card.querySelectorAll(':scope > p').length;
+    const as = card.querySelectorAll(':scope > a').length;
+    if (ps !== 3 || as !== 1) cardIssues.push(`card ${i+1}: ${ps} <p> / ${as} <a> (needs exactly 3 and 1)`);
+  }));
+  if (grids.length) check(cardIssues.length === 0, 'Product cards have 3 <p> + 1 <a> in order', cardIssues.join('  '));
+
+  const cardCount = grids.length ? [...grids[0].children].length : 0;
+  if (cardCount > 4) out.push({ level:'warn', msg:'Product callout has more than 4 cards', detail:`${cardCount} cards — layout is designed for up to 4` });
+
+  // FAQ
+  const faqItems = root.querySelectorAll('.blog-faq-item');
+  const notDetails = [...faqItems].filter(f => f.tagName !== 'DETAILS');
+  if (faqItems.length) {
+    check(notDetails.length === 0, 'Every .blog-faq-item is a <details>', notDetails.length ? `${notDetails.length} using the old <div> markup` : '');
+    const noSummary = [...faqItems].filter(f => !f.querySelector('summary'));
+    check(noSummary.length === 0, 'Every FAQ item has a <summary>', noSummary.length ? 'schema is generated from <summary>' : '');
+    const svgs = root.querySelectorAll('.blog-faq-item svg');
+    check(svgs.length === 0, 'No SVG icons in the FAQ', svgs.length ? 'the +/x icon is drawn in CSS' : '');
+  }
+
+  // Media rows
+  const rows = root.querySelectorAll('.blog-media-row');
+  const badRows = [...rows].filter(r => {
+    const media = r.querySelector(':scope > img, :scope > video, :scope > iframe');
+    const content = r.querySelector(':scope > div');
+    return !media || !content;
+  });
+  if (rows.length) check(badRows.length === 0, 'Every media row has media + a content <div>', badRows.length ? `${badRows.length} malformed` : '');
+
+  const autoplayNoMute = [...root.querySelectorAll('video[autoplay]')].filter(v => !v.hasAttribute('muted'));
+  if (root.querySelector('video')) check(autoplayNoMute.length === 0, 'Autoplaying video is muted', autoplayNoMute.length ? 'browsers block autoplay without muted' : '');
+
+  // Alt text
+  const noAlt = [...root.querySelectorAll('img')].filter(i => !i.getAttribute('alt'));
+  warn(noAlt.length === 0, 'All images have alt text', noAlt.length ? `${noAlt.length} missing` : '');
+
+  render(out);
+  const p = document.getElementById('preview');
+  p.hidden = false;
+  document.getElementById('preview-body').innerHTML = raw;
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function render(items) {
+  const fails = items.filter(i => i.level === 'err').length;
+  const warns = items.filter(i => i.level === 'warn').length;
+  const cls = fails ? 'fail' : 'pass';
+  const label = fails ? `${fails} problem${fails>1?'s':''} to fix` + (warns?` · ${warns} warning${warns>1?'s':''}`:'') : warns ? `Passed · ${warns} warning${warns>1?'s':''}` : 'All checks passed';
+  document.getElementById('results').innerHTML =
+    `<div class="v-score ${cls}">${esc(label)}</div><ul class="v-list">` +
+    items.map(i => `<li class="v-${i.level}">${esc(i.msg)}${i.detail ? `<span class="v-detail">${esc(i.detail)}</span>` : ''}</li>`).join('') +
+    '</ul>';
+}
+</script>
+
+</body>
+</html>

@@ -21,7 +21,7 @@
 
 /* Font family is intentionally not set anywhere in this file - typefaces,
    weights and letter-spacing are inherited from the theme. */
-.spacetalk-blog { color: #171717; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+.spacetalk-blog { color: #171717; margin: 0 auto; padding: 0 20px; }
 
 /* ---- Theme reset ----
    The live theme sets its own heading sizes, figure margins and image
@@ -39,14 +39,25 @@
 
 .spacetalk-blog figure { margin: 0 !important; padding: 0 !important; width: auto !important; }
 
+/* ---- Spacing scale ----
+   Three tiers, so related content groups and sections stay distinct:
+     18px  between paragraphs (text rhythm)
+     32px  around block components (images, rows, lists, tables, quotes)
+     48px  above a section heading
+   Block components use symmetric top and bottom margins. Adjacent margins
+   collapse, so a 18px paragraph next to a 32px block still yields 32px -
+   never 50px. Mobile tightens these in the media query at the bottom. */
+.spacetalk-blog > *:first-child { margin-top: 0 !important; }
+.spacetalk-blog > *:last-child { margin-bottom: 0 !important; }
+
 /* ---- Image: any <img> directly inside .spacetalk-blog, no class needed ---- */
-.spacetalk-blog > img { display: block; width: 100%; height: auto; border-radius: 16px; margin: 0 0 32px; }
+.spacetalk-blog > img { display: block; width: 100%; height: auto; border-radius: 16px; margin: 32px 0 !important; }
 
 /* ---- Video: any <video>/<iframe> directly inside .spacetalk-blog ----
    Autoplaying video must be muted to actually play in browsers, so use
    <video autoplay muted loop playsinline>. Iframes keep a 16:9 box. */
-.spacetalk-blog > video { display: block; width: 100%; height: auto; border-radius: 16px; margin: 0 0 32px; background: #f0f0f0; }
-.spacetalk-blog > iframe { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border: 0; border-radius: 16px; margin: 0 0 32px; background: #f0f0f0; }
+.spacetalk-blog > video { display: block; width: 100%; height: auto; border-radius: 16px; margin: 32px 0 !important; background: #f0f0f0; }
+.spacetalk-blog > iframe { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border: 0; border-radius: 16px; margin: 32px 0 !important; background: #f0f0f0; }
 
 /* ---- Excerpt / opening paragraph (blue left border) ---- */
 .spacetalk-blog > p.blog-excerpt {
@@ -61,7 +72,7 @@
    .blog-author  - compact byline: avatar <img> + <div> with name/role
    .blog-author-bio - full bio card, usually at the end of a post */
 .blog-author {
-  display: flex; align-items: center; gap: 14px; margin: 0 0 32px;
+  display: flex; align-items: center; gap: 14px; margin: 32px 0 !important;
 }
 .blog-author > img {
   width: 52px; height: 52px; min-width: 52px; border-radius: 50%;
@@ -73,7 +84,7 @@
 
 .blog-author-bio {
   display: flex; gap: 20px; align-items: flex-start;
-  background: #f8f8f8; border-radius: 16px; padding: 28px; margin: 48px 0;
+  background: #f8f8f8; border-radius: 16px; padding: 28px; margin: 48px 0 !important;
 }
 .blog-author-bio > img {
   width: 72px; height: 72px; min-width: 72px; border-radius: 50%;
@@ -93,7 +104,7 @@
    Leave the <nav> empty in the post - the script fills it in. */
 .blog-toc {
   background: #f8f8f8; border-left: 3px solid #3315D0; border-radius: 12px;
-  padding: 24px 28px !important; margin: 0 0 40px !important;
+  padding: 24px 28px !important; margin: 32px 0 !important;
 }
 .blog-toc h2 {
   font-size: 13px !important; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
@@ -115,7 +126,7 @@
 .spacetalk-blog .blog-space-none { margin-bottom: 0 !important; }
 
 /* ---- Comparison table ---- */
-.blog-comparison-table { width: 100%; overflow-x: auto; margin: 0 0 32px !important; }
+.blog-comparison-table { width: 100%; overflow-x: auto; margin: 32px 0 !important; }
 .blog-comparison-table table { width: 100%; min-width: 560px; border-collapse: collapse; text-align: left; margin: 0 !important; }
 .blog-comparison-table th, .blog-comparison-table td { padding: 14px 16px !important; border-bottom: 1px solid #eee; vertical-align: top; line-height: 1.6 !important; }
 .blog-comparison-table th { background: #171717; color: #fff; font-size: 14px !important; font-weight: 800; }
@@ -123,7 +134,7 @@
 .blog-comparison-table tr:nth-child(even) td { background: #f8f8f8; }
 
 /* ---- Key takeaway ---- */
-.blog-key-takeaway { background: #D4FD00; padding: 24px 28px !important; margin: 36px 0 !important; border-radius: 12px; }
+.blog-key-takeaway { background: #D4FD00; padding: 24px 28px !important; margin: 32px 0 !important; border-radius: 12px; }
 .blog-key-takeaway h2 {
   font-size: 20px !important; font-weight: 800; color: #171717;
   margin: 0 0 10px !important; padding: 0 !important; border: none !important;
@@ -132,7 +143,7 @@
 .blog-key-takeaway p { font-size: 17px !important; line-height: 1.7 !important; color: #171717; margin: 0 !important; }
 
 /* ---- Pros and cons ---- */
-.blog-pros-cons { display: flex; gap: 16px; margin: 0 0 32px; }
+.blog-pros-cons { display: flex; gap: 16px; margin: 32px 0 !important; }
 .blog-pros-cons > div { flex: 1 1 50%; padding: 24px; border-radius: 12px; }
 .blog-pros-cons > div:first-child { background: #EAF7EF; }
 .blog-pros-cons > div:last-child { background: #FFF0F0; }
@@ -147,7 +158,7 @@
 /* ---- Image caption ----
    Selectors are scoped with .spacetalk-blog so they outrank the figure
    reset above, which would otherwise zero out the bottom margin. */
-.spacetalk-blog .blog-image-caption { margin: 0 0 32px !important; padding: 0 !important; width: 100% !important; }
+.spacetalk-blog .blog-image-caption { margin: 32px 0 !important; padding: 0 !important; width: 100% !important; }
 .spacetalk-blog .blog-image-caption img {
   display: block; width: 100% !important; max-width: 100% !important; height: auto !important;
   border-radius: 16px; margin: 0 !important;
@@ -159,7 +170,7 @@
 
 /* ---- Neon/yellow callout (pull quote) ---- */
 .blog-callout {
-  background: #D4FD00; padding: 24px 28px !important; margin: 36px 0 !important; border-radius: 12px;
+  background: #D4FD00; padding: 24px 28px !important; margin: 32px 0 !important; border-radius: 12px;
 }
 .blog-callout p {
   font-size: 18px !important; font-weight: bold; font-style: italic; color: #171717;
@@ -175,6 +186,29 @@
 }
 .blog-h2:first-child { margin-top: 0 !important; }
 
+/* ---- Subheading ----
+   Any <h3> directly inside .spacetalk-blog or inside a media row's
+   content column is styled automatically. .blog-h3 is the explicit
+   version for h3s nested anywhere else.
+   Not picked up by the table of contents - only .blog-h2 is. */
+.spacetalk-blog > h3,
+.spacetalk-blog .blog-media-row > div > h3,
+.spacetalk-blog .blog-h3 {
+  font-size: 19px !important; font-weight: 800; line-height: 1.35 !important;
+  color: #171717; margin: 32px 0 12px !important; padding: 0 !important;
+  border: none !important; text-transform: none !important; letter-spacing: normal !important;
+}
+
+/* First element in a media row's content column shouldn't push itself down. */
+.spacetalk-blog .blog-media-row > div > *:first-child { margin-top: 0 !important; }
+
+/* Content column copy matches body copy - without this it falls back to
+   the theme's defaults, since it isn't a direct child of .spacetalk-blog. */
+.spacetalk-blog .blog-media-row > div > p {
+  font-size: 17px !important; line-height: 1.75 !important; margin: 0 0 18px !important;
+}
+.spacetalk-blog .blog-media-row > div > p:last-child { margin-bottom: 0 !important; }
+
 /* ---- Numbered list items ("What to look for" / "What to avoid" etc) ----
    Add a colour modifier class to .blog-number-badge:
    is-spacetalk-blue (#3315D0, white text)
@@ -183,7 +217,7 @@
    is-spacetalk-sky (#86AFFF, black text)
    is-spacetalk-evergreen (#0C4029, white text)
    is-spacetalk-sakura (#FFBFBF, black text) */
-.blog-numbered-item { margin: 0 0 32px; }
+.blog-numbered-item { margin: 32px 0 !important; }
 .blog-numbered-item h3 {
   font-size: 17px !important; font-weight: bold; line-height: 1.4 !important;
   color: #171717; text-transform: none !important; letter-spacing: normal !important;
@@ -230,7 +264,7 @@
    you want the content to appear above the media on mobile instead.
    The media and content always match each other's height on desktop. */
 .blog-media-row {
-  display: flex; align-items: stretch; gap: 32px; margin: 0 0 48px;
+  display: flex; align-items: stretch; gap: 32px; margin: 32px 0 !important;
 }
 .blog-media-row > img,
 .blog-media-row > video,
@@ -271,7 +305,7 @@
 
 /* ---- Bulleted list (plain, non-numbered) ----
    !important overrides the theme's own ul/li defaults in blog articles. */
-.blog-bullet-list { margin: 0 0 32px !important; padding-left: 20px !important; list-style: disc !important; }
+.blog-bullet-list { margin: 32px 0 !important; padding-left: 20px !important; list-style: disc !important; }
 .blog-bullet-list li { font-size: 17px !important; line-height: 1.75 !important; margin: 0 0 10px !important; }
 .blog-bullet-list li:last-child { margin-bottom: 0 !important; }
 
@@ -287,7 +321,7 @@
    in that order) and an <a> (CTA). Order matters since styling is
    applied by position, not by class. */
 .spacetalk-callout-products {
-  background: #171717; border-radius: 16px; padding: 48px 40px !important; margin: 0 0 64px !important;
+  background: #171717; border-radius: 16px; padding: 48px 40px !important; margin: 48px 0 !important;
 }
 .spacetalk-callout-products > p {
   font-size: 12px !important; font-weight: bold; letter-spacing: 0.12em; text-transform: uppercase;
@@ -313,6 +347,11 @@
   font-size: 12px !important; font-weight: bold; letter-spacing: 0.08em; text-transform: uppercase;
   line-height: 1.4 !important; color: #3315d0; margin: 0 0 8px !important;
 }
+/* Eyebrow colour modifiers, so cards never need an inline style. */
+.spacetalk-callout-products > div > div > p.is-spacetalk-blue { color: #3315D0 !important; background: none !important; }
+.spacetalk-callout-products > div > div > p.is-spacetalk-violet { color: #6C0590 !important; background: none !important; }
+.spacetalk-callout-products > div > div > p.is-spacetalk-evergreen { color: #0C4029 !important; background: none !important; }
+.spacetalk-callout-products > div > div > p.is-spacetalk-sky { color: #5B86D6 !important; background: none !important; }
 .spacetalk-callout-products > div > div > p:nth-of-type(2) {
   font-size: 17px !important; font-weight: 800; color: #171717;
   margin: 0 0 8px !important; line-height: 1.3 !important;
@@ -345,7 +384,7 @@
 .blog-faq {
   background: #fff; border: 1.5px solid #E4E4E4; border-radius: 16px;
   box-shadow: 0 2px 28px rgba(0,0,0,0.03); overflow: hidden;
-  margin: 0 0 32px !important;
+  margin: 32px 0 !important;
 }
 .blog-faq-item { border-bottom: 0 !important; padding: 0 !important; margin: 0 !important; }
 .blog-faq-item + .blog-faq-item { border-top: 1px solid #E4E4E4 !important; }
@@ -407,8 +446,10 @@
   /* Media always stacks first (on top) on mobile by default. Add
      .is-mobile-image-last to put the content above the media instead,
      regardless of the desktop media side. Width modifiers only apply
-     on desktop - both media and content always go full-width here. */
-  .blog-media-row, .blog-media-row.is-image-right { flex-direction: column; }
+     on desktop - both media and content always go full-width here.
+     The internal gap drops to 16px so the image and its text read as one
+     unit against the 24px gap separating them from the rest of the post. */
+  .blog-media-row, .blog-media-row.is-image-right { flex-direction: column; gap: 16px; }
   .blog-media-row.is-mobile-image-last { flex-direction: column-reverse; }
   .blog-media-row > img,
   .blog-media-row > video,
@@ -416,6 +457,26 @@
   .blog-media-row > div { flex-basis: auto !important; }
   .blog-media-row > img, .blog-media-row > video { height: auto; }
   .blog-media-row > iframe { height: auto; aspect-ratio: 16 / 9; }
+
+  /* Tighter spacing tier on small screens: 24px around blocks, 32px above
+     a section heading. */
+  .spacetalk-blog > img,
+  .spacetalk-blog > video,
+  .spacetalk-blog > iframe,
+  .blog-media-row,
+  .blog-bullet-list,
+  .blog-numbered-item,
+  .blog-comparison-table,
+  .blog-pros-cons,
+  .blog-callout,
+  .blog-key-takeaway,
+  .blog-toc,
+  .blog-author,
+  .blog-faq,
+  .spacetalk-blog .blog-image-caption { margin-top: 24px !important; margin-bottom: 24px !important; }
+  .spacetalk-callout-products,
+  .blog-author-bio { margin-top: 32px !important; margin-bottom: 32px !important; }
+  .spacetalk-blog > h3 { margin-top: 24px !important; }
 
   .spacetalk-callout-products { padding: 32px 24px; }
   .spacetalk-callout-products > h2 { font-size: 22px; }

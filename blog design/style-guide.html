@@ -25,20 +25,23 @@
   #heading { order: 8; }
   #callout { order: 9; }
   #key-takeaway { order: 10; }
-  #author-bio { order: 11; }
-  #category-images { order: 12; }
-  #image { order: 13; }
-  #image-caption { order: 14; }
-  #media-row { order: 15; }
-  #category-comparison { order: 16; }
-  #comparison { order: 17; }
-  #pros-cons { order: 18; }
-  #category-lists { order: 19; }
-  #bullets { order: 20; }
-  #faq { order: 21; }
-  #numbered { order: 22; }
-  #category-products { order: 23; }
-  #products { order: 24; }
+  #spacing { order: 11; }
+  #author-bio { order: 12; }
+  #category-images { order: 13; }
+  #image { order: 14; }
+  #image-caption { order: 15; }
+  #media-row { order: 16; }
+  #category-comparison { order: 17; }
+  #comparison { order: 18; }
+  #pros-cons { order: 19; }
+  #category-lists { order: 20; }
+  #bullets { order: 21; }
+  #faq { order: 22; }
+  #numbered { order: 23; }
+  #category-products { order: 24; }
+  #products { order: 25; }
+  #category-dev { order: 26; }
+  #ai-prompt { order: 27; }
   .guide-section { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 32px; margin: 32px 0; }
   .guide-section h2 { font-size: 20px; margin: 0 0 6px; }
   .guide-section .desc { color: #666; font-size: 14px; margin: 0 0 24px; }
@@ -56,6 +59,10 @@
   .guide-auto { border: 2px dashed #86AFFF; border-radius: 8px; padding: 16px 20px; margin: 16px 0 0; background: #f4f7ff; }
   .guide-auto-label { display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #3315D0; background: #fff; border: 1px solid #86AFFF; padding: 3px 10px; border-radius: 100px; margin-bottom: 12px; }
   .guide-auto pre { background: none; color: #171717; font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.6; margin: 0; padding: 0; white-space: pre; overflow-x: auto; }
+  .guide-prompt { position: relative; }
+  .guide-prompt pre { max-height: 460px; overflow: auto; white-space: pre-wrap; }
+  .guide-copy { position: absolute; top: 12px; right: 12px; background: #3315D0; color: #fff; border: 0; border-radius: 100px; padding: 8px 16px; font-size: 12px; font-weight: 800; cursor: pointer; }
+  .guide-copy:hover { background: #2810a8; }
   @media (max-width: 700px) {
     .guide-toc-groups { grid-template-columns: repeat(2, 1fr); }
   }
@@ -93,6 +100,7 @@
           <li><a href="#heading">Headings</a></li>
           <li><a href="#callout">Neon callout</a></li>
           <li><a href="#key-takeaway">Key takeaway</a></li>
+          <li><a href="#spacing">Spacing utilities</a></li>
           <li><a href="#author-bio">Author bio</a></li>
         </ul>
       </div>
@@ -125,6 +133,13 @@
           <li><a href="#products">Product callout</a></li>
         </ul>
       </div>
+      <div class="guide-toc-group">
+        <h3>Developers</h3>
+        <ul>
+          <li><a href="#ai-prompt">AI Prompt</a></li>
+          <li><a href="validate.html">Validator</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -134,6 +149,7 @@
   <div class="guide-category" id="category-comparison">Comparison</div>
   <div class="guide-category" id="category-lists">Lists</div>
   <div class="guide-category" id="category-products">Products</div>
+  <div class="guide-category" id="category-dev">Developers</div>
 
   <!-- WRAPPER -->
   <div class="guide-section" id="wrapper">
@@ -226,7 +242,7 @@
     <p class="desc">No class needed — plain body <code>&lt;p&gt;</code> elements directly inside <code>.spacetalk-blog</code> are automatically styled as standard paragraph copy.</p>
     <ul class="guide-classlist">
       <li>No class — just <code>&lt;p&gt;</code> as a direct child of <code>.spacetalk-blog</code>.</li>
-      <li><strong>Extra spacing:</strong> component margins use <code>!important</code> to beat the theme, which also blocks inline <code>style="margin-bottom:..."</code>. Use these on any element instead: <code>.blog-space-sm</code> (32px), <code>.blog-space-md</code> (48px), <code>.blog-space-lg</code> (64px), <code>.blog-space-none</code> (0).</li>
+      <li>Need more space below something? See <a href="#spacing">Spacing utilities</a>.</li>
     </ul>
     <div class="guide-preview">
       <div class="spacetalk-blog" style="max-width:none;margin:0;padding:0;">
@@ -262,11 +278,16 @@
     <ul class="guide-classlist">
       <li><code>.blog-h2</code> — put on an <code>&lt;h2&gt;</code>.</li>
       <li><strong>Every <code>.blog-h2</code> is automatically added to the <a href="#toc">table of contents</a>.</strong> If you don't want a heading listed there, leave the class off.</li>
+      <li><code>&lt;h3&gt;</code> — no class needed as a direct child of <code>.spacetalk-blog</code>. Use <code>.blog-h3</code> when the h3 sits inside another block. Subheadings are never added to the table of contents.</li>
     </ul>
     <div class="guide-preview">
       <h2 class="blog-h2" style="margin-top:0;">What to look for</h2>
+      <h3>A subheading inside that section</h3>
     </div>
-    <pre class="guide-code">&lt;h2 class="blog-h2"&gt;Section title&lt;/h2&gt;</pre>
+    <pre class="guide-code">&lt;h2 class="blog-h2"&gt;Section title&lt;/h2&gt;
+
+&lt;!-- subheading: no class needed as a direct child of .spacetalk-blog --&gt;
+&lt;h3&gt;Subheading&lt;/h3&gt;</pre>
   </div>
 
   <!-- NUMBERED -->
@@ -335,6 +356,36 @@
 &lt;/ul&gt;</pre>
   </div>
 
+  <!-- SPACING -->
+  <div class="guide-section" id="spacing">
+    <h2>Spacing utilities</h2>
+    <p class="desc">Spacing is handled automatically on a three-tier scale, so related content groups together and sections stay distinct. You shouldn't need to adjust it by hand.</p>
+    <div class="blog-comparison-table" style="margin:0 0 24px;">
+      <table>
+        <thead><tr><th>Between</th><th>Desktop</th><th>Mobile</th></tr></thead>
+        <tbody>
+          <tr><td>Paragraph and paragraph</td><td>18px</td><td>18px</td></tr>
+          <tr><td>Text and a block (image, row, list, table, quote)</td><td>32px</td><td>24px</td></tr>
+          <tr><td>Anything and a section heading</td><td>48px</td><td>32px</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="desc">Block components use equal top and bottom margins, so the gap above a component always matches the gap below it. Adjacent margins collapse, so an 18px paragraph next to a 32px block gives 32px — never 50px.</p>
+    <p class="desc">Component margins use <code>!important</code> so they beat the theme's own styles. A side effect is that <strong>inline <code>style="margin-bottom: 64px"</code> no longer works</strong> — it gets ignored. Use these classes if you genuinely need to override the scale.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-space-sm</code> — 32px below</li>
+      <li><code>.blog-space-md</code> — 48px below</li>
+      <li><code>.blog-space-lg</code> — 64px below</li>
+      <li><code>.blog-space-none</code> — removes the space below</li>
+    </ul>
+    <pre class="guide-code">&lt;p class="blog-space-lg"&gt;Last paragraph before a product callout.&lt;/p&gt;
+
+&lt;div class="blog-numbered-item blog-space-md"&gt;
+  &lt;h3&gt;&lt;span class="blog-number-badge is-spacetalk-blue"&gt;7&lt;/span&gt; Last point&lt;/h3&gt;
+  &lt;p&gt;Extra space before the next section.&lt;/p&gt;
+&lt;/div&gt;</pre>
+  </div>
+
   <!-- IMAGE -->
   <div class="guide-section" id="image">
     <h2>Image / Video</h2>
@@ -361,27 +412,28 @@
       <li><code>.width-10</code> through <code>.width-90</code> (steps of 10) — sets the media's share of the row on desktop, e.g. <code>.width-30</code> = 30% media / 70% content. Ignored on mobile. Default with no width class is 50/50.</li>
       <li><code>.align-top</code> — content sits at the top of the row. This is the default, so you only need it if you want to be explicit.</li>
       <li><code>.align-middle</code> — content is vertically centred against the media.</li>
+      <li>Inside the content <code>&lt;div&gt;</code>: plain <code>&lt;h3&gt;</code> and <code>&lt;p&gt;</code> are styled automatically — no classes needed. <strong>Use <code>&lt;h3&gt;</code>, not <code>&lt;h2 class="blog-h2"&gt;</code></strong>, or the heading will be added to the table of contents.</li>
       <li>For autoplaying video use <code>autoplay muted loop playsinline</code> — browsers block autoplay unless the video is muted.</li>
     </ul>
     <div class="guide-preview">
       <div class="blog-media-row">
         <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236C0590'/%3E%3Cstop offset='1' stop-color='%23FFBFBF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g1)'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3EImage (left)%3C/text%3E%3C/svg%3E" alt="Image (left)">
         <div>
-          <h2 class="blog-h2" style="margin-top:0;">Content on the right</h2>
+          <h3>Content on the right</h3>
           <p>Default layout: image on the left, content on the right, 50/50.</p>
         </div>
       </div>
       <div class="blog-media-row is-image-right" style="margin-bottom:16px;">
         <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230C4029'/%3E%3Cstop offset='1' stop-color='%23D4FD00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g2)'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3EImage (right)%3C/text%3E%3C/svg%3E" alt="Image (right)">
         <div>
-          <h2 class="blog-h2" style="margin-top:0;">Content on the left</h2>
+          <h3>Content on the left</h3>
           <p>With <code>.is-image-right</code>, the image moves to the right on desktop.</p>
         </div>
       </div>
       <div class="blog-media-row width-30" style="margin-bottom:0;">
         <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233315D0'/%3E%3Cstop offset='1' stop-color='%23D4FD00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g3)'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3E30%25%3C/text%3E%3C/svg%3E" alt="30% width image">
         <div>
-          <h2 class="blog-h2" style="margin-top:0;">70% content</h2>
+          <h3>70% content</h3>
           <p>With <code>.width-30</code>, the image takes 30% of the row and the content takes the remaining 70%.</p>
         </div>
       </div>
@@ -393,7 +445,7 @@
           <source src="https://cdn.shopify.com/videos/placeholder.mp4" type="video/mp4">
         </video>
         <div>
-          <h2 class="blog-h2" style="margin-top:0;">Same layout options</h2>
+          <h3>Same layout options</h3>
           <p>A <code>&lt;video&gt;</code> swaps straight in for the <code>&lt;img&gt;</code> and still respects <code>.is-image-right</code> and the width classes.</p>
         </div>
       </div>
@@ -403,14 +455,14 @@
       <div class="blog-media-row width-40 align-top">
         <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='100%25' height='100%25' fill='%233315D0'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3Ealign-top%3C/text%3E%3C/svg%3E" alt="align-top example">
         <div>
-          <h2 class="blog-h2" style="margin-top:0;">Text starts at the top</h2>
+          <h3>Text starts at the top</h3>
           <p>Short copy next to a tall image leaves empty space underneath.</p>
         </div>
       </div>
       <div class="blog-media-row width-40 align-middle" style="margin-bottom:0;">
         <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='100%25' height='100%25' fill='%236C0590'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3Ealign-middle%3C/text%3E%3C/svg%3E" alt="align-middle example">
         <div>
-          <h2 class="blog-h2" style="margin-top:0;">Text is vertically centred</h2>
+          <h3>Text is vertically centred</h3>
           <p>The same copy sits centred against the image instead.</p>
         </div>
       </div>
@@ -419,7 +471,7 @@
 &lt;div class="blog-media-row"&gt;
   &lt;img src="..." alt="..."&gt;
   &lt;div&gt;
-    &lt;h2 class="blog-h2"&gt;Heading&lt;/h2&gt;
+    &lt;h3&gt;Heading&lt;/h3&gt;
     &lt;p&gt;Supporting copy.&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -428,7 +480,7 @@
 &lt;div class="blog-media-row is-image-right width-30"&gt;
   &lt;img src="..." alt="..."&gt;
   &lt;div&gt;
-    &lt;h2 class="blog-h2"&gt;Heading&lt;/h2&gt;
+    &lt;h3&gt;Heading&lt;/h3&gt;
     &lt;p&gt;Supporting copy.&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -440,7 +492,7 @@
     &lt;source src="{{ 'your-video.mp4' | asset_url }}" type="video/mp4"&gt;
   &lt;/video&gt;
   &lt;div&gt;
-    &lt;h2 class="blog-h2"&gt;Heading&lt;/h2&gt;
+    &lt;h3&gt;Heading&lt;/h3&gt;
     &lt;p&gt;Supporting copy.&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -455,7 +507,7 @@
 &lt;div class="blog-media-row width-40 align-middle"&gt;
   &lt;img src="..." alt="..."&gt;
   &lt;div&gt;
-    &lt;h2 class="blog-h2"&gt;Heading&lt;/h2&gt;
+    &lt;h3&gt;Heading&lt;/h3&gt;
     &lt;p&gt;Supporting copy.&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -492,7 +544,7 @@
             <a href="#">Shop now</a>
           </div>
           <div>
-            <p style="color:#6c0590;">Plans · Family</p>
+            <p class="is-spacetalk-violet">Plans · Family</p>
             <p>Product name</p>
             <p>Short product description goes here.</p>
             <a href="#">Shop now</a>
@@ -743,6 +795,165 @@
     "acceptedAnswer": { "@type": "Answer", "text": "Answer goes here." } }
 ] }
 &lt;/script&gt;</pre>
+    </div>
+  </div>
+
+  <!-- AI PROMPT -->
+  <div class="guide-section" id="ai-prompt">
+    <h2>AI Prompt</h2>
+    <p class="desc">Copy this and paste it into ChatGPT, Claude or Copilot along with your raw blog content. It teaches the model the whole system, so it can convert plain copy into correctly themed markup without you explaining the rules each time.</p>
+    <p class="desc"><strong>Always check the output.</strong> No prompt makes a model perfectly reliable — paste whatever it produces into the <a href="validate.html">markup validator</a> before publishing. It checks the rules mechanically, so it doesn't matter which model wrote the HTML.</p>
+    <div class="guide-prompt">
+      <button class="guide-copy" type="button" onclick="navigator.clipboard.writeText(document.getElementById('ai-prompt-text').textContent).then(()=>{this.textContent='Copied';setTimeout(()=>this.textContent='Copy',1600);})">Copy</button>
+      <pre class="guide-code" id="ai-prompt-text">You are formatting content for the Spacetalk blog. Convert the article I give you
+into HTML using ONLY the component system below. Output raw HTML for the Shopify
+blog post body - no &lt;html&gt;, &lt;head&gt; or &lt;style&gt; tags.
+
+=== GOLDEN RULES ===
+1. Wrap everything in ONE &lt;div class="spacetalk-blog"&gt;...&lt;/div&gt;
+2. NEVER write font-family, font-size, colour or margin styles. The stylesheet
+   handles all of it and uses !important, so inline styles are ignored anyway.
+3. NEVER write JSON-LD / schema by hand. A script generates it automatically.
+4. NEVER wrap an &lt;img&gt; in a &lt;p&gt;. Images must be direct children.
+5. Only use the classes listed below. Do not invent new class names.
+6. Spacing is automatic (18px between paragraphs, 32px around blocks, 48px above
+   a section heading). Do not add spacing manually.
+
+=== NO CLASS NEEDED (auto-styled) ===
+&lt;p&gt;                body copy
+&lt;h3&gt;               subheading (NOT added to the table of contents)
+&lt;img&gt;              full-width rounded image
+&lt;video autoplay muted loop playsinline&gt;   autoplaying video (muted is required)
+&lt;iframe&gt;           YouTube/Vimeo embed, gets a 16:9 box
+Only if an &lt;h3&gt; is nested inside a block that isn't a media row or numbered
+item, add class="blog-h3" to it.
+
+=== STRUCTURE ===
+&lt;p class="blog-excerpt"&gt;          opening paragraph, blue left border. Use once, first.
+&lt;h2 class="blog-h2"&gt;             section heading. EVERY one is auto-added to the
+                                 table of contents, so only use it for real
+                                 sections. Use &lt;h3&gt; for anything smaller.
+&lt;nav class="blog-toc"&gt;&lt;/nav&gt;     table of contents. Leave it EMPTY - a script fills
+                                 it from the &lt;h2 class="blog-h2"&gt; headings.
+
+=== AUTHOR ===
+&lt;div class="blog-author"&gt;                       byline, near the top
+  &lt;img src="..." alt="Name"&gt;
+  &lt;div&gt;&lt;p&gt;Name&lt;/p&gt;&lt;p&gt;Role · Date&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="blog-author-bio"&gt;                   full bio, at the very end
+  &lt;img src="..." alt="Name"&gt;
+  &lt;div&gt;&lt;h3&gt;Name&lt;/h3&gt;&lt;p&gt;Bio.&lt;/p&gt;&lt;p&gt;&lt;a href="..."&gt;More articles&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+=== EMPHASIS BLOCKS ===
+&lt;div class="blog-callout"&gt;&lt;p&gt;"Pull quote."&lt;/p&gt;&lt;/div&gt;
+&lt;div class="blog-key-takeaway"&gt;&lt;h2&gt;Key takeaway&lt;/h2&gt;&lt;p&gt;Main point.&lt;/p&gt;&lt;/div&gt;
+
+=== LISTS ===
+&lt;ul class="blog-bullet-list"&gt;&lt;li&gt;Point&lt;/li&gt;&lt;/ul&gt;
+
+Numbered points (use for "what to look for" style lists):
+&lt;div class="blog-numbered-item"&gt;
+  &lt;h3&gt;&lt;span class="blog-number-badge is-spacetalk-blue"&gt;1&lt;/span&gt; Heading&lt;/h3&gt;
+  &lt;p&gt;Supporting copy.&lt;/p&gt;
+&lt;/div&gt;
+Badge colours: is-spacetalk-blue, is-spacetalk-neon, is-spacetalk-violet,
+is-spacetalk-sky, is-spacetalk-evergreen, is-spacetalk-sakura.
+Convention: blue for positive/"look for" lists, violet for "avoid" lists.
+
+=== IMAGE + TEXT SIDE BY SIDE ===
+&lt;div class="blog-media-row align-middle width-40"&gt;
+  &lt;img src="..." alt="..."&gt;
+  &lt;div&gt;&lt;h3&gt;Heading&lt;/h3&gt;&lt;p&gt;Copy.&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+The media can be &lt;img&gt;, &lt;video&gt; or &lt;iframe&gt;. Modifiers:
+  is-image-right        media on the right (default is left)
+  is-mobile-image-last  content above media on mobile (default: media first)
+  width-10 ... width-90 media's share of the row in 10% steps (default 50/50)
+  align-top             content at top (default)
+  align-middle          content vertically centred
+Inside the content &lt;div&gt; use plain &lt;h3&gt; and &lt;p&gt;. Do NOT use blog-h2 here or the
+heading will pollute the table of contents.
+
+=== IMAGE WITH CAPTION ===
+&lt;figure class="blog-image-caption"&gt;
+  &lt;img src="..." alt="..."&gt;
+  &lt;figcaption&gt;Caption.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+=== COMPARISON ===
+&lt;div class="blog-comparison-table"&gt;
+  &lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Feature&lt;/th&gt;&lt;th&gt;Spacetalk&lt;/th&gt;&lt;th&gt;Other&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Row&lt;/td&gt;&lt;td&gt;Yes&lt;/td&gt;&lt;td&gt;No&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+Put the Spacetalk column FIRST, immediately after the feature column.
+
+&lt;div class="blog-pros-cons"&gt;
+  &lt;div&gt;&lt;h3&gt;Pros&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Point&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;h3&gt;Cons&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Point&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+=== PRODUCT CALLOUT ===
+&lt;div class="spacetalk-callout-products"&gt;
+  &lt;p&gt;Explore Spacetalk&lt;/p&gt;
+  &lt;h2&gt;Heading&lt;/h2&gt;
+  &lt;div&gt;
+    &lt;div&gt;
+      &lt;p&gt;Category · Tag&lt;/p&gt;
+      &lt;p&gt;Product name&lt;/p&gt;
+      &lt;p&gt;Short description.&lt;/p&gt;
+      &lt;a href="https://spacetalk.co/products/..."&gt;Shop now&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+Card contents are styled BY POSITION: exactly 3 &lt;p&gt; in the order
+tag / title / description, then the &lt;a&gt;. Do not reorder or add paragraphs.
+Up to 4 cards = 2x2 grid. Add is-stacked for one card per row.
+Add is-last-full with 3 cards so the third spans the full width.
+
+=== FAQ ===
+&lt;div class="blog-faq"&gt;
+  &lt;details class="blog-faq-item" open&gt;
+    &lt;summary&gt;Question?&lt;/summary&gt;
+    &lt;p&gt;Answer.&lt;/p&gt;
+  &lt;/details&gt;
+  &lt;details class="blog-faq-item"&gt;
+    &lt;summary&gt;Question?&lt;/summary&gt;
+    &lt;p&gt;Answer.&lt;/p&gt;
+  &lt;/details&gt;
+&lt;/div&gt;
+Accordion. The +/x icon is drawn in CSS - never add an SVG. FAQPage schema is
+generated automatically from the &lt;summary&gt; and &lt;p&gt;. Add "open" to the first item.
+
+=== SPACING OVERRIDES (rarely needed) ===
+blog-space-sm (32px) · blog-space-md (48px) · blog-space-lg (64px) ·
+blog-space-none (0). Add to any element to change the space below it.
+
+=== TYPICAL ARTICLE ORDER ===
+author → toc → excerpt → intro paragraphs → key takeaway or callout →
+h2 sections with numbered items / media rows / lists → comparison table or
+pros and cons → closing paragraph → product callout → h2 FAQ → faq accordion →
+author bio
+
+=== BEFORE YOU ANSWER, CHECK YOUR OWN OUTPUT ===
+Go back through your HTML and confirm every line. Fix any that fail:
+[ ] Exactly one &lt;div class="spacetalk-blog"&gt; wrapping everything
+[ ] Zero style="" attributes anywhere
+[ ] Zero &lt;img&gt; inside a &lt;p&gt;
+[ ] Zero classes that do not appear in this brief
+[ ] Zero &lt;script&gt; tags
+[ ] Every product card has exactly 3 &lt;p&gt; then 1 &lt;a&gt;, in that order
+[ ] Every .blog-faq-item is a &lt;details&gt; with a &lt;summary&gt; and a &lt;p&gt;
+[ ] &lt;nav class="blog-toc"&gt;&lt;/nav&gt; is empty
+[ ] blog-h2 used only for real sections, never inside a media row
+State "Checks passed" once done.
+
+Now convert the following article. Keep all wording as written unless I ask you to
+edit it. Do not invent facts, product claims or statistics.</pre>
     </div>
   </div>
 
