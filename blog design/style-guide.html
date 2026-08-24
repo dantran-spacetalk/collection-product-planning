@@ -15,26 +15,30 @@
   .guide-wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; }
   .guide-toc { order: 0; }
   .guide-category { color: #3315D0; font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 2px solid #3315D0; padding: 32px 0 8px; }
-  #category-main { order: 1; }
+  #category-intro { order: 1; }
   #wrapper { order: 2; }
   #excerpt { order: 3; }
-  #body { order: 4; }
-  #callout { order: 5; }
-  #heading { order: 6; }
-  #key-takeaway { order: 7; }
-  #category-images { order: 8; }
-  #image { order: 9; }
-  #image-caption { order: 10; }
-  #media-row { order: 11; }
-  #category-comparison { order: 12; }
-  #comparison { order: 13; }
-  #pros-cons { order: 14; }
-  #category-lists { order: 15; }
-  #bullets { order: 16; }
-  #faq { order: 17; }
-  #numbered { order: 18; }
-  #category-products { order: 19; }
-  #products { order: 20; }
+  #author { order: 4; }
+  #toc { order: 5; }
+  #category-main { order: 6; }
+  #body { order: 7; }
+  #heading { order: 8; }
+  #callout { order: 9; }
+  #key-takeaway { order: 10; }
+  #author-bio { order: 11; }
+  #category-images { order: 12; }
+  #image { order: 13; }
+  #image-caption { order: 14; }
+  #media-row { order: 15; }
+  #category-comparison { order: 16; }
+  #comparison { order: 17; }
+  #pros-cons { order: 18; }
+  #category-lists { order: 19; }
+  #bullets { order: 20; }
+  #faq { order: 21; }
+  #numbered { order: 22; }
+  #category-products { order: 23; }
+  #products { order: 24; }
   .guide-section { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 32px; margin: 32px 0; }
   .guide-section h2 { font-size: 20px; margin: 0 0 6px; }
   .guide-section .desc { color: #666; font-size: 14px; margin: 0 0 24px; }
@@ -74,14 +78,22 @@
     <h2>Components</h2>
     <div class="guide-toc-groups">
       <div class="guide-toc-group">
-        <h3>Main</h3>
+        <h3>Introduction</h3>
         <ul>
           <li><a href="#wrapper">Blog opening wrapper</a></li>
           <li><a href="#excerpt">Opening paragraph</a></li>
+          <li><a href="#author">Author profile</a></li>
+          <li><a href="#toc">Table of contents</a></li>
+        </ul>
+      </div>
+      <div class="guide-toc-group">
+        <h3>Main</h3>
+        <ul>
           <li><a href="#body">Body copy</a></li>
+          <li><a href="#heading">Headings</a></li>
           <li><a href="#callout">Neon callout</a></li>
           <li><a href="#key-takeaway">Key takeaway</a></li>
-          <li><a href="#heading">Section heading</a></li>
+          <li><a href="#author-bio">Author bio</a></li>
         </ul>
       </div>
       <div class="guide-toc-group">
@@ -116,6 +128,7 @@
     </div>
   </div>
 
+  <div class="guide-category" id="category-intro">Introduction</div>
   <div class="guide-category" id="category-main">Main</div>
   <div class="guide-category" id="category-images">Images</div>
   <div class="guide-category" id="category-comparison">Comparison</div>
@@ -147,6 +160,64 @@
       </div>
     </div>
     <pre class="guide-code">&lt;p class="blog-excerpt"&gt;Your intro sentence goes here.&lt;/p&gt;</pre>
+  </div>
+
+  <!-- AUTHOR PROFILE -->
+  <div class="guide-section" id="author">
+    <h2>Author profile</h2>
+    <p class="desc">Compact byline that sits under the title or excerpt. Avatar plus name and role.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-author</code> — wrapping <code>&lt;div&gt;</code>.</li>
+      <li>Inside: an <code>&lt;img&gt;</code> (avatar), then a <code>&lt;div&gt;</code> holding 2 <code>&lt;p&gt;</code>s — name first, role/date second.</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="blog-author">
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect width='100%25' height='100%25' fill='%233315D0'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='48' font-weight='bold' text-anchor='middle' dominant-baseline='central'%3ES%3C/text%3E%3C/svg%3E" alt="Author avatar">
+        <div>
+          <p>Sarah Mitchell</p>
+          <p>Family Safety Editor · 12 March 2026</p>
+        </div>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;div class="blog-author"&gt;
+  &lt;img src="..." alt="Author name"&gt;
+  &lt;div&gt;
+    &lt;p&gt;Author name&lt;/p&gt;
+    &lt;p&gt;Role · Date&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="guide-section" id="toc">
+    <h2>Table of contents</h2>
+    <p class="desc">Lists every <code>&lt;h2 class="blog-h2"&gt;</code> in the post as a jump link. Leave the block empty — <code>blog-schema.js</code> finds the headings, adds an <code>id</code> to any that don't have one, and builds the list.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-toc</code> — empty <code>&lt;nav&gt;</code>, placed near the top of the post.</li>
+      <li>Only <code>.blog-h2</code> headings are listed. An <code>&lt;h2&gt;</code> without that class is skipped.</li>
+      <li>Optional: add your own <code>&lt;h2&gt;</code> inside to override the default "In this article" title.</li>
+    </ul>
+    <div class="guide-preview">
+      <nav class="blog-toc">
+        <h2>In this article</h2>
+        <ol>
+          <li><a href="#heading">What to look for</a></li>
+          <li><a href="#heading">What to avoid</a></li>
+          <li><a href="#faq">Frequently asked questions</a></li>
+        </ol>
+      </nav>
+    </div>
+    <pre class="guide-code">&lt;nav class="blog-toc"&gt;&lt;/nav&gt;</pre>
+
+    <div class="guide-auto">
+      <span class="guide-auto-label">Auto-generated — don't add this yourself</span>
+      <p class="desc" style="margin-bottom:12px;">The script reads every heading on the page and fills the empty nav with:</p>
+      <pre>&lt;h2&gt;In this article&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href="#what-to-look-for-1"&gt;What to look for&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#what-to-avoid-2"&gt;What to avoid&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</pre>
+    </div>
   </div>
 
   <!-- BODY -->
@@ -185,10 +256,11 @@
 
   <!-- HEADING -->
   <div class="guide-section" id="heading">
-    <h2>Section heading</h2>
-    <p class="desc">Bold heading with a light underline used to divide major sections.</p>
+    <h2>Headings</h2>
+    <p class="desc">Bold <code>&lt;h2&gt;</code> with a light underline, used to divide the major sections of a post.</p>
     <ul class="guide-classlist">
       <li><code>.blog-h2</code> — put on an <code>&lt;h2&gt;</code>.</li>
+      <li><strong>Every <code>.blog-h2</code> is automatically added to the <a href="#toc">table of contents</a>.</strong> If you don't want a heading listed there, leave the class off.</li>
     </ul>
     <div class="guide-preview">
       <h2 class="blog-h2" style="margin-top:0;">What to look for</h2>
@@ -504,6 +576,34 @@
     <pre class="guide-code">&lt;div class="blog-key-takeaway"&gt;
   &lt;h2&gt;Key takeaway&lt;/h2&gt;
   &lt;p&gt;Your main point in one or two sentences.&lt;/p&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- AUTHOR BIO -->
+  <div class="guide-section" id="author-bio">
+    <h2>Author bio</h2>
+    <p class="desc">Full bio card, usually placed at the end of a post. Larger avatar, name, a short bio and an optional link.</p>
+    <ul class="guide-classlist">
+      <li><code>.blog-author-bio</code> — wrapping <code>&lt;div&gt;</code>.</li>
+      <li>Inside: an <code>&lt;img&gt;</code> (avatar), then a <code>&lt;div&gt;</code> with an <code>&lt;h3&gt;</code> (name) and <code>&lt;p&gt;</code>(s) for the bio.</li>
+    </ul>
+    <div class="guide-preview">
+      <div class="blog-author-bio">
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Crect width='100%25' height='100%25' fill='%236C0590'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='56' font-weight='bold' text-anchor='middle' dominant-baseline='central'%3ES%3C/text%3E%3C/svg%3E" alt="Sarah Mitchell">
+        <div>
+          <h3>Sarah Mitchell</h3>
+          <p>Sarah writes about family safety technology and digital parenting for Spacetalk. She has spent eight years helping Australian families set up age-appropriate tech boundaries.</p>
+          <p><a href="#">More articles by Sarah</a></p>
+        </div>
+      </div>
+    </div>
+    <pre class="guide-code">&lt;div class="blog-author-bio"&gt;
+  &lt;img src="..." alt="Author name"&gt;
+  &lt;div&gt;
+    &lt;h3&gt;Author name&lt;/h3&gt;
+    &lt;p&gt;Short bio goes here.&lt;/p&gt;
+    &lt;p&gt;&lt;a href="..."&gt;More articles&lt;/a&gt;&lt;/p&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</pre>
   </div>
 

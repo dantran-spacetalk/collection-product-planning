@@ -1,5 +1,6 @@
-// Auto-generates FAQPage JSON-LD schema from any .blog-faq block on the page.
-// Add/remove .blog-faq-item entries and the schema stays in sync automatically.
+// Auto-generates FAQPage JSON-LD schema from any .blog-faq block on the page,
+// and fills any .blog-toc block with links to every .blog-h2 heading.
+// Add/remove .blog-faq-item entries or headings and both stay in sync.
 //
 // Shopify integration:
 // 1. Copy this file into the theme's /assets folder.
@@ -38,5 +39,49 @@
     script.type = 'application/ld+json';
     script.textContent = JSON.stringify(schema);
     faqBlock.insertAdjacentElement('afterend', script);
+  });
+})();
+
+// Fills every .blog-toc with a numbered list of links to each .blog-h2 in the
+// post. Only .blog-h2 headings are listed, so <h2>s belonging to other
+// components (key takeaway, product callout) are never picked up. Headings
+// without an id get one generated from their text so the anchors work.
+(function generateTableOfContents() {
+  document.querySelectorAll('.blog-toc').forEach(function (toc) {
+    var scope = toc.closest('.spacetalk-blog') || document;
+    var headings = Array.prototype.slice.call(scope.querySelectorAll('.blog-h2'))
+      .filter(function (heading) {
+        return !toc.contains(heading);
+      });
+
+    if (!headings.length) {
+      toc.style.display = 'none';
+      return;
+    }
+
+    var list = document.createElement('ol');
+
+    headings.forEach(function (heading, index) {
+      if (!heading.id) {
+        heading.id = (heading.textContent.trim().toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '') || 'section') + '-' + (index + 1);
+      }
+
+      var link = document.createElement('a');
+      link.href = '#' + heading.id;
+      link.textContent = heading.textContent.trim();
+
+      var item = document.createElement('li');
+      item.appendChild(link);
+      list.appendChild(item);
+    });
+
+    if (!toc.querySelector('h2')) {
+      var title = document.createElement('h2');
+      title.textContent = 'In this article';
+      toc.appendChild(title);
+    }
+    toc.appendChild(list);
   });
 })();

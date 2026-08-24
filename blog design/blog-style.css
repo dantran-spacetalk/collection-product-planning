@@ -29,6 +29,50 @@
 /* ---- Body copy: plain <p> directly inside .spacetalk-blog, no class needed ---- */
 .spacetalk-blog > p { font-size: 17px; line-height: 1.75; margin: 0 0 18px; }
 
+/* ---- Author profile & bio ----
+   .blog-author  - compact byline: avatar <img> + <div> with name/role
+   .blog-author-bio - full bio card, usually at the end of a post */
+.blog-author {
+  display: flex; align-items: center; gap: 14px; margin: 0 0 32px;
+}
+.blog-author > img {
+  width: 52px; height: 52px; min-width: 52px; border-radius: 50%;
+  object-fit: cover; display: block; margin: 0;
+}
+.blog-author p { margin: 0; line-height: 1.5; }
+.blog-author p:nth-of-type(1) { font-size: 15px; font-weight: 800; color: #171717; }
+.blog-author p:nth-of-type(2) { font-size: 13px; color: #666; }
+
+.blog-author-bio {
+  display: flex; gap: 20px; align-items: flex-start;
+  background: #f8f8f8; border-radius: 16px; padding: 28px; margin: 48px 0;
+}
+.blog-author-bio > img {
+  width: 72px; height: 72px; min-width: 72px; border-radius: 50%;
+  object-fit: cover; display: block; margin: 0;
+}
+.blog-author-bio h3 { font-size: 17px; font-weight: 800; color: #171717; margin: 0 0 4px; }
+.blog-author-bio p { font-size: 15px; line-height: 1.7; color: #444; margin: 0 0 10px; }
+.blog-author-bio p:last-child { margin-bottom: 0; }
+.blog-author-bio a { color: #3315D0; font-weight: bold; text-decoration: none; }
+
+/* ---- Table of contents ----
+   Auto-populated from every .blog-h2 on the page by blog-schema.js.
+   Leave the <nav> empty in the post - the script fills it in. */
+.blog-toc {
+  background: #f8f8f8; border-left: 3px solid #3315D0; border-radius: 12px;
+  padding: 24px 28px; margin: 0 0 40px;
+}
+.blog-toc h2 {
+  font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #3315D0; margin: 0 0 14px; padding: 0; border: none;
+}
+.blog-toc ol { margin: 0 !important; padding-left: 20px !important; }
+.blog-toc li { font-size: 16px; line-height: 1.6; margin: 0 0 8px !important; }
+.blog-toc li:last-child { margin-bottom: 0 !important; }
+.blog-toc a { color: #171717; text-decoration: none; border-bottom: 1px solid #d8d8d8; }
+.blog-toc a:hover { color: #3315D0; border-bottom-color: #3315D0; }
+
 /* ---- Comparison table ---- */
 .blog-comparison-table { width: 100%; overflow-x: auto; margin: 0 0 32px; }
 .blog-comparison-table table { width: 100%; min-width: 560px; border-collapse: collapse; text-align: left; }
@@ -230,6 +274,9 @@
   .blog-numbered-item h3 { font-size: 16px; }
   .blog-numbered-item p { font-size: 16px; }
   .blog-bullet-list li { font-size: 16px !important; }
+  .blog-toc { padding: 18px 20px; }
+  .blog-toc li { font-size: 15px; }
+  .blog-author-bio { flex-direction: column; gap: 14px; padding: 22px; }
 
   /* Image always stacks first (on top) on mobile by default. Add
      .is-mobile-image-last to put the content above the image instead,
