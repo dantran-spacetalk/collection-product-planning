@@ -99,7 +99,7 @@
       <div class="guide-toc-group">
         <h3>Images</h3>
         <ul>
-          <li><a href="#image">Image</a></li>
+          <li><a href="#image">Image / Video</a></li>
           <li><a href="#image-caption">Image caption</a></li>
           <li><a href="#media-row">Media row</a></li>
         </ul>
@@ -226,6 +226,7 @@
     <p class="desc">No class needed — plain body <code>&lt;p&gt;</code> elements directly inside <code>.spacetalk-blog</code> are automatically styled as standard paragraph copy.</p>
     <ul class="guide-classlist">
       <li>No class — just <code>&lt;p&gt;</code> as a direct child of <code>.spacetalk-blog</code>.</li>
+      <li><strong>Extra spacing:</strong> component margins use <code>!important</code> to beat the theme, which also blocks inline <code>style="margin-bottom:..."</code>. Use these on any element instead: <code>.blog-space-sm</code> (32px), <code>.blog-space-md</code> (48px), <code>.blog-space-lg</code> (64px), <code>.blog-space-none</code> (0).</li>
     </ul>
     <div class="guide-preview">
       <div class="spacetalk-blog" style="max-width:none;margin:0;padding:0;">
@@ -336,10 +337,11 @@
 
   <!-- IMAGE -->
   <div class="guide-section" id="image">
-    <h2>Image</h2>
+    <h2>Image / Video</h2>
     <p class="desc">Matches the site's rounded corners (16px), no border. No class needed when it's a direct child of <code>.spacetalk-blog</code>.</p>
     <ul class="guide-classlist">
       <li>No class — just <code>&lt;img&gt;</code> as a direct child of <code>.spacetalk-blog</code>.</li>
+      <li>A standalone <code>&lt;video&gt;</code> or <code>&lt;iframe&gt;</code> works the same way — also no class needed. Iframes get a 16:9 box automatically.</li>
       <li><code>.blog-image</code> — fallback class, only needed if the image sits somewhere else (not a direct child of <code>.spacetalk-blog</code> or <code>.blog-media-row</code>).</li>
     </ul>
     <div class="guide-preview">
@@ -350,13 +352,16 @@
 
   <!-- MEDIA ROW -->
   <div class="guide-section" id="media-row">
-    <h2>Media row (image + content)</h2>
-    <p class="desc">Wraps an <code>&lt;img&gt;</code> and a content <code>&lt;div&gt;</code> side by side on desktop, always matching each other's height. <strong>On mobile, the image always stacks first (on top) by default</strong> — no matter which side or width it's set to on desktop.</p>
+    <h2>Media row (image or video + content)</h2>
+    <p class="desc">Wraps a media element and a content <code>&lt;div&gt;</code> side by side on desktop, always matching each other's height. The media side can be an <code>&lt;img&gt;</code>, a <code>&lt;video&gt;</code> or an <code>&lt;iframe&gt;</code> (YouTube/Vimeo) — all three are styled identically and share the same left/right and width options. <strong>On mobile, the media always stacks first (on top) by default</strong> — no matter which side or width it's set to on desktop.</p>
     <ul class="guide-classlist">
       <li><code>.blog-media-row</code> — required wrapper.</li>
-      <li><code>.is-image-right</code> — flips the image to the right on desktop (default: left).</li>
-      <li><code>.is-mobile-image-last</code> — puts the image below the content regardless of desktop orientation on mobile screens.</li>
-      <li><code>.width-10</code> through <code>.width-90</code> (steps of 10) — sets the image's share of the row on desktop, e.g. <code>.width-30</code> = 30% image / 70% content. Ignored on mobile. Default with no width class is 50/50.</li>
+      <li><code>.is-image-right</code> — flips the media to the right on desktop (default: left).</li>
+      <li><code>.is-mobile-image-last</code> — puts the media below the content regardless of desktop orientation on mobile screens.</li>
+      <li><code>.width-10</code> through <code>.width-90</code> (steps of 10) — sets the media's share of the row on desktop, e.g. <code>.width-30</code> = 30% media / 70% content. Ignored on mobile. Default with no width class is 50/50.</li>
+      <li><code>.align-top</code> — content sits at the top of the row. This is the default, so you only need it if you want to be explicit.</li>
+      <li><code>.align-middle</code> — content is vertically centred against the media.</li>
+      <li>For autoplaying video use <code>autoplay muted loop playsinline</code> — browsers block autoplay unless the video is muted.</li>
     </ul>
     <div class="guide-preview">
       <div class="blog-media-row">
@@ -381,6 +386,35 @@
         </div>
       </div>
     </div>
+    <div class="guide-preview">
+      <p style="font-size:13px; font-weight:800; color:#3315D0; margin:0 0 16px;">Autoplaying video instead of an image</p>
+      <div class="blog-media-row is-image-right" style="margin-bottom:0;">
+        <video autoplay muted loop playsinline poster="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23171717'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='22' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3EVideo%3C/text%3E%3C/svg%3E">
+          <source src="https://cdn.shopify.com/videos/placeholder.mp4" type="video/mp4">
+        </video>
+        <div>
+          <h2 class="blog-h2" style="margin-top:0;">Same layout options</h2>
+          <p>A <code>&lt;video&gt;</code> swaps straight in for the <code>&lt;img&gt;</code> and still respects <code>.is-image-right</code> and the width classes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="guide-preview">
+      <p style="font-size:13px; font-weight:800; color:#3315D0; margin:0 0 16px;">align-top (default) vs align-middle</p>
+      <div class="blog-media-row width-40 align-top">
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='100%25' height='100%25' fill='%233315D0'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3Ealign-top%3C/text%3E%3C/svg%3E" alt="align-top example">
+        <div>
+          <h2 class="blog-h2" style="margin-top:0;">Text starts at the top</h2>
+          <p>Short copy next to a tall image leaves empty space underneath.</p>
+        </div>
+      </div>
+      <div class="blog-media-row width-40 align-middle" style="margin-bottom:0;">
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='100%25' height='100%25' fill='%236C0590'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3Ealign-middle%3C/text%3E%3C/svg%3E" alt="align-middle example">
+        <div>
+          <h2 class="blog-h2" style="margin-top:0;">Text is vertically centred</h2>
+          <p>The same copy sits centred against the image instead.</p>
+        </div>
+      </div>
+    </div>
     <pre class="guide-code">&lt;!-- image left, content right, 50/50 (default) --&gt;
 &lt;div class="blog-media-row"&gt;
   &lt;img src="..." alt="..."&gt;
@@ -399,9 +433,36 @@
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;!-- image ALWAYS stacks first on mobile by default (width classes are
+&lt;!-- autoplaying video instead of an image. muted is required or the
+     browser will block autoplay; playsinline stops iOS going fullscreen --&gt;
+&lt;div class="blog-media-row width-40"&gt;
+  &lt;video autoplay muted loop playsinline poster="..."&gt;
+    &lt;source src="{{ 'your-video.mp4' | asset_url }}" type="video/mp4"&gt;
+  &lt;/video&gt;
+  &lt;div&gt;
+    &lt;h2 class="blog-h2"&gt;Heading&lt;/h2&gt;
+    &lt;p&gt;Supporting copy.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- YouTube or Vimeo embed instead of an image --&gt;
+&lt;div class="blog-media-row"&gt;
+  &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID" title="..." allowfullscreen&gt;&lt;/iframe&gt;
+  &lt;div&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- vertically centre the text against the media --&gt;
+&lt;div class="blog-media-row width-40 align-middle"&gt;
+  &lt;img src="..." alt="..."&gt;
+  &lt;div&gt;
+    &lt;h2 class="blog-h2"&gt;Heading&lt;/h2&gt;
+    &lt;p&gt;Supporting copy.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- media ALWAYS stacks first on mobile by default (width classes are
      ignored on mobile). Add is-mobile-image-last to put content above
-     the image on mobile instead, regardless of desktop side --&gt;
+     the media on mobile instead, regardless of desktop side --&gt;
 &lt;div class="blog-media-row is-image-right width-30 is-mobile-image-last"&gt;
   &lt;img src="..." alt="..."&gt;
   &lt;div&gt;...&lt;/div&gt;
@@ -636,29 +697,35 @@
   <!-- FAQ -->
   <div class="guide-section" id="faq">
     <h2>FAQ + auto schema generation</h2>
-    <p class="desc">The question and answer are just a plain <code>&lt;h3&gt;</code> and <code>&lt;p&gt;</code> inside <code>.blog-faq-item</code> — no extra classes needed.</p>
+    <p class="desc">Accordion styled to match the site's Spacetalk FAQ section. Each question is a <code>&lt;details&gt;</code> with a <code>&lt;summary&gt;</code> (question) and a <code>&lt;p&gt;</code> (answer) — no other classes needed. The +/× icon is drawn in CSS, so you never paste an SVG.</p>
     <ul class="guide-classlist">
-      <li><code>.blog-faq</code> — wraps the whole FAQ section; the script scans for this.</li>
-      <li><code>.blog-faq-item</code> — wraps each question/answer pair.</li>
+      <li><code>.blog-faq</code> — wraps the whole FAQ section; the script scans for this. Draws the bordered card.</li>
+      <li><code>.blog-faq-item</code> — put on each <code>&lt;details&gt;</code>.</li>
+      <li>Add <code>open</code> to a <code>&lt;details&gt;</code> if you want that question expanded on page load.</li>
     </ul>
     <div class="guide-preview">
       <div class="blog-faq">
-        <div class="blog-faq-item">
-          <h3>Example question goes here?</h3>
+        <details class="blog-faq-item" open>
+          <summary>Example question goes here?</summary>
           <p>Example answer goes here, written in full sentences.</p>
-        </div>
-        <div class="blog-faq-item">
-          <h3>A second example question?</h3>
+        </details>
+        <details class="blog-faq-item">
+          <summary>A second example question?</summary>
           <p>A second example answer.</p>
-        </div>
+        </details>
       </div>
     </div>
     <pre class="guide-code">&lt;div class="blog-faq"&gt;
 
-  &lt;div class="blog-faq-item"&gt;
-    &lt;h3&gt;Question goes here?&lt;/h3&gt;
+  &lt;details class="blog-faq-item" open&gt;
+    &lt;summary&gt;Question goes here?&lt;/summary&gt;
     &lt;p&gt;Answer goes here.&lt;/p&gt;
-  &lt;/div&gt;
+  &lt;/details&gt;
+
+  &lt;details class="blog-faq-item"&gt;
+    &lt;summary&gt;Second question?&lt;/summary&gt;
+    &lt;p&gt;Answer goes here.&lt;/p&gt;
+  &lt;/details&gt;
 
   &lt;!-- repeat .blog-faq-item for each question --&gt;
 
@@ -669,7 +736,7 @@
 
     <div class="guide-auto">
       <span class="guide-auto-label">Auto-generated — don't add this yourself</span>
-      <p class="desc" style="margin-bottom:12px;">The script reads each question/answer above and writes this for Google:</p>
+      <p class="desc" style="margin-bottom:12px;">The script reads each question/answer above and writes this for Google. Collapsed answers are still in the page, so Google reads all of them:</p>
       <pre>&lt;script type="application/ld+json"&gt;
 { "@type": "FAQPage", "mainEntity": [
   { "@type": "Question", "name": "Question goes here?",

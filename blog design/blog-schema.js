@@ -17,8 +17,11 @@
     if (!items.length) return;
 
     var mainEntity = Array.prototype.map.call(items, function (item) {
-      var question = item.querySelector('h3');
-      var answer = item.querySelector('p');
+      // Accordion markup uses <summary>; older posts used an <h3>.
+      var question = item.querySelector('summary') || item.querySelector('h3');
+      var answer = item.querySelector('summary')
+        ? item.querySelector('summary ~ *')
+        : item.querySelector('p');
       return {
         "@type": "Question",
         "name": question ? question.textContent.trim() : "",

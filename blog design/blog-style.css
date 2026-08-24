@@ -13,21 +13,49 @@
    Wrap post content in <div class="spacetalk-blog">...</div> (a div, not
    an <article> - Shopify's blog template already renders its own
    <article> around the post, so nesting another one is redundant).
+
+   Typography rule: this file never declares font-family. Typefaces come
+   from the theme so blog posts always match the rest of the site - only
+   size, weight, line-height, colour and spacing are set here.
    ========================================================================== */
 
-.spacetalk-blog { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: #171717; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+/* Font family is intentionally not set anywhere in this file - typefaces,
+   weights and letter-spacing are inherited from the theme. */
+.spacetalk-blog { color: #171717; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+/* ---- Theme reset ----
+   The live theme sets its own heading sizes, figure margins and image
+   widths, which leak into post content. This keeps every component inside
+   the wrapper predictable. !important appears throughout this file only
+   where the theme was observed overriding the component. */
+.spacetalk-blog,
+.spacetalk-blog *,
+.spacetalk-blog *::before,
+.spacetalk-blog *::after { box-sizing: border-box; }
+
+.spacetalk-blog img,
+.spacetalk-blog video,
+.spacetalk-blog iframe { max-width: 100% !important; }
+
+.spacetalk-blog figure { margin: 0 !important; padding: 0 !important; width: auto !important; }
 
 /* ---- Image: any <img> directly inside .spacetalk-blog, no class needed ---- */
 .spacetalk-blog > img { display: block; width: 100%; height: auto; border-radius: 16px; margin: 0 0 32px; }
 
+/* ---- Video: any <video>/<iframe> directly inside .spacetalk-blog ----
+   Autoplaying video must be muted to actually play in browsers, so use
+   <video autoplay muted loop playsinline>. Iframes keep a 16:9 box. */
+.spacetalk-blog > video { display: block; width: 100%; height: auto; border-radius: 16px; margin: 0 0 32px; background: #f0f0f0; }
+.spacetalk-blog > iframe { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border: 0; border-radius: 16px; margin: 0 0 32px; background: #f0f0f0; }
+
 /* ---- Excerpt / opening paragraph (blue left border) ---- */
 .spacetalk-blog > p.blog-excerpt {
-  font-size: 18px; line-height: 1.75; color: #444;
-  border-left: 3px solid #86AFFF; padding-left: 20px; margin: 0 0 18px;
+  font-size: 18px !important; line-height: 1.75 !important; color: #444;
+  border-left: 3px solid #86AFFF; padding-left: 20px !important; margin: 0 0 18px !important;
 }
 
 /* ---- Body copy: plain <p> directly inside .spacetalk-blog, no class needed ---- */
-.spacetalk-blog > p { font-size: 17px; line-height: 1.75; margin: 0 0 18px; }
+.spacetalk-blog > p { font-size: 17px !important; line-height: 1.75 !important; margin: 0 0 18px !important; }
 
 /* ---- Author profile & bio ----
    .blog-author  - compact byline: avatar <img> + <div> with name/role
@@ -39,9 +67,9 @@
   width: 52px; height: 52px; min-width: 52px; border-radius: 50%;
   object-fit: cover; display: block; margin: 0;
 }
-.blog-author p { margin: 0; line-height: 1.5; }
-.blog-author p:nth-of-type(1) { font-size: 15px; font-weight: 800; color: #171717; }
-.blog-author p:nth-of-type(2) { font-size: 13px; color: #666; }
+.blog-author p { margin: 0 !important; line-height: 1.5 !important; }
+.blog-author p:nth-of-type(1) { font-size: 15px !important; font-weight: 800; color: #171717; }
+.blog-author p:nth-of-type(2) { font-size: 13px !important; color: #666; }
 
 .blog-author-bio {
   display: flex; gap: 20px; align-items: flex-start;
@@ -51,9 +79,13 @@
   width: 72px; height: 72px; min-width: 72px; border-radius: 50%;
   object-fit: cover; display: block; margin: 0;
 }
-.blog-author-bio h3 { font-size: 17px; font-weight: 800; color: #171717; margin: 0 0 4px; }
-.blog-author-bio p { font-size: 15px; line-height: 1.7; color: #444; margin: 0 0 10px; }
-.blog-author-bio p:last-child { margin-bottom: 0; }
+.blog-author-bio h3 {
+  font-size: 17px !important; font-weight: 800; color: #171717;
+  margin: 0 0 4px !important; padding: 0 !important; line-height: 1.3 !important;
+  text-transform: none !important; letter-spacing: normal !important;
+}
+.blog-author-bio p { font-size: 15px !important; line-height: 1.7 !important; color: #444; margin: 0 0 10px !important; }
+.blog-author-bio p:last-child { margin-bottom: 0 !important; }
 .blog-author-bio a { color: #3315D0; font-weight: bold; text-decoration: none; }
 
 /* ---- Table of contents ----
@@ -61,61 +93,87 @@
    Leave the <nav> empty in the post - the script fills it in. */
 .blog-toc {
   background: #f8f8f8; border-left: 3px solid #3315D0; border-radius: 12px;
-  padding: 24px 28px; margin: 0 0 40px;
+  padding: 24px 28px !important; margin: 0 0 40px !important;
 }
 .blog-toc h2 {
-  font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
-  color: #3315D0; margin: 0 0 14px; padding: 0; border: none;
+  font-size: 13px !important; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  line-height: 1.3 !important; color: #3315D0; margin: 0 0 14px !important;
+  padding: 0 !important; border: none !important;
 }
 .blog-toc ol { margin: 0 !important; padding-left: 20px !important; }
-.blog-toc li { font-size: 16px; line-height: 1.6; margin: 0 0 8px !important; }
+.blog-toc li { font-size: 16px !important; line-height: 1.6 !important; margin: 0 0 8px !important; }
 .blog-toc li:last-child { margin-bottom: 0 !important; }
 .blog-toc a { color: #171717; text-decoration: none; border-bottom: 1px solid #d8d8d8; }
 .blog-toc a:hover { color: #3315D0; border-bottom-color: #3315D0; }
 
+/* ---- Spacing utilities ----
+   Component margins use !important to beat the theme, which also blocks
+   inline styles. Use these on any element to add extra space below it. */
+.spacetalk-blog .blog-space-sm { margin-bottom: 32px !important; }
+.spacetalk-blog .blog-space-md { margin-bottom: 48px !important; }
+.spacetalk-blog .blog-space-lg { margin-bottom: 64px !important; }
+.spacetalk-blog .blog-space-none { margin-bottom: 0 !important; }
+
 /* ---- Comparison table ---- */
-.blog-comparison-table { width: 100%; overflow-x: auto; margin: 0 0 32px; }
-.blog-comparison-table table { width: 100%; min-width: 560px; border-collapse: collapse; text-align: left; }
-.blog-comparison-table th, .blog-comparison-table td { padding: 14px 16px; border-bottom: 1px solid #eee; vertical-align: top; line-height: 1.6; }
-.blog-comparison-table th { background: #171717; color: #fff; font-size: 14px; font-weight: 800; }
-.blog-comparison-table td { color: #444; font-size: 15px; }
+.blog-comparison-table { width: 100%; overflow-x: auto; margin: 0 0 32px !important; }
+.blog-comparison-table table { width: 100%; min-width: 560px; border-collapse: collapse; text-align: left; margin: 0 !important; }
+.blog-comparison-table th, .blog-comparison-table td { padding: 14px 16px !important; border-bottom: 1px solid #eee; vertical-align: top; line-height: 1.6 !important; }
+.blog-comparison-table th { background: #171717; color: #fff; font-size: 14px !important; font-weight: 800; }
+.blog-comparison-table td { color: #444; font-size: 15px !important; }
 .blog-comparison-table tr:nth-child(even) td { background: #f8f8f8; }
 
 /* ---- Key takeaway ---- */
-.blog-key-takeaway { background: #D4FD00; padding: 24px 28px; margin: 36px 0; border-radius: 12px; }
-.blog-key-takeaway h2 { font-size: 20px; font-weight: 800; color: #171717; margin: 0 0 10px; }
-.blog-key-takeaway p { font-size: 17px; line-height: 1.7; color: #171717; margin: 0; }
+.blog-key-takeaway { background: #D4FD00; padding: 24px 28px !important; margin: 36px 0 !important; border-radius: 12px; }
+.blog-key-takeaway h2 {
+  font-size: 20px !important; font-weight: 800; color: #171717;
+  margin: 0 0 10px !important; padding: 0 !important; border: none !important;
+  line-height: 1.3 !important; text-transform: none !important; letter-spacing: normal !important;
+}
+.blog-key-takeaway p { font-size: 17px !important; line-height: 1.7 !important; color: #171717; margin: 0 !important; }
 
 /* ---- Pros and cons ---- */
 .blog-pros-cons { display: flex; gap: 16px; margin: 0 0 32px; }
 .blog-pros-cons > div { flex: 1 1 50%; padding: 24px; border-radius: 12px; }
 .blog-pros-cons > div:first-child { background: #EAF7EF; }
 .blog-pros-cons > div:last-child { background: #FFF0F0; }
-.blog-pros-cons h3 { font-size: 18px; margin: 0 0 12px; }
-.blog-pros-cons ul { margin: 0; padding-left: 20px; }
-.blog-pros-cons li { font-size: 16px; line-height: 1.65; margin-bottom: 8px; }
-.blog-pros-cons li:last-child { margin-bottom: 0; }
+.blog-pros-cons h3 {
+  font-size: 18px !important; margin: 0 0 12px !important; padding: 0 !important;
+  line-height: 1.3 !important; text-transform: none !important; letter-spacing: normal !important;
+}
+.blog-pros-cons ul { margin: 0 !important; padding-left: 20px !important; list-style: disc !important; }
+.blog-pros-cons li { font-size: 16px !important; line-height: 1.65 !important; margin: 0 0 8px !important; }
+.blog-pros-cons li:last-child { margin-bottom: 0 !important; }
 
-/* ---- Image caption ---- */
-.blog-image-caption { margin: 0 0 32px; }
-.blog-image-caption img { display: block; width: 100%; height: auto; border-radius: 16px; }
-.blog-image-caption figcaption { color: #666; font-size: 13px; line-height: 1.5; margin-top: 8px; }
+/* ---- Image caption ----
+   Selectors are scoped with .spacetalk-blog so they outrank the figure
+   reset above, which would otherwise zero out the bottom margin. */
+.spacetalk-blog .blog-image-caption { margin: 0 0 32px !important; padding: 0 !important; width: 100% !important; }
+.spacetalk-blog .blog-image-caption img {
+  display: block; width: 100% !important; max-width: 100% !important; height: auto !important;
+  border-radius: 16px; margin: 0 !important;
+}
+.spacetalk-blog .blog-image-caption figcaption {
+  color: #666; font-size: 13px !important; line-height: 1.5 !important;
+  margin: 10px 0 0 !important; text-align: left !important;
+}
 
 /* ---- Neon/yellow callout (pull quote) ---- */
 .blog-callout {
-  background: #D4FD00; padding: 24px 28px; margin: 36px 0; border-radius: 12px;
+  background: #D4FD00; padding: 24px 28px !important; margin: 36px 0 !important; border-radius: 12px;
 }
 .blog-callout p {
-  font-size: 18px; font-weight: bold; font-style: italic; color: #171717;
-  line-height: 1.65; margin: 0;
+  font-size: 18px !important; font-weight: bold; font-style: italic; color: #171717;
+  line-height: 1.65 !important; margin: 0 !important;
 }
 
 /* ---- Section heading ---- */
 .blog-h2 {
-  font-size: 24px; font-weight: 800; color: #171717;
-  margin: 48px 0 24px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;
+  font-size: 24px !important; font-weight: 800; line-height: 1.25 !important;
+  color: #171717; text-transform: none !important; letter-spacing: normal !important;
+  margin: 48px 0 24px !important; padding: 0 0 10px !important;
+  border-bottom: 2px solid #f0f0f0;
 }
-.blog-h2:first-child { margin-top: 0; }
+.blog-h2:first-child { margin-top: 0 !important; }
 
 /* ---- Numbered list items ("What to look for" / "What to avoid" etc) ----
    Add a colour modifier class to .blog-number-badge:
@@ -127,11 +185,13 @@
    is-spacetalk-sakura (#FFBFBF, black text) */
 .blog-numbered-item { margin: 0 0 32px; }
 .blog-numbered-item h3 {
-  font-size: 17px; font-weight: bold; color: #171717; margin: 0 0 10px;
+  font-size: 17px !important; font-weight: bold; line-height: 1.4 !important;
+  color: #171717; text-transform: none !important; letter-spacing: normal !important;
+  margin: 0 0 10px !important; padding: 0 !important;
   display: flex; align-items: center; gap: 10px;
 }
-.blog-numbered-item p { font-size: 17px; line-height: 1.75; margin: 0 0 12px; }
-.blog-numbered-item p:last-child { margin-bottom: 0; }
+.blog-numbered-item p { font-size: 17px !important; line-height: 1.75 !important; margin: 0 0 12px !important; }
+.blog-numbered-item p:last-child { margin-bottom: 0 !important; }
 .blog-number-badge {
   display: inline-flex; align-items: center; justify-content: center;
   width: 26px; height: 26px; min-width: 26px; border-radius: 50%;
@@ -150,45 +210,63 @@
    child of .spacetalk-blog or .blog-media-row. */
 .blog-image { display: block; width: 100%; height: auto; border-radius: 16px; margin: 0 0 32px; }
 
-/* ---- Media row: image + content side by side ----
+/* ---- Media row: image or video + content side by side ----
+   The media side can be an <img>, a <video>, or an <iframe> (YouTube etc)
+   and is styled identically either way.
    Classes:
    .blog-media-row        - required wrapper
-   .is-image-right        - flips the image to the right on desktop (default: left)
-   .is-mobile-image-last  - puts the image below the content on mobile,
+   .is-image-right        - flips the media to the right on desktop (default: left)
+   .is-mobile-image-last  - puts the media below the content on mobile,
                             regardless of the desktop orientation
-   .width-10 .. .width-90 - sets the image's share of the row on desktop
-                            in 10% steps (e.g. .width-30 = 30% image,
+   .width-10 .. .width-90 - sets the media's share of the row on desktop
+                            in 10% steps (e.g. .width-30 = 30% media,
                             70% content). Default with no width class is
                             50/50. Ignored on mobile - always stacks full width.
+   .align-top             - content sits at the top of the row (default)
+   .align-middle          - content is vertically centred against the media
 
-   On mobile, the image ALWAYS stacks first (on top) by default, no
+   On mobile, the media ALWAYS stacks first (on top) by default, no
    matter which side it's on for desktop. Add .is-mobile-image-last if
-   you want the content to appear above the image on mobile instead.
-   The image and content always match each other's height on desktop. */
+   you want the content to appear above the media on mobile instead.
+   The media and content always match each other's height on desktop. */
 .blog-media-row {
   display: flex; align-items: stretch; gap: 32px; margin: 0 0 48px;
 }
-.blog-media-row > img, .blog-media-row > div { flex: 1 1 50%; min-width: 0; }
-.blog-media-row > img { border-radius: 16px; width: 100%; height: 100%; display: block; object-fit: cover; }
+.blog-media-row > img,
+.blog-media-row > video,
+.blog-media-row > iframe,
+.blog-media-row > div { flex: 1 1 50%; min-width: 0; }
+.blog-media-row > img,
+.blog-media-row > video,
+.blog-media-row > iframe {
+  border-radius: 16px; width: 100%; height: 100%; display: block;
+  object-fit: cover; border: 0; background: #f0f0f0;
+}
 .blog-media-row.is-image-right { flex-direction: row-reverse; }
 
-.blog-media-row.width-10 > img { flex-basis: 10%; }
+.blog-media-row > div,
+.blog-media-row.align-top > div {
+  display: flex; flex-direction: column; justify-content: flex-start;
+}
+.blog-media-row.align-middle > div { justify-content: center; }
+
+.blog-media-row.width-10 > img, .blog-media-row.width-10 > video, .blog-media-row.width-10 > iframe { flex-basis: 10%; }
 .blog-media-row.width-10 > div { flex-basis: 90%; }
-.blog-media-row.width-20 > img { flex-basis: 20%; }
+.blog-media-row.width-20 > img, .blog-media-row.width-20 > video, .blog-media-row.width-20 > iframe { flex-basis: 20%; }
 .blog-media-row.width-20 > div { flex-basis: 80%; }
-.blog-media-row.width-30 > img { flex-basis: 30%; }
+.blog-media-row.width-30 > img, .blog-media-row.width-30 > video, .blog-media-row.width-30 > iframe { flex-basis: 30%; }
 .blog-media-row.width-30 > div { flex-basis: 70%; }
-.blog-media-row.width-40 > img { flex-basis: 40%; }
+.blog-media-row.width-40 > img, .blog-media-row.width-40 > video, .blog-media-row.width-40 > iframe { flex-basis: 40%; }
 .blog-media-row.width-40 > div { flex-basis: 60%; }
-.blog-media-row.width-50 > img { flex-basis: 50%; }
+.blog-media-row.width-50 > img, .blog-media-row.width-50 > video, .blog-media-row.width-50 > iframe { flex-basis: 50%; }
 .blog-media-row.width-50 > div { flex-basis: 50%; }
-.blog-media-row.width-60 > img { flex-basis: 60%; }
+.blog-media-row.width-60 > img, .blog-media-row.width-60 > video, .blog-media-row.width-60 > iframe { flex-basis: 60%; }
 .blog-media-row.width-60 > div { flex-basis: 40%; }
-.blog-media-row.width-70 > img { flex-basis: 70%; }
+.blog-media-row.width-70 > img, .blog-media-row.width-70 > video, .blog-media-row.width-70 > iframe { flex-basis: 70%; }
 .blog-media-row.width-70 > div { flex-basis: 30%; }
-.blog-media-row.width-80 > img { flex-basis: 80%; }
+.blog-media-row.width-80 > img, .blog-media-row.width-80 > video, .blog-media-row.width-80 > iframe { flex-basis: 80%; }
 .blog-media-row.width-80 > div { flex-basis: 20%; }
-.blog-media-row.width-90 > img { flex-basis: 90%; }
+.blog-media-row.width-90 > img, .blog-media-row.width-90 > video, .blog-media-row.width-90 > iframe { flex-basis: 90%; }
 .blog-media-row.width-90 > div { flex-basis: 10%; }
 
 /* ---- Bulleted list (plain, non-numbered) ----
@@ -209,20 +287,22 @@
    in that order) and an <a> (CTA). Order matters since styling is
    applied by position, not by class. */
 .spacetalk-callout-products {
-  background: #171717; border-radius: 16px; padding: 48px 40px; margin: 0 0 64px;
+  background: #171717; border-radius: 16px; padding: 48px 40px !important; margin: 0 0 64px !important;
 }
 .spacetalk-callout-products > p {
-  font-size: 12px; font-weight: bold; letter-spacing: 0.12em; text-transform: uppercase;
-  color: #86afff; margin: 0 0 8px;
+  font-size: 12px !important; font-weight: bold; letter-spacing: 0.12em; text-transform: uppercase;
+  line-height: 1.4 !important; color: #86afff !important; margin: 0 0 8px !important;
 }
 .spacetalk-callout-products > h2 {
-  font-size: 28px; font-weight: 800; color: #fff; margin: 0 0 32px; line-height: 1.2;
+  font-size: 28px !important; font-weight: 800; color: #fff !important;
+  margin: 0 0 32px !important; padding: 0 !important; border: none !important;
+  line-height: 1.2 !important; text-transform: none !important; letter-spacing: normal !important;
 }
 .spacetalk-callout-products > div { display: flex; flex-wrap: wrap; gap: 16px; }
 .spacetalk-callout-products > div > div {
   flex: 0 0 calc(50% - 8px); width: calc(50% - 8px); min-width: 0;
   box-sizing: border-box; background: #fff; border-radius: 12px;
-  padding: 24px; display: flex; flex-direction: column;
+  padding: 24px !important; margin: 0 !important; display: flex; flex-direction: column;
 }
 .spacetalk-callout-products.is-stacked > div { flex-direction: column; }
 .spacetalk-callout-products.is-stacked > div > div { flex: 0 0 100%; width: 100%; }
@@ -230,30 +310,75 @@
   flex: 0 0 100%; width: 100%;
 }
 .spacetalk-callout-products > div > div > p:nth-of-type(1) {
-  font-size: 12px; font-weight: bold; letter-spacing: 0.08em; text-transform: uppercase;
-  color: #3315d0; margin: 0 0 8px;
+  font-size: 12px !important; font-weight: bold; letter-spacing: 0.08em; text-transform: uppercase;
+  line-height: 1.4 !important; color: #3315d0; margin: 0 0 8px !important;
 }
 .spacetalk-callout-products > div > div > p:nth-of-type(2) {
-  font-size: 17px; font-weight: 800; color: #171717; margin: 0 0 8px; line-height: 1.3;
+  font-size: 17px !important; font-weight: 800; color: #171717;
+  margin: 0 0 8px !important; line-height: 1.3 !important;
 }
 .spacetalk-callout-products > div > div > p:nth-of-type(3) {
-  font-size: 14px; color: #555; line-height: 1.6; margin: 0 0 20px; flex-grow: 1;
+  font-size: 14px !important; color: #555; line-height: 1.6 !important;
+  margin: 0 0 20px !important; flex-grow: 1;
 }
+/* Themes often reset link colour/display globally, which made the CTA
+   render as plain text. Forced so the pill button always shows. */
 .spacetalk-callout-products > div > div > a {
-  display: inline-block; background: #3315D0; color: #fff; font-size: 14px; font-weight: bold;
-  text-decoration: none; padding: 11px 22px; border-radius: 100px; text-align: center;
+  display: inline-block !important; align-self: flex-start;
+  background: #3315D0 !important; color: #fff !important;
+  font-size: 14px !important; font-weight: bold !important; line-height: 1.2 !important;
+  text-decoration: none !important; padding: 12px 22px !important; margin: 0 !important;
+  border: 0 !important; border-radius: 100px !important; text-align: center;
+}
+.spacetalk-callout-products > div > div > a:hover {
+  background: #2810a8 !important; color: #fff !important;
 }
 
-/* ---- FAQ (auto-generates FAQPage schema, see blog-schema.js) ----
-   Usage: wrap the section in .blog-faq. Each question is a
-   .blog-faq-item containing a plain <h3> for the question and a plain
-   <p> for the answer - no extra classes needed. A script reads these
-   and injects application/ld+json automatically - no manual schema
-   writing required. */
-.blog-faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
-.blog-faq-item:last-child { border-bottom: none; }
-.blog-faq-item h3 { font-weight: bold; font-size: 16px; color: #171717; margin: 0 0 8px; }
-.blog-faq-item p { font-size: 15.5px; color: #444; line-height: 1.75; margin: 0; }
+/* ---- FAQ accordion (auto-generates FAQPage schema, see blog-schema.js) ----
+   Matches the Spacetalk FAQ section (sections/spacetalk-faq.liquid).
+   Usage: wrap the section in .blog-faq, then one <details class="blog-faq-item">
+   per question containing a <summary> (question) and a <p> (answer).
+   No other classes needed - the +/x icon is drawn in CSS, so authors never
+   paste an SVG. A script reads these and injects application/ld+json
+   automatically - no manual schema writing required.
+   Collapsed answers stay in the DOM, so this is safe for SEO. */
+.blog-faq {
+  background: #fff; border: 1.5px solid #E4E4E4; border-radius: 16px;
+  box-shadow: 0 2px 28px rgba(0,0,0,0.03); overflow: hidden;
+  margin: 0 0 32px !important;
+}
+.blog-faq-item { border-bottom: 0 !important; padding: 0 !important; margin: 0 !important; }
+.blog-faq-item + .blog-faq-item { border-top: 1px solid #E4E4E4 !important; }
+
+.blog-faq-item > summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 30px 32px !important; margin: 0 !important;
+  font-size: 22px !important; font-weight: 700 !important;
+  line-height: 1.15 !important; letter-spacing: -0.03em !important;
+  color: #171717; text-transform: none !important;
+}
+.blog-faq-item > summary::-webkit-details-marker { display: none; }
+.blog-faq-item > summary::marker { content: ''; }
+
+/* Plus icon drawn with two bars; rotates into an x when the item is open. */
+.blog-faq-item > summary::after {
+  content: ''; flex: 0 0 auto; width: 18px; height: 18px;
+  background:
+    linear-gradient(#3315D0, #3315D0) center / 100% 2px no-repeat,
+    linear-gradient(#3315D0, #3315D0) center / 2px 100% no-repeat;
+  transition: transform 0.25s ease;
+}
+.blog-faq-item[open] > summary::after { transform: rotate(45deg); }
+
+.blog-faq-item > *:not(summary) {
+  padding: 0 32px 28px !important; margin: 0 !important;
+  font-size: 16px !important; line-height: 1.65 !important; color: #171717;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-faq-item > summary::after { transition: none; }
+}
 
 /* ==========================================================================
    MOBILE RESPONSIVE OVERRIDES
@@ -262,35 +387,40 @@
    media row notes above).
    ========================================================================== */
 @media (max-width: 640px) {
-  .spacetalk-blog > p, .spacetalk-blog > p.blog-excerpt { font-size: 16px; }
-  .blog-callout { padding: 18px 20px; }
-  .blog-callout p { font-size: 16px; }
-  .blog-key-takeaway { padding: 18px 20px; }
-  .blog-key-takeaway p { font-size: 16px; }
+  .spacetalk-blog > p, .spacetalk-blog > p.blog-excerpt { font-size: 16px !important; }
+  .blog-callout { padding: 18px 20px !important; }
+  .blog-callout p { font-size: 16px !important; }
+  .blog-key-takeaway { padding: 18px 20px !important; }
+  .blog-key-takeaway h2 { font-size: 18px !important; }
+  .blog-key-takeaway p { font-size: 16px !important; }
   .blog-pros-cons { flex-direction: column; }
   .blog-pros-cons > div { flex-basis: 100%; }
-  .blog-comparison-table { margin-right: -20px; }
-  .blog-h2 { font-size: 20px; margin: 32px 0 16px; }
-  .blog-numbered-item h3 { font-size: 16px; }
-  .blog-numbered-item p { font-size: 16px; }
+  .blog-comparison-table { margin-right: -20px !important; }
+  .blog-h2 { font-size: 20px !important; margin: 32px 0 16px !important; }
+  .blog-numbered-item h3 { font-size: 16px !important; }
+  .blog-numbered-item p { font-size: 16px !important; }
   .blog-bullet-list li { font-size: 16px !important; }
-  .blog-toc { padding: 18px 20px; }
-  .blog-toc li { font-size: 15px; }
-  .blog-author-bio { flex-direction: column; gap: 14px; padding: 22px; }
+  .blog-toc { padding: 18px 20px !important; }
+  .blog-toc li { font-size: 15px !important; }
+  .blog-author-bio { flex-direction: column; gap: 14px; padding: 22px !important; }
 
-  /* Image always stacks first (on top) on mobile by default. Add
-     .is-mobile-image-last to put the content above the image instead,
-     regardless of the desktop image side. Width modifiers only apply
-     on desktop - both image and content always go full-width here. */
+  /* Media always stacks first (on top) on mobile by default. Add
+     .is-mobile-image-last to put the content above the media instead,
+     regardless of the desktop media side. Width modifiers only apply
+     on desktop - both media and content always go full-width here. */
   .blog-media-row, .blog-media-row.is-image-right { flex-direction: column; }
   .blog-media-row.is-mobile-image-last { flex-direction: column-reverse; }
-  .blog-media-row > img, .blog-media-row > div { flex-basis: auto !important; }
-  .blog-media-row > img { height: auto; }
+  .blog-media-row > img,
+  .blog-media-row > video,
+  .blog-media-row > iframe,
+  .blog-media-row > div { flex-basis: auto !important; }
+  .blog-media-row > img, .blog-media-row > video { height: auto; }
+  .blog-media-row > iframe { height: auto; aspect-ratio: 16 / 9; }
 
   .spacetalk-callout-products { padding: 32px 24px; }
   .spacetalk-callout-products > h2 { font-size: 22px; }
   .spacetalk-callout-products > div > div { flex: 0 0 100%; width: 100%; }
 
-  .blog-faq-item h3 { font-size: 15px; }
-  .blog-faq-item p { font-size: 15px; }
+  .blog-faq-item > summary { padding: 18px !important; font-size: 18px !important; line-height: 1.2 !important; }
+  .blog-faq-item > *:not(summary) { padding: 0 18px 18px !important; }
 }
