@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spacetalk Loop Smartwatch — Buy 1 Get 1 Free</title>
+<title>Spacetalk Loop Smartwatch - Buy 1 Get 1 Free</title>
 <style>
   :root{
     --black:#171717;
@@ -61,12 +61,6 @@
     35%{transform:scale(1.18);box-shadow:0 0 0 4px rgba(255,255,255,.45);}
     100%{transform:scale(1);box-shadow:none;}
   }
-
-  /* progress */
-  .env-progress{display:flex;gap:6px;padding:12px 16px 0;}
-  .env-progress .seg{flex:1;height:4px;border-radius:2px;background:var(--line);overflow:hidden;}
-  .env-progress .seg.done, .env-progress .seg.active{background:var(--black);}
-  .env-step-label{padding:8px 16px 0;font-size:12px;color:var(--muted);font-weight:600;}
 
   /* body: visual + panels */
   .env-body{
@@ -326,16 +320,9 @@
 <div class="stepper-env">
 
   <div class="env-topbar">
-    <span class="offer">Buy 1 Loop Smartwatch, Get 1 Free</span>
+    <span class="offer" id="offerLabel">Buy 1 Loop Smartwatch, Get 1 Free</span>
     <span class="running-total" id="runningTotal">$249.00</span>
   </div>
-
-  <div class="env-progress" id="progressBar" style="display:none;">
-    <div class="seg active" id="seg1"></div>
-    <div class="seg" id="seg2"></div>
-    <div class="seg" id="seg3"></div>
-  </div>
-  <div class="env-step-label" id="stepLabel" style="display:none;">Step 1 of 3 — Your first Loop Smartwatch</div>
 
   <div class="env-body">
 
@@ -357,7 +344,7 @@
           <span class="now">$249.00</span>
           <span class="save-tag">2 watches, 1 price</span>
         </div>
-        <div class="intro-value-line">One to keep, one to gift — save $249 instantly.</div>
+        <div class="intro-value-line">One to keep, one to gift - save $249 instantly.</div>
         <div class="bundle-tags">
           <div class="bundle-tag">
             <div class="tag-img"><img id="tagImg1" src="https://spacetalk.co/cdn/shop/files/1._Loop_-_Frost.png?v=1778845183&width=200" alt=""></div>
@@ -380,7 +367,7 @@
             <span class="corner-badge">Add accessories for 50% off</span>
             <button class="intro-btn primary" id="customiseBtn">Customise your watches</button>
           </div>
-          <button class="intro-btn secondary" id="quickAddBtn">Add both as-is — $249.00</button>
+          <button class="intro-btn secondary" id="quickAddBtn">Add both as-is - $249.00</button>
         </div>
 
         <div class="intro-inbox">
@@ -444,7 +431,7 @@
 
       <div class="env-panel" id="panel-2">
         <h2>Choose your free Loop Smartwatch</h2>
-        <div class="panel-sub">This one's on us — perfect for a sibling or to gift</div>
+        <div class="panel-sub">This one's on us - perfect for a sibling or to gift</div>
         <div class="field">
           <span class="field-label">Colour</span>
           <div class="swatches" id="w2-colours"></div>
@@ -490,13 +477,13 @@
 <div class="std-section">
   <div class="std-block">
     <h3>Product description</h3>
-    <p>The Spacetalk Loop Smartwatch is the perfect first smartwatch for kids. 4G calling, real-time GPS, School Mode and SOS in a light, comfy watch — made for kids aged 4 and up.</p>
+    <p>The Spacetalk Loop Smartwatch is the perfect first smartwatch for kids. 4G calling, real-time GPS, School Mode and SOS in a light, comfy watch - made for kids aged 4 and up.</p>
   </div>
   <div class="std-block">
     <h3>What's in the box</h3>
     <p>Loop Smartwatch, Loop Band Strap, Magnetic Charging Cable, Screen Protector, Spacetalk Mobile SIM (preinstalled), Getting Started Guide.</p>
   </div>
-  <div class="std-note">Reviews, full feature breakdown, and FAQ sections continue below — carried over unchanged from the standard PDP template.</div>
+  <div class="std-note">Reviews, full feature breakdown, and FAQ sections continue below - carried over unchanged from the standard PDP template.</div>
 </div>
 
 <script>
@@ -677,7 +664,7 @@ function renderVisual(){
   const w2c = COLOURS.find(c=>c.id===state.w2.colour);
   const visualPane = document.getElementById('envVisualPane');
 
-  // bundle tag row above the headline — text + colour dot only, no imagery
+  // bundle tag row above the headline - text + colour dot only, no imagery
   document.getElementById('tagImg1').src = w1c.img;
   document.getElementById('tagImg2').src = w2c.img;
   document.getElementById('tagVal1').textContent = w1c.name + ' · $249';
@@ -730,9 +717,9 @@ function renderReview(){
   document.getElementById('reviewCard').innerHTML =
     `<div class="savings-banner">You're saving ${money(savings)} today</div>` +
     group('Watch 1 · ' + w1c.name, w1Items) +
-    group('Watch 2 · ' + w2c.name + ' · Free — to gift or keep', w2Items) +
+    group('Watch 2 · ' + w2c.name + ' · Free - to gift or keep', w2Items) +
     `<div class="row total"><span>Total</span><span>${money(total)}</span></div>` +
-    `<div class="gift-note">Watch 2 is yours to keep, or gift to someone else — plans can be added in the Spacetalk app whenever they're ready.</div>`;
+    `<div class="gift-note">Watch 2 is yours to keep, or gift to someone else - plans can be added in the Spacetalk app whenever they're ready.</div>`;
 }
 
 function goToStep(n){
@@ -740,24 +727,20 @@ function goToStep(n){
   document.querySelectorAll('.env-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + n).classList.add('active');
 
-  const progressBar = document.getElementById('progressBar');
-  const stepLabel = document.getElementById('stepLabel');
   const envNav = document.getElementById('envNav');
+  const offerLabel = document.getElementById('offerLabel');
+  const labels = [
+    'Step 1 of 3 - Your First Loop Smartwatch',
+    'Step 2 of 3 - Your Free Loop Smartwatch',
+    'Step 3 of 3 - Review & Add to Cart'
+  ];
 
   if(n === 0){
-    progressBar.style.display = 'none';
-    stepLabel.style.display = 'none';
+    offerLabel.textContent = 'Buy 1 Loop Smartwatch, Get 1 Free';
     envNav.style.display = 'none';
   } else {
-    progressBar.style.display = 'flex';
-    stepLabel.style.display = 'block';
+    offerLabel.textContent = labels[n-1];
     envNav.style.display = 'flex';
-    document.querySelectorAll('.env-progress .seg').forEach((s,i) => {
-      s.classList.toggle('done', i < n-1);
-      s.classList.toggle('active', i === n-1);
-    });
-    const labels = ['Step 1 of 3 — Your first Loop Smartwatch','Step 2 of 3 — Your free Loop Smartwatch','Step 3 of 3 — Review & add to cart'];
-    stepLabel.textContent = labels[n-1];
     document.getElementById('nextBtn').textContent = (n === 3) ? 'Add to Cart' : 'Next';
   }
 
@@ -769,14 +752,14 @@ function goToStep(n){
 document.getElementById('backBtn').onclick = () => { if(state.step > 0) goToStep(state.step - 1); };
 document.getElementById('nextBtn').onclick = () => {
   if(state.step < 3) goToStep(state.step + 1);
-  else alert('Demo only — this would add both watches, straps and accessories to cart as one bundle line.');
+  else alert('Demo only - this would add both watches, straps and accessories to cart as one bundle line.');
 };
 document.getElementById('reviewAddBtn').onclick = () => {
-  alert('Demo only — this would add both watches, straps and accessories to cart as one bundle line.');
+  alert('Demo only - this would add both watches, straps and accessories to cart as one bundle line.');
 };
 document.getElementById('customiseBtn').onclick = () => goToStep(1);
 document.getElementById('quickAddBtn').onclick = () => {
-  alert('Demo only — this would add both watches to cart as-is: Frost ($249) + Dusk (Free), no straps or accessories.');
+  alert('Demo only - this would add both watches to cart as-is: Frost ($249) + Dusk (Free), no straps or accessories.');
 };
 
 renderColours('w1','w1');
