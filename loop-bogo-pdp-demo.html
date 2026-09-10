@@ -147,22 +147,22 @@
   .intro-actions{display:flex;flex-direction:column;gap:10px;}
 
   .intro-inbox{
-    margin-top:22px;padding-top:18px;border-top:1px solid var(--line);
+    margin-top:26px;padding-top:0;
   }
   .intro-inbox-label{
     display:block;font-size:10.5px;font-weight:700;letter-spacing:.05em;
-    text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+    text-transform:uppercase;color:var(--muted);margin-bottom:12px;
   }
   .intro-inbox-list{
     list-style:none;margin:0;padding:0;
-    display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;
+    display:grid;grid-template-columns:1fr 1fr;gap:9px 18px;
   }
-  .intro-inbox-list.intro-inbox-list-single{grid-template-columns:1fr;gap:8px;}
+  .intro-inbox-list.intro-inbox-list-single{grid-template-columns:1fr;gap:9px;}
   .intro-inbox-list li{
-    font-size:12.5px;color:var(--black);padding-left:18px;position:relative;
+    font-size:12.5px;color:var(--black);padding-left:19px;position:relative;line-height:1.35;
   }
   .intro-inbox-list li::before{
-    content:'✓';position:absolute;left:0;color:var(--blue);font-weight:800;font-size:11px;
+    content:'✓';position:absolute;left:0;top:0;color:var(--blue);font-weight:800;font-size:11px;
   }
 
   .intro-trust{
@@ -493,15 +493,15 @@
           <div class="mobile-plan-pills" id="mobilePlanPills">
             <button class="mobile-plan-pill" type="button" data-mobile-plan="15gb" aria-pressed="false">
               <span class="plan-name">15GB 4G Mobile Plan</span>
-              <span class="plan-price"><s>$20.00</s>$6.00<span class="plan-note">/month</span></span>
+              <span class="plan-price"><s>$20</s>$6<span class="plan-note">/1st month</span></span>
               <span class="plan-save">Save 70% first month</span>
-              <span class="plan-note">$20.00 thereafter</span>
+              <span class="plan-note">$20 thereafter</span>
             </button>
             <button class="mobile-plan-pill" type="button" data-mobile-plan="40gb" aria-pressed="false">
               <span class="plan-name">40GB 4G &amp; 5G Mobile Plan</span>
-              <span class="plan-price"><s>$35.00</s>$10.50<span class="plan-note">/month</span></span>
+              <span class="plan-price"><s>$35</s>$10.50<span class="plan-note">/1st month</span></span>
               <span class="plan-save">Save 70% first month</span>
-              <span class="plan-note">$35.00 thereafter</span>
+              <span class="plan-note">$35 thereafter</span>
             </button>
           </div>
         </div>
@@ -622,7 +622,7 @@ const state = {
 
 let lastTotal = null;
 
-function money(n){ return '$' + n.toFixed(2); }
+function money(n){ return '$' + (Number.isInteger(n) ? n.toFixed(0) : n.toFixed(2)); }
 
 function renderColours(prefix, key){
   const el = document.getElementById(prefix+'-colours');
