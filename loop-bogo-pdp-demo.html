@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spacetalk Loop Smartwatch — Buy 1 Get 1 Free</title>
+<style>
+  :root{
+    --black:#171717;
+    --blue:#3315D0;
+    --sky:#86AFFF;
+    --violet:#6C0590;
+    --sakura:#FFBFBF;
+    --evergreen:#0C4029;
+    --neon:#D4FD00;
+    --paper:#FAFAF8;
+    --line:#E4E2DC;
+    --muted:#767267;
+  }
+  *{box-sizing:border-box;}
+  html{overflow-x:hidden;}
+  html,body{margin:0;height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:var(--paper);
+    color:var(--black);
+  }
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  /* ================= STEP ENVIRONMENT ================= */
+  .stepper-env{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* thin identity strip up top */
+  .env-topbar{
+    background:var(--black);
+    padding:11px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:60;
+  }
+  .env-topbar .offer{
+    color:#fff;font-size:12.5px;font-weight:800;
+  }
+  .env-topbar .running-total{
+    color:var(--black);font-size:17px;font-weight:800;
+    display:inline-block;
+    background:var(--neon);
+    padding:4px 12px;border-radius:999px;
+  }
+  .env-topbar .running-total.pulse{animation:pricePulse .45s ease;}
+  @keyframes pricePulse{
+    0%{transform:scale(1);box-shadow:none;}
+    35%{transform:scale(1.18);box-shadow:0 0 0 4px rgba(255,255,255,.45);}
+    100%{transform:scale(1);box-shadow:none;}
+  }
+
+  /* progress */
+  .env-progress{display:flex;gap:6px;padding:12px 16px 0;}
+  .env-progress .seg{flex:1;height:4px;border-radius:2px;background:var(--line);overflow:hidden;}
+  .env-progress .seg.done, .env-progress .seg.active{background:var(--black);}
+  .env-step-label{padding:8px 16px 0;font-size:12px;color:var(--muted);font-weight:600;}
+
+  /* body: visual + panels */
+  .env-body{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    padding:14px 16px 0;
+    max-width:1100px;
+    margin:0 auto;
+    width:100%;
+  }
+  @media (min-width:860px){
+    .env-body{flex-direction:row;gap:48px;align-items:flex-start;padding-top:36px;}
+  }
+
+  /* visual pane: real PDP-style gallery, main image + thumbnail strip */
+  .env-visual{padding:10px 0 4px;}
+  @media (min-width:860px){
+    .env-visual{flex:0 0 44%;padding:0;position:sticky;top:64px;}
+  }
+  @media (max-width:859px){
+    .env-visual.review-step{display:none;}
+  }
+  .gallery-main{
+    width:100%;aspect-ratio:1/1;border-radius:14px;overflow:hidden;
+    background:#F0EFE9;margin-bottom:10px;
+  }
+  .gallery-main img{width:100%;height:100%;object-fit:cover;display:block;}
+  .gallery-thumbs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;}
+  .gallery-thumb{
+    flex:0 0 auto;width:58px;height:58px;border-radius:8px;overflow:hidden;
+    border:1.5px solid var(--line);cursor:pointer;background:#F0EFE9;
+  }
+  .gallery-thumb.selected{border-color:var(--black);}
+  .gallery-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* bundle tags: real product photos, sits just under the price line */
+  .bundle-tags{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+  .bundle-tag{
+    display:inline-flex;align-items:center;gap:10px;
+    border:1.5px solid var(--line);border-radius:12px;background:#fff;
+    padding:7px 14px 7px 7px;
+  }
+  .tag-img{
+    width:36px;height:36px;border-radius:8px;overflow:hidden;
+    background:#EFEEE8;flex:0 0 auto;
+  }
+  .tag-img img{width:100%;height:100%;object-fit:cover;display:block;}
+  .tag-text{display:flex;flex-direction:column;gap:1px;}
+  .tag-label{
+    font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+  }
+  .tag-val{font-size:12.5px;font-weight:700;}
+  .tag-val.free{color:var(--black);}
+  .tag-plus{
+    width:22px;height:22px;border-radius:6px;background:var(--black);color:var(--sky);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:0 0 auto;
+  }
+  @media (min-width:860px){
+    .tag-img{width:44px;height:44px;}
+    .tag-val{font-size:13.5px;}
+    .bundle-tag{padding:8px 16px 8px 8px;gap:12px;}
+  }
+
+  .bundle-eyebrow{
+    display:inline-block;background:var(--neon);color:var(--black);
+    font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px;
+  }
+
+  /* control panels */
+  .env-panels{flex:1;padding-bottom:16px;}
+  @media (min-width:860px){ .env-panels{max-width:420px;} }
+
+  .env-panel{display:none;}
+  .env-panel.active{display:block;}
+  .env-panel h2{font-size:19px;margin:2px 0 4px;}
+  .env-panel .panel-sub{font-size:13px;color:var(--muted);margin-bottom:18px;}
+
+  .intro-price{display:flex;align-items:baseline;gap:9px;margin-bottom:22px;}
+  .intro-price .was{font-size:14px;color:var(--muted);text-decoration:line-through;}
+  .intro-price .now{font-size:24px;font-weight:800;}
+  .intro-price .save-tag{background:var(--blue);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;}
+  .intro-value-line{font-size:12.5px;font-weight:700;color:var(--black);margin-bottom:16px;}
+  .intro-actions{display:flex;flex-direction:column;gap:10px;}
+
+  .intro-inbox{
+    margin-top:22px;padding-top:18px;border-top:1px solid var(--line);
+  }
+  .intro-inbox-label{
+    display:block;font-size:10.5px;font-weight:700;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+  }
+  .intro-inbox-list{
+    list-style:none;margin:0;padding:0;
+    display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;
+  }
+  .intro-inbox-list.intro-inbox-list-single{grid-template-columns:1fr;gap:8px;}
+  .intro-inbox-list li{
+    font-size:12.5px;color:var(--black);padding-left:18px;position:relative;
+  }
+  .intro-inbox-list li::before{
+    content:'✓';position:absolute;left:0;color:var(--blue);font-weight:800;font-size:11px;
+  }
+
+  .intro-trust{
+    margin-top:18px;padding-top:16px;border-top:1px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;
+  }
+  .trust-item{
+    display:flex;flex-direction:column;gap:2px;
+    border:1.5px solid var(--line);border-radius:12px;
+    padding:10px 10px;background:#fff;text-align:center;
+  }
+  .trust-title{font-size:11.5px;font-weight:700;line-height:1.25;}
+  .trust-sub{font-size:10px;color:var(--muted);line-height:1.3;}
+  @media (min-width:600px){
+    .trust-item{padding:12px 14px;}
+    .trust-title{font-size:12.5px;}
+    .trust-sub{font-size:11px;}
+  }
+
+  .intro-btn-wrap{position:relative;margin-top:14px;width:100%;}
+  .corner-badge{
+    position:absolute;top:-14px;left:50%;
+    transform:translateX(-50%);
+    background:var(--neon);color:var(--black);
+    font-size:11.5px;font-weight:800;padding:6px 14px;border-radius:999px;
+    box-shadow:0 2px 5px rgba(0,0,0,.12);
+    white-space:nowrap;
+    z-index:2;
+  }
+
+  .intro-btn{width:100%;border-radius:999px;padding:14px 18px;font-size:14px;font-weight:700;cursor:pointer;border:1.5px solid var(--black);}
+  .intro-btn.primary{background:var(--black);color:#fff;}
+  .intro-btn.secondary{background:#fff;color:var(--black);}
+
+  .field{margin-bottom:16px;}
+  .field:last-child{margin-bottom:0;}
+  .field-label{font-size:12px;font-weight:700;letter-spacing:.01em;margin-bottom:8px;display:block;}
+
+  .swatches{display:flex;gap:8px;flex-wrap:wrap;}
+  .swatch{
+    display:flex;align-items:center;gap:7px;border:1.5px solid var(--line);
+    border-radius:999px;padding:9px 14px 9px 7px;background:#fff;cursor:pointer;
+    font-size:13px;font-weight:600;min-height:44px;
+  }
+  .swatch .dot{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.12);}
+  .swatch.selected{border-color:var(--black);background:#F4F3EF;}
+
+  .strap-price-note{font-size:11.5px;color:var(--muted);margin:-3px 0 9px;display:flex;align-items:center;gap:7px;}
+  .popular-legend{font-size:11px;color:var(--muted);margin:-3px 0 9px;}
+  .popular-star-inline{color:var(--blue);}
+  .strap-price-note .now{
+    background:var(--blue);color:#fff;font-weight:700;
+    padding:3px 9px;border-radius:999px;font-size:10.5px;
+  }
+  .strap-price-note .was{text-decoration:line-through;color:var(--muted);}
+
+  .item-list{display:flex;flex-direction:column;gap:8px;}
+  .item-list.two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  @media (max-width:520px){
+    .item-list.two-col{grid-template-columns:1fr;}
+  }
+  .item-row-wrap{
+    position:relative;min-width:0;max-width:100%;box-sizing:border-box;
+  }
+  .item-row-wrap:has(.popular-star){margin-top:8px;}
+  .popular-star{
+    position:absolute;top:-6px;right:-6px;
+    width:20px;height:20px;border-radius:50%;
+    background:var(--blue);color:#fff;
+    font-size:11px;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 1px 3px rgba(0,0,0,.2);z-index:1;
+  }
+  .item-row{
+    display:flex;align-items:center;gap:10px;padding:8px 10px;
+    border:1.5px solid var(--line);border-radius:10px;background:#fff;
+    min-width:0;max-width:100%;box-sizing:border-box;overflow:hidden;
+  }
+  .ir-img{width:38px;height:38px;border-radius:8px;object-fit:cover;background:#EFEEE8;flex:0 0 auto;}
+  .ir-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;overflow:hidden;}
+  .ir-name{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .ir-desc{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .ir-price{font-size:11.5px;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .ir-was{text-decoration:line-through;color:var(--muted);margin-right:5px;}
+  .ir-now{color:var(--blue);font-weight:700;}
+  .ir-stepper{display:flex;align-items:center;gap:6px;flex:0 0 auto;}
+  .ir-btn{
+    width:28px;height:28px;border-radius:7px;border:1.5px solid var(--line);
+    background:#fff;font-size:15px;font-weight:800;line-height:1;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;
+  }
+  .ir-btn:disabled{opacity:.3;cursor:default;}
+  .ir-btn:active:not(:disabled){background:#F4F3EF;}
+  .ir-qty{font-size:13px;font-weight:700;min-width:14px;text-align:center;}
+
+  /* review step */
+  .review-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px;}
+  .review-add-btn{margin-top:14px;}
+  .review-card .row{display:flex;justify-content:space-between;padding:5px 0;}
+  .review-card .row.sub{color:var(--muted);}
+  .review-card .row.group{font-weight:700;padding-top:10px;}
+  .review-card .row.total{border-top:1px solid var(--line);margin-top:6px;padding-top:9px;font-weight:800;font-size:15px;}
+  .savings-banner{
+    background:var(--neon);color:var(--black);font-weight:800;font-size:13.5px;
+    text-align:center;border-radius:9px;padding:9px 12px;margin-bottom:4px;
+  }
+  .gift-note{
+    margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);
+    font-size:11.5px;color:var(--muted);line-height:1.45;
+  }
+
+  /* bottom nav */
+  .env-nav{
+    position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);
+    padding:12px 16px;
+  }
+  .env-nav-inner{
+    max-width:1100px;margin:0 auto;width:100%;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+  }
+  .nav-price{display:flex;flex-direction:column;}
+  .nav-price .np-label{font-size:10.5px;color:var(--muted);}
+  .nav-price .np-amount{font-size:18px;font-weight:800;}
+  .nav-buttons{
+    display:flex;gap:8px;
+    width:50%;max-width:320px;
+  }
+  .nav-back{
+    flex:0 0 auto;background:#fff;color:var(--black);border:1.5px solid var(--line);
+    border-radius:999px;padding:13px 16px;font-size:13.5px;font-weight:700;cursor:pointer;
+  }
+  .nav-back:disabled{opacity:0;pointer-events:none;}
+  .nav-next{
+    flex:1;background:var(--black);color:#fff;border:none;border-radius:999px;
+    padding:13px 16px;font-size:14px;font-weight:700;cursor:pointer;
+  }
+  .nav-next:active{transform:scale(.99);}
+  @media (max-width:420px){
+    .nav-buttons{width:auto;}
+  }
+
+  /* below-the-fold standard sections */
+  .std-section{max-width:640px;margin:0 auto;padding:40px 16px 60px;}
+  .std-block{margin-bottom:28px;}
+  .std-block h3{font-size:15px;margin-bottom:6px;}
+  .std-block p{font-size:13.5px;color:var(--muted);line-height:1.55;}
+  .std-note{
+    font-size:11.5px;color:var(--muted);background:#F4F3EF;border-radius:10px;
+    padding:9px 12px;display:inline-block;
+  }
+</style>
+</head>
+<body>
+
+<div class="stepper-env">
+
+  <div class="env-topbar">
+    <span class="offer">Buy 1 Loop Smartwatch, Get 1 Free</span>
+    <span class="running-total" id="runningTotal">$249.00</span>
+  </div>
+
+  <div class="env-progress" id="progressBar" style="display:none;">
+    <div class="seg active" id="seg1"></div>
+    <div class="seg" id="seg2"></div>
+    <div class="seg" id="seg3"></div>
+  </div>
+  <div class="env-step-label" id="stepLabel" style="display:none;">Step 1 of 3 — Your first Loop Smartwatch</div>
+
+  <div class="env-body">
+
+    <div class="env-visual" id="envVisualPane">
+      <div class="gallery-main">
+        <img id="galleryMainImg" src="https://spacetalk.co/cdn/shop/files/1._Loop_-_Frost.png?v=1778845183&width=800" alt="Spacetalk Loop Smartwatch">
+      </div>
+      <div class="gallery-thumbs" id="galleryThumbs"></div>
+    </div>
+
+    <div class="env-panels">
+
+      <div class="env-panel active" id="panel-0">
+        <span class="bundle-eyebrow">2-Watch Bundle</span>
+        <h2>Buy 1 Loop Smartwatch, Get 1 Free</h2>
+        <div class="panel-sub">Pick two Loop Smartwatches, one's on us. Add them as-is, or pick colours, straps and accessories for each.</div>
+        <div class="intro-price">
+          <span class="was">$498.00</span>
+          <span class="now">$249.00</span>
+          <span class="save-tag">2 watches, 1 price</span>
+        </div>
+        <div class="intro-value-line">One to keep, one to gift — save $249 instantly.</div>
+        <div class="bundle-tags">
+          <div class="bundle-tag">
+            <div class="tag-img"><img id="tagImg1" src="https://spacetalk.co/cdn/shop/files/1._Loop_-_Frost.png?v=1778845183&width=200" alt=""></div>
+            <div class="tag-text">
+              <span class="tag-label">First Watch</span>
+              <span class="tag-val" id="tagVal1">Frost · $249</span>
+            </div>
+          </div>
+          <div class="tag-plus">+</div>
+          <div class="bundle-tag">
+            <div class="tag-img"><img id="tagImg2" src="https://spacetalk.co/cdn/shop/files/1._Loop_-_Dusk.png?v=1778845183&width=200" alt=""></div>
+            <div class="tag-text">
+              <span class="tag-label">Second Watch</span>
+              <span class="tag-val free" id="tagVal2">Dusk · Free</span>
+            </div>
+          </div>
+        </div>
+        <div class="intro-actions">
+          <div class="intro-btn-wrap">
+            <span class="corner-badge">Add accessories for 50% off</span>
+            <button class="intro-btn primary" id="customiseBtn">Customise your watches</button>
+          </div>
+          <button class="intro-btn secondary" id="quickAddBtn">Add both as-is — $249.00</button>
+        </div>
+
+        <div class="intro-inbox">
+          <span class="intro-inbox-label">Each Loop Smartwatch includes</span>
+          <ul class="intro-inbox-list">
+            <li>Loop Smartwatch</li>
+            <li>Loop Band Strap</li>
+            <li>Loop Magnetic Charging Cable</li>
+            <li>Screen Protector</li>
+            <li>Spacetalk Mobile SIM Card (preinstalled)</li>
+            <li>Getting Started Guide</li>
+          </ul>
+        </div>
+
+        <div class="intro-inbox">
+          <span class="intro-inbox-label">Spacetalk App Features included</span>
+          <ul class="intro-inbox-list intro-inbox-list-single">
+            <li>Real-time GPS location tracking</li>
+            <li>Safe zone alerts and SOS notifications</li>
+            <li>Manage contacts and safe messaging</li>
+            <li>School mode and activity scheduling</li>
+            <li>Group family chat and check-ins</li>
+          </ul>
+        </div>
+
+        <div class="intro-trust">
+          <div class="trust-item">
+            <span class="trust-title">Free Shipping</span>
+            <span class="trust-sub">On this order, no minimum needed.</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-title">Trusted by Families</span>
+            <span class="trust-sub">4.4★ average from 3,200+ reviews.</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-title">12 Month Warranty</span>
+            <span class="trust-sub">Covered on every Spacetalk watch.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="env-panel" id="panel-1">
+        <h2>Choose your first Loop Smartwatch</h2>
+        <div class="panel-sub">Full price · $249.00</div>
+        <div class="field">
+          <span class="field-label">Colour</span>
+          <div class="swatches" id="w1-colours"></div>
+        </div>
+        <div class="field">
+          <span class="field-label">Extra strap <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
+          <div class="strap-price-note"><span class="was">$30</span><span class="now">$15 each · 50% off</span></div>
+          <div class="popular-legend"><span class="popular-star-inline">★</span> = Most Popular</div>
+          <div class="item-list two-col" id="w1-straps"></div>
+        </div>
+        <div class="field">
+          <span class="field-label">Accessories <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
+          <div class="strap-price-note"><span class="now">50% off</span></div>
+          <div class="item-list" id="w1-accessories"></div>
+        </div>
+      </div>
+
+      <div class="env-panel" id="panel-2">
+        <h2>Choose your free Loop Smartwatch</h2>
+        <div class="panel-sub">This one's on us — perfect for a sibling or to gift</div>
+        <div class="field">
+          <span class="field-label">Colour</span>
+          <div class="swatches" id="w2-colours"></div>
+        </div>
+        <div class="field">
+          <span class="field-label">Extra strap <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
+          <div class="strap-price-note"><span class="was">$30</span><span class="now">$15 each · 50% off</span></div>
+          <div class="popular-legend"><span class="popular-star-inline">★</span> = Most Popular</div>
+          <div class="item-list two-col" id="w2-straps"></div>
+        </div>
+        <div class="field">
+          <span class="field-label">Accessories <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
+          <div class="strap-price-note"><span class="now">50% off</span></div>
+          <div class="item-list" id="w2-accessories"></div>
+        </div>
+      </div>
+
+      <div class="env-panel" id="panel-3">
+        <h2>Review your bundle</h2>
+        <div class="panel-sub">Everything below is ready to go</div>
+        <div class="review-card" id="reviewCard"></div>
+        <button class="intro-btn primary review-add-btn" id="reviewAddBtn">Add Bundle to Cart</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="env-nav" id="envNav" style="display:none;">
+    <div class="env-nav-inner">
+      <div class="nav-price">
+        <span class="np-label">Total</span>
+        <span class="np-amount" id="navTotal">$249.00</span>
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-back" id="backBtn">Back</button>
+        <button class="nav-next" id="nextBtn">Next</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="std-section">
+  <div class="std-block">
+    <h3>Product description</h3>
+    <p>The Spacetalk Loop Smartwatch is the perfect first smartwatch for kids. 4G calling, real-time GPS, School Mode and SOS in a light, comfy watch — made for kids aged 4 and up.</p>
+  </div>
+  <div class="std-block">
+    <h3>What's in the box</h3>
+    <p>Loop Smartwatch, Loop Band Strap, Magnetic Charging Cable, Screen Protector, Spacetalk Mobile SIM (preinstalled), Getting Started Guide.</p>
+  </div>
+  <div class="std-note">Reviews, full feature breakdown, and FAQ sections continue below — carried over unchanged from the standard PDP template.</div>
+</div>
+
+<script>
+const FIRST_PDP_IMAGE = 'https://spacetalk.co/cdn/shop/files/1._Loop_-_Frost.png?v=1778845183&width=800';
+
+const COLOURS = [
+  { id:'frost', name:'Frost', hex:'#EDEBE4', img:'https://spacetalk.co/cdn/shop/files/1._Loop_-_Frost.png?v=1778845183&width=300' },
+  { id:'dusk',  name:'Dusk',  hex:'#3A3F4B', img:'https://spacetalk.co/cdn/shop/files/1._Loop_-_Dusk.png?v=1778845183&width=300' }
+];
+
+const GALLERY = {
+  frost: [
+    'https://spacetalk.co/cdn/shop/files/1._Loop_-_Frost.png?v=1778845183&width=800',
+    'https://spacetalk.co/cdn/shop/files/2._Loop_-_Frost.png?v=1778845182&width=800',
+    'https://spacetalk.co/cdn/shop/files/3._Loop_-_Frost.png?v=1778845182&width=800',
+    'https://spacetalk.co/cdn/shop/files/10._Loop_-_Frost.png?v=1778845186&width=800',
+    'https://spacetalk.co/cdn/shop/files/9._Loop_-_PAIR_AU.png?v=1778845183&width=800'
+  ],
+  dusk: [
+    'https://spacetalk.co/cdn/shop/files/1._Loop_-_Dusk.png?v=1778845183&width=800',
+    'https://spacetalk.co/cdn/shop/files/2._Loop_-_Dusk.png?v=1778845182&width=800',
+    'https://spacetalk.co/cdn/shop/files/3._Loop_-_Dusk.png?v=1778845182&width=800',
+    'https://spacetalk.co/cdn/shop/files/5._Loop_-_Dusk.png?v=1778845187&width=800',
+    'https://spacetalk.co/cdn/shop/files/9._Loop_-_PAIR_AU.png?v=1778845183&width=800'
+  ]
+};
+
+function renderGallery(colourId, showThumbs){
+  const imgs = GALLERY[colourId];
+  document.getElementById('galleryMainImg').src = imgs[0];
+  const thumbsEl = document.getElementById('galleryThumbs');
+  thumbsEl.innerHTML = '';
+  thumbsEl.style.display = showThumbs ? 'flex' : 'none';
+  if(!showThumbs) return;
+  imgs.forEach((src, i) => {
+    const t = document.createElement('div');
+    t.className = 'gallery-thumb' + (i === 0 ? ' selected' : '');
+    t.innerHTML = `<img src="${src}" alt="">`;
+    t.onclick = () => {
+      document.getElementById('galleryMainImg').src = src;
+      document.querySelectorAll('.gallery-thumb').forEach(el => el.classList.remove('selected'));
+      t.classList.add('selected');
+    };
+    thumbsEl.appendChild(t);
+  });
+}
+
+const STRAPS = [
+  { key:'Arctic',   name:'Arctic',   price:15, was:30, popular:true, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Arctic-Back-1600x1600RGB_b03bdcf6-0e3b-4d44-9d70-401b644465e3.png?v=1762928293&width=200' },
+  { key:'Black',    name:'Black',    price:15, was:30, popular:true, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Black-Back-1600x1600RGB_e89aba95-7b20-4965-aad7-5ec84f8f079c.png?v=1762928292&width=200' },
+  { key:'Candy',    name:'Candy',    price:15, was:30, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Candy-Back-1600x1600RGB_51577a84-1215-4ed5-b0bf-8755089a7645.png?v=1762928293&width=200' },
+  { key:'Cherry',   name:'Cherry',   price:15, was:30, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Cherry-Back-1600x1600RGB_bdc66746-5281-4e61-8af0-1fb8e5faf1d8.png?v=1762928292&width=200' },
+  { key:'Flamingo', name:'Flamingo', price:15, was:30, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Flamingo-Back-1000x1000RGB.png?v=1762928292&width=200' },
+  { key:'Lemon',    name:'Lemon',    price:15, was:30, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Lemon-Back-1600x1600RGB_a0373cb4-407b-4bf6-88ea-b3e4b095e4fe.png?v=1762928292&width=200' },
+  { key:'Lilac',    name:'Lilac',    price:15, was:30, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Lilac-Back-1600x1600RGB_0d4367b2-3337-402f-8fd7-b26fd26fa621.png?v=1762928292&width=200' },
+  { key:'Olive',    name:'Olive',    price:15, was:30, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Olive-Back-1600x1600RGB.png?v=1762928293&width=200' },
+  { key:'Peach',    name:'Peach',    price:15, was:30, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Peach-Back-1600x1600RGB.png?v=1762928293&width=200' },
+  { key:'Slate',    name:'Slate',    price:15, was:30, popular:true, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Slate-Back-1600x1600RGB.png?v=1762928292&width=200' },
+  { key:'Stone',    name:'Stone',    price:15, was:30, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Stone-Back-1600x1600RGB.png?v=1762928292&width=200' },
+  { key:'Sky',      name:'Sky',      price:15, was:30, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Sky-Back-1000x1000-RGB.png?v=1762928292&width=200' },
+  { key:'Teal',     name:'Teal',     price:15, was:30, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Teal-Back-1600x1600RGB.png?v=1762928293&width=200' }
+];
+
+const ACCESSORIES = [
+  { key:'cable', name:'Charging Cable', desc:'Magnetic cable for quick, easy charging.', was:29.95, price:14.98, img:'https://spacetalk.co/cdn/shop/files/Charging-cable-s.jpg?v=1770354229&width=400' },
+  { key:'screen', name:'Screen Protector', desc:'Extra protection for the touchscreen.', was:12.95, price:6.48, img:'https://spacetalk.co/cdn/shop/files/LoopAccessoriesPDP_Screen-protector-1.png?v=1762926935&width=400' },
+  { key:'triple-candy', name:'3-Pack Straps · Candy/Arctic/Lilac', desc:'3 straps in one pack, mix and match.', was:69.95, price:34.98, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Candy-Back-1600x1600RGB_4937e2ca-9cb2-4c62-a405-315ccc792e43.png?v=1762927205&width=400' },
+  { key:'triple-cherry', name:'3-Pack Straps · Cherry/Lemon/Black', desc:'3 straps in one pack, mix and match.', was:69.95, price:34.98, img:'https://spacetalk.co/cdn/shop/files/Adventurer2-Cherry-Back-1600x1600RGB.png?v=1762927205&width=400' }
+];
+
+const WATCH_PRICE = 249.00;
+
+const state = {
+  step: 1,
+  w1: { colour:'frost', straps:{}, accessories:{} },
+  w2: { colour:'dusk', straps:{}, accessories:{} }
+};
+
+let lastTotal = null;
+
+function money(n){ return '$' + n.toFixed(2); }
+
+function renderColours(prefix, key){
+  const el = document.getElementById(prefix+'-colours');
+  el.innerHTML = '';
+  COLOURS.forEach(c => {
+    const btn = document.createElement('div');
+    btn.className = 'swatch' + (state[key].colour === c.id ? ' selected' : '');
+    btn.innerHTML = `<span class="dot" style="background:${c.hex}"></span>${c.name}`;
+    btn.onclick = () => {
+      state[key].colour = c.id;
+      renderColours(prefix, key);
+      renderVisual();
+    };
+    el.appendChild(btn);
+  });
+}
+
+function renderItemList(containerId, items, key, dataKey, showPrice){
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map(it => {
+    const qty = state[key][dataKey][it.key] || 0;
+    return `
+      <div class="item-row-wrap">
+        ${it.popular ? `<span class="popular-star" title="Most Popular">★</span>` : ''}
+        <div class="item-row" data-key="${it.key}">
+          <img class="ir-img" src="${it.img}" alt="">
+          <div class="ir-info">
+            <span class="ir-name">${it.name}</span>
+            ${it.desc ? `<span class="ir-desc">${it.desc}</span>` : ''}
+            ${showPrice ? `<span class="ir-price"><span class="ir-was">${money(it.was)}</span><span class="ir-now">${money(it.price)}</span></span>` : ''}
+        </div>
+        <div class="ir-stepper">
+          <button class="ir-btn minus" type="button" ${qty === 0 ? 'disabled' : ''} aria-label="Remove one ${it.name}">–</button>
+          <span class="ir-qty">${qty}</span>
+          <button class="ir-btn plus" type="button" aria-label="Add ${it.name}">+</button>
+        </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  el.querySelectorAll('.item-row').forEach(row => {
+    const k = row.dataset.key;
+    row.querySelector('.minus').onclick = () => {
+      if(!state[key][dataKey][k]) return;
+      state[key][dataKey][k]--;
+      if(state[key][dataKey][k] <= 0) delete state[key][dataKey][k];
+      renderItemList(containerId, items, key, dataKey, showPrice);
+      updateTotal();
+    };
+    row.querySelector('.plus').onclick = () => {
+      state[key][dataKey][k] = (state[key][dataKey][k] || 0) + 1;
+      renderItemList(containerId, items, key, dataKey, showPrice);
+      updateTotal();
+    };
+  });
+}
+
+function renderStraps(prefix, key){
+  renderItemList(prefix + '-straps', STRAPS, key, 'straps', false);
+}
+
+function renderAccessories(prefix, key){
+  renderItemList(prefix + '-accessories', ACCESSORIES, key, 'accessories', true);
+}
+
+function lineItemsFor(key){
+  const items = [];
+  items.push({ label:'Loop Smartwatch', amount: key==='w2' ? 0 : WATCH_PRICE, note: key==='w2' ? 'Free' : null });
+  Object.entries(state[key].straps).forEach(([k, qty]) => {
+    const s = STRAPS.find(s => s.key === k);
+    items.push({ label:'Extra strap · '+s.name+(qty>1?' ×'+qty:''), amount:s.price*qty, note:'50% off' });
+  });
+  Object.entries(state[key].accessories).forEach(([k, qty]) => {
+    const a = ACCESSORIES.find(a => a.key === k);
+    items.push({ label:a.name+(qty>1?' ×'+qty:''), amount:a.price*qty, note:'50% off' });
+  });
+  return items;
+}
+
+function updateTotal(){
+  const total = [...lineItemsFor('w1'), ...lineItemsFor('w2')].reduce((s,i)=>s+i.amount,0);
+  const totalEl = document.getElementById('runningTotal');
+  totalEl.textContent = money(total);
+  document.getElementById('navTotal').textContent = money(total);
+  if(lastTotal !== null && total !== lastTotal){
+    totalEl.classList.remove('pulse');
+    void totalEl.offsetWidth; // restart animation
+    totalEl.classList.add('pulse');
+  }
+  lastTotal = total;
+  if(state.step === 3) renderReview();
+}
+
+function renderVisual(){
+  const w1c = COLOURS.find(c=>c.id===state.w1.colour);
+  const w2c = COLOURS.find(c=>c.id===state.w2.colour);
+  const visualPane = document.getElementById('envVisualPane');
+
+  // bundle tag row above the headline — text + colour dot only, no imagery
+  document.getElementById('tagImg1').src = w1c.img;
+  document.getElementById('tagImg2').src = w2c.img;
+  document.getElementById('tagVal1').textContent = w1c.name + ' · $249';
+  document.getElementById('tagVal2').textContent = w2c.name + ' · Free';
+
+  visualPane.classList.toggle('review-step', state.step === 3);
+
+  if(state.step === 1){
+    // customisation screen (Watch 1): single image only, no slideshow
+    renderGallery(w1c.id, false);
+  } else if(state.step === 2){
+    // customisation screen (Watch 2): single image only, no slideshow
+    renderGallery(w2c.id, false);
+  } else if(state.step === 3){
+    // review: hidden on mobile, just the default first PDP image on desktop (no thumbs, not colour-synced)
+    document.getElementById('galleryMainImg').src = FIRST_PDP_IMAGE;
+    document.getElementById('galleryThumbs').innerHTML = '';
+    document.getElementById('galleryThumbs').style.display = 'none';
+  } else {
+    renderGallery(w1c.id, true);
+  }
+}
+
+function renderReview(){
+  const w1Items = lineItemsFor('w1');
+  const w2Items = lineItemsFor('w2');
+  const total = [...w1Items, ...w2Items].reduce((s,i)=>s+i.amount,0);
+
+  const w1c = COLOURS.find(c=>c.id===state.w1.colour);
+  const w2c = COLOURS.find(c=>c.id===state.w2.colour);
+
+  // total savings: the free second watch, plus every strap/accessory discount across both watches
+  let savings = WATCH_PRICE;
+  ['w1','w2'].forEach(key => {
+    Object.entries(state[key].straps).forEach(([k,qty]) => {
+      const s = STRAPS.find(s => s.key === k);
+      savings += (s.was - s.price) * qty;
+    });
+    Object.entries(state[key].accessories).forEach(([k,qty]) => {
+      const a = ACCESSORIES.find(a => a.key === k);
+      savings += (a.was - a.price) * qty;
+    });
+  });
+
+  const group = (title, items) => `
+    <div class="row group">${title}</div>
+    ${items.map(i=>`<div class="row sub"><span>${i.label}${i.note?' · '+i.note:''}</span><span>${money(i.amount)}</span></div>`).join('')}
+  `;
+
+  document.getElementById('reviewCard').innerHTML =
+    `<div class="savings-banner">You're saving ${money(savings)} today</div>` +
+    group('Watch 1 · ' + w1c.name, w1Items) +
+    group('Watch 2 · ' + w2c.name + ' · Free — to gift or keep', w2Items) +
+    `<div class="row total"><span>Total</span><span>${money(total)}</span></div>` +
+    `<div class="gift-note">Watch 2 is yours to keep, or gift to someone else — plans can be added in the Spacetalk app whenever they're ready.</div>`;
+}
+
+function goToStep(n){
+  state.step = n;
+  document.querySelectorAll('.env-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + n).classList.add('active');
+
+  const progressBar = document.getElementById('progressBar');
+  const stepLabel = document.getElementById('stepLabel');
+  const envNav = document.getElementById('envNav');
+
+  if(n === 0){
+    progressBar.style.display = 'none';
+    stepLabel.style.display = 'none';
+    envNav.style.display = 'none';
+  } else {
+    progressBar.style.display = 'flex';
+    stepLabel.style.display = 'block';
+    envNav.style.display = 'flex';
+    document.querySelectorAll('.env-progress .seg').forEach((s,i) => {
+      s.classList.toggle('done', i < n-1);
+      s.classList.toggle('active', i === n-1);
+    });
+    const labels = ['Step 1 of 3 — Your first Loop Smartwatch','Step 2 of 3 — Your free Loop Smartwatch','Step 3 of 3 — Review & add to cart'];
+    stepLabel.textContent = labels[n-1];
+    document.getElementById('nextBtn').textContent = (n === 3) ? 'Add to Cart' : 'Next';
+  }
+
+  renderVisual();
+  if(n === 3) renderReview();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+document.getElementById('backBtn').onclick = () => { if(state.step > 0) goToStep(state.step - 1); };
+document.getElementById('nextBtn').onclick = () => {
+  if(state.step < 3) goToStep(state.step + 1);
+  else alert('Demo only — this would add both watches, straps and accessories to cart as one bundle line.');
+};
+document.getElementById('reviewAddBtn').onclick = () => {
+  alert('Demo only — this would add both watches, straps and accessories to cart as one bundle line.');
+};
+document.getElementById('customiseBtn').onclick = () => goToStep(1);
+document.getElementById('quickAddBtn').onclick = () => {
+  alert('Demo only — this would add both watches to cart as-is: Frost ($249) + Dusk (Free), no straps or accessories.');
+};
+
+renderColours('w1','w1');
+renderColours('w2','w2');
+renderStraps('w1','w1');
+renderStraps('w2','w2');
+renderAccessories('w1','w1');
+renderAccessories('w2','w2');
+goToStep(0);
+updateTotal();
+</script>
+
+</body>
+</html>
