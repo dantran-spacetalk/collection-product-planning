@@ -116,7 +116,7 @@
   .tag-val{font-size:12.5px;font-weight:700;}
   .tag-val.free{color:var(--black);}
   .tag-plus{
-    width:22px;height:22px;border-radius:6px;background:var(--black);color:var(--sky);
+    width:22px;height:22px;border-radius:6px;background:var(--black);color:#fff;
     display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:0 0 auto;
   }
   @media (min-width:860px){
@@ -261,6 +261,28 @@
   /* review step */
   .review-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px;}
   .review-add-btn{margin-top:14px;}
+  .mobile-offer{
+    margin-top:16px;padding:14px 14px 12px;border:1px solid var(--line);
+    border-top:3px solid var(--neon);border-radius:12px;background:#fff;
+    box-shadow:0 4px 14px rgba(23,23,23,.08);
+  }
+  .mobile-offer-heading-row{display:flex;align-items:center;gap:8px;margin-bottom:3px;}
+  .mobile-offer-heading{margin:0;font-size:13.5px;font-weight:800;}
+  .mobile-offer-badge{padding:4px 8px;border-radius:999px;background:var(--neon);color:var(--black);font-size:9.5px;font-weight:900;letter-spacing:.05em;white-space:nowrap;}
+  .mobile-offer-copy{margin:0 0 11px;color:var(--muted);font-size:11.5px;line-height:1.4;}
+  .mobile-offer-account-note{margin:-4px 0 11px;color:var(--muted);font-size:10.5px;line-height:1.4;}
+  .mobile-plan-pills{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .mobile-plan-pill{
+    display:flex;flex-direction:column;align-items:flex-start;gap:3px;
+    min-height:62px;padding:9px 10px;border:1.5px solid #C9D0EA;border-radius:10px;
+    background:#fff;color:var(--black);cursor:pointer;text-align:left;
+  }
+  .mobile-plan-pill.selected{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue);background:#fff;}
+  .mobile-plan-pill .plan-name{font-size:12px;font-weight:800;}
+  .mobile-plan-pill .plan-price{font-size:12px;color:var(--blue);font-weight:800;}
+  .mobile-plan-pill .plan-price s{color:var(--muted);font-weight:400;margin-right:3px;}
+  .mobile-plan-pill .plan-save{color:var(--black);font-size:9.5px;font-weight:800;letter-spacing:.02em;}
+  .mobile-plan-pill .plan-note{font-size:10px;color:var(--muted);}
   .review-card .row{display:flex;justify-content:space-between;padding:5px 0;}
   .review-card .row.sub{color:var(--muted);}
   .review-card .row.group{font-weight:700;padding-top:10px;}
@@ -395,7 +417,7 @@
 
         <div class="intro-trust">
           <div class="trust-item">
-            <span class="trust-title">Free Shipping</span>
+            <span class="trust-title">Free Standard Shipping</span>
             <span class="trust-sub">On this order, no minimum needed.</span>
           </div>
           <div class="trust-item">
@@ -454,6 +476,25 @@
         <div class="panel-sub">Everything below is ready to go</div>
         <div class="review-card" id="reviewCard"></div>
         <button class="intro-btn primary review-add-btn" id="reviewAddBtn">Add Bundle to Cart</button>
+        <div class="mobile-offer">
+          <div class="mobile-offer-heading-row"><p class="mobile-offer-heading">Stay connected with Spacetalk Mobile</p><span class="mobile-offer-badge">SPECIAL OFFER</span></div>
+          <p class="mobile-offer-copy">Add a 15GB or 40GB mobile plan at 70% off your first month.</p>
+          <p class="mobile-offer-account-note"><strong>Mobile plans are linked to your Spacetalk account email.</strong> Use the email address you want associated with this plan at checkout.</p>
+          <div class="mobile-plan-pills" id="mobilePlanPills">
+            <button class="mobile-plan-pill" type="button" data-mobile-plan="15gb" aria-pressed="false">
+              <span class="plan-name">15GB 4G Mobile Plan</span>
+              <span class="plan-price"><s>$20.00</s>$6.00<span class="plan-note"> /month first month</span></span>
+              <span class="plan-save">Save 70% first month</span>
+              <span class="plan-note">$20.00 thereafter</span>
+            </button>
+            <button class="mobile-plan-pill" type="button" data-mobile-plan="40gb" aria-pressed="false">
+              <span class="plan-name">40GB 4G &amp; 5G Mobile Plan</span>
+              <span class="plan-price"><s>$35.00</s>$10.50<span class="plan-note"> /month first month</span></span>
+              <span class="plan-save">Save 70% first month</span>
+              <span class="plan-note">$35.00 thereafter</span>
+            </button>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -556,10 +597,16 @@ const ACCESSORIES = [
 
 const WATCH_PRICE = 249.00;
 
+const MOBILE_PLANS = {
+  '15gb': { name:'15GB 4G Mobile Plan', price:6.00, was:20.00 },
+  '40gb': { name:'40GB 4G & 5G Mobile Plan', price:10.50, was:35.00 }
+};
+
 const state = {
   step: 1,
   w1: { colour:'frost', straps:{}, accessories:{} },
-  w2: { colour:'dusk', straps:{}, accessories:{} }
+  w2: { colour:'dusk', straps:{}, accessories:{} },
+  mobilePlan: null
 };
 
 let lastTotal = null;
@@ -646,7 +693,9 @@ function lineItemsFor(key){
 }
 
 function updateTotal(){
-  const total = [...lineItemsFor('w1'), ...lineItemsFor('w2')].reduce((s,i)=>s+i.amount,0);
+  const bundleTotal = [...lineItemsFor('w1'), ...lineItemsFor('w2')].reduce((s,i)=>s+i.amount,0);
+  const mobilePlan = state.step === 3 && state.mobilePlan ? MOBILE_PLANS[state.mobilePlan] : null;
+  const total = bundleTotal + (mobilePlan ? mobilePlan.price : 0);
   const totalEl = document.getElementById('runningTotal');
   totalEl.textContent = money(total);
   document.getElementById('navTotal').textContent = money(total);
@@ -691,7 +740,9 @@ function renderVisual(){
 function renderReview(){
   const w1Items = lineItemsFor('w1');
   const w2Items = lineItemsFor('w2');
-  const total = [...w1Items, ...w2Items].reduce((s,i)=>s+i.amount,0);
+  const bundleTotal = [...w1Items, ...w2Items].reduce((s,i)=>s+i.amount,0);
+  const mobilePlan = state.mobilePlan ? MOBILE_PLANS[state.mobilePlan] : null;
+  const total = bundleTotal + (mobilePlan ? mobilePlan.price : 0);
 
   const w1c = COLOURS.find(c=>c.id===state.w1.colour);
   const w2c = COLOURS.find(c=>c.id===state.w2.colour);
@@ -708,6 +759,7 @@ function renderReview(){
       savings += (a.was - a.price) * qty;
     });
   });
+  if(mobilePlan) savings += mobilePlan.was - mobilePlan.price;
 
   const group = (title, items) => `
     <div class="row group">${title}</div>
@@ -718,8 +770,11 @@ function renderReview(){
     `<div class="savings-banner">You're saving ${money(savings)} today</div>` +
     group('Watch 1 · ' + w1c.name, w1Items) +
     group('Watch 2 · ' + w2c.name + ' · Free - to gift or keep', w2Items) +
+    (mobilePlan ? group('Mobile plan · 70% off first month', [{ label:mobilePlan.name, amount:mobilePlan.price, note:'First month' }]) : '') +
     `<div class="row total"><span>Total</span><span>${money(total)}</span></div>` +
     `<div class="gift-note">Watch 2 is yours to keep, or gift to someone else - plans can be added in the Spacetalk app whenever they're ready.</div>`;
+  document.getElementById('runningTotal').textContent = money(total);
+  document.getElementById('navTotal').textContent = money(total);
 }
 
 function goToStep(n){
@@ -755,12 +810,25 @@ document.getElementById('nextBtn').onclick = () => {
   else alert('Demo only - this would add both watches, straps and accessories to cart as one bundle line.');
 };
 document.getElementById('reviewAddBtn').onclick = () => {
-  alert('Demo only - this would add both watches, straps and accessories to cart as one bundle line.');
+  const mobilePlan = state.mobilePlan ? MOBILE_PLANS[state.mobilePlan] : null;
+  alert('Demo only - this would add both watches, straps and accessories to cart' + (mobilePlan ? ', plus ' + mobilePlan.name + ' at ' + money(mobilePlan.price) + ' for the first month.' : '.') );
 };
 document.getElementById('customiseBtn').onclick = () => goToStep(1);
 document.getElementById('quickAddBtn').onclick = () => {
   alert('Demo only - this would add both watches to cart as-is: Frost ($249) + Dusk (Free), no straps or accessories.');
 };
+
+document.querySelectorAll('[data-mobile-plan]').forEach(button => {
+  button.onclick = () => {
+    state.mobilePlan = state.mobilePlan === button.dataset.mobilePlan ? null : button.dataset.mobilePlan;
+    document.querySelectorAll('[data-mobile-plan]').forEach(option => {
+      const selected = option.dataset.mobilePlan === state.mobilePlan;
+      option.classList.toggle('selected', selected);
+      option.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    });
+    updateTotal();
+  };
+});
 
 renderColours('w1','w1');
 renderColours('w2','w2');
