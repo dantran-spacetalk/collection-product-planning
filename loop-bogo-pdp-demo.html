@@ -199,7 +199,8 @@
 
   .field{margin-bottom:16px;}
   .field:last-child{margin-bottom:0;}
-  .field-label{font-size:12px;font-weight:700;letter-spacing:.01em;margin-bottom:8px;display:block;}
+  .field-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+  .field-label{font-size:12px;font-weight:700;letter-spacing:.01em;display:inline-block;}
 
   .swatches{display:flex;gap:8px;flex-wrap:wrap;}
   .swatch{
@@ -210,8 +211,8 @@
   .swatch .dot{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.12);}
   .swatch.selected{border-color:var(--black);background:#F4F3EF;}
 
-  .strap-price-note{font-size:11.5px;color:var(--muted);margin:-3px 0 9px;display:flex;align-items:center;gap:7px;}
-  .popular-legend{font-size:11px;color:var(--muted);margin:-3px 0 9px;}
+  .strap-price-note{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:7px;}
+  .popular-legend{font-size:11px;color:var(--muted);}
   .popular-star-inline{color:var(--blue);}
   .strap-price-note .now{
     background:var(--blue);color:#fff;font-weight:700;
@@ -271,18 +272,19 @@
   .mobile-offer-badge{padding:4px 8px;border-radius:999px;background:var(--neon);color:var(--black);font-size:9.5px;font-weight:900;letter-spacing:.05em;white-space:nowrap;}
   .mobile-offer-copy{margin:0 0 11px;color:var(--muted);font-size:11.5px;line-height:1.4;}
   .mobile-offer-account-note{margin:-4px 0 11px;color:var(--muted);font-size:10.5px;line-height:1.4;}
-  .mobile-plan-pills{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .mobile-plan-pills{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;}
   .mobile-plan-pill{
     display:flex;flex-direction:column;align-items:flex-start;gap:3px;
-    min-height:62px;padding:9px 10px;border:1.5px solid #C9D0EA;border-radius:10px;
-    background:#fff;color:var(--black);cursor:pointer;text-align:left;
+    min-height:76px;padding:10px 11px;border:1.5px solid #C9D0EA;border-radius:10px;
+    min-width:0;overflow:hidden;background:#fff;color:var(--black);cursor:pointer;text-align:left;
   }
   .mobile-plan-pill.selected{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue);background:#fff;}
-  .mobile-plan-pill .plan-name{font-size:12px;font-weight:800;}
-  .mobile-plan-pill .plan-price{font-size:12px;color:var(--blue);font-weight:800;}
-  .mobile-plan-pill .plan-price s{color:var(--muted);font-weight:400;margin-right:3px;}
-  .mobile-plan-pill .plan-save{color:var(--black);font-size:9.5px;font-weight:800;letter-spacing:.02em;}
-  .mobile-plan-pill .plan-note{font-size:10px;color:var(--muted);}
+  .mobile-plan-pill .plan-name{max-width:100%;overflow:hidden;text-overflow:ellipsis;font-size:12px;font-weight:800;line-height:1.2;white-space:nowrap;}
+  .mobile-plan-pill .plan-price{display:flex;align-items:baseline;gap:4px;max-width:100%;font-size:16px;color:var(--blue);font-weight:800;line-height:1.1;white-space:nowrap;}
+  .mobile-plan-pill .plan-price s{color:var(--muted);font-size:11px;font-weight:400;}
+  .mobile-plan-pill .plan-price .plan-note{font-size:10px;color:var(--muted);font-weight:600;}
+  .mobile-plan-pill .plan-save{padding:2px 5px;border-radius:4px;background:var(--neon);color:var(--black);font-size:9px;font-weight:900;letter-spacing:.02em;line-height:1.1;}
+  .mobile-plan-pill > .plan-note{font-size:10px;color:var(--muted);}
   .review-card .row{display:flex;justify-content:space-between;padding:5px 0;}
   .review-card .row.sub{color:var(--muted);}
   .review-card .row.group{font-weight:700;padding-top:10px;}
@@ -439,14 +441,18 @@
           <div class="swatches" id="w1-colours"></div>
         </div>
         <div class="field">
-          <span class="field-label">Extra strap <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
-          <div class="strap-price-note"><span class="was">$30</span><span class="now">$15 each · 50% off</span></div>
-          <div class="popular-legend"><span class="popular-star-inline">★</span> = Most Popular</div>
+          <div class="field-heading">
+            <span class="field-label">Extra strap <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
+            <div class="strap-price-note"><span class="was">$30</span><span class="now">$15 each · 50% off</span></div>
+            <div class="popular-legend"><span class="popular-star-inline">★</span> = Most Popular</div>
+          </div>
           <div class="item-list two-col" id="w1-straps"></div>
         </div>
         <div class="field">
-          <span class="field-label">Accessories <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
-          <div class="strap-price-note"><span class="now">50% off</span></div>
+          <div class="field-heading">
+            <span class="field-label">Accessories <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
+            <div class="strap-price-note"><span class="now">50% off</span></div>
+          </div>
           <div class="item-list" id="w1-accessories"></div>
         </div>
       </div>
@@ -459,14 +465,18 @@
           <div class="swatches" id="w2-colours"></div>
         </div>
         <div class="field">
-          <span class="field-label">Extra strap <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
-          <div class="strap-price-note"><span class="was">$30</span><span class="now">$15 each · 50% off</span></div>
-          <div class="popular-legend"><span class="popular-star-inline">★</span> = Most Popular</div>
+          <div class="field-heading">
+            <span class="field-label">Extra strap <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
+            <div class="strap-price-note"><span class="was">$30</span><span class="now">$15 each · 50% off</span></div>
+            <div class="popular-legend"><span class="popular-star-inline">★</span> = Most Popular</div>
+          </div>
           <div class="item-list two-col" id="w2-straps"></div>
         </div>
         <div class="field">
-          <span class="field-label">Accessories <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
-          <div class="strap-price-note"><span class="now">50% off</span></div>
+          <div class="field-heading">
+            <span class="field-label">Accessories <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
+            <div class="strap-price-note"><span class="now">50% off</span></div>
+          </div>
           <div class="item-list" id="w2-accessories"></div>
         </div>
       </div>
@@ -483,13 +493,13 @@
           <div class="mobile-plan-pills" id="mobilePlanPills">
             <button class="mobile-plan-pill" type="button" data-mobile-plan="15gb" aria-pressed="false">
               <span class="plan-name">15GB 4G Mobile Plan</span>
-              <span class="plan-price"><s>$20.00</s>$6.00<span class="plan-note"> /month first month</span></span>
+              <span class="plan-price"><s>$20.00</s>$6.00<span class="plan-note">/month</span></span>
               <span class="plan-save">Save 70% first month</span>
               <span class="plan-note">$20.00 thereafter</span>
             </button>
             <button class="mobile-plan-pill" type="button" data-mobile-plan="40gb" aria-pressed="false">
               <span class="plan-name">40GB 4G &amp; 5G Mobile Plan</span>
-              <span class="plan-price"><s>$35.00</s>$10.50<span class="plan-note"> /month first month</span></span>
+              <span class="plan-price"><s>$35.00</s>$10.50<span class="plan-note">/month</span></span>
               <span class="plan-save">Save 70% first month</span>
               <span class="plan-note">$35.00 thereafter</span>
             </button>
