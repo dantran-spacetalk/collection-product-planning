@@ -539,6 +539,7 @@
 
 <script>
 const FIRST_PDP_IMAGE = 'https://spacetalk.co/cdn/shop/files/1._Loop_-_Frost.png?v=1778845183&width=800';
+const BOGO_HERO_IMAGE = '1. LOOP - BOGO - HERO.png';
 
 const COLOURS = [
   { id:'frost', name:'Frost', hex:'#EDEBE4', img:'https://spacetalk.co/cdn/shop/files/1._Loop_-_Frost.png?v=1778845183&width=300' },
@@ -563,7 +564,7 @@ const GALLERY = {
 };
 
 function renderGallery(colourId, showThumbs){
-  const imgs = GALLERY[colourId];
+  const imgs = showThumbs ? [BOGO_HERO_IMAGE, ...GALLERY[colourId]] : GALLERY[colourId];
   document.getElementById('galleryMainImg').src = imgs[0];
   const thumbsEl = document.getElementById('galleryThumbs');
   thumbsEl.innerHTML = '';
